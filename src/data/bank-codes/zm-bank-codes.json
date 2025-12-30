@@ -1,12 +1,4 @@
 {
-  "znbc": {
-    "swift": ["ZNCOZMLU"],
-    "ussd": {
-      "start": "*148#",
-      "balance": "*148*1#",
-      "transfer_to_same_bank": "*148*2*amount*account_number#"
-    }
-  },
   "stanbic": {
     "swift": ["SBICZMLX"],
     "ussd": {
@@ -31,28 +23,12 @@
       "transfer_to_same_bank": "*100*2*amount*account_number#"
     }
   },
-  "heritage": {
-    "swift": ["HBCUZMLX"],
-    "ussd": {
-      "start": "*400#",
-      "balance": "*400*1#",
-      "transfer_to_same_bank": "*400*2*amount*account_number#"
-    }
-  },
   "ecobank": {
     "swift": ["ECOCZMLU"],
     "ussd": {
       "start": "*250#",
       "balance": "*250*1#",
       "transfer_to_same_bank": "*250*2*amount*account_number#"
-    }
-  },
-  "indebank": {
-    "swift": ["INZAZMLX"],
-    "ussd": {
-      "start": "*600#",
-      "balance": "*600*1#",
-      "transfer_to_same_bank": "*600*2*amount*account_number#"
     }
   },
   "investrust": {
