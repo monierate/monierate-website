@@ -603,16 +603,6 @@
 					understand and accept the
 					<a href="/policy/data" class="underline">Monierate data policy</a>.
 				</p>
-				<p class="text-sm">
-					Built and maintained by <a
-						href="https://twitter.com/jeremyikwuje"
-						class="text-gray-800 dark:text-gray-300">@jeremyikwuje ⚡</a
-					>
-					and
-					<a href="https://twitter.com/onionsman" class="text-gray-800 dark:text-gray-300"
-						>@onionsman</a
-					>
-				</p>
 			</div>
 		</div>
 	</div>
