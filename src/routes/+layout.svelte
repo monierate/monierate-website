@@ -507,11 +507,6 @@
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/remitano?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Remitano</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/quidax?Amount=1&From=USDT&To=NGN"
 						>Convert USDT on Quidax</a
 					>
