@@ -487,11 +487,6 @@
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/coinprofile?Amount=1&From=USD&To=NGN"
-						>Convert USDT on Coinprofile</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/eversend?Amount=1&From=USD&To=NGN"
 						>Convert USD on Eversend</a
 					>
