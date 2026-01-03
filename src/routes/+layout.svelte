@@ -467,11 +467,6 @@
 			<h3 class="font-bold">Currency converter</h3>
 			<ul class="py-4 converter-list">
 				<li>
-					<a data-sveltekit-reload href="https://bit.ly/3Xlo8jv" class="font-bold text-indigo-500"
-						>Send USD on Cedar Money</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/bybit?Amount=1&From=USDT&To=NGN"
 						>Convert USDT on Bybit</a
 					>
