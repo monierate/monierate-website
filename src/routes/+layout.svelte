@@ -550,7 +550,6 @@
 				<li>
 					<a href="https://tinyurl.com/cambridge-currencies-foot-link">Send Money to Europe</a>
 				</li>
-				<li><a href="https://tinyurl.com/koyn-footer-link">Sell Crypto on Koyn</a></li>
 				<li><a href="/alerts">Price Alerts</a></li>
 				<li><a href="/converter">Currency Converter</a></li>
 				<li><a href="/ng/compare">Compare exchange rates</a></li>
