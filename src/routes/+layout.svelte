@@ -512,11 +512,6 @@
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/yellowcard?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Yellow Card</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/luno?Amount=1&From=USDC&To=NGN"
 						>Convert USDC on Luno</a
 					>
