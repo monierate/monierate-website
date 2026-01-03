@@ -517,11 +517,6 @@
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/payday?Amount=1&From=USD&To=NGN"
-						>Convert USD on Changera</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/wirepay?Amount=1&From=USD&To=NGN"
 						>Convert USD on Wirepay</a
 					>
