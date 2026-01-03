@@ -516,11 +516,6 @@
 						>Convert USDC on Luno</a
 					>
 				</li>
-				<li>
-					<a data-sveltekit-reload href="/converter/wirepay?Amount=1&From=USD&To=NGN"
-						>Convert USD on Wirepay</a
-					>
-				</li>
 			</ul>
 		</div>
 		<div class="w-full md:w-[30%]">
