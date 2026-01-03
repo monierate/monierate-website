@@ -472,11 +472,6 @@
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/bitmama?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Bitmama</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/bitnob?Amount=1&From=USDT&To=NGN"
 						>Convert USDT on Bitnob</a
 					>
