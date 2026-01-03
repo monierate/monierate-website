@@ -467,18 +467,8 @@
 			<h3 class="font-bold">Currency converter</h3>
 			<ul class="py-4 converter-list">
 				<li>
-					<a data-sveltekit-reload href="https://bit.ly/3Xlo8jv" class="font-bold text-indigo-500"
-						>Send USD on Cedar Money</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/bybit?Amount=1&From=USDT&To=NGN"
 						>Convert USDT on Bybit</a
-					>
-				</li>
-				<li>
-					<a data-sveltekit-reload href="/converter/bitmama?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Bitmama</a
 					>
 				</li>
 				<li>
@@ -489,11 +479,6 @@
 				<li>
 					<a data-sveltekit-reload href="/converter/chippercash?Amount=1&From=USD&To=NGN"
 						>Convert USD on Chipper Cash</a
-					>
-				</li>
-				<li>
-					<a data-sveltekit-reload href="/converter/coinprofile?Amount=1&From=USD&To=NGN"
-						>Convert USDT on Coinprofile</a
 					>
 				</li>
 				<li>
@@ -512,33 +497,13 @@
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/remitano?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Remitano</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/quidax?Amount=1&From=USDT&To=NGN"
 						>Convert USDT on Quidax</a
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/yellowcard?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Yellow Card</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/luno?Amount=1&From=USDC&To=NGN"
 						>Convert USDC on Luno</a
-					>
-				</li>
-				<li>
-					<a data-sveltekit-reload href="/converter/payday?Amount=1&From=USD&To=NGN"
-						>Convert USD on Changera</a
-					>
-				</li>
-				<li>
-					<a data-sveltekit-reload href="/converter/wirepay?Amount=1&From=USD&To=NGN"
-						>Convert USD on Wirepay</a
 					>
 				</li>
 			</ul>
@@ -547,14 +512,8 @@
 			<h3 class="font-bold">Tools</h3>
 			<ul class="py-4 converter-list">
 				<li><a href="/api">Currency API</a></li>
-				<li>
-					<a href="https://tinyurl.com/cambridge-currencies-foot-link">Send Money to Europe</a>
-				</li>
-				<li><a href="https://bit.ly/3Xlo8jv">Pay your Importers</a></li>
-				<li><a href="https://tinyurl.com/koyn-footer-link">Sell Crypto on Koyn</a></li>
 				<li><a href="/alerts">Price Alerts</a></li>
 				<li><a href="/converter">Currency Converter</a></li>
-				<li><a href="/ng/compare">Compare exchange rates</a></li>
 				<li><a href="/ng/ussd-codes">Bank USSD Codes</a></li>
 				<li><a href="/ng/swift-codes">SWIFT Codes</a></li>
 			</ul>
@@ -643,16 +602,6 @@
 					If you subscribe for our exchange rate <a href="/alert" class="underline">alert</a>, you
 					understand and accept the
 					<a href="/policy/data" class="underline">Monierate data policy</a>.
-				</p>
-				<p class="text-sm">
-					Built and maintained by <a
-						href="https://twitter.com/jeremyikwuje"
-						class="text-gray-800 dark:text-gray-300">@jeremyikwuje ⚡</a
-					>
-					and
-					<a href="https://twitter.com/onionsman" class="text-gray-800 dark:text-gray-300"
-						>@onionsman</a
-					>
 				</p>
 			</div>
 		</div>
