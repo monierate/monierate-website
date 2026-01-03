@@ -93,7 +93,7 @@
 				>
 					{#each currencyOptions as currency}
 						<option value={currency.code}>
-							<span class="text-gray-500/20">{currency.code.toUpperCase()}</span> - {currency.name}
+							{currency.code.toUpperCase()} - {currency.name}
 						</option>
 					{/each}
 				</select>
@@ -116,7 +116,7 @@
 				>
 					{#each currencyOptions as currency}
 						<option value={currency.code}>
-							<span class="text-gray-500/20">{currency.code.toUpperCase()}</span> - {currency.name}
+							{currency.code.toUpperCase()} - {currency.name}
 						</option>
 					{/each}
 				</select>
@@ -435,7 +435,7 @@
 
 	<div class="mt-16 flex flex-col md:flex-row gap-6">
 		<div class="hidden md:block w-1/3">
-			<AdBanner name="changer_page" cover={true} />
+			<AdBanner name="footer" cover={true} />
 		</div>
 		<div class="w-full md:w-2/3 space-y-6">
 			<h3 class="text-sm font-bold text-gray-700 dark:text-gray-100">What is {changerName}?</h3>
