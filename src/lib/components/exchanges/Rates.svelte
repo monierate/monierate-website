@@ -158,7 +158,7 @@
 						<td class="px-6 py-4">
 							<div class="flex items-center gap-2">
 								<img
-									src={`/icons/currencies/${rate.currency_code}.png`}
+									src={`https://stablerate.app/icons/currencies/${rate.currency_code}.png`}
 									class="w-5 h-5 rounded-full object-fit"
 									alt={rate.currency_code}
 								/>

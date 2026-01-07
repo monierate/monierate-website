@@ -124,7 +124,7 @@
 						}}
 					>
 						<img
-							src={`/icons/currencies/${currency.toLowerCase()}.png`}
+							src={`https://stablerate.app/icons/currencies/${currency.toLowerCase()}.png`}
 							class="w-4 h-4 rounded-full object-fit"
 							alt={currency}
 						/>
