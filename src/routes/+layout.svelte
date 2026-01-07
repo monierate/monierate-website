@@ -102,6 +102,27 @@
 	} catch (error) {
 		console.log(error);
 	}
+
+	/*
+	 * this code is to remove the old service worker from users browser since we moved to sveltekit's built in service worker support.
+	 * This is a one-time operation and should be removed after the old service worker is unregistered.
+	 * This code should be removed in 60 days.
+	 * Start date: 19th May, 2025 (Tuesday).
+	 * End date: July 18, 2025 (Friday).
+	 */
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.getRegistrations().then((registrations) => {
+			for (const registration of registrations) {
+				if (registration.active?.scriptURL.includes('/sw.js')) {
+					registration.unregister().then((success) => {
+						if (success) {
+							console.log('✅ Unregistered old service worker: /sw.js');
+						}
+					});
+				}
+			}
+		});
+	}
 </script>
 
 <svelte:head>
@@ -126,12 +147,6 @@
 		gtag('js', new Date());
 		gtag('config', 'G-59H6DBC82L');
 	</script>
-
-	<script type="text/javascript">
-		var infolinks_pid = 3436231;
-		var infolinks_wsid = 0;
-	</script>
-	<script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
 </svelte:head>
 
 <LoadingIndicator />
@@ -141,10 +156,10 @@
 <div
 	id="top-banner"
 	tabindex="-1"
-	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#40E0D0] px-6 py-3 sm:px-3.5 sm:before:flex-1"
+	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#d60505] px-6 py-5 sm:px-3.5 sm:before:flex-1"
 >
 	<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-		<span class="text-sm leading-6 text-gray-900">
+		<span class="text-sm leading-6 text-gray-100">
 			<strong class="font-semibold hidden md:inline-block">{selected_partner_top.brand}</strong>
 			<svg
 				viewBox="0 0 2 2"
@@ -160,13 +175,13 @@
 			>
 			<a
 				href={selected_partner_top.link}
-				class="hidden md:inline-block rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+				class="hidden md:inline-block rounded-full bg-gray-100 px-3.5 py-1 text-sm font-semibold text-red shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-100"
 			>
 				{selected_partner_top.cta} <span aria-hidden="true">&rarr;</span>
 			</a>
 			<a
 				href={selected_partner_top.link}
-				class="inline-block md:hidden break-word text-sm font-semibold text-sm text-gray-900 dark:text-gray-900 hover:underline text-wrap"
+				class="inline-block md:hidden break-word text-sm font-semibold text-sm text-gray-100 dark:text-gray-100 hover:underline text-wrap"
 			>
 				{selected_partner_top.brand}
 				<svg
@@ -187,7 +202,7 @@
 			</a>
 		</span>
 	</div>
-	<div class="flex flex-1 justify-end" />
+	<div class="flex flex-1 justify-end"> </div>
 </div>
 
 <header class="mb-0 mt-16">
@@ -438,7 +453,7 @@
 
 <slot />
 
-<div class="w-full h-1 mt-16 dark:border-gray-900" />
+<div class="w-full h-1 mt-16 dark:border-gray-900"> </div>
 
 <div class="bg-white dark:bg-gray-800">
 	<div class="top-landscape mb-8">
@@ -452,18 +467,8 @@
 			<h3 class="font-bold">Currency converter</h3>
 			<ul class="py-4 converter-list">
 				<li>
-					<a data-sveltekit-reload href="https://bit.ly/3Xlo8jv" class="font-bold text-indigo-500"
-						>Send USD on Cedar Money</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/bybit?Amount=1&From=USDT&To=NGN"
 						>Convert USDT on Bybit</a
-					>
-				</li>
-				<li>
-					<a data-sveltekit-reload href="/converter/bitmama?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Bitmama</a
 					>
 				</li>
 				<li>
@@ -477,18 +482,13 @@
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/coinprofile?Amount=1&From=USD&To=NGN"
-						>Convert USDT on Coinprofile</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/eversend?Amount=1&From=USD&To=NGN"
 						>Convert USD on Eversend</a
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/klasha?Amount=1&From=USD&To=NGN"
-						>Convert USD on Klasha</a
+					<a data-sveltekit-reload href="/converter/boundlesspay?Amount=1&From=USDT&To=NGN"
+						>Convert USDT on Boundlesspay</a
 					>
 				</li>
 				<li>
@@ -497,33 +497,13 @@
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/remitano?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Remitano</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/quidax?Amount=1&From=USDT&To=NGN"
 						>Convert USDT on Quidax</a
 					>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/yellowcard?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Yellow Card</a
-					>
-				</li>
-				<li>
 					<a data-sveltekit-reload href="/converter/luno?Amount=1&From=USDC&To=NGN"
 						>Convert USDC on Luno</a
-					>
-				</li>
-				<li>
-					<a data-sveltekit-reload href="/converter/payday?Amount=1&From=USD&To=NGN"
-						>Convert USD on Changera</a
-					>
-				</li>
-				<li>
-					<a data-sveltekit-reload href="/converter/wirepay?Amount=1&From=USD&To=NGN"
-						>Convert USD on Wirepay</a
 					>
 				</li>
 			</ul>
@@ -532,14 +512,8 @@
 			<h3 class="font-bold">Tools</h3>
 			<ul class="py-4 converter-list">
 				<li><a href="/api">Currency API</a></li>
-				<li>
-					<a href="https://tinyurl.com/cambridge-currencies-foot-link">Send Money to Europe</a>
-				</li>
-				<li><a href="https://bit.ly/3Xlo8jv">Pay your Importers</a></li>
-				<li><a href="https://tinyurl.com/koyn-footer-link">Sell Crypto on Koyn</a></li>
 				<li><a href="/alerts">Price Alerts</a></li>
 				<li><a href="/converter">Currency Converter</a></li>
-				<li><a href="/ng/compare">Compare exchange rates</a></li>
 				<li><a href="/ng/ussd-codes">Bank USSD Codes</a></li>
 				<li><a href="/ng/swift-codes">SWIFT Codes</a></li>
 			</ul>
@@ -628,16 +602,6 @@
 					If you subscribe for our exchange rate <a href="/alert" class="underline">alert</a>, you
 					understand and accept the
 					<a href="/policy/data" class="underline">Monierate data policy</a>.
-				</p>
-				<p class="text-sm">
-					Built and maintained by <a
-						href="https://twitter.com/jeremyikwuje"
-						class="text-gray-800 dark:text-gray-300">@jeremyikwuje ⚡</a
-					>
-					and
-					<a href="https://twitter.com/onionsman" class="text-gray-800 dark:text-gray-300"
-						>@onionsman</a
-					>
 				</p>
 			</div>
 		</div>

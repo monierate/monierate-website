@@ -1,21 +1,63 @@
+<script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
+	import AdBanner from '$lib/components/AdBanner.svelte';
+
+	export let data;
+
+	let leftSection!: HTMLDivElement;
+	let observer: IntersectionObserver;
+
+	onMount(() => {
+		const footer = document.querySelector('footer');
+		if (!footer) return;
+
+		observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					// Footer is visible — stop sticking
+					leftSection.classList.remove('sticky', 'top-16');
+					leftSection.classList.add('absolute', 'bottom-0');
+				} else {
+					// Normal scroll — stay sticky
+					leftSection.classList.add('sticky', 'top-16');
+					leftSection.classList.remove('absolute', 'bottom-0');
+				}
+			},
+			{
+				root: null,
+				threshold: 0,
+				rootMargin: '0px 0px -15% 0px' // stop slightly before touching
+			}
+		);
+
+		observer.observe(footer);
+	});
+
+	onDestroy(() => {
+		if (observer) observer.disconnect();
+	});
+</script>
+
 <div class="bg-white dark:bg-gray-800">
-    <div class="container">
-        <!-- Landscape Top/Bottom -->
-        <div class="cedar-money">
-            <a href="https://bit.ly/3zfhZgz" target="_blank">
-                <picture>
-                    <source srcset="/media/banners/cedar-blog.webp?v=1" type="image/avif">
-                    <source srcset="/media/banners/cedar-blog.png?v=1" type="image/gif">
-                    <img 
-                        src="/media/banners/cedar-blog-1.avif"
-                        alt="Cedar Money"
-                        width="800px"
-                        height="114px"
-                        class="mx-auto max-w-full md:w-[800px] md:h-[114px]">
-                </picture>
-            </a>
-        </div>
-    </div>
+	<div class="top-landscape mb-8">
+		<AdBanner name="bank_codes" isMobile={data.isMobile} />
+	</div>
 </div>
 
-<slot />
+<div class="container relative">
+	<div class="flex flex-col md:flex-row gap-4 justify-center items-start">
+		<!-- Left sticky section -->
+		<div
+			bind:this={leftSection}
+			class="hidden md:block md:w-1/4 relative sticky top-4 transition-all duration-300"
+		>
+			<div class="bg-white dark:bg-gray-800">
+				<AdBanner name="bank_codes_side" />
+			</div>
+		</div>
+
+		<div class="md:w-3/4">
+			<slot />
+		</div>
+	</div>
+</div>

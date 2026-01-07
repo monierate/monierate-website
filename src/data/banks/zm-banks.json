@@ -62,6 +62,13 @@
         "city": "Lusaka",
         "branch": "Head Office"
     },
+    "bankofzambia": {
+        "name": "Bank of Zambia",
+        "link": "https://www.boz.zm",
+        "address": "Bank of Zambia, Bank Square, Cairo Road",
+        "city": "Lusaka",
+        "branch": "Head Office"
+    },
     "boz": {
         "name": "Bank of Zambia",
         "link": "https://www.boz.zm",

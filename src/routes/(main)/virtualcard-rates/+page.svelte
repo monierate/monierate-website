@@ -110,11 +110,11 @@
 </script>
 
 <svelte:head>
-	<title>Virtual Cards Providers - Best Rates & Secure Payments | Monierate</title>
+	<title>Compare virtual card rates in Nigeria | Monierate.</title>
 
 	<meta
 		name="description"
-		content="Compare the best Virtual Cards providers in Nigeria and beyond. Track real-time rates, manage cards, and make secure online payments with Monierate."
+		content="Discover virtual card providers exchange rates on Monierate in Nigeria. Compare deposit rates from NGN to {currency}, get the best deal, and save cost."
 	/>
 
 	<meta property="og:type" content="website" />
@@ -126,7 +126,7 @@
 
 	<meta
 		property="og:description"
-		content="Discover top Virtual Cards providers with Monierate. Compare offers, check live updates, and enjoy safe and easy online transactions."
+		content="Discover virtual card providers exchange rates on Monierate in Nigeria. Compare deposit rates from NGN to {currency}, get the best deal, and save cost."
 	/>
 
 	<meta property="og:url" content="https://monierate.com" />

@@ -126,27 +126,20 @@ const getPairs = async () => {
 }
 
 const sponsored_partners = [
-    // {
-    //     image: 'https://bit.ly/3svJGhQ',
-    //     text: 'Send Bulk Naira payments accross borders.',
-    //     link: 'https://tinyurl.com/cedar-get-alert-link',
-    //     brand: 'Cedar Money',
-    //     cta: 'Start Sending'
-    // },
-    // {
-    //     image: 'https://bit.ly/3svJGhQ',
-    //     text: 'Sell your crypto for Naira',
-    //     link: 'https://tinyurl.com/koyn-top-sponsored-link',
-    //     brand: 'Koyn',
-    //     cta: 'Sell Crypto'
-    // },
     {
-        image: 'https://bit.ly/3svJGhQ',
-        text: 'Send money to over 80 countries worldwide.',
-        link: 'https://tinyurl.com/cambridge-currences-top-banner',
-        brand: 'Cambridge Currencies',
-        cta: 'Send Money'
-    }
+        image: 'https://tinyurl.com/nsave-app-sponsored-link',
+        text: 'Open a USD Salary Account',
+        link: 'https://tinyurl.com/nsave-app-sponsored-link',
+        brand: 'nsave',
+        cta: 'Download App'
+    },
+    // {
+    //     image: 'https://bit.ly/3svJGhQ',
+    //     text: 'Send money to over 80 countries worldwide.',
+    //     link: 'https://tinyurl.com/cambridge-currences-top-banner',
+    //     brand: 'Cambridge Currencies',
+    //     cta: 'Send Money'
+    // }
 ];
 
 const selectTopPartnerBanner = () => {

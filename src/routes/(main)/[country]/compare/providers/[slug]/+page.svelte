@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     /** @type {import('./$types').PageServerData} */
     import Money from "$lib/money";
     import { friendlyDate } from "$lib/functions";
@@ -6,9 +6,9 @@
     export let data;
 
     const changer = data.changer;
-    const pairs = Object.entries(changer.pairs);
+    const pairs = Object.entries(changer.pairs) as any[];
 
-    function getCurrency(pair) {
+    function getCurrency(pair: string) {
         return pair.split('ngn')[0];
     }
 </script>

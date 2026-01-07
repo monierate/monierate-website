@@ -21,7 +21,7 @@
 			.sort((a: any, b: any) => {
 				if (a.price_sell === 0 && b.price_sell !== 0) return 1;
 				if (rateType === 'buy') {
-					return b.price_buy - a.price_buy;
+					return a.price_buy - b.price_buy;
 				} else {
 					return b.price_sell - a.price_sell;
 				}

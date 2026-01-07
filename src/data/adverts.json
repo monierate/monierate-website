@@ -1,10 +1,10 @@
 {
 	"footer": {
 		"name": "",
-		"url": "https://tinyurl.com/2xr8ysdd",
-		"image": "/media/banners/oneremit-landscape.webp",
-		"formats": ["webp", "png"],
-		"label": "Oneremit",
+		"url": "https://tinyurl.com/2vy69z82",
+		"image": "/media/banners/spenda-landscape.avif",
+		"formats": ["avif", "gif"],
+		"label": "Spenda",
 		"mobile_only": false,
 		"mobileWidth": "100%",
 		"mobileHeight": "70px",
@@ -13,54 +13,54 @@
 	},
 	"blog": [
 		{
-			"url": "https://tinyurl.com/cedar-monierate-banner",
-			"image": "/media/banners/cedar-blog-1.gif",
-			"label": "Cedar",
-			"width": "420px"
-		},
-		{
 			"url": "https://tinyurl.com/ipay-btc-signup-link",
 			"image": "/media/banners/ipaybtc-2.gif",
 			"label": "iPayBTC",
 			"width": "400px"
 		},
 		{
-			"url": "https://tinyurl.com/2xr8ysdd",
-			"image": "/media/banners/oneremit.png",
-			"label": "OneRemit",
+			"url": "https://tinyurl.com/2vy69z82",
+			"image": "/media/banners/spenda-small.avif",
+			"label": "Spenda",
 			"width": "400px"
 		},
 		{
-			"url": "https://tinyurl.com/cedar-monierate-banner",
-			"image": "/media/banners/cedar-blog-2.gif",
-			"label": "Cedar",
-			"width": "420px"
-		},
-		{
-			"url": "https://tinyurl.com/cedar-monierate-banner",
-			"image": "/media/banners/cedar-blog-3.gif",
-			"label": "Cedar",
-			"width": "420px"
+			"url": "https://tinyurl.com/2vy69z82",
+			"image": "/media/banners/spenda.avif",
+			"label": "Spenda",
+			"width": "400px"
 		}
 	],
 	"home": {
 		"name": "",
-		"url": "https://tinyurl.com/2xr8ysdd",
-		"image": "/media/banners/oneremit-landscape.webp",
-		"formats": ["webp", "png"],
-		"label": "Oneremit",
+		"url": "https://tinyurl.com/2vy69z82",
+		"image": "/media/banners/spenda-landscape.avif",
+		"formats": ["avif", "gif"],
+		"label": "Spenda",
 		"mobileWidth": "100%",
 		"mobileHeight": "70px",
 		"mobile_only": false,
 		"disabled": false,
-		"_v": 2
+		"_v": 1
+	},
+	"compare": {
+		"name": "",
+		"url": "https://tinyurl.com/2vy69z82",
+		"image": "/media/banners/spenda-landscape.avif",
+		"formats": ["avif", "gif"],
+		"label": "Spenda",
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
+		"mobile_only": false,
+		"disabled": false,
+		"_v": 1
 	},
 	"converter": {
 		"name": "",
-		"url": "https://tinyurl.com/2xr8ysdd",
-		"image": "/media/banners/oneremit-landscape.webp",
-		"formats": ["webp", "png"],
-		"label": "Oneremit",
+		"url": "https://tinyurl.com/2vy69z82",
+		"image": "/media/banners/spenda-landscape.avif",
+		"formats": ["avif", "gif"],
+		"label": "Spenda",
 		"mobileWidth": "100%",
 		"mobileHeight": "70px",
 		"mobile_only": false,
@@ -69,10 +69,12 @@
 	},
 	"blog_home": {
 		"name": "",
-		"url": "https://tinyurl.com/2xr8ysdd",
-		"image": "/media/banners/oneremit-landscape.webp",
-		"formats": ["webp", "png"],
-		"label": "Oneremit",
+		"url": "https://tinyurl.com/2vy69z82",
+		"image": "/media/banners/spenda-landscape.avif",
+		"formats": ["avif", "gif"],
+		"label": "Spenda",
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
 		"mobile_only": false,
 		"disabled": false,
 		"_v": 1
@@ -89,7 +91,19 @@
 		"height": "390px",
 		"_v": 1
 	},
-	"changer_page": {
+	"bank_codes": {
+		"name": "",
+		"url": "https://tinyurl.com/2vy69z82",
+		"image": "/media/banners/spenda-landscape.avif",
+		"formats": ["avif", "gif"],
+		"label": "Spenda",
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
+		"mobile_only": false,
+		"disabled": false,
+		"_v": 1
+	},
+	"bank_codes_side": {
 		"name": "",
 		"url": "https://tinyurl.com/ipay-btc-signup-link",
 		"image": "/media/banners/ipaybtc-2.avif",

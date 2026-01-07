@@ -492,3 +492,21 @@ export function setUrlParam(key: string, value: string | number) {
 		window.history.pushState({}, '', url);
 	}
 }
+
+/**
+ * Copies text to clipboard
+ */
+export async function copyToClipboard(text: string): Promise<boolean> {
+  if (typeof navigator === "undefined" || !navigator.clipboard) {
+    console.warn("Clipboard API not available");
+    return false;
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (err) {
+    console.error("Failed to copy text:", err);
+    return false;
+  }
+}

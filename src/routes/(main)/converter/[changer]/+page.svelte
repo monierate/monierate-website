@@ -360,19 +360,6 @@ convertNow();
 
 
 <style>
-.section {
-    @apply w-[95%] md:w-[70%] bg-white dark:bg-gray-900 shadow-lg rounded-lg px-8 py-4 mx-auto;
-}
-
-.more-conversion {
-    @apply w-[95%] mx-auto md:w-[70%] md:flex md:justify-between md:items-center mt-16
-}
-.more-conversion .entry {
-    @apply bg-white dark:bg-gray-900 shadow-lg rounded-lg md:w-[40%] mb-4
-}
-.more-conversion .entry .header {
-    @apply border-b border-gray-200 dark:border-gray-700 block py-4 px-8
-}
 
 label {
     @apply font-bold;
@@ -385,24 +372,5 @@ table tbody tr td {
 }
 table tr td:first-child, table thead th:first-child {
     @apply pl-4
-}
-
-.changer {
-    @apply flex justify-between items-center py-2 border-b border-gray-200;
-}
-.changer:last-child {
-    @apply border-b-0
-}
-.changer-icon {
-    @apply bg-transparent border border-black rounded-full w-[24px] h-[24px] mr-2;
-}
-.changer-title {
-    @apply font-semibold text-lg capitalize text-gray-800 dark:text-gray-300;
-}
-.changer-rate-base {
-    @apply text-gray-500 dark:text-gray-400;
-}
-.changer-rate {
-    @apply block font-semibold text-lg text-gray-800 dark:text-light;
 }
 </style>

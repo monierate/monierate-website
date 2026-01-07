@@ -1,144 +1,163 @@
 <script lang="ts">
-	export let data
+	import { onMount } from 'svelte';
+	import { useImageOrDefault } from '$lib/utils/loadImageOrDefault';
+	import { copyToClipboard } from '$lib/functions';
 
-	const code = data.code
-	const bank = data.bank
+	export let data;
+
+	const code = data.code;
+	const bank = data.bank;
+
+	const ussdCodes = [
+		{ option: 'Start', code: code.start },
+		{ option: 'Transfer to same bank', code: code.transfer[0] || null },
+		{ option: 'Transfer to other banks', code: code.transfer[1] || null },
+		{ option: 'Airtime self', code: code.airtime[0] || null },
+		{ option: 'Airtime others', code: code.airtime[1] || null },
+		{ option: 'Balance', code: code.balance || null },
+		{ option: 'BVN', code: code.bvn || null }
+	];
+
+	let copied: boolean = false;
+	const handleCopy = (text: string) => {
+		if (data.isMobile) {
+			return window.open(`tel:${text}`, '_self');
+		}
+		copyToClipboard(text);
+		copied = true;
+		setTimeout(() => (copied = false), 1500);
+	};
 </script>
 
 <svelte:head>
 	<title>List of {bank.name} USSD Codes</title>
-	<meta name="description" content="List of all {bank.name} USSD Codes codes for your mobile banking.">
+	<meta
+		name="description"
+		content="List of all {bank.name} USSD Codes codes for your mobile banking."
+	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="List of {bank.name} USSD Codes" />
-	<meta property="og:description" content="List of all {bank.name} USSD Codes codes for your mobile banking." />
+	<meta
+		property="og:description"
+		content="List of all {bank.name} USSD Codes codes for your mobile banking."
+	/>
 	<meta property="og:url" content="https://monierate.com/bank-codes/ussd" />
+	<meta
+		property="og:image"
+		content="https://monierate.com/uploads/monierate-ussd-code-og-image.png"
+	/>
 </svelte:head>
 
-<div class="mt-8 mb-8">
-	<div class="w-[95%] md:w-[70%] px-8 py-4 mx-auto mb-4 md:mb-6 text-center">
-        <span class="inline-block bg-transparent border border-black rounded-full w-[32px] h-[32px] mb-4">
-            <img src="/icons/{bank.icon}" width="40px" height="40px" class="rounded-full" alt="{bank.name} icon">
-        </span>
-		<h1 class="text-2xl md:text-4xl">
-			List of {bank.name} USSD Codes
-		</h1>
-	</div>
-	
-	<!-- Posts -->
-	<div class="container">
-		<div class="banks-box bg-white py-[10px] shadow-t-md mb-16 dark:bg-gray-900 dark:text-light min-h-[100vh] w-full overflow-x-scroll">
-			<table class="table-auto overflow-x-scroll w-full text-sm text-left">
-				<thead>
-					<tr>
-						<th scope="col" class="pl-2 md:pl-4 py-3 pl-2 md:pl-4 w-[50%] md:w-[25%] md:pl-4 font-bold font-bitter">
-							Options
-						</th>
-						<th scope="col" class="pl-6 pr-6 py-3 font-bold font-bitter text-left md:text-right">
-							USSD
-						</th>
-					</tr>
-				</thead>
-				<tbody class="banks">
-					<tr class="mb-4 border-t border-gray-100 dark:border-gray-700">
-						<td class="pl-2 md:pl-4 pl-2 md:pl-4 w-[50%] md:w-[25%]">
-							<span class="bank-title">Start</span>
-						</td>
-						<td class="pl-6 pr-6 text-left md:text-right">
-							<span class="bank-code">{code.start}</span>
-						</td>
-					</tr>
-                    <tr class="mb-4 border-t border-gray-100 dark:border-gray-700">
-						<td class="pl-2 md:pl-4 pl-2 md:pl-4 w-[50%] md:w-[25%]">
-							<span class="bank-title">Transfer (to {bank.name})</span>
-						</td>
-						<td class="pl-6 pr-6 text-left md:text-right">
-							<span class="bank-code">{code.transfer[0]}</span>
-						</td>
-					</tr>
-                    <tr class="mb-4 border-t border-gray-100 dark:border-gray-700">
-						<td class="pl-2 md:pl-4 w-[50%] md:w-[25%]">
-							<span class="bank-title">Transfer (Other banks)</span>
-						</td>
-						<td class="pl-6 pr-6 text-left md:text-right">
-							<span class="bank-code">{code.transfer[1]}</span>
-						</td>
-					</tr>
-                    <tr class="mb-4 border-t border-gray-100 dark:border-gray-700">
-						<td class="pl-2 md:pl-4 w-[50%] md:w-[25%]">
-							<span class="bank-title">Airtime (Self)</span>
-						</td>
-						<td class="pl-6 pr-6 text-left md:text-right">
-							<span class="bank-code">{code.airtime[0]}</span>
-						</td>
-					</tr>
-                    <tr class="mb-4 border-t border-gray-100 dark:border-gray-700">
-						<td class="pl-2 md:pl-4 w-[50%] md:w-[25%]">
-							<span class="bank-title">Airtime (Others)</span>
-						</td>
-						<td class="text-left md:text-right pl-6 pr-6">
-							<span class="bank-code">{code.airtime[1]}</span>
-						</td>
-					</tr>
-                    <tr class="mb-4 border-t border-gray-100 dark:border-gray-700">
-						<td class="pl-2 md:pl-4 w-[50%] md:w-[25%]">
-							<span class="bank-title">Check Balance</span>
-						</td>
-						<td class="text-left md:text-right pl-6 pr-6">
-							<span class="bank-code">{code.balance}</span>
-						</td>
-					</tr>
-                    <tr class="mb-4 border-t border-gray-100 dark:border-gray-700">
-						<td class="pl-2 md:pl-4 w-[50%] md:w-[25%]">
-							<span class="bank-title">BVN</span>
-						</td>
-						<td class="text-left md:text-right pl-6 pr-6">
-							<span class="bank-code">{code.bvn}</span>
-						</td>
-					</tr>
+<div class="mb-8 space-y-8">
+	<!-- Header -->
 
-                    {#each Object.entries(code.others) as [index, options]}
-                    <tr class="mb-4 border-t border-gray-100 dark:border-gray-900">
-						<td class="pl-2 md:pl-4 w-[50%] md:w-[25%]">
-							<span class="bank-title">{options.text}</span>
-						</td>
-						<td class="text-left md:text-right pl-6 pr-6">
-							<span class="bank-code">{options.code}</span>
-						</td>
-					</tr>
-                    {/each}
-				</tbody>
-			</table>
-		</div>
+	<h1 class="text-2xl md:text-4xl">
+		List of {bank.name} USSD Codes
+	</h1>
+
+	<!-- Header Button -->
+	<div class="flex items-center gap-3">
+		<img
+			class="w-[50px] h-[50px] object-cover rounded-full"
+			alt="{bank.name} icon"
+			src="/icons/{bank.icon}"
+		/>
+		<button
+			class="bg-primary/20 text-primary font-semibold rounded-full py-2 px-4 inline-flex gap-2 justify-center items-center hover:bg-primary/30 transition"
+			on:click={() => handleCopy(code.start)}
+		>
+			<span class="font-medium">Start</span>
+			<span class="w-3/4 overflow-hidden text-ellipsis whitespace-nowrap">
+				{#if copied}
+					<span class="block animate-slide-up font-semibold text-sm py-1.5 px-1"> Copied! </span>
+				{:else}
+					<span class="block animate-slide-up text-2xl font-medium">
+						{code.start}
+					</span>
+				{/if}
+			</span>
+			{#if copied}
+				<span class="block animate-slide-up">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						class="size-5"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				</span>
+			{:else if data.isMobile}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					class="size-8"
+				>
+					<path
+						d="M22 16.92v3a2 2 0 0 1-2.18 2A19.88 19.88 0 0 1 2 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.81.31 1.6.57 2.36a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.72-1.03a2 2 0 0 1 2.11-.45c.76.26 1.55.45 2.36.57A2 2 0 0 1 22 16.92z"
+					/>
+				</svg>
+			{:else}
+				<span class="block animate-slide-up">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						class="size-5"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M15.988 3.012A2.25 2.25 0 0 1 18 5.25v6.5A2.25 2.25 0 0 1 15.75 14H13.5v-3.379a3 3 0 0 0-.879-2.121l-3.12-3.121a3 3 0 0 0-1.402-.791 2.252 2.252 0 0 1 1.913-1.576A2.25 2.25 0 0 1 12.25 1h1.5a2.25 2.25 0 0 1 2.238 2.012ZM11.5 3.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v.25h-3v-.25Z"
+							clip-rule="evenodd"
+						/>
+						<path
+							d="M3.5 6A1.5 1.5 0 0 0 2 7.5v9A1.5 1.5 0 0 0 3.5 18h7a1.5 1.5 0 0 0 1.5-1.5v-5.879a1.5 1.5 0 0 0-.44-1.06L8.44 6.439A1.5 1.5 0 0 0 7.378 6H3.5Z"
+						/>
+					</svg>
+				</span>
+			{/if}
+		</button>
+	</div>
+
+	<!-- Table -->
+	<div class="bg-primary/5 rounded-lg overflow-hidden font-semibold">
+		<table class="w-full text-sm border-collapse">
+			<thead>
+				<tr>
+					<th
+						class="text-left px-6 py-3 text-gray-600 dark:text-gray-200 font-semibold border-b dark:border-gray-700"
+						>Option</th
+					>
+					<th
+						class="text-left px-6 py-3 text-gray-600 dark:text-gray-200 font-semibold border-b dark:border-gray-700"
+						>USSD Code</th
+					>
+				</tr>
+			</thead>
+			<tbody>
+				{#each ussdCodes as item}
+					{#if item.code}
+						<tr>
+							<td class="px-6 py-3 text-gray-800 dark:text-gray-200">{item.option}</td>
+							<td class="px-6 py-3 text-gray-800 dark:text-gray-200">{item.code}</td>
+						</tr>
+					{/if}
+				{/each}
+
+				{#each code.others as item}
+					{#if item.code}
+						<tr>
+							<td class="px-6 py-3 text-gray-800 dark:text-gray-200">{item.text}</td>
+							<td class="px-6 py-3 text-gray-800 dark:text-gray-200">{item.code}</td>
+						</tr>
+					{/if}
+				{/each}
+			</tbody>
+		</table>
 	</div>
 </div>
-
-<style>
-    table thead th {
-        @apply dark:text-gray-300 text-black
-    }
-    table tbody tr td {
-        @apply py-4
-    }
-
-    .bank {
-        @apply flex justify-between items-center py-2 border-b border-gray-200;
-    }
-    .bank:last-child {
-        @apply border-b-0
-    }
-    .bank-icon {
-        @apply bg-transparent border border-black rounded-full w-[24px] h-[24px] mr-2;
-    }
-    .bank-title {
-        @apply font-semibold md:text-lg capitalize text-gray-800 dark:text-gray-300 whitespace-nowrap;
-    }
-    .bank-code-base {
-        @apply text-gray-500 dark:text-gray-400;
-    }
-    .bank-code {
-        @apply block font-semibold text-lg text-gray-800 dark:text-light whitespace-nowrap;
-    }
-	.bank-codes {
-        @apply block font-semibold text-gray-800 dark:text-light whitespace-nowrap;
-    }
-</style>

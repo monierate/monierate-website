@@ -1,69 +1,42 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { useImageOrDefault } from '$lib/utils/loadImageOrDefault';
+	import { copyToClipboard } from '$lib/functions';
+
 	export let data;
 
-	let isMobile = false;
 	let bankInfo = data.bankInfo;
 	let countryName = data.countryName;
 	let countryCode = data.countryCode;
 
-	onMount(() => {
-		const updateMedia = () => {
-			isMobile = window.innerWidth < 768;
-		};
+	const ussdCodes = [
+		{ option: 'Start', code: bankInfo.ussd.start },
+		{ option: 'Transfer to same bank', code: bankInfo.ussd.transfer_to_same_bank || null },
+		{ option: 'Transfer to other banks', code: bankInfo.ussd.transfer_other_banks || null },
+		{ option: 'Airtime self', code: bankInfo.ussd.airtime_self || null },
+		{ option: 'Airtime others', code: bankInfo.ussd.airtime_others || null },
+		{ option: 'Balance', code: bankInfo.ussd.balance || null },
+		{ option: 'BVN', code: bankInfo.ussd.bvn || null },
+		{ option: 'Update BVN details', code: bankInfo.ussd.update_bvn_details || null },
+		{ option: 'Stop debit transactions', code: bankInfo.ussd.stop_debit_transactions || null },
+		{ option: 'Activate code', code: bankInfo.ussd.activate_code || null },
+		{ option: 'Country', code: countryName || null }
+	];
 
-		updateMedia();
-		window.addEventListener('resize', updateMedia);
-
-		return () => window.removeEventListener('resize', updateMedia);
-	});
-
-	// Type definitions
-	interface ImageSources {
-		svg: string;
-		png: string;
-		webp?: string;
-	}
-
-	let fallbackStates = new Map<string, boolean>();
-
-	function generateSrcSet(baseUrl: string, sizes: number[]): string {
-		return sizes.map((size) => `${baseUrl} ${size}w`).join(', ');
-	}
-
-	function handleImageError(event: Event, id: string) {
-		const img = event.currentTarget as HTMLImageElement;
-		if (!fallbackStates.get(id)) {
-			fallbackStates.set(id, true);
-
-			// Clear all srcset attributes from source elements
-			const picture = img.closest('picture');
-			if (picture) {
-				const sources = picture.getElementsByTagName('source');
-				Array.from(sources).forEach((source) => {
-					source.srcset = '';
-					source.removeAttribute('srcset');
-				});
-			}
-
-			// Clear the img srcset
-			img.srcset = '';
-			img.removeAttribute('srcset');
-
-			const fallbackSrc = '/icons/default.png';
-
-			// Create a new image to check if fallback exists
-			const testImage = new Image();
-			testImage.onerror = () => {
-				console.error('Fallback image not found:', fallbackSrc);
-			};
-			testImage.src = fallbackSrc;
-
-			img.src = fallbackSrc;
-			// Force a reload of the image
-			img.complete && (img.src = img.src);
+	let copied: boolean = false;
+	const handleCopy = (text: string) => {
+		if (data.isMobile) {
+			return window.open(`tel:${text}`, '_self');
 		}
-	}
+		copyToClipboard(text);
+		copied = true;
+		setTimeout(() => (copied = false), 1500);
+	};
+
+	let defaultImage: string = '/icons/default.png';
+	onMount(async () => {
+		defaultImage = await useImageOrDefault(`/icons/svg/${bankInfo.id}.svg`, defaultImage);
+	});
 </script>
 
 <svelte:head>
@@ -75,227 +48,106 @@
 	<meta property="og:url" content="https://monierate.com/{countryCode}/ussd-code/{bankInfo.id}" />
 </svelte:head>
 
-<div class="mb-8">
-	<div class="w-[95%] md:w-[70%] px-8 py-4 mx-auto mb-4 md:mb-6 text-center">
-		<div class="flex flex-col items-center justify-center">
-			<span class="bank-icon mr-4">
-				<picture>
-					{#if !fallbackStates.get(bankInfo.id)}
-						<source
-							srcset={generateSrcSet(`/icons/svg/${bankInfo.id}.svg`, [400, 800, 1200])}
-							type="image/svg+xml"
-						/>
-						<source
-							srcset={generateSrcSet(`/icons/png/${bankInfo.id}.png`, [400, 800, 1200])}
-							type="image/png"
-						/>
-					{/if}
-					<img
-						width="70px"
-						height="70px"
-						class="rounded-full"
-						alt="{bankInfo.name} icon"
-						src={`/icons/svg/${bankInfo.id}.svg`}
-						srcset={generateSrcSet(`/icons/svg/${bankInfo.id}.svg`, [400, 800, 1200])}
-						on:error={(e) => handleImageError(e, bankInfo.id)}
-					/>
-				</picture>
-			</span>
-			<h1 class="text-2xl md:text-4xl py-5">
-				{bankInfo.name} USSD Code
-			</h1>
-			<div>
-				<h2 class="text-xl py-5">USSD Code</h2>
+<div class="mb-8 space-y-8">
+	<!-- Header -->
 
-				<div>
-					<span
-						class="inline-flex items-center justify-between space-x-2 border border-gray-200 dark:border-gray-700 px-2 py-2 rounded-md w-full bg-white shadow-md dark:bg-gray-900"
-					>
-						<input
-							type="text"
-							placeholder={bankInfo.ussd.start}
-							value={bankInfo.ussd.start}
-							class="bg-transparent border-none text-gray-800 dark:text-gray-300 focus:outline-none w-full px-5"
-						/>
-						{#if isMobile}
-							<a
-								class="bg-transparent text-gray-800 dark:text-gray-300 underline px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-gray-700"
-								href="tel:{bankInfo.ussd.start}"
-							>
-								Dial
-							</a>
-						{:else}
-							<button
-								class="bg-transparent text-gray-800 dark:text-gray-300 underline px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-gray-700"
-								on:click={() => navigator.clipboard.writeText(bankInfo.ussd.start)}
-							>
-								Copy
-							</button>
-						{/if}
+	<h1 class="text-2xl md:text-4xl">
+		{bankInfo.name} USSD Code
+	</h1>
+
+	<!-- Header Button -->
+	<div class="flex items-center gap-3">
+		<picture>
+			<source srcset={`/icons/svg/${bankInfo.id}.svg`} type="image/svg+xml" />
+			<source srcset={`/icons/png/${bankInfo.id}.png`} type="image/png" />
+			<img
+				class="w-[50px] h-[50px] object-cover rounded-full"
+				alt="{bankInfo.name} icon"
+				src={`/icons/svg/${bankInfo.id}.svg`}
+				srcset={defaultImage}
+			/>
+		</picture>
+		<button
+			class="bg-primary/20 text-primary font-semibold rounded-full py-2 px-4 inline-flex gap-2 justify-center items-center hover:bg-primary/30 transition"
+			on:click={() => handleCopy(bankInfo.ussd.start)}
+		>
+			<span class="font-medium">Start</span>
+			<span class="w-3/4 overflow-hidden text-ellipsis whitespace-nowrap">
+				{#if copied}
+					<span class="block animate-slide-up font-semibold text-sm py-1.5 px-1"> Copied! </span>
+				{:else}
+					<span class="block animate-slide-up text-2xl font-medium">
+						{bankInfo.ussd.start}
 					</span>
-				</div>
-			</div>
-			<p class="py-5">
-				Dial the code above to access {bankInfo.name} Mobile service
-				{bankInfo.name.toLowerCase().includes(countryName.toLowerCase())
-					? ''
-					: `in ${countryName}`}.
-			</p>
-		</div>
-	</div>
-
-	<div class="container px-0 md:px-4">
-		<div class="bg-white py-4 dark:bg-gray-900 dark:text-light dark:border-none overflow-x-auto">
-			<div class="p-2 md:p-4">
-				<div class="flex flex-col md:flex-row md:space-x-8 justify-center items-start">
-					<div
-						class="flex-grow md:basis-1/2 md:p-6 bg-white border rounded-md shadow-t-md mb-8 md:mb-0 dark:bg-gray-900 dark:text-light dark:border-none"
+				{/if}
+			</span>
+			{#if copied}
+				<span class="block animate-slide-up">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						class="size-5"
 					>
-						<div class="overflow-x-auto">
-							<table class="table-auto table-fixed w-full text-sm md:text-base text-left">
-								<thead class="whitespace-nowrap">
-									<tr class="text-gray-800 dark:text-gray-300">
-										<th
-											scope="col"
-											class="w-[50%] md:w-auto py-2 px-2 font-bold text-base md:text-xl"
-										>
-											Bank Code
-										</th>
-										<th
-											scope="col"
-											class="py-2 px-2 font-bold text-base md:text-xl text-left md:text-right"
-										>
-											{bankInfo.ussd.start ? bankInfo.ussd.start : ''}
-										</th>
-									</tr>
-								</thead>
-								<tbody class="banks">
-									{#if bankInfo.ussd.transfer_to_same_bank}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Transfer to {bankInfo.name}</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.transfer_to_same_bank}</td
-											>
-										</tr>
-									{/if}
-									{#if bankInfo.ussd.transfer_other_banks}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Transfer to other Banks</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.transfer_other_banks}</td
-											>
-										</tr>
-									{/if}
-									{#if bankInfo.ussd.airtime_self}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Airtime self</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.airtime_self}</td
-											>
-										</tr>
-									{/if}
-									{#if bankInfo.ussd.airtime_others}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Airtime others</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.airtime_others}</td
-											>
-										</tr>
-									{/if}
-									{#if bankInfo.ussd.balance}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Balance</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.balance}</td
-											>
-										</tr>
-									{/if}
-									{#if bankInfo.ussd.bvn}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">BVN</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.bvn}</td
-											>
-										</tr>
-									{/if}
-									{#if bankInfo.ussd.update_bvn_details}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Update BVN details</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.update_bvn_details}</td
-											>
-										</tr>
-									{/if}
-									{#if bankInfo.ussd.stop_debit_transactions}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Stop debit transactions</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.stop_debit_transactions}</td
-											>
-										</tr>
-									{/if}
-									{#if bankInfo.ussd.activate_code}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Activate code</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{bankInfo.ussd.activate_code}</td
-											>
-										</tr>
-									{/if}
-									{#if countryName}
-										<tr class="border-t border-gray-100 dark:border-gray-800">
-											<td class="py-3 px-2 text-xs md:text-sm">Country</td>
-											<td
-												class="py-3 px-2 text-xs md:text-sm text-gray-800 dark:text-gray-400 text-left md:text-right"
-												>{countryName}</td
-											>
-										</tr>
-									{/if}
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+						<path
+							fill-rule="evenodd"
+							d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				</span>
+			{:else if data.isMobile}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					class="size-8"
+				>
+					<path
+						d="M22 16.92v3a2 2 0 0 1-2.18 2A19.88 19.88 0 0 1 2 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12.81.31 1.6.57 2.36a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.72-1.03a2 2 0 0 1 2.11-.45c.76.26 1.55.45 2.36.57A2 2 0 0 1 22 16.92z"
+					/>
+				</svg>
+			{:else}
+				<span class="block animate-slide-up">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						class="size-5"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M15.988 3.012A2.25 2.25 0 0 1 18 5.25v6.5A2.25 2.25 0 0 1 15.75 14H13.5v-3.379a3 3 0 0 0-.879-2.121l-3.12-3.121a3 3 0 0 0-1.402-.791 2.252 2.252 0 0 1 1.913-1.576A2.25 2.25 0 0 1 12.25 1h1.5a2.25 2.25 0 0 1 2.238 2.012ZM11.5 3.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v.25h-3v-.25Z"
+							clip-rule="evenodd"
+						/>
+						<path
+							d="M3.5 6A1.5 1.5 0 0 0 2 7.5v9A1.5 1.5 0 0 0 3.5 18h7a1.5 1.5 0 0 0 1.5-1.5v-5.879a1.5 1.5 0 0 0-.44-1.06L8.44 6.439A1.5 1.5 0 0 0 7.378 6H3.5Z"
+						/>
+					</svg>
+				</span>
+			{/if}
+		</button>
 	</div>
-</div>
 
-<div class="container">
-	<div
-		class="border rounded-md bg-white py-4 shadow-md dark:bg-gray-900 dark:text-light dark:border-none"
-	>
-		<div class="container">
-			<div class="overflow-x-auto text-center">
-				<table class="table-auto inline w-full text-xs md:text-base text-center">
-					<tbody>
-						<tr class="text-lg md:text-3xl">
-							<td class="py-2 px-2 md:px-10">{bankInfo.ussd.start}</td>
+	<!-- Table -->
+	<div class="bg-primary/5 rounded-lg overflow-hidden font-semibold">
+		<table class="w-full text-sm border-collapse">
+			<thead>
+				<tr>
+					<th class="text-left px-6 py-3 text-gray-600 dark:text-gray-200 font-semibold border-b dark:border-gray-700">Option</th>
+					<th class="text-left px-6 py-3 text-gray-600 dark:text-gray-200 font-semibold border-b dark:border-gray-700">USSD Code</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each ussdCodes as item}
+					{#if item.code}
+						<tr>
+							<td class="px-6 py-3 text-gray-800 dark:text-gray-200">{item.option}</td>
+							<td class="px-6 py-3 text-gray-800 dark:text-gray-200">{item.code}</td>
 						</tr>
-						<tr class="text-gray-800 dark:text-gray-300">
-							<td class="p-2 md:p-5"> {bankInfo.name} </td>
-						</tr>
-					</tbody>
-				</table>
-
-				<div class="pt-5">
-					<p class="inline-block border border-gray-200 rounded-md dark:border-gray-700 p-5">
-						This is the USSD code for {bankInfo.name.toUpperCase()}
-						{#if !bankInfo.name.includes(countryName)}
-							in {countryName.toUpperCase()}
-						{/if}
-					</p>
-				</div>
-			</div>
-		</div>
+					{/if}
+				{/each}
+			</tbody>
+		</table>
 	</div>
 </div>

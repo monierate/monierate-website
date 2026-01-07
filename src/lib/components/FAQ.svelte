@@ -37,6 +37,7 @@ Explanation of `{link: {docs: API Docs}}`:
 	export let faqItems: Array<{ question: string; answer: string }>;
 	export let links: Array<{ key: string; url: string }> = [];
 	export let coverPage: boolean = true;
+	export let useContainer: boolean = true;
 	let openQuestion: any = null;
 	faqItems = faqItems.map((faq) => {
 		let updatedAnswer = faq.answer;
@@ -59,7 +60,7 @@ Explanation of `{link: {docs: API Docs}}`:
 	}
 </script>
 
-<div class="container py-10 px-5">
+<div class="{useContainer ? "container": ""} py-10 px-5">
 	<div class={coverPage ? '' : 'max-w-3xl m-auto'}>
 		<h3 class="text-2xl font-bold mb-10 {coverPage ? '' : 'text-center'}">
 			Frequently asked questions

@@ -68,5 +68,12 @@
         "address": "ACI 2000 Hamdallaye",
         "city": "Bamako",
         "branch": "Head Office"
+    },
+    "banquemali": {
+        "name": "Banque (Mali) Centrale des Etats de l'Afrique et de l'Ouest",
+        "link": "https://www.banquemali.ml",
+        "address": "MOPTI, MOPTI",
+        "city": "MOPTI",
+        "branch": "Head Office"
     }
 }
