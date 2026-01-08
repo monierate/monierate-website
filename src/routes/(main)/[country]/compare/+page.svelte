@@ -26,9 +26,9 @@
     <div class="container">
         <section id="popular" class="mt-12">
             <div class="grid grid-cols-2 gap-4 place-content-center h-48 ...">
-                <a href="/ng/compare/providers" class="h-64 shadow-md rounded-lg border border-gray-100 dark:border-gray-700 text-black text-2xl dark:text-white flex cols justify-center items-center">
+                <!-- <a href="/ng/compare/providers" class="h-64 shadow-md rounded-lg border border-gray-100 dark:border-gray-700 text-black text-2xl dark:text-white flex cols justify-center items-center">
                     <span>Providers</span>
-                </a>
+                </a> -->
                 <a href="/ng/compare/currencies" class="h-64 shadow-md rounded-lg border border-gray-100 dark:border-gray-700 text-black text-2xl dark:text-white flex cols justify-center items-center">
                     <span>Currencies</span>
                 </a>
