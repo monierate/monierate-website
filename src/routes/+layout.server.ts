@@ -127,10 +127,10 @@ const getPairs = async () => {
 
 const sponsored_partners = [
     {
-        image: 'https://tinyurl.com/nsave-app-sponsored-link',
-        text: 'Open a USD Salary Account',
-        link: 'https://tinyurl.com/nsave-app-sponsored-link',
-        brand: 'nsave',
+        image: 'https://tinyurl.com/mavapay-monierate-link',
+        text: 'Send money to Kenya, South Africa, and Nigeria',
+        link: 'https://tinyurl.com/mavapay-monierate-link',
+        brand: 'mavapay',
         cta: 'Download App'
     },
     // {
