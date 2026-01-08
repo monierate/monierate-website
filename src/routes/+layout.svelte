@@ -156,7 +156,7 @@
 <div
 	id="top-banner"
 	tabindex="-1"
-	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#d60505] px-6 py-5 sm:px-3.5 sm:before:flex-1"
+	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#05AD5D] px-6 py-5 sm:px-3.5 sm:before:flex-1"
 >
 	<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
 		<span class="text-sm leading-6 text-gray-100">
