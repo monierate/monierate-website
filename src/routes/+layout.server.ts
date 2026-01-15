@@ -128,7 +128,7 @@ const getPairs = async () => {
 const sponsored_partners = [
     {
         image: 'https://tinyurl.com/mavapay-monierate-link',
-        text: 'Send money to Kenya, South Africa, and Nigeria',
+        text: 'Send money to Kenya, South Africa & Nigeria',
         link: 'https://tinyurl.com/mavapay-monierate-link',
         brand: 'mavapay',
         cta: 'Download App'
