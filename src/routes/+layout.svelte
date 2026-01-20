@@ -10,6 +10,9 @@
 	import { messageStore } from '$lib/notification';
 	import AdBanner from '$lib/components/AdBanner.svelte';
 	import LoadingIndicator from '$lib/components/LoadingIndicator.svelte';
+	import CurrencySelector from '$lib/components/CurrencySelector.svelte';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import TopBanner from '$lib/components/banners/TopBanner.svelte';
 
 	let message: string | null = null;
 	messageStore.subscribe((value: any) => {
@@ -17,7 +20,7 @@
 	});
 
 	export let data;
-	const selected_partner_top = data.selected_partner_top;
+	let defaultCurrency = data.defaultCurrency;
 	const market_avg_rate = parseFloat(`${data.market_avg_rate}`);
 	const user = data.user;
 
@@ -151,59 +154,7 @@
 
 <LoadingIndicator />
 
-<!-- <div id="top-banner" tabindex="-1" class="fixed top-0 mb-8 start-0 z-50 flex justify-between w-full p-4"> -->
-
-<div
-	id="top-banner"
-	tabindex="-1"
-	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#05AD5D] px-6 py-5 sm:px-3.5 sm:before:flex-1 whitespace-nowrap"
->
-	<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-		<span class="text-sm leading-6 text-gray-100">
-			<strong class="font-semibold hidden md:inline-block">{selected_partner_top.brand}</strong>
-			<svg
-				viewBox="0 0 2 2"
-				class="mx-2 hidden md:inline h-0.5 w-0.5 fill-current"
-				aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg
-			>
-			{selected_partner_top.text}
-
-			<svg
-				viewBox="0 0 2 2"
-				class="mx-2 hidden md:inline h-0.5 w-0.5 fill-current"
-				aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg
-			>
-			<a
-				href={selected_partner_top.link}
-				class="hidden md:inline-block rounded-full bg-gray-100 px-3.5 py-1 text-sm font-semibold text-red shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-100"
-			>
-				{selected_partner_top.cta} <span aria-hidden="true">&rarr;</span>
-			</a>
-			<a
-				href={selected_partner_top.link}
-				class="inline-block md:hidden break-word text-sm font-semibold text-sm text-gray-100 dark:text-gray-100 hover:underline text-wrap"
-			>
-				{selected_partner_top.brand}
-				<svg
-					class="inline-block md:hidden w-3 h-3 ms-2 rtl:rotate-180"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 14 10"
-				>
-					<path
-						stroke="currentColor"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M1 5h12m0 0L9 1m4 4L9 9"
-					/>
-				</svg>
-			</a>
-		</span>
-	</div>
-	<div class="flex flex-1 justify-end"> </div>
-</div>
+<TopBanner />
 
 <header class="mb-0 mt-16">
 	<nav
@@ -285,6 +236,13 @@
 						{/if}
 					</div>
 				{/if} -->
+
+				<span class="hidden md:inline">
+					<CurrencySelector
+						onSelect={(currency) => defaultCurrencyStore.set(currency)}
+						bind:selected={defaultCurrency}
+					/>
+				</span>
 
 				<a
 					href="/alerts"
@@ -453,11 +411,11 @@
 
 <slot />
 
-<div class="w-full h-1 mt-16 dark:border-gray-900"> </div>
+<div class="w-full h-1 mt-16 dark:border-gray-900"></div>
 
 <div class="bg-white dark:bg-gray-800">
 	<div class="top-landscape mb-8">
-		<AdBanner name="footer" isMobile={data.isMobile}/>
+		<AdBanner name="footer" isMobile={data.isMobile} />
 	</div>
 </div>
 
