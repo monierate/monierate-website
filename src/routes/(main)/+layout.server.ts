@@ -1,5 +1,5 @@
 import { basicAuth, getEndpoint } from '$lib/helper';
-import type { LayoutServerLoad } from './$types';
+import type { LayoutServerLoad } from '../$types';
 import { parseJSONSafe } from '$lib/functions';
 import { BANNER_COOKIE_PREFIX } from '$lib/stores/banner-store';
 import { DEFAULT_CURRENCY_COOKIE_NAME } from '$lib/stores/defaultCurrency';
