@@ -6,7 +6,7 @@
 	import ChangerRates from '$lib/components/ChangerRates.svelte';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 
 	interface Currency {
 		code: string;

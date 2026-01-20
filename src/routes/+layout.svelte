@@ -8,7 +8,7 @@
 	import Money from '$lib/money';
 	import { timezone } from '$lib/functions';
 	import { messageStore } from '$lib/notification';
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import LoadingIndicator from '$lib/components/LoadingIndicator.svelte';
 	import CurrencySelector from '$lib/components/CurrencySelector.svelte';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';

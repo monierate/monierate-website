@@ -3,7 +3,7 @@
 	import { changePath, scrollToSection } from '$lib/functions';
 	import Money from '$lib/money';
 	import { onMount } from 'svelte';
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 
 	export let data: PageData;
 

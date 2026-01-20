@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 
 	export let data;
 

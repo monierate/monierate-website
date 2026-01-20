@@ -1,6 +1,6 @@
 <script lang="ts">
 	/** @type {import('./$types').PageData} */
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
 	import Notice from '$lib/components/Notice.svelte';
 	import ExchangeRateText from '$lib/components/ExchangeRateText.svelte';

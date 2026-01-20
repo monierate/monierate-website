@@ -1,5 +1,5 @@
 <script lang="ts">
-    import AdBanner from "$lib/components/AdBanner.svelte";
+    import AdBanner from "$lib/components/banners/AdBanner.svelte";
 </script>
 
 <!-- partner -->

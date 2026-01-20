@@ -1,6 +1,6 @@
 <script lang="ts">
 	/** @type {import('./$types').PageData} */
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
 	import HighlightCard from '$lib/components/HighlightCard.svelte';
 	import { slide } from 'svelte/transition';

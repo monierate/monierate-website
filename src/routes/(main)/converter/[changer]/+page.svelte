@@ -16,7 +16,7 @@
 import type { PageData } from "./$types"
 import Money from "$lib/money";
 import { round, chain } from "mathjs";
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 
 export let data: PageData;
 const changer = data.changer;
