@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import currencySymbols from '../../data/currency-symbols.json';
+import currencySymbols from '$data/currency-symbols.json';
 import { parseJSONSafe } from '$lib/functions';
 
 export const load: PageServerLoad = async ({ fetch }) => {

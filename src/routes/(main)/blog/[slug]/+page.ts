@@ -5,7 +5,7 @@ import Adverts from '$data/adverts.json';
 
 export const load: PageLoad = async ({ params }) => {
 	try {
-		const post = await import(`../../../blog/${params.slug}.md`)
+		const post = await import(`../../../../blog/${params.slug}.md`)
 		
 		return {
 			slug: params.slug,
