@@ -22,8 +22,8 @@ type BankData = {
 
 export async function load() {
 	try {
-		const codesModule = await import('../../../data/bank-ussd.json');
-		const banksModule = await import('../../../data/banks.json');
+		const codesModule = await import('../../../../data/bank-ussd.json');
+		const banksModule = await import('../../../../data/banks.json');
 
 		const codes = codesModule.default as any;
 		const banks = (banksModule.default as any).ng;
