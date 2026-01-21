@@ -21,13 +21,14 @@ export interface ApiResponse<T = unknown> {
 }
 
 const BASE_URL = env.API_URL ?? 'https://monierate-currency-api-production.up.railway.app/core';
-
 const DEFAULT_TIMEOUT = 10_000;
+const API_FETCH_BASE = '/api';
 
 /**
  * API request helper
+ * This function should only be used in server-side code.
  */
-export async function apiRequest<T = unknown, B = unknown>(
+export async function serverApiRequest<T = unknown, B = unknown>(
 	endpoint: string,
 	options: ApiOptions<B> = {}
 ): Promise<ApiResponse<T>> {
@@ -96,7 +97,7 @@ export async function apiRequest<T = unknown, B = unknown>(
 		clearTimeout(timeoutId);
 
 		if (retries > 0) {
-			return apiRequest<T, B>(endpoint, {
+			return serverApiRequest<T, B>(endpoint, {
 				...options,
 				retries: retries - 1
 			});
@@ -107,5 +108,46 @@ export async function apiRequest<T = unknown, B = unknown>(
 			status: 0,
 			error: err.name === 'AbortError' ? 'Request timed out' : (err.message ?? 'Network error')
 		};
+	}
+}
+
+/**
+ * Simplified API fetch helper
+ * This function should only be used in client-side code.
+ */
+export async function clientApiFetch<T = unknown, B = unknown>(
+	endpoint: string,
+	options: ApiOptions<B> = {}
+): Promise<T | null> {
+	const { method = 'GET', body, params, headers, signal } = options;
+
+	let url = `${API_FETCH_BASE}${endpoint}`;
+
+	if (params && Object.keys(params).length > 0) {
+		const search = new URLSearchParams();
+		for (const [key, value] of Object.entries(params)) {
+			if (value !== undefined) search.append(key, String(value));
+		}
+		url += `?${search.toString()}`;
+	}
+
+	try {
+		const res = await fetch(url, {
+			method,
+			signal,
+			headers: {
+				Accept: 'application/json',
+				...(method !== 'GET' ? { 'Content-Type': 'application/json' } : {}),
+				...headers
+			},
+			...(method !== 'GET' && body !== undefined ? { body: JSON.stringify(body) } : {})
+		});
+
+		if (!res.ok) return null;
+
+		const json = await res.json().catch(() => null);
+		return json?.data ?? json ?? null;
+	} catch {
+		return null;
 	}
 }

@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { apiRequest } from '$lib/services/api';
+import { serverApiRequest } from '$lib/services/api';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {
@@ -7,7 +7,7 @@ export async function GET({ url }) {
 
 	const pair_code = urlParams.get('pair_code') || '';
 
-	const response = await apiRequest('/pairs/get_pair', {
+	const response = await serverApiRequest('/pairs/get_pair', {
 		method: 'GET',
 		params: {
 			code: pair_code
@@ -18,5 +18,5 @@ export async function GET({ url }) {
 		return json({ message: response.error }, { status: 500 });
 	}
 
-	return json(response.data);
+	return json({data: response.data});
 }
