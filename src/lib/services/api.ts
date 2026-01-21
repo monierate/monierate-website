@@ -10,6 +10,7 @@ export interface ApiOptions<B = unknown> {
 	timeoutMs?: number;
 	retries?: number;
 	signal?: AbortSignal;
+	authLevel?: 'api' | 'system';
 }
 
 export interface ApiResponse<T = unknown> {
@@ -21,13 +22,37 @@ export interface ApiResponse<T = unknown> {
 }
 
 const BASE_URL = env.API_URL ?? 'https://monierate-currency-api-production.up.railway.app/core';
-const DEFAULT_TIMEOUT = 10_000;
-const API_FETCH_BASE = '/api';
 
-/**
- * API request helper
- * This function should only be used in server-side code.
- */
+const API_FETCH_BASE = '/api';
+const DEFAULT_TIMEOUT = 10_000;
+
+/* ---------------------------------- */
+/* Auth helpers (server-only usage)    */
+/* ---------------------------------- */
+
+function toBase64(str: string) {
+	try {
+		return btoa(str);
+	} catch {
+		return Buffer.from(str, 'utf8').toString('base64');
+	}
+}
+
+function getAuthHeader(level: 'api' | 'system' = 'api') {
+	const apiAuth = `changemoney_api:N4&*0C7MubL`;
+	const systemAuth = `ikwuje:xaS@Di2Qry19M`;
+
+	const token = toBase64(level === 'system' ? systemAuth : apiAuth);
+
+	return {
+		Authorization: `Basic ${token}`
+	};
+}
+
+/* ---------------------------------- */
+/* Server API request (with auth)     */
+/* ---------------------------------- */
+
 export async function serverApiRequest<T = unknown, B = unknown>(
 	endpoint: string,
 	options: ApiOptions<B> = {}
@@ -39,7 +64,8 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 		headers,
 		timeoutMs = DEFAULT_TIMEOUT,
 		retries = 0,
-		signal
+		signal,
+		authLevel = 'api'
 	} = options;
 
 	let url = `${BASE_URL}${endpoint}`;
@@ -61,6 +87,7 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 		headers: {
 			Accept: 'application/json',
 			...(method !== 'GET' ? { 'Content-Type': 'application/json' } : {}),
+			...getAuthHeader(authLevel),
 			...headers
 		}
 	};
@@ -111,10 +138,10 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 	}
 }
 
-/**
- * Simplified API fetch helper
- * This function should only be used in client-side code.
- */
+/* ---------------------------------- */
+/* Client API fetch (no auth)         */
+/* ---------------------------------- */
+
 export async function clientApiFetch<T = unknown, B = unknown>(
 	endpoint: string,
 	options: ApiOptions<B> = {}
