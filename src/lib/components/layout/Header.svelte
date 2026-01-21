@@ -131,12 +131,12 @@
 					</div>
 				{/if} -->
 
-				<!-- <span class="hidden md:inline">
+				<span class="hidden md:inline">
 					<CurrencySelector
 						onSelect={(currency) => defaultCurrencyStore.set(currency)}
 						bind:selected={defaultCurrency}
 					/>
-				</span> -->
+				</span>
 
 				<a
 					href="/alerts"
