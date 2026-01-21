@@ -12,24 +12,53 @@ export enum ChangerServiceCategory {
 /**
  * Get a single pair by pair code
  */
-export const getPairs = async (pairCode: string) => {
+export const getPair = async (fetch: any, pairCode: string) => {
 	const result = await clientApiFetch<Record<string, any>>('/pairs/get_pair', {
 		params: {
 			pair_code: pairCode
 		}
-	});
+	}, fetch);
 
 	if (!result) {
 		return null;
 	}
 
-	return result.data;
+	return result;
+};
+
+/**
+ * Get all pairs with pagination
+ */
+export const getAllPairs = async (
+	fetch: typeof globalThis.fetch,
+	pairCode: string | undefined,
+	page: number = 1,
+	limit: number = 100
+) => {
+	const result = await clientApiFetch<Record<string, any>>(
+		'/pairs/get_all_pairs',
+		{
+			params: {
+				pair_code: pairCode,
+				page,
+				limit
+			}
+		},
+		fetch
+	);
+
+	if (!result) {
+		return null;
+	}
+
+	return result;
 };
 
 /**
  * Get pair changers (optionally filtered by service)
  */
 export const getPairChangers = async (
+	fetch: typeof globalThis.fetch,
 	code: string,
 	changerService: ChangerServiceCategory | 'all' = 'all'
 ) => {
@@ -39,9 +68,13 @@ export const getPairChangers = async (
 		params.changer_service = changerService;
 	}
 
-	const data = await clientApiFetch<any>('/pairs/get_pair_changers', {
-		params
-	});
+	const data = await clientApiFetch<any>(
+		'/pairs/get_pair_changers',
+		{
+			params
+		},
+		fetch
+	);
 
 	return data?.result ?? data ?? null;
 };

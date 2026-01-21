@@ -5,16 +5,14 @@ import { serverApiRequest } from '$lib/services/api';
 export async function GET({ url }) {
 	let urlParams = url.searchParams;
 
-	const pair_code = urlParams.get('pair_code');
+	const page = urlParams.get('page') || '1';
+	const limit = urlParams.get('limit') || '100';
 
-	if (!pair_code) {
-		return json({ message: 'pair_code parameter is required' }, { status: 400 });
-	}
-
-	const response = await serverApiRequest('/pairs/get_pair', {
+	const response = await serverApiRequest('/changers/get_all_changers', {
 		method: 'GET',
 		params: {
-			code: pair_code
+			page: page,
+			limit: limit
 		}
 	});
 
@@ -22,5 +20,5 @@ export async function GET({ url }) {
 		return json({ message: response.error }, { status: 500 });
 	}
 
-	return json({data: response.data});
+	return json({ data: response.data });
 }

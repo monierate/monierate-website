@@ -1,8 +1,7 @@
-import { basicAuth, getEndpoint } from '$lib/helper';
 import type { LayoutServerLoad } from './$types';
 import { parseJSONSafe } from '$lib/functions';
-import { BANNER_COOKIE_PREFIX } from '$lib/stores/banner-store';
 import { DEFAULT_CURRENCY_COOKIE_NAME } from '$lib/stores/defaultCurrency';
+import { getPair, getAllPairs } from '$lib/services/pair.service';
 
 export const load: LayoutServerLoad = async ({ request, cookies, fetch }) => {
 	const userAgent = request.headers.get('user-agent') || '';
@@ -34,52 +33,50 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch }) => {
 		}
 	}
 
-	const get_pairs = await getPairs();
-	const pairs = get_pairs.result;
-	const top_pairs = select_top_pairs(pairs, defaultCurrency);
+	const top_pairs = {};
+	// const top_pairs = select_top_pairs(pairs, defaultCurrency);
 
-	const market_avg_rate = top_pairs.usdngn.price;
-
-	// Extract banner cookies from the request
-	const bannerIndexes: Record<string, number> = {};
-	const allCookies = cookies.getAll();
-	for (const { name, value } of allCookies) {
-		if (name.startsWith(BANNER_COOKIE_PREFIX)) {
-			const bannerName = name.replace(BANNER_COOKIE_PREFIX, '');
-			bannerIndexes[bannerName] = parseInt(value, 10) || 0;
-		}
-	}
+	// const market_avg_rate = top_pairs.usdngn.price;
+	const market_avg_rate = 0;
 
 	return {
-		pairs,
 		top_pairs,
 		market_avg_rate,
 		user,
-		bannerIndexes,
+		bannerIndexes: 0,
 		isMobile,
 		VALID_CURRENCIES,
         defaultCurrency,
 	};
 };
 
-const select_top_pairs = (pairs: any, quote: string) => {
-	// hardcoded top pairs for now, dynamic in the future based on user IP
+const select_top_pairs = (pairs: any[], quote: string) => {
+	// hardcoded priority pairs
 	const top_pairs = ['usdngn', 'usdtngn', 'btcngn', 'eurngn', 'gbpngn', 'cadngn'];
-	// filter pairs to get top selected pairs by code
-	// but filter should be in order of the top pairs hardcoded above
-	// then sort them by price in descending order
-	const top_selected_pairs = top_pairs.map((pair_code: string) =>
-		pairs.find((pair: any) => pair.code === pair_code)
-	);
 
-	// convert selected pair from array to key object
-	const top_selected_pairs_obj: Record<string, any> = {};
-	top_selected_pairs.forEach((pair: any) => {
-		// split the pair code to base and qoute currency code
-		const split_code = pair.code.toUpperCase().split(quote);
-		const base = split_code[0].toUpperCase();
+	// 1. pick hardcoded pairs first (in order)
+	const priorityPairs = top_pairs
+		.map(code => pairs.find(p => p.code === code))
+		.filter(Boolean);
 
-		top_selected_pairs_obj[pair.code] = {
+	// 2. get remaining pairs not already selected
+	const remainingPairs = pairs
+		.filter(p => !priorityPairs.some(pp => pp.code === p.code))
+		.sort((a, b) => b.price.current - a.price.current);
+
+	// 3. combine and limit to top 6
+	const selectedPairs = [...priorityPairs, ...remainingPairs].slice(0, 6);
+
+	// 4. sort final result by price descending
+	selectedPairs.sort((a, b) => b.price.current - a.price.current);
+
+	// 5. convert to keyed object
+	const result: Record<string, any> = {};
+
+	selectedPairs.forEach(pair => {
+		const base = pair.code.toUpperCase().replace(quote.toUpperCase(), '');
+
+		result[pair.code] = {
 			price: pair.price.current,
 			name: `${base}/${quote}`,
 			from: base,
@@ -88,20 +85,15 @@ const select_top_pairs = (pairs: any, quote: string) => {
 		};
 	});
 
-	return top_selected_pairs_obj;
+	return result;
 };
 
-const getPairs = async () => {
-	let endpoint = getEndpoint('/pairs/get_all_pairs?page=1&limit=100');
-	let response = await fetch(endpoint, basicAuth('GET', {}));
-
-	if (response.status != 200) {
+const getTopPairs = async (fetch:any) => {
+	const result = await getAllPairs(fetch, undefined, 1, 100);
+	if (!result) {
 		return null;
 	}
-
-	const pairs = (await response.json()).data;
-
-	return pairs;
-};
+	return result;
+}
 
 const VALID_CURRENCIES = ['USD', 'EUR', 'GBP', 'CAD', 'BTC', 'USDT', 'USDC'] as const;

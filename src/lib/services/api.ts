@@ -122,6 +122,7 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 		};
 	} catch (err: any) {
 		clearTimeout(timeoutId);
+		console.error('Server API request error:', err);
 
 		if (retries > 0) {
 			return serverApiRequest<T, B>(endpoint, {
@@ -144,7 +145,8 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 
 export async function clientApiFetch<T = unknown, B = unknown>(
 	endpoint: string,
-	options: ApiOptions<B> = {}
+	options: ApiOptions<B> = {},
+	fetch: typeof globalThis.fetch = globalThis.fetch
 ): Promise<T | null> {
 	const { method = 'GET', body, params, headers, signal } = options;
 
@@ -174,7 +176,8 @@ export async function clientApiFetch<T = unknown, B = unknown>(
 
 		const json = await res.json().catch(() => null);
 		return json?.data ?? json ?? null;
-	} catch {
+	} catch (e) {
+		console.error('Client API fetch error:', e);
 		return null;
 	}
 }
