@@ -18,7 +18,8 @@
 
 	export let highlightData: HighlightItem[] = [];
 	export let highlightType: 'buy' | 'sell' | 'auto' = 'auto';
-	export let currency: string;
+	export let base: string;
+	export let quote: string;
 	export let title: string = 'Highlight';
 	export let link: string = '';
 	export let mobileOnly: boolean = false;
@@ -66,27 +67,25 @@
 						<span class="text-sm">
 							{#if highlightType === 'buy'}
 								{#if Math.round(rate.price_buy) !== 0}
-									₦ {formatNumber(Math.round(rate.price_buy))}
+									{quote} {formatNumber(Math.round(rate.price_buy))}
 								{:else}
 									-
 								{/if}
 							{:else if highlightType === 'sell'}
 								{#if Math.round(rate.price_sell) !== 0}
-									₦ {formatNumber(Math.round(rate.price_sell))}
+									{quote} {formatNumber(Math.round(rate.price_sell))}
 								{:else}
 									-
 								{/if}
 							{:else if Math.round(rate.price_buy) !== 0}
-								₦ {formatNumber(Math.round(rate.price_buy))}
+								{quote} {formatNumber(Math.round(rate.price_buy))}
 							{:else if Math.round(rate.price_sell) !== 0}
-								₦ {formatNumber(Math.round(rate.price_sell))}
+								{quote} {formatNumber(Math.round(rate.price_sell))}
 							{:else}
 								-
 							{/if}
 						</span>
-						<small class="changer-rate-base block text-xs text-gray-500"
-							>per {currency || '$'}1</small
-						>
+						<small class="changer-rate-base block text-xs text-gray-500">per {base}1</small>
 					</div>
 				</li>
 			{/each}

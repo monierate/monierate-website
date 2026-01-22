@@ -116,7 +116,8 @@
 	<!-- <ExchangeRateText title={Today ${currencies[currency] || currency} to Naira rates on exchanges} data={{ currencies: currencies, currency: { name: currency, symbol: getCurrencySymbol }, rate: { now: pair.price.current, last: pair.price_30d } }} /> -->
 
 	<Highlights
-		currency={{ code: base, symbol: baseSymbol }}
+		base={{ code: base, symbol: baseSymbol }}
+		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
