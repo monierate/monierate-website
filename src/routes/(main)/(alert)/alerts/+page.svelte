@@ -41,7 +41,7 @@
 	type Alerts = Alert[];
 
 	export let data;
-	const user: any = data.user;
+	const auth: any = data.auth;
 	const providers = data.providers;
 	const pair_list = data.pair_list;
 	$: alerts = data.alerts?.sort(
@@ -50,8 +50,8 @@
 
 	$: {
 		if (
-			(browser && !user?.isLoggedIn) ||
-			(browser && user?.isLoggedIn && data.alerts && !(data.alerts.length > 0))
+			(browser && !auth.isLoggedIn) ||
+			(browser && auth.isLoggedIn && data.alerts && !(data.alerts.length > 0))
 		) {
 			goto('/alerts/price-alert/periodic', { replaceState: true });
 		}
@@ -216,7 +216,7 @@
 </svelte:head>
 
 <div class="container">
-	{#if user.isLoggedIn}
+	{#if auth.isLoggedIn}
 		<h2 class="text-3xl mb-4">My alerts</h2>
 		<div class="mb-6">View and manage all your price alerts in one place.</div>
 
@@ -231,7 +231,7 @@
 					<div class="flex gap-2 items-center">
 						<span class="text-gray-800 dark:text-gray-400">Sort:</span>
 						<button
-							class="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-3 py-1 rounded"
+							class="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-3 py-1 rounded inline-flex items-center gap-2"
 							on:click={toggleSort}
 						>
 							{#if isRecent}
@@ -469,7 +469,7 @@
 												{alert.last_triggered === null ? '-' : friendlyDate(alert.last_triggered)}
 											</td>
 											<td class="px-4 py-2 text-left">
-												{getNextTriggerTime(alert.frequency, user.userData.data.timezone || 'UTC')}
+												{getNextTriggerTime(alert.frequency, auth.user.timezone || 'UTC')}
 											</td>
 											<td class="px-4 py-2 text-left">
 												<div>

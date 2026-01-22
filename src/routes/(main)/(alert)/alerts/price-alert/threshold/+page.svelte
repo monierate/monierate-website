@@ -23,7 +23,7 @@
 	export let data;
 	const providers: [Provider] = data.providers;
 	const pair_list: any = data.pair_list;
-	const user: any = data.user;
+	const auth: any = data.auth;
 
 	let currentView: string = 'details' as 'details' | 'options';
 	let historyView: string = 'active-alerts' as 'active-alerts' | 'alert-history';

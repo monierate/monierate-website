@@ -74,7 +74,7 @@
 				/>
 			</a>
 			<div class="flex items-center md:order-2">
-				<!-- {#if !user?.isLoggedIn}
+				<!-- {#if !auth.isLoggedIn}
 					<a
 						href={login_uri()}
 						type="button"
@@ -197,7 +197,7 @@
 					<li>
 						<a href="/api" class={path == 'api' ? 'active' : ''}> API </a>
 					</li>
-					<!-- {#if !user?.isLoggedIn}
+					<!-- {#if !auth.isLoggedIn}
 						<li class="md:hidden">
 							<a href={login_uri()}> Login </a>
 						</li>

@@ -31,7 +31,7 @@
 		a.name.localeCompare(b.name)
 	);
 	const pair_list: any = data.pair_list;
-	const user: any = data.user;
+	const auth: any = data.auth;
 
 	let alertEdit: any = false;
 
@@ -58,8 +58,8 @@
 
 	let error: string = '';
 
-	if (user?.isLoggedIn && !alertEdit) {
-		selectedChannelsValues.email = user.userData.data.email;
+	if (auth.isLoggedIn && !alertEdit) {
+		selectedChannelsValues.email = auth.user.email;
 	}
 
 	let isSelectedProvidersDropdownOpen: boolean = false;
@@ -425,7 +425,7 @@
 						</div>
 					</div>
 
-					{#if !user.isLoggedIn}
+					{#if !auth.isLoggedIn}
 						<a
 							href={login_uri('/alerts')}
 							class="block button w-full text-center bg-blue-500 text-white font-semibold hover:bg-blue-600"
@@ -610,10 +610,10 @@
 						{/if}
 					</div>
 
-					{#if user?.isLoggedIn}
+					{#if auth.isLoggedIn}
 						<div class="mb-4 text-sm">
 							<strong>Note:</strong>
-							<span>Your timezone is "{user.userData.data.timezone || 'UTC'}."</span>
+							<span>Your timezone is "{auth.user.timezone || 'UTC'}."</span>
 							<p>
 								To update it, visit your <a
 									href="https://account.monierate.com/edit-account-details"

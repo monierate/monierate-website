@@ -28,8 +28,8 @@
 	});
 
 	try {
-		if (data.user?.isLoggedIn) {
-			timezone.set(data.user.userData.data.timezone);
+		if (data.auth.isLoggedIn) {
+			timezone.set(data.auth.user.timezone);
 		}
 	} catch (error) {
 		console.log(error);

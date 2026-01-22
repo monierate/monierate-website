@@ -4,8 +4,8 @@ import { error, redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ fetch, parent }) => {
     let alerts: any = [];
-    const { user } = await parent()
-    if(!user?.isLoggedIn) {
+    const { auth } = await parent()
+    if(!auth.isLoggedIn) {
         throw redirect(302, '/alerts/price-alert/periodic');
     }
     try {
