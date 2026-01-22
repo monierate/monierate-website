@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ fetch, url }) => {
             const alert: any = await get_alert(alert_id, fetch);
     
             return {
-                alert: alert.data,
+                alert: alert,
             };
         }
     } catch (error: any) {
