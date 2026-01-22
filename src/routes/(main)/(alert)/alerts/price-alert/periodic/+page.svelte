@@ -84,14 +84,14 @@
 		: Object.entries(Timeframe[selectedTimeframe]?.frequency?.values || {}).map(([key, value]) => ({
 				label: key,
 				value: value
-		  }));
+			}));
 
 	$: dayTimeValues =
 		selectedTimeframe === 'Monthly' || selectedTimeframe === 'Weekly'
 			? Object.entries(Timeframe[selectedTimeframe]?.frequency?.time || {}).map(([key, value]) => ({
 					label: key,
 					value: value
-			  }))
+				}))
 			: [];
 
 	let providersForDropdown: DropdownOption[] = [];
@@ -154,14 +154,14 @@
 		}
 
 		try {
-			const create_alert_response = await create_alert(alert);
+			const success = await create_alert(alert, fetch);
 
 			isLoading = false;
-			if (create_alert_response.status === 'error') {
-				error = create_alert_response.description || create_alert_response.message;
-			} else {
-				notify(create_alert_response.message);
+			if (success) {
+				notify('Alert created successfully');
 				goto('/alerts');
+			} else {
+				error = 'Failed to create alert. Please try again.';
 			}
 		} catch (err) {
 			isLoading = false;
@@ -240,16 +240,14 @@
 		}
 
 		try {
-			const update_alert_response = await update_alert(alert);
+			const success = await update_alert(alert, fetch);
 
 			isLoading = false;
-			if (update_alert_response.error) {
-				notify(update_alert_response.error);
-			} else if (update_alert_response.status === 'error') {
-				error = update_alert_response.message;
-			} else {
-				notify(update_alert_response.message);
+			if (success) {
+				notify('Alert updated successfully');
 				goto('/alerts');
+			} else {
+				error = 'Failed to update alert. Please try again.';
 			}
 		} catch (err) {
 			isLoading = false;

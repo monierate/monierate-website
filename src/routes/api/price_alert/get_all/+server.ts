@@ -18,8 +18,6 @@ export async function GET({ cookies }: RequestEvent) {
 		userToken
 	});
 
-	console.log(res);
-
 	if (!res.success) {
 		return json(
 			{ error: res.error ?? 'Failed to fetch alerts' },

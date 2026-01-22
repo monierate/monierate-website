@@ -14,8 +14,6 @@ export async function POST({ cookies, request }) {
 
 	const body = await request.json();
 
-	console.log(body)
-
 	if (!body?.id) {
 		return json(
 			{ error: 'Missing id' },

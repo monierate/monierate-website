@@ -39,7 +39,10 @@ export const create_alert = async (
 		fetch
 	);
 
-	if (!result) return null;
+	if (!result) {
+		console.log('Error creating alert', result);
+		return false;
+	}
 	return result;
 };
 
@@ -55,7 +58,10 @@ export const get_all_alerts = async (
 		fetch
 	);
 
-	if (!result) return null;
+	if (!result) {
+		console.log('Error fetching all alert', result);
+		return null;
+	}
 	return result;
 };
 
@@ -75,7 +81,10 @@ export const get_alert = async (
 		fetch
 	);
 
-	if (!result) return null;
+	if (!result) {
+		console.log('Error fetching alert', result);
+		return null;
+	}
 	return result;
 };
 
@@ -95,7 +104,10 @@ export const delete_alert = async (
 		fetch
 	);
 
-	if (!result) return false;
+	if (!result) {
+		console.log('Error deleing alert', result);
+		return false;
+	}
 	return true;
 };
 
@@ -111,7 +123,10 @@ export const delete_all_alert = async (
 		fetch
 	);
 
-	if (!result) return false;
+	if (!result) {
+		console.log('Error deleting all alert', result);
+		return false;
+	}
 	return true;
 };
 
@@ -127,7 +142,10 @@ export const delete_all_disabled_alert = async (
 		fetch
 	);
 
-	if (!result) return false;
+	if (!result) {
+		console.log('Error deleting disabled alert', result);
+		return false;
+	}
 	return true;
 };
 
@@ -143,7 +161,10 @@ export const delete_all_enabled_alert = async (
 		fetch
 	);
 
-	if (!result) return false;
+	if (!result) {
+		console.log('Error deleting alert', result);
+		return false;
+	}
 	return true;
 };
 
@@ -163,6 +184,9 @@ export const update_alert = async (
 		fetch
 	);
 
-	if (!result) return false;
+	if (!result) {
+		console.log('Error updating alert', result);
+		return false;
+	}
 	return true;
 };
