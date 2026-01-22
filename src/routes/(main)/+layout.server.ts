@@ -25,8 +25,6 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch }) => {
 
 	const userResult = await getUser(fetch);
 
-	console.log('Layout Load User Result:', userResult);
-
 	if (userResult) {
 		auth.isLoggedIn = true;
 		auth.user = userResult;

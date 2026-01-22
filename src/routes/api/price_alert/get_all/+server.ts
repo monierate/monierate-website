@@ -1,18 +1,31 @@
-import { basicAccountAuth, getAccountEndpoint } from "$lib/server/utilities.js";
-import { json } from "@sveltejs/kit";
+import { json } from '@sveltejs/kit';
+import type { RequestEvent } from '@sveltejs/kit';
+import { userAccountRequest } from '$lib/api/userAccountApi';
 
 /** @type {import('./$types').RequestHandler} */
-import type { RequestEvent } from "@sveltejs/kit";
+export async function GET({ cookies }: RequestEvent) {
+	const userToken = cookies.get('auth_token');
 
-export async function GET({ cookies, fetch }: RequestEvent) {
-    const user_token = cookies.get("auth_token");
-    const payload = {
-        user_token: user_token,
-    };
-    const endpoint = getAccountEndpoint("/alerts/get-all");
-    const res = await fetch(endpoint, basicAccountAuth('GET', payload));
+	if (!userToken) {
+		return json(
+			{ error: 'User not authenticated' },
+			{ status: 401 }
+		);
+	}
 
-    const result = await res.text();
+	const res = await userAccountRequest('/alerts/get-all', {
+		method: 'GET',
+		userToken
+	});
 
-    return json(result);
+	console.log(res);
+
+	if (!res.success) {
+		return json(
+			{ error: res.error ?? 'Failed to fetch alerts' },
+			{ status: res.status || 500 }
+		);
+	}
+
+	return json(res.data);
 }

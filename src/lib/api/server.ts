@@ -1,34 +1,14 @@
 import { env } from '$env/dynamic/private';
+import type { ApiOptions, ApiResponse } from './types';
 
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+const BASE_URL =
+	env.API_URL ?? 'https://monierate-currency-api-production.up.railway.app/core';
 
-export interface ApiOptions<B = unknown> {
-	method?: HttpMethod;
-	body?: B;
-	params?: Record<string, string | number | boolean | undefined>;
-	headers?: Record<string, string>;
-	timeoutMs?: number;
-	retries?: number;
-	signal?: AbortSignal;
-	authLevel?: 'api' | 'system';
-}
-
-export interface ApiResponse<T = unknown> {
-	success: boolean;
-	status: number;
-	data?: T;
-	error?: string;
-	raw?: unknown;
-}
-
-const BASE_URL = env.API_URL ?? 'https://monierate-currency-api-production.up.railway.app/core';
-
-const API_FETCH_BASE = '/api';
 const DEFAULT_TIMEOUT = 10_000;
 
-/* ---------------------------------- */
-/* Auth helpers (server-only usage)    */
-/* ---------------------------------- */
+/* ------------------ */
+/* Auth helpers       */
+/* ------------------ */
 
 function toBase64(str: string) {
 	try {
@@ -49,9 +29,9 @@ function getAuthHeader(level: 'api' | 'system' = 'api') {
 	};
 }
 
-/* ---------------------------------- */
-/* Server API request (with auth)     */
-/* ---------------------------------- */
+/* ------------------ */
+/* Server API request */
+/* ------------------ */
 
 export async function serverApiRequest<T = unknown, B = unknown>(
 	endpoint: string,
@@ -122,7 +102,6 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 		};
 	} catch (err: any) {
 		clearTimeout(timeoutId);
-		console.error('Server API request error:', err);
 
 		if (retries > 0) {
 			return serverApiRequest<T, B>(endpoint, {
@@ -134,50 +113,7 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 		return {
 			success: false,
 			status: 0,
-			error: err.name === 'AbortError' ? 'Request timed out' : (err.message ?? 'Network error')
+			error: err.name === 'AbortError' ? 'Request timed out' : err.message
 		};
-	}
-}
-
-/* ---------------------------------- */
-/* Client API fetch (no auth)         */
-/* ---------------------------------- */
-
-export async function clientApiFetch<T = unknown, B = unknown>(
-	endpoint: string,
-	options: ApiOptions<B> = {},
-	fetch: typeof globalThis.fetch = globalThis.fetch
-): Promise<T | null> {
-	const { method = 'GET', body, params, headers, signal } = options;
-
-	let url = `${API_FETCH_BASE}${endpoint}`;
-
-	if (params && Object.keys(params).length > 0) {
-		const search = new URLSearchParams();
-		for (const [key, value] of Object.entries(params)) {
-			if (value !== undefined) search.append(key, String(value));
-		}
-		url += `?${search.toString()}`;
-	}
-
-	try {
-		const res = await fetch(url, {
-			method,
-			signal,
-			headers: {
-				Accept: 'application/json',
-				...(method !== 'GET' ? { 'Content-Type': 'application/json' } : {}),
-				...headers
-			},
-			...(method !== 'GET' && body !== undefined ? { body: JSON.stringify(body) } : {})
-		});
-
-		if (!res.ok) return null;
-
-		const json = await res.json().catch(() => null);
-		return json?.data ?? json ?? null;
-	} catch (e) {
-		console.error('Client API fetch error:', e);
-		return null;
 	}
 }

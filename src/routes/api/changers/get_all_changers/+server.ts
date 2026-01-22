@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { serverApiRequest } from '$lib/services/api';
+import { serverApiRequest } from '$lib/api/server';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ url }) {

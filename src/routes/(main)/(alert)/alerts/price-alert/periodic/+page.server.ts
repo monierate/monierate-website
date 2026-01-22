@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { get_alert } from '$lib/price_alert/alert.service';
+import { get_alert } from '$lib/services/alert.service';
 
 export const load: PageServerLoad = async ({ fetch, url }) => {
     try {

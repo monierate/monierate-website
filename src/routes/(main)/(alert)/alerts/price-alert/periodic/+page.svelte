@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CustomSelectBox from '$lib/components/CustomSelectBox.svelte';
 	import { Timeframe } from './types';
-	import { create_alert, update_alert } from '$lib/price_alert/alert.service';
+	import { create_alert, update_alert } from '$lib/services/alert.service';
 	import { notify } from '$lib/notification';
 	import { goto } from '$app/navigation';
 	import { login_uri } from '$lib/functions';

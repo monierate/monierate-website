@@ -1,4 +1,4 @@
-import { clientApiFetch } from './api';
+import { clientApiFetch } from '$lib/api/client';
 
 export enum ChangerServiceCategory {
 	Remittance = 'remittance', // sending

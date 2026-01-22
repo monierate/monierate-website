@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { userAccountRequest } from '$lib/services/userAccountApi';
+import { userAccountRequest } from '$lib/api/userAccountApi';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ cookies }) {
