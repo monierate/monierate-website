@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Dialog from '../Dialog.svelte';
+	import { current_screen, CurrentScreen } from '$lib/components/alert/useAlertForm';
 
 	import { goto } from '$app/navigation';
 
@@ -29,14 +30,14 @@
 	}
 
 	function editAlert() {
+		current_screen.set(CurrentScreen.FIRST_SCREEN);
 		goto(`/alerts/price-alert/${alertType}?edit_alert=${alertId}`);
 	}
 
 	const callDelete = () => {
 		onDelete();
 		showConfirmDelete = false;
-	}
-
+	};
 </script>
 
 <svelte:window on:click={closeOptions} />
