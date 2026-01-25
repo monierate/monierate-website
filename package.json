@@ -7,7 +7,7 @@
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "node src/scripts/generate-posts.ts && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
@@ -46,6 +46,8 @@
 		"choices.js": "^10.2.0",
 		"currency.js": "^2.0.4",
 		"date-and-time": "^3.0.2",
+		"glob": "^13.0.0",
+		"gray-matter": "^4.0.3",
 		"mathjs": "^11.8.0",
 		"picomatch": "4.0.3",
 		"superjson": "^1.13.1",
