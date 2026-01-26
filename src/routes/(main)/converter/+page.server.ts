@@ -6,6 +6,7 @@ import { error } from '@sveltejs/kit'
 import Countries from '$data/countries.json';
 import CountriesToCurrencies from '$data/countries-to-currencies.json';
 import CountryCodeByCurrency from '$data/countryCodeByCurrency.json';
+import { getPair } from '$lib/services/pair.service';
 
 interface CountriesMap { [key: string]: string }
 interface CountryCodeByCurrencyMap {
@@ -47,6 +48,14 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
             To: urlParams.get('To') || 'ngn',
             Amount: urlParams.get('Amount') || 1
         };
+
+        const pair = await getPair(fetch, `${convert.From}${convert.To}`);
+
+        if(!pair) {
+            throw error(404, 'Pair not found')
+        }
+
+        const pairChangers = pair.changers;
         
         let remittanceRates = await getPairChangers(`${convert.From}${convert.To}`, 'remittance');
 		let rampRates = await getPairChangers(`${convert.From}${convert.To}`, 'ramp');
@@ -72,7 +81,8 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
             countryCodeByCurrency,
             remittanceRates,
             rampRates,
-            cardRates
+            cardRates,
+            pairs: pairChangers,
         }
     }
     catch (e: any) {
