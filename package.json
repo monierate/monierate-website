@@ -7,7 +7,7 @@
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "node src/scripts/generate-posts.ts && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
@@ -18,7 +18,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
-		"@sveltejs/adapter-cloudflare": "^7.2.5",
+		"@sveltejs/adapter-cloudflare": "^7.2.6",
 		"@sveltejs/kit": "^2.46.5",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
 		"autoprefixer": "^10.4.13",
@@ -40,12 +40,13 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@builder.io/partytown": "^0.10.2",
 		"@multiavatar/multiavatar": "^1.0.7",
 		"buffer": "^6.0.3",
 		"choices.js": "^10.2.0",
 		"currency.js": "^2.0.4",
 		"date-and-time": "^3.0.2",
+		"glob": "^13.0.0",
+		"gray-matter": "^4.0.3",
 		"mathjs": "^11.8.0",
 		"picomatch": "4.0.3",
 		"superjson": "^1.13.1",

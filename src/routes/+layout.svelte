@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<script>
+	<!-- <script>
 		// Forward the necessary functions to the web worker layer
 		partytown = {
 			forward: ['dataLayer.push', 'gtag']
@@ -24,7 +24,7 @@
 		};
 		gtag('js', new Date());
 		gtag('config', 'G-59H6DBC82L');
-	</script>
+	</script> -->
 </svelte:head>
 
 <slot />
