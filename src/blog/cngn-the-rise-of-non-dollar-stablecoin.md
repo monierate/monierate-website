@@ -9,15 +9,16 @@ image: https://ik.imagekit.io/monierate/Blog/product/cngn_the%20_rise_of_non_dol
 published: true
 author: Olayinka Omoniyi
 ---
+
 The crypto world is no stranger to change, and right now, we're seeing a fascinating shift in the stablecoin arena.
 
 ![cNGN: the rise of non-dollar stablecoin](https://ik.imagekit.io/monierate/Blog/product/cngn_the%20_rise_of_non_dollar_stablecoin.webp?updatedAt=1758092789748)
 
 For the longest time, "stablecoin" pretty much meant "[dollar-backed](https://stablestats.xyz/stablecoins)."
 
-But the script is flipping. While the giants like USDT and USDC have paved the way, their very dominance has highlighted a crucial need: a more diverse, representative, and decentralised approach to fiat-pegged value in the digital realm. 
+But the script is flipping. While the giants like USDT and USDC have paved the way, their very dominance has highlighted a crucial need: a more diverse, representative, and decentralised approach to fiat-pegged value in the digital realm.
 
-Enter the contenders: coins like the **BRZ (Brazilian Real-backed)**, **TRYB (Turkish Lira-backed),** offering a gateway for Brazilians and Turks into the crypto economy without immediate exposure to dollar volatility.
+Enter the contenders: coins like the **BRZ (Brazilian Real-backed)**,** TRYB (Turkish Lira-backed),** offering a gateway for Brazilians and Turks into the crypto economy without immediate exposure to dollar volatility.
 
 These are assertions of monetary identity in the digital age, and among them, a particularly interesting player is emerging from Africa: the **cNGN (Nigerian Naira-backed stablecoin)**.
 
@@ -85,15 +86,15 @@ _Only onboarded and approved users can redeem cNGN directly from the cNGN dashbo
 For those looking to acquire, use, store or be a liquidity merchant for cNGN, here is the simple guide:
 
 - **DEX Integrations:** Users and businesses can integrate for liquidity or swap cNGN directly for digital assets on decentralised exchanges such as Assetchain.org, Aerodrome, Pancakeswap, Butterswap or directly in Crypto wallets like Rainbow.
-- **Wallet Infrastructure:** Fintechs, web3 startups, and businesses can seamlessly plug in cNGN (on multiple blockchain networks), leveraging wallet infrastructure providers such as FlintAPI, Blockradar, Stablesrail, Bitpowr, among others. 
+- **Wallet Infrastructure:** Fintechs, web3 startups, and businesses can seamlessly plug in cNGN (on multiple blockchain networks), leveraging wallet infrastructure providers such as FlintAPI, Blockradar, Stablesrail, Bitpowr, among others.
 - **On and Offramp:** Several platforms have emerged to facilitate the buying, selling, and trading of cNGN, including Quidax, Busha, Xend Finance, BreadAfrica, Noblocks, Azawire, and Roqqu, with more options available under the **cNGN category on Monierate.**
 - **cNGN Liquidity:** You can get cNGN liquidity on DEXs such as Aerodrome, Pancakeswap, Butterswap, and as well as through API providers such as FlintAPI, Stablesrail, and MUDA Tech.
 - **cNGN Bridge:** You can use Stablesrail or FlintAPI bridge to swap cNGN across its suported blockchain without having to offramp to fiat or even directly on the cNGN dashboard.
-- **cNGN API:** The cNGN GitHub repository provides smart contract details, an architectural overview, and blockchain implementation information, complemented by SDK documentation with tools and guidelines for developer integration, as well as Java, TypeScript, Python, and PHP libraries that enable merchants and financial institutions to easily[ interact with the cNGN API](http://docs.cngn.co).\\
-  \\
+- **cNGN API:** The cNGN GitHub repository provides smart contract details, an architectural overview, and blockchain implementation information, complemented by SDK documentation with tools and guidelines for developer integration, as well as Java, TypeScript, Python, and PHP libraries that enable merchants and financial institutions to easily[ interact with the cNGN API](http://docs.cngn.co).\
+  \
   **NOTE:** You have to create an account on cNGN to be able to access the API keys for making use of the cNGN api.
 
-**Wallets Compatible with cNGN:** 
+**Wallets Compatible with cNGN:**
 
 - Coinbase Wallet (Best for Base)
 - BantuPay wallet (Best for Bantu blockchain)
