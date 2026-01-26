@@ -150,8 +150,6 @@
 
 <LoadingIndicator />
 
-<!-- <div id="top-banner" tabindex="-1" class="fixed top-0 mb-8 start-0 z-50 flex justify-between w-full p-4"> -->
-
 <div
 	id="top-banner"
 	tabindex="-1"
