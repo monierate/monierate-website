@@ -775,24 +775,6 @@
 		@apply pl-0;
 	}
 
-	.changer {
-		@apply flex justify-between items-center py-2 border-b border-gray-200;
-	}
-	.changer:last-child {
-		@apply border-b-0;
-	}
-	.changer-icon {
-		@apply bg-transparent border border-black rounded-full w-[24px] h-[24px] mr-2;
-	}
-	.changer-title {
-		@apply font-semibold text-sm md:text-lg whitespace-nowrap capitalize text-gray-800 dark:text-gray-300;
-	}
-	.changer-rate-base {
-		@apply text-gray-500 dark:text-gray-400;
-	}
-	.changer-rate {
-		@apply block font-semibold text-sm md:text-lg whitespace-nowrap text-gray-800 dark:text-light;
-	}
 	.converter-tab-button {
 		@apply block w-full bg-transparent p-2 md:py-2 md:px-4 rounded-[20px] text-gray-500 dark:text-gray-400 mr-2;
 	}
