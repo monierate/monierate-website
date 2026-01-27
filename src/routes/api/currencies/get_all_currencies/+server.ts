@@ -19,8 +19,6 @@ export async function GET({ url }) {
 		});
 	}
 
-    console.log(result)
-
 	if (!result.success) {
 		console.error('Failed to fetch currency data', result);
 		return json({ message: 'Filed to fetch currency data' }, { status: 500 });

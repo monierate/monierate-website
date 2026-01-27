@@ -21,12 +21,17 @@
 		SEND = 'send'
 	}
 
+	type Conversions = {
+		from: { amount: number; conversion: number }[];
+		to: { amount: number; conversion: number }[];
+	};
+
 	export let data: PageData;
-	let changers = data.changers;
-	let pairs = data.pairs;
+	const changers = data.changers;
+	const pair = data.pair as any;
 	let pair_rates: any = {};
 	let convert = data.convert;
-	let currencies: Currency[] = data.currencies;
+	let currencies: Currency[] = data.currencies as any;
 	let countries = data.countries;
 	let countriesToCurrencies = data.countriesToCurrencies;
 	let countryCodeByCurrency = data.countryCodeByCurrency;
@@ -47,12 +52,13 @@
 	let currentView: string = CurrentView.CONVERT;
 	let userCountry: string = '';
 
-	var moreConversions: any = {
+	let moreConversions: Conversions = {
 		from: [],
 		to: []
 	};
 
-	function convertNow() {
+	const convertNow = () => {
+		const getPair: any = data.pair;
 		const from = convertFrom.toLowerCase();
 		const to =
 			currentView === CurrentView.SEND
@@ -64,27 +70,23 @@
 
 		if (from != to) {
 			/** Get the rate */
-			let pair_code = `${from}${to}`.toLowerCase();
-			let pair = pairs.find((p: any) => p.code === pair_code);
-			if (pair) {
-				updated_at = pair.updatedAt; // get last update time
-				rate = pair.price.current;
+			if (getPair) {
+				updated_at = getPair.updatedAt; // get last update time
+				rate = getPair.price.current;
 				rate_inverse = 1 / rate;
 				unit_currency = from.toUpperCase();
 
 				// get rates of a pair
-				pair_rates = sortRates(pair.changers || {});
+				pair_rates = sortRates(getPair.changers || {});
 			} else {
-				pair_code = `${to}${from}`.toLowerCase();
-				pair = pairs.find((p: any) => p.code === pair_code);
-				if (pair) {
-					updated_at = pair.updatedAt; // get last update time
-					rate_inverse = pair.price.current;
+				if (getPair) {
+					updated_at = getPair.updatedAt; // get last update time
+					rate_inverse = getPair.price.current;
 					rate = 1 / rate_inverse;
 					unit_currency = to.toUpperCase();
 
 					// get rates of a pair
-					pair_rates = sortRates(pair.changers || {});
+					pair_rates = sortRates(getPair.changers || {});
 				} else {
 					rate = 0;
 					rate_inverse = 0;
@@ -102,7 +104,7 @@
 		currencyTo = currencies.find((c) => c.code === to);
 
 		getMoreConversions();
-	}
+	};
 
 	async function getMoreConversions() {
 		let series = [
@@ -143,14 +145,6 @@
 		rates = filtered_non_zero_rates.concat(filtered_zero_rates);
 
 		return rates;
-	}
-
-	async function getPairChangers(pair_code: string, changer_service: string) {
-		const response = await fetch(
-			`/api/pairs/changers?code=${pair_code}&changer_service=${changer_service}`
-		);
-		const changers = await response.json();
-		return changers;
 	}
 
 	async function changeTabView(event: Event) {
@@ -237,7 +231,18 @@
 		await setUserLocation();
 	});
 
-	convertNow();
+	$: if (data.pair) convertNow();
+
+	const changeFrom = (currency: string) => {
+		let url = new URL(window.location.href);
+		url.searchParams.set('From', currency);
+		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
+	};
+	const changeTo = (currency: string) => {
+		let url = new URL(window.location.href);
+		url.searchParams.set('To', currency);
+		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
+	};
 </script>
 
 <svelte:head>
@@ -377,7 +382,7 @@
 								class="text-lg bg-transparent border-none focus:border-none font-medium focus:outline-none w-full p-3"
 								bind:value={convertAmount}
 								on:input={() => convertNow()}
-								on:input={() => changeParam('Amount', convertAmount)}
+								on:input={() => changeParam('Amount', convertAmount, false)}
 							/>
 							<span class="mx-2 text-gray-500 text-sm font-semibold">
 								{convertFrom}
@@ -401,8 +406,7 @@
 								id="field-convert-from"
 								class="w-full p-4 select"
 								bind:value={convertFrom}
-								on:change={convertNow}
-								on:change={() => changeParam('From', convertFrom)}
+								on:change={() => changeFrom(convertFrom)}
 							>
 								{#each Object.entries(currencies) as [index, currency]}
 									<option value={currency.code.toUpperCase()}
@@ -428,6 +432,7 @@
 							<button
 								class="text-sm p-1 pl-2 md:mt-3 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-dark rounded-full"
 								on:click={swapConversionInputs}
+								aria-label="Swap inputs"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -461,8 +466,7 @@
 								id="field-convert-to"
 								class="w-full p-4 select"
 								bind:value={convertTo}
-								on:change={convertNow}
-								on:change={() => changeParam('To', convertTo)}
+								on:change={() => changeTo(convertTo)}
 							>
 								{#if currentView === CurrentView.SEND}
 									{#each Object.entries(countries) as [key, name]}

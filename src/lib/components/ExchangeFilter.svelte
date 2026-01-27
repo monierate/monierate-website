@@ -13,7 +13,7 @@
 	let currencies = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'USDC'];
 
 	$: parseCurrencyInUrl =
-		selectedCurrency && selectedCurrency !== 'USD' ? `?currency=${selectedCurrency}` : '';
+		selectedCurrency && selectedCurrency !== 'USD' ? `?base=${selectedCurrency}` : '';
 
 	function handleClick(event: MouseEvent) {
 		event.preventDefault();

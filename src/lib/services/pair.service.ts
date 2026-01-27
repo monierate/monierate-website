@@ -20,7 +20,7 @@ export const getPair = async (fetch: any, pairCode: string) => {
 	}, fetch);
 
 	if (!result) {
-		return null;
+		return {};
 	}
 
 	return result;
@@ -59,10 +59,10 @@ export const getAllPairs = async (
  */
 export const getPairChangers = async (
 	fetch: typeof globalThis.fetch,
-	code: string,
+	pair_code: string,
 	changerService: ChangerServiceCategory | 'all' = 'all'
 ) => {
-	const params: Record<string, string> = { code };
+	const params: Record<string, string> = { pair_code };
 
 	if (changerService !== 'all') {
 		params.changer_service = changerService;
