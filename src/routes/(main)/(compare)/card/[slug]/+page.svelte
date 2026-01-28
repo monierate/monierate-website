@@ -1,9 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { changePath, scrollToSection } from '$lib/functions';
+	import { scrollToSection } from '$lib/functions';
 	import Money from '$lib/money';
 	import { onMount } from 'svelte';
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import { invalidateAll } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 
@@ -37,8 +39,8 @@
 	let currencyToFundInput = 'USD';
 	let currencyToPayInput = 'NGN';
 	let changers: Record<string, Changer> = data.changers || {};
-	let pairChangers: PairChanger[] = data.pair_changers || {};
-	let currencies: Currency[] = data.currencies || [];
+	$: pairChangers = (data.pair_changers || {}) as PairChanger[];
+	let currencies: Currency[] = (data.currencies || []) as Currency[];
 	let convertAmount = 1;
 	$: convert = data.convert || { From: 'USD', To: 'NGN', Amount: 1 };
 	$: convertFrom = convert.From?.toUpperCase().trim();
@@ -57,17 +59,6 @@
 	};
 
 	let convertResult: ChangerRate[] = [];
-
-	async function getPairChangers(pair_code: string, changer_service: string) {
-		const response = await fetch(
-			`/api/pairs/changers?pair_code=${pair_code}&changer_service=${changer_service}`
-		);
-		const changers = await response.json();
-
-		pairChangers = changers;
-
-		return changers;
-	}
 
 	function findSupportedPlatforms(): ChangerRate[] {
 		let platform_rates: ChangerRate[] = [];
@@ -113,21 +104,10 @@
 
 	// URL pathname update function
 	async function updateUrlPath() {
-		try {
-			isLoading = true;
-			await getPairChangers(`${currencyToFundInput}${currencyToPayInput}`, 'card');
-			if (!(pairChangers?.length > 0)) {
-				await getPairChangers(`${currencyToPayInput}${currencyToFundInput}`, 'card');
-				convert.Inverse = true;
-			} else {
-				convert.Inverse = false;
-			}
-			changePath(
-				`/card/${currencyToFundInput.toLowerCase()}-${currencyToPayInput.toLowerCase()}-best-funding-rate`
-			);
-		} catch (error) {
-			console.error('URL update error:', error);
-		}
+		goto(
+			`/card/${currencyToFundInput.toLowerCase()}-${currencyToPayInput.toLowerCase()}-best-funding-rate`,
+			{ noScroll: true, keepFocus: true }
+		);
 	}
 
 	let getInputValue = convertAmount;
@@ -171,7 +151,7 @@
 
 		// referesh the pair changers rate every 10 minutes
 		setInterval(() => {
-			getPairChangers(`${currencyToFundInput}${currencyToPayInput}`, 'card');
+			invalidateAll();
 		}, 60000 * 10);
 	});
 
