@@ -87,6 +87,7 @@
 
 	defaultCurrencyStore.subscribe((value) => {
 		if (!browser) return;
+		if(!quote) return;
 		if (value === quote) return;
 		console.log('Default currency changed:', value);
 		handleQuoteCurrencyChange(value);

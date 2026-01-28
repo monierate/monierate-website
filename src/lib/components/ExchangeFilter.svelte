@@ -119,6 +119,7 @@
 				<button
 					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
 					on:click={() => currencyTabScrollByLeft()}
+					aria-label="Scroll left"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -146,7 +147,7 @@
 						on:click={async () => {
 							selectedCurrency = currency;
 							onChangeCurrency(currency);
-							setUrlParam('currency', currency);
+							// setUrlParam('currency', currency);
 						}}
 					>
 						{currency}
@@ -162,6 +163,7 @@
 				<button
 					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
 					on:click={() => currencyTabScrollByRight()}
+					aria-label="Scroll right"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -219,6 +221,7 @@
 			<button
 				class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
 				on:click={() => categoryTabScrollByLeft()}
+				aria-label="Scroll left"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -415,6 +418,7 @@
 			<button
 				class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
 				on:click={() => categoryTabScrollByRight()}
+				aria-label="Scroll right"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
