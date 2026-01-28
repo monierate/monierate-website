@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { changePath, scrollToSection } from '$lib/functions';
+	import { scrollToSection } from '$lib/functions';
 	import Money from '$lib/money';
 	import { onMount } from 'svelte';
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	export let data: PageData;
 
@@ -37,8 +38,8 @@
 	let currencyToSellInput = 'USD';
 	let currencyToGetInput = 'NGN';
 	let changers: Record<string, Changer> = data.changers || {};
-	let pairChangers: PairChanger[] = data.pair_changers || {};
-	let currencies: Currency[] = data.currencies || [];
+	$: pairChangers = (data.pair_changers || {}) as PairChanger[];
+	let currencies: Currency[] = (data.currencies || []) as Currency[];
 	let convertAmount = 1;
 	$: convert = data.convert || { From: 'USD', To: 'NGN', Amount: 1 };
 	$: convertFrom = convert.From?.toUpperCase().trim();
@@ -57,17 +58,6 @@
 	};
 
 	let convertResult: ChangerRate[] = [];
-
-	async function getPairChangers(pair_code: string, changer_service: string) {
-		const response = await fetch(
-			`/api/pairs/changers?pair_code=${pair_code}&changer_service=${changer_service}`
-		);
-		const changers = await response.json();
-
-		pairChangers = changers;
-
-		return changers;
-	}
 
 	function findSupportedPlatforms(): ChangerRate[] {
 		let platform_rates: ChangerRate[] = [];
@@ -113,21 +103,13 @@
 
 	// URL pathname update function
 	async function updateUrlPath() {
-		try {
-			isLoading = true;
-			await getPairChangers(`${currencyToSellInput}${currencyToGetInput}`, 'ramp');
-			if (!(pairChangers?.length > 0)) {
-				await getPairChangers(`${currencyToGetInput}${currencyToSellInput}`, 'ramp');
-				convert.Inverse = true;
-			} else {
-				convert.Inverse = false;
+		goto(
+			`/sell/${currencyToSellInput.toLowerCase()}-get-${currencyToGetInput.toLowerCase()}-best-selling-rate`,
+			{
+				keepFocus: true,
+				noScroll: true
 			}
-			changePath(
-				`/sell/${currencyToSellInput.toLowerCase()}-get-${currencyToGetInput.toLowerCase()}-best-selling-rate`
-			);
-		} catch (error) {
-			console.error('URL update error:', error);
-		}
+		);
 	}
 
 	let getInputValue = convertAmount;
@@ -176,7 +158,7 @@
 
 		// referesh the pair changers rate every 10 minutes
 		setInterval(() => {
-			getPairChangers(`${currencyToSellInput}${currencyToGetInput}`, 'ramp');
+			invalidateAll();
 		}, 60000 * 10);
 	});
 
@@ -288,7 +270,7 @@
 	</div>
 
 	<!--FOR ACCURATE SCROLL PURPOSE-->
-	<span id="convert-section" />
+	<span id="convert-section" ></span>
 	<!------------------------------->
 </div>
 
@@ -300,7 +282,7 @@
 				class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
 			>
 				<div class="flex flex-col items-center justify-center p-8">
-					<div class="loader" />
+					<div class="loader"></div>
 					<p class="text-gray-600 dark:text-gray-400 mt-4">Loading exchange rates...</p>
 				</div>
 			</div>

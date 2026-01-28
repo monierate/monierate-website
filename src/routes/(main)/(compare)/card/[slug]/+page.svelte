@@ -262,7 +262,7 @@
 	</div>
 
 	<!--FOR ACCURATE SCROLL PURPOSE-->
-	<span id="convert-section" />
+	<span id="convert-section" ></span>
 	<!------------------------------->
 </div>
 
@@ -274,7 +274,7 @@
 				class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
 			>
 				<div class="flex flex-col items-center justify-center p-8">
-					<div class="loader" />
+					<div class="loader" ></div>
 					<p class="text-gray-600 dark:text-gray-400 mt-4">Loading exchange rates...</p>
 				</div>
 			</div>
