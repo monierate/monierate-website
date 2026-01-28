@@ -14,7 +14,7 @@ export const load: PageLoad = async ({ params }) => {
 		}
 
 		// Lazy-load full content via dynamic import (Vite handles bundling)
-		const post = await import(`../../../blog/${params.slug}.md`);
+		const post = await import(`../../../../blog/${params.slug}.md`);
 
 		return {
 			slug: params.slug,
