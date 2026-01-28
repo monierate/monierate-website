@@ -1,8 +1,10 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { get_changers } from '$lib/server/changer.service';
 import currencySymbols from '$data/currency-symbols.json';
 import currencies from '$data/currencies.json';
+import { getAllChangers } from '$lib/services/changer.service';
+import { getPair } from '$lib/services/pair.service';
+import { getPairChangers } from '$lib/services/pair.service';
 
 type CurrencyMap = Record<string, string>;
 
@@ -32,9 +34,10 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies }) => {
 		}
 
 		// Fetch changers and rate data in parallel
-		const [rawProviders, highlights] = await Promise.all([
-			get_changers(),
-			getHighlights(fetch, pair)
+		const [rawProviders, highlights, pairs] = await Promise.all([
+			getAllChangers(fetch),
+			getHighlights(fetch, pair),
+			getPairChangers(fetch, pair)
 		]);
 
 		if (!rawProviders || rawProviders.length === 0) {
@@ -78,7 +81,8 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies }) => {
 			isValidCurrency,
 			mergedCurrencies,
 			highlights,
-			showHighlights
+			showHighlights,
+			pairs,
 		};
 	} catch (err: any) {
 		console.error('Page load error:', err);

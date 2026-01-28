@@ -87,7 +87,7 @@
 
 	defaultCurrencyStore.subscribe((value) => {
 		if (!browser) return;
-		if(!quote) return;
+		if (!quote) return;
 		if (value === quote) return;
 		console.log('Default currency changed:', value);
 		handleQuoteCurrencyChange(value);
@@ -114,7 +114,15 @@
 		</Notice>
 	{/if}
 
-	<!-- <ExchangeRateText title={Today ${currencies[currency] || currency} to Naira rates on exchanges} data={{ currencies: currencies, currency: { name: currency, symbol: getCurrencySymbol }, rate: { now: pair.price.current, last: pair.price_30d } }} /> -->
+	<ExchangeRateText
+		title={`Today ${currencies[base] || base} to ${currencies[quote] || quote} rates on exchanges`}
+		data={{
+			currencies: currencies,
+			base: { name: base, symbol: baseSymbol },
+			quote: { name: quote, symbol: quoteSymbol },
+			rate: { now: pair.price.current, last: pair.price_30d }
+		}}
+	/>
 
 	<Highlights
 		base={{ code: base, symbol: baseSymbol }}
@@ -142,7 +150,7 @@
 				base,
 				baseSymbol,
 				quote,
-				quoteSymbol,
+				quoteSymbol
 			}}
 			bind:currentPage={data.page}
 		/>
