@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { changePath, scrollToSection } from '$lib/functions';
+	import { scrollToSection } from '$lib/functions';
 	import Money from '$lib/money';
 	import { onMount } from 'svelte';
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import { goto, invalidateAll } from '$app/navigation';
 
 	export let data: PageData;
 
@@ -38,8 +39,8 @@
 	let convertFromInput = 'USD';
 	let convertToInput = 'NG';
 	let changers: Record<string, Changer> = data.changers || {};
-	let pairChangers: PairChanger[] = data.pair_changers || {};
-	let currencies: Currency[] = data.currencies || [];
+	$: pairChangers = (data.pair_changers || {}) as PairChanger[];
+	let currencies: Currency[] = (data.currencies || []) as Currency[];
 	let countriesToCurrencies: any = data.countriesToCurrencies;
 	let convertAmount = 1;
 	$: convert = data.convert || { From: 'USD', To: 'NGN', Amount: 1 };
@@ -61,17 +62,6 @@
 	};
 
 	let convertResult: ChangerRate[] = [];
-
-	async function getPairChangers(pair_code: string, changer_service: string) {
-		const response = await fetch(
-			`/api/pairs/changers?pair_code=${pair_code}&changer_service=${changer_service}`
-		);
-		const changers = await response.json();
-
-		pairChangers = changers;
-
-		return changers;
-	}
 
 	function findSupportedPlatforms(): ChangerRate[] {
 		let platform_rates: ChangerRate[] = [];
@@ -116,18 +106,10 @@
 
 	// URL pathname update function
 	async function updateUrlPath() {
-		try {
-			isLoading = true;
-			await getPairChangers(
-				`${convertFromInput.toLowerCase()}${currencyToCode.toLowerCase()}`,
-				'remittance'
-			);
-			changePath(
-				`/send/${convertFromInput.toLowerCase()}-to-${convertToInput.toLowerCase()}-best-rate`
-			);
-		} catch (error) {
-			console.error('URL update error:', error);
-		}
+		goto(`/send/${convertFromInput.toLowerCase()}-to-${convertToInput.toLowerCase()}-best-rate`, {
+			keepFocus: true,
+			noScroll: true
+		});
 	}
 
 	let getInputValue = convertAmount;
@@ -176,10 +158,7 @@
 
 		// referesh the pair changers rate every 10 minutes
 		setInterval(async () => {
-			await getPairChangers(
-				`${convertFrom.toLowerCase()}${currencyToCode.toLowerCase()}`,
-				'remittance'
-			);
+			invalidateAll();
 		}, 60000 * 10);
 	});
 
@@ -294,7 +273,7 @@
 	</div>
 
 	<!--FOR ACCURATE SCROLL PURPOSE-->
-	<span id="convert-section" />
+	<span id="convert-section"></span>
 	<!------------------------------->
 </div>
 
@@ -306,7 +285,7 @@
 				class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
 			>
 				<div class="flex flex-col items-center justify-center p-8">
-					<div class="loader" />
+					<div class="loader"></div>
 					<p class="text-gray-600 dark:text-gray-400 mt-4">Loading exchange rates...</p>
 				</div>
 			</div>
@@ -340,11 +319,17 @@
 			{#each convertResult as result, i}
 				{#if result.rate.price_sell > 0}
 					<div
-						class="flex flex-wrap gap-4 px-8 py-4 w-full bg-white dark:bg-gray-900 shadow-md rounded-lg mb-8 relative overflow-hidden border {i === 0 ? 'border-gray-800 dark:border-light' : 'border-transparent'}"
+						class="flex flex-wrap gap-4 px-8 py-4 w-full bg-white dark:bg-gray-900 shadow-md rounded-lg mb-8 relative overflow-hidden border {i ===
+						0
+							? 'border-gray-800 dark:border-light'
+							: 'border-transparent'}"
 					>
 						<div class="flex-1 min-w-full md:min-w-[30%] md:flex md:items-center md:justify-start">
 							<div class="flex justify-start items-center">
-								<a href="/converter/{result.changer.code}?Amount={convertAmount}&From={currencyFrom.code.toUpperCase()}&To={currencyTo.code.toUpperCase()}">
+								<a
+									href="/converter/{result.changer
+										.code}?Amount={convertAmount}&From={currencyFrom.code.toUpperCase()}&To={currencyTo.code.toUpperCase()}"
+								>
 									<img
 										src="/icons/svg/{result.changer.code}.svg"
 										alt="{result.changer.name} icon"
@@ -352,7 +337,8 @@
 									/>
 								</a>
 								<a
-									href="/converter/{result.changer.code}?Amount={convertAmount}&From={currencyFrom.code.toUpperCase()}&To={currencyTo.code.toUpperCase()}"
+									href="/converter/{result.changer
+										.code}?Amount={convertAmount}&From={currencyFrom.code.toUpperCase()}&To={currencyTo.code.toUpperCase()}"
 									class="text-gray-600 dark:text-gray-300 hover:underline text-lg"
 								>
 									{result.changer.name}
@@ -382,15 +368,18 @@
 						>
 							<div>
 								<a
-									href="{result.changer.link}?utm_source=monierate&utm_medium=website&utm_campaign=monierate"
+									href="{result.changer
+										.link}?utm_source=monierate&utm_medium=website&utm_campaign=monierate"
 									class="block button w-full md:inline-block md:w-auto mr-4 mb-4 text-center"
 								>
 									Send money now
 								</a>
 								{#if i === 0}
-								    <span class="absolute top-0 right-0 bg-gray-800 dark:bg-light text-white dark:text-dark text-xs px-2 py-1">
-									    Best rate
-								    </span>
+									<span
+										class="absolute top-0 right-0 bg-gray-800 dark:bg-light text-white dark:text-dark text-xs px-2 py-1"
+									>
+										Best rate
+									</span>
 								{/if}
 							</div>
 						</div>
@@ -410,8 +399,8 @@
 			Easily compare money transfer providers in one place to send
 			{currencyFrom.name} to {countryToName}. Send money overseas to your loved ones by comparing {currencyFrom.name}
 			({currencyFrom.code.toUpperCase()}) to {currencyTo.name}
-			({currencyTo.code.toUpperCase()}) remittance exchange rates. Transfer online or send cash based on
-			services offered by these providers.
+			({currencyTo.code.toUpperCase()}) remittance exchange rates. Transfer online or send cash
+			based on services offered by these providers.
 		</p>
 
 		<p class="mt-4">
