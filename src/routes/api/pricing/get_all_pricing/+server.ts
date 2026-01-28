@@ -8,11 +8,9 @@ export async function GET({}) {
 		userToken: ''
 	});
 
-  console.log(res);
-
 	if (!res?.success) {
 		return json({ error: res?.error ?? 'Failed to fetch pricing' }, { status: res?.status ?? 500 });
 	}
 
-	return json(res.data);
+	return json({ data: res.data });
 }
