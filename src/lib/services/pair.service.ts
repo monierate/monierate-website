@@ -20,7 +20,7 @@ export const getPair = async (fetch: any, pairCode: string) => {
 	}, fetch);
 
 	if (!result) {
-		return {};
+		return null;
 	}
 
 	return result;

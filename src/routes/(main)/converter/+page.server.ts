@@ -25,22 +25,28 @@ export const load: PageServerLoad = async ({ fetch, url, depends }) => {
 		Amount: Number(search.get('Amount')) || 1
 	};
 
-	depends(
-		`convert:from=${convert.From}`,
-		`convert:to=${convert.To}`,
-	);
+	depends(`convert:from=${convert.From}`, `convert:to=${convert.To}`);
 
 	const pairCode = `${convert.From}${convert.To}`;
 
 	try {
-		const [pair, remittanceRates, rampRates, cardRates, changers, currencies] = await Promise.all([
-			getPair(fetch, pairCode),
+		const [remittanceRates, rampRates, cardRates, changers, currencies] = await Promise.all([
 			getPairChangers(fetch, pairCode, ChangerServiceCategory.Remittance),
 			getPairChangers(fetch, pairCode, ChangerServiceCategory.Ramp),
 			getPairChangers(fetch, pairCode, ChangerServiceCategory.Card),
 			getAllChangers(fetch),
 			getCurrencies(fetch)
 		]);
+
+		let rateInverse: boolean = false;
+
+		let pair: any = await getPair(fetch, pairCode);
+
+		if (!pair) {
+			pair = await getPair(fetch, `${convert.To}${convert.From}`);
+			rateInverse = true;
+			console.log('rateInverse', rateInverse);
+		}
 
 		if (!currencies.length) throw error(500, 'Currencies data failed');
 
@@ -55,6 +61,7 @@ export const load: PageServerLoad = async ({ fetch, url, depends }) => {
 			remittanceRates,
 			rampRates,
 			cardRates,
+			rateInverse
 		};
 	} catch (err) {
 		console.error(err);

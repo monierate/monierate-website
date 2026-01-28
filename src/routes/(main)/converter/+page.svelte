@@ -59,6 +59,8 @@
 
 	const convertNow = () => {
 		const getPair: any = data.pair;
+		const rateInverse = data.rateInverse;
+
 		const from = convertFrom.toLowerCase();
 		const to =
 			currentView === CurrentView.SEND
@@ -70,7 +72,7 @@
 
 		if (from != to) {
 			/** Get the rate */
-			if (getPair) {
+			if (getPair && !rateInverse) {
 				updated_at = getPair.updatedAt; // get last update time
 				rate = getPair.price.current;
 				rate_inverse = 1 / rate;
@@ -79,7 +81,7 @@
 				// get rates of a pair
 				pair_rates = sortRates(getPair.changers || {});
 			} else {
-				if (getPair) {
+				if (getPair && rateInverse) {
 					updated_at = getPair.updatedAt; // get last update time
 					rate_inverse = getPair.price.current;
 					rate = 1 / rate_inverse;
@@ -231,7 +233,7 @@
 		await setUserLocation();
 	});
 
-	$: if (data.pair) convertNow();
+	$: if (data.pair || data.rateInverse) convertNow();
 
 	const changeFrom = (currency: string) => {
 		let url = new URL(window.location.href);

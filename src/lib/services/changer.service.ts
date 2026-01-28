@@ -25,3 +25,21 @@ export const getAllChangers = async (
 
 	return response.result;
 };
+
+export const getChanger = async (fetch: typeof globalThis.fetch, code: string) => {
+	const result = await clientApiFetch<Record<string, any>>(
+		'/changers/get_changer',
+		{
+			params: {
+				code
+			}
+		},
+		fetch
+	);
+
+	if (!result) {
+		return null;
+	}
+
+	return result;
+};
