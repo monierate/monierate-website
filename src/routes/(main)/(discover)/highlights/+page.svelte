@@ -3,46 +3,33 @@
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
 	import HighlightCard from '$lib/components/HighlightCard.svelte';
-	import { slide } from 'svelte/transition';
 	import Notice from '$lib/components/Notice.svelte';
 	import MainFaq from '$lib/components/MainFAQ.svelte';
+	import { handleBaseCurrencyChange, handleQuoteCurrencyChange } from '$lib/utils/url';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { browser } from '$app/environment';
 
 	export let data;
 	const currencySymbols = data.currencySymbols as any;
-	$: currency = data.currency;
-	$: getCurrencySymbol = currencySymbols[currency] || currency;
+	$: base = data.base;
+	$: baseSymbol = currencySymbols[base] || base;
+	$: quote = data.quote;
+	$: quoteSymbol = currencySymbols[quote] || quote;
 
-	const highlights = data.highlights;
-	let newResult = highlights.newResult;
-	let buyingResult = highlights.buyingResult;
-	let sellingResult = highlights.sellingResult;
-	let sendingResult = highlights.sendingResult;
-	let fundingResult = highlights.fundingResult;
+	$: highlights = data.highlights;
+	$: newResult = highlights.newResult;
+	$: buyingResult = highlights.buyingResult;
+	$: sellingResult = highlights.sellingResult;
+	$: sendingResult = highlights.sendingResult;
+	$: fundingResult = highlights.fundingResult;
 
-	let highlightsLoading: boolean = false;
-	const getHighlights = async (pair: string): Promise<any> => {
-		try {
-			highlightsLoading = true;
-			const res = await fetch('/api/highlights?max=10&pair=' + pair);
-			if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-			return await res.json();
-		} catch (err) {
-			console.error('getHighlights error:', err);
-			return [];
-		} finally {
-			highlightsLoading = false;
-		}
-	};
-
-	const handleFilterByCurrency = async (currency_: string) => {
-		currency = currency_;
-		let highlights = await getHighlights(`${currency.toLowerCase()}ngn`);
-		newResult = highlights.newResult;
-		buyingResult = highlights.buyingResult;
-		sellingResult = highlights.sellingResult;
-		sendingResult = highlights.sendingResult;
-		fundingResult = highlights.fundingResult;
-	};
+	defaultCurrencyStore.subscribe((value) => {
+		if (!browser) return;
+		if (!quote) return;
+		if (value === quote) return;
+		console.log('Default currency changed:', value);
+		handleQuoteCurrencyChange(value);
+	});
 </script>
 
 <svelte:head>
@@ -67,9 +54,9 @@
 </div>
 
 <div class="container px-0">
-	{#if !data.isValidCurrency}
+	{#if !data.isValidBase}
 		<Notice
-			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {currency.toUpperCase()}.</Notice
+			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {base.toUpperCase()}.</Notice
 		>
 	{/if}
 
@@ -83,21 +70,11 @@
 
 	<div class="my-10">
 		<ExchangeFilter
-			selectedCurrency={currency}
+			selectedCurrency={base}
 			selectedCategory="/highlights"
 			disableSearch={true}
-			onChangeCurrency={handleFilterByCurrency}
+			onChangeCurrency={handleBaseCurrencyChange}
 		/>
-	</div>
-
-	<div class="flex justify-end items-center mb-6 overflow-hidden">
-		{#if highlightsLoading}
-			<span in:slide={{ duration: 250 }} out:slide={{ duration: 250 }} class="flex">
-				<span
-					class="inline-block w-5 h-5 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin"
-				/>
-			</span>
-		{/if}
 	</div>
 
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -107,7 +84,8 @@
 				highlightData={newResult}
 				highlightType="auto"
 				title="🔥 New Listing"
-				currency={getCurrencySymbol}
+				base={baseSymbol}
+				quote={quoteSymbol}
 			/>
 		{/if}
 
@@ -118,7 +96,8 @@
 				highlightType="buy"
 				title="🔥 Best Buy Rate"
 				link="/buy/usd-with-ngn-best-buying-rate"
-				currency={getCurrencySymbol}
+				base={baseSymbol}
+				quote={quoteSymbol}
 			/>
 		{/if}
 
@@ -129,7 +108,8 @@
 				highlightType="sell"
 				title="🔥 Best Sell Rate"
 				link="/sell/usd-get-ngn-best-selling-rate"
-				currency={getCurrencySymbol}
+				base={baseSymbol}
+				quote={quoteSymbol}
 			/>
 		{/if}
 
@@ -140,7 +120,8 @@
 				highlightType="sell"
 				title="🔥 Best Sending Rate"
 				link="/send/usd-to-ng-best-rate"
-				currency={getCurrencySymbol}
+				base={baseSymbol}
+				quote={quoteSymbol}
 			/>
 		{/if}
 
@@ -151,7 +132,8 @@
 				highlightType="buy"
 				title="🔥 Best Card Rate"
 				link="/card/usd-ngn-best-funding-rate"
-				currency={getCurrencySymbol}
+				base={baseSymbol}
+				quote={quoteSymbol}
 			/>
 		{/if}
 	</div>
