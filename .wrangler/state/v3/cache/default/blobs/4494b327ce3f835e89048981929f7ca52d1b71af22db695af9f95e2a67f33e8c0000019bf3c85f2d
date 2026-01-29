@@ -1,0 +1,1 @@
+const n=new Map;async function u(e,a){return n.has(e)?n.get(e):new Promise(o=>{const t=new Image;t.onload=()=>{n.set(e,e),o(e)},t.onerror=()=>{n.set(e,a),o(a)},t.src=e})}export{u};

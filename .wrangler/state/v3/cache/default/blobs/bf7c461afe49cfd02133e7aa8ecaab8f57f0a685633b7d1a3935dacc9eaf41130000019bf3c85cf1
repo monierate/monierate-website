@@ -1,0 +1,1 @@
+import"./DsnmJJEf.js";import"./C_121yUd.js";import{f as p,k as s,a as f}from"./DDnSQACD.js";import{s as r}from"./BJo5t8Bi.js";import{p as m}from"./CZlK_xAu.js";var l=p('<img width="auto" height="100%" style="margin: 0px auto;"/>');function _(o,a){let e=m(a,"src",8),i=m(a,"alt",8);var t=l();s(()=>{r(t,"src",e()),r(t,"alt",i())}),f(o,t)}export{_ as I};

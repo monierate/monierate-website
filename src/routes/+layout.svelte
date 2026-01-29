@@ -1,9 +1,8 @@
 <script lang="ts">
 	import '../app.css';
-	import { partytownSnippet } from '@builder.io/partytown/integration';
 	import { page, navigating } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { getCookie, setCookie, login_uri } from '$lib/functions';
+	import { getCookie, setCookie } from '$lib/functions';
 	import { browser } from '$app/environment';
 	import Money from '$lib/money';
 	import { timezone } from '$lib/functions';
@@ -110,23 +109,23 @@
 	 * Start date: 19th May, 2025 (Tuesday).
 	 * End date: July 18, 2025 (Friday).
 	 */
-	if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.getRegistrations().then((registrations) => {
-			for (const registration of registrations) {
-				if (registration.active?.scriptURL.includes('/sw.js')) {
-					registration.unregister().then((success) => {
-						if (success) {
-							console.log('✅ Unregistered old service worker: /sw.js');
-						}
-					});
-				}
-			}
-		});
-	}
+	// if ('serviceWorker' in navigator) {
+	// 	navigator.serviceWorker.getRegistrations().then((registrations) => {
+	// 		for (const registration of registrations) {
+	// 			if (registration.active?.scriptURL.includes('/sw.js')) {
+	// 				registration.unregister().then((success) => {
+	// 					if (success) {
+	// 						console.log('✅ Unregistered old service worker: /sw.js');
+	// 					}
+	// 				});
+	// 			}
+	// 		}
+	// 	});
+	// }
 </script>
 
 <svelte:head>
-	<script>
+	<!-- <script>
 		// Forward the necessary functions to the web worker layer
 		partytown = {
 			forward: ['dataLayer.push', 'gtag']
@@ -146,17 +145,15 @@
 		};
 		gtag('js', new Date());
 		gtag('config', 'G-59H6DBC82L');
-	</script>
+	</script> -->
 </svelte:head>
 
 <LoadingIndicator />
 
-<!-- <div id="top-banner" tabindex="-1" class="fixed top-0 mb-8 start-0 z-50 flex justify-between w-full p-4"> -->
-
 <div
 	id="top-banner"
 	tabindex="-1"
-	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#d60505] px-6 py-5 sm:px-3.5 sm:before:flex-1"
+	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#05AD5D] px-6 py-5 sm:px-3.5 sm:before:flex-1 whitespace-nowrap"
 >
 	<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
 		<span class="text-sm leading-6 text-gray-100">

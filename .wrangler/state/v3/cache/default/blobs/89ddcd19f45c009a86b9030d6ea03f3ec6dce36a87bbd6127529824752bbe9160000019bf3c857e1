@@ -1,0 +1,1 @@
+import{w as s}from"./DjYmCzuM.js";const t=s(null);function n(e){t.set(e),setTimeout(()=>t.set(null),3e3)}export{t as m,n};
