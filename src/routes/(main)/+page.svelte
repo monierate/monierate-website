@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation';
 	import { browser } from '$app/environment';
+	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url.js';
 
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
@@ -60,31 +61,6 @@
 		searchTerm = (e.target as HTMLInputElement).value.trim();
 	};
 
-	/* -----------------------------
-	 * Currency change → URL-driven
-	 * ----------------------------- */
-	const handleFilterByCurrency = async (currency: string) => {
-		const params = new URLSearchParams(window.location.search);
-		params.set('base', currency.toUpperCase());
-		params.set('page', '1');
-
-		await goto(`?${params.toString()}`, {
-			keepFocus: true,
-			noScroll: true
-		});
-	};
-
-	const handleQuoteCurrencyChange = async (currency: string) => {
-		const params = new URLSearchParams(window.location.search);
-		params.set('quote', currency.toUpperCase());
-		params.set('page', '1');
-
-		await goto(`?${params.toString()}`, {
-			keepFocus: true,
-			noScroll: true
-		});
-	};
-
 	defaultCurrencyStore.subscribe((value) => {
 		if (!browser) return;
 		if (!quote) return;
@@ -137,7 +113,7 @@
 	<ExchangeFilter
 		onSearch={handleSearch}
 		selectedCurrency={base}
-		onChangeCurrency={handleFilterByCurrency}
+		onChangeCurrency={handleBaseCurrencyChange}
 	/>
 </div>
 

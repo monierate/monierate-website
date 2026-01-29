@@ -7,6 +7,9 @@
 	import MainFaq from '$lib/components/MainFAQ.svelte';
 	import Highlights from '$lib/components/Highlights.svelte';
 	import Rates from '$lib/components/Rates.svelte';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { browser } from '$app/environment';
+	import { handleBaseCurrencyChange, handleQuoteCurrencyChange } from '$lib/utils/url.js';
 
 	interface Changer {
 		code: string;
@@ -18,12 +21,12 @@
 	export let data;
 	const currencySymbols = data.currencySymbols as any;
 	const currencies = data.mergedCurrencies as any;
-	const pairs = data.pairs || {};
-	$: currency = data.currency;
-	$: getCurrencySymbol = currencySymbols[currency] || currency;
-
-	// Reactive pair based on currency
-	$: pair = pairs.find((pair: any) => pair.code === `${currency.toLowerCase()}ngn`);
+	$: pair = (data.pair || []) as any;
+	$: highlights = data.highlights;
+	$: base = data.base;
+	$: quote = data.quote;
+	$: baseSymbol = currencySymbols[base] || base;
+	$: quoteSymbol = currencySymbols[quote] || quote;
 
 	// Reactive rates from selected pair
 	$: rates = pair?.changers || [];
@@ -87,26 +90,13 @@
 		filteredRates = filtered;
 	};
 
-	let highlights = data.highlights;
-	let highlightsLoading: boolean = false;
-	const getHighlights = async (pair: string): Promise<any> => {
-		try {
-			highlightsLoading = true;
-			const res = await fetch('/api/highlights?max=5&pair=' + pair);
-			if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-			return await res.json();
-		} catch (err) {
-			console.error('getHighlights error:', err);
-			return [];
-		} finally {
-			highlightsLoading = false;
-		}
-	};
-
-	const handleFilterByCurrency = async (currency_: string) => {
-		currency = currency_;
-		highlights = await getHighlights(`${currency.toLowerCase()}ngn`);
-	};
+	defaultCurrencyStore.subscribe((value) => {
+		if (!browser) return;
+		if (!quote) return;
+		if (value === quote) return;
+		console.log('Default currency changed:', value);
+		handleQuoteCurrencyChange(value);
+	});
 </script>
 
 <svelte:head>
@@ -114,7 +104,7 @@
 
 	<meta
 		name="description"
-		content="Discover virtual card providers exchange rates on Monierate in Nigeria. Compare deposit rates from NGN to {currency}, get the best deal, and save cost."
+		content="Discover virtual card providers exchange rates on Monierate in Nigeria. Compare deposit rates from NGN to {base}, get the best deal, and save cost."
 	/>
 
 	<meta property="og:type" content="website" />
@@ -126,11 +116,14 @@
 
 	<meta
 		property="og:description"
-		content="Discover virtual card providers exchange rates on Monierate in Nigeria. Compare deposit rates from NGN to {currency}, get the best deal, and save cost."
+		content="Discover virtual card providers exchange rates on Monierate in Nigeria. Compare deposit rates from NGN to {base}, get the best deal, and save cost."
 	/>
 
 	<meta property="og:url" content="https://monierate.com" />
-	<meta property="og:image" content="https://monierate.com/media/og-images/virtual-card-rates.webp" />
+	<meta
+		property="og:image"
+		content="https://monierate.com/media/og-images/virtual-card-rates.webp"
+	/>
 </svelte:head>
 
 <!-- partner -->
@@ -139,35 +132,36 @@
 </div>
 
 <div class="container px-0">
-	{#if !data.isValidCurrency}
+	{#if !data.isValidBase}
 		<Notice
-			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {currency.toUpperCase()}.</Notice
+			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {base.toUpperCase()}.</Notice
 		>
 	{/if}
 
 	<ExchangeRateText
-		title={`${currencies[currency] || currency} to Naira rates for Virtual Cards Providers`}
+		title={`${currencies[base] || base} to Naira rates for Virtual Cards Providers`}
 		data={{
 			currencies: currencies,
-			currency: { name: currency, symbol: getCurrencySymbol },
+			base: { name: base, symbol: baseSymbol },
+			quote: { name: quote, symbol: quoteSymbol },
 			rate: { now: pair.price.current, last: pair.price_30d }
 		}}
 	/>
 
 	<Highlights
-		currency={{ code: currency, symbol: getCurrencySymbol }}
+		base={{ code: base, symbol: baseSymbol }}
+		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
-		inProgress={highlightsLoading}
 	/>
 </div>
 
 <div class="container px-0 mb-4">
 	<ExchangeFilter
 		onSearch={handleSearch}
-		selectedCurrency={currency}
-		onChangeCurrency={handleFilterByCurrency}
+		selectedCurrency={base}
+		onChangeCurrency={handleBaseCurrencyChange}
 		selectedCategory="/virtualcard-rates"
 	/>
 </div>
@@ -178,8 +172,10 @@
 			data={{
 				rates: filteredRates,
 				providers,
-				currency,
-				currencySymbols
+				base,
+				baseSymbol,
+				quote,
+				quoteSymbol
 			}}
 			bind:currentPage={data.page}
 			rateType="buy"

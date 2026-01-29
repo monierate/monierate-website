@@ -4,40 +4,39 @@ import currencySymbols from '$data/currency-symbols.json';
 import currencies from '$data/currencies.json';
 import { getAllChangers } from '$lib/services/changer.service';
 import { getPair } from '$lib/services/pair.service';
-import { getPairChangers } from '$lib/services/pair.service';
+import { getHighlights } from '$lib/services/highlight.service';
 
 type CurrencyMap = Record<string, string>;
 
-const getHighlights = async (fetch: typeof globalThis.fetch, pair: string): Promise<any> => {
+export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depends }) => {
 	try {
-		const res = await fetch('/api/highlights?max=5&pair=' + pair);
-		if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-		return await res.json();
-	} catch (err) {
-		console.error('getHighlights error:', err);
-		return [];
-	}
-};
+		const { VALID_CURRENCIES, defaultCurrency } = await parent();
 
-export const load: PageServerLoad = async ({ fetch, url, parent, cookies }) => {
-	try {
-		const { VALID_CURRENCIES } = await parent();
+		// Declare dependencies
+		depends('param:base');
+		depends('param:quote');
+
 		const page = Number(url.searchParams.get('page') || '1');
-		const rawCurrency = (url.searchParams.get('currency') ?? 'USD').toUpperCase();
-		const isValidCurrency = (VALID_CURRENCIES as readonly string[]).includes(rawCurrency);
-		const currency = isValidCurrency ? (rawCurrency as string) : 'USD';
-		const pair = `${currency}NGN`.toLowerCase();
 
-		let showHighlights: boolean = true;
-		if (cookies.get('showHighlights')) {
-			showHighlights = cookies.get('showHighlights') === 'true';
-		}
+		// ---- BASE ----
+		const rawBase = (url.searchParams.get('base') ?? 'USD').toUpperCase();
+		const isValidBase = (VALID_CURRENCIES as readonly string[]).includes(rawBase);
+		const base = isValidBase ? rawBase : 'USD';
 
-		// Fetch changers and rate data in parallel
-		const [rawProviders, highlights, pairs] = await Promise.all([
+		// ---- QUOTE ----
+		const rawQuote = url.searchParams.get('quote')?.toUpperCase();
+		const isValidQuote = rawQuote && (VALID_CURRENCIES as readonly string[]).includes(rawQuote);
+
+		const quote = isValidQuote ? rawQuote : defaultCurrency;
+
+		const pairCode = `${base}${quote}`.toLowerCase();
+
+		let showHighlights = cookies.get('showHighlights') !== 'false';
+
+		const [rawProviders, highlights, pair] = await Promise.all([
 			getAllChangers(fetch),
-			getHighlights(fetch, pair),
-			getPairChangers(fetch, pair)
+			getHighlights(fetch, pairCode),
+			getPair(fetch, pairCode)
 		]);
 
 		if (!rawProviders || rawProviders.length === 0) {
@@ -46,45 +45,41 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies }) => {
 			});
 		}
 
-		const availablePairs: any[] = [];
-
-		// Transform providers into key-value pair for easy lookup
+		const availablePairs: string[] = [];
 		const providers: Record<string, (typeof rawProviders)[0]> = {};
+
 		for (const provider of rawProviders) {
-			if (provider.changer_tags && provider.changer_tags.includes('virtualcard')) {
+			if (provider.changer_tags?.includes('virtualcard')) {
 				providers[provider.code] = provider;
-				try {
-					if (provider.pairs) {
-						Object.keys(provider.pairs).forEach((pair) => {
-							if (!availablePairs.includes(pair)) {
-								availablePairs.push(pair);
-							}
-						});
+
+				if (provider.pairs) {
+					for (const pair of Object.keys(provider.pairs)) {
+						if (!availablePairs.includes(pair)) {
+							availablePairs.push(pair);
+						}
 					}
-				} catch (err) {
-					console.error(err);
 				}
 			}
 		}
 
-		const mergedCurrencies: CurrencyMap = {
+		const mergedCurrencies = {
 			...currencies.coins,
 			...currencies.fiat
 		};
 
-		// Return everything to page
 		return {
 			providers,
 			page,
-			currency,
+			base,
+			quote,
 			currencySymbols,
-			isValidCurrency,
+			isValidBase,
 			mergedCurrencies,
 			highlights,
 			showHighlights,
-			pairs,
+			pair
 		};
-	} catch (err: any) {
+	} catch (err) {
 		console.error('Page load error:', err);
 		throw error(500, {
 			message: 'Unable to display data, try again in a few minutes.'
