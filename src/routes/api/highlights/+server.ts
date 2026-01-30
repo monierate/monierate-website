@@ -22,7 +22,7 @@ interface ChangerRate {
 }
 
 const EXCLUDED = new Set(['market', 'binance', 'paypal']);
-const NEWEST = ['cardtonic', 'blockroll', 'boundlesspay', 'nsave', 'mavapay'];
+const NEWEST = ['karsa', 'mavapay', 'nsave', 'cardtonic', 'boundlesspay'];
 
 const findBuyPlatforms = (
 	changers: Record<string, Changer>,

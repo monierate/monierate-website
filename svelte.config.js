@@ -17,9 +17,12 @@ const config = {
 	extensions: ['.svelte', '.md'],
 	kit: {
 		adapter: adapter({
+			// Add fallback for SPA/client-side routing—crucial for 404 prevention
+			fallback: 'spa',
 			routes: {
-				include: ['/*'],
-				exclude: ['/uploads/*', '/icons/*', '/media/*', '/robots.txt']
+				// Exclude prerendered/static pages (keeps _routes.json small; worker handles the rest)
+				exclude: ['<prerendered>', '/uploads/*', '/icons/*', '/media/*', '/robots.txt']
+				// No need for 'include'—defaults cover dynamic routes
 			}
 		}),
 		alias: {
