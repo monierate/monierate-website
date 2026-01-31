@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Filter from '$lib/components/exchanges/Filter.svelte';
 	import Rates from '$lib/components/exchanges/Rates.svelte';
 	import AdBanner from '$lib/components/AdBanner.svelte';
 	import ViewMore from '$lib/components/ViewMore.svelte';
 	import FeaturedNews from '$lib/components/exchanges/FeaturedNews.svelte';
-	import MiniConverter from '$lib/components/exchanges/MiniConverter.svelte';
+	import AboutCard from '$lib/components/exchanges/AboutCard.svelte';
 
 	export let data;
 	const currencies = data.currencies;
@@ -44,8 +43,10 @@
 <!-- <AdBanner name="footer" /> -->
 
 <div class="flex flex-col md:flex-row md:justify-between md:container">
-	<div>
-		<div class="container space-y-6 md:px-0 md:mx-0 md:sticky md:top-[80px]">
+	<div class="md:w-1/3">
+		<div
+			class="container space-y-6 md:px-6 md:py-8 md:mx-0 md:mr-10 md:sticky md:top-[80px] md:border md:border-gray-200/80 md:dark:border-gray-700/60 md:rounded-xl"
+		>
 			<div class="flex flex-col md:flex-row justify-between items-center gap-4">
 				<div class="w-full md:w-auto">
 					<h2 class="text-xl md:text-2xl font-bold flex items-center gap-1">
@@ -66,7 +67,7 @@
 				</div>
 			</div>
 
-			<div>
+			<div class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
 				<ViewMore
 					text="GT Bank is a leading financial institution in Nigeria, known for its innovative banking
 								solutions and commitment to customer satisfaction. Established in 1990, GT Bank has
@@ -140,42 +141,49 @@
 			</div>
 		</div>
 	</div>
-	<div>
+	<div class="md:w-2/3 space-y-16">
 		<div class="space-y-6 container px-0 mx-0 w-full md:px-6 md:mx-auto">
 			<div class="px-4 md:px-0">
 				<div class="space-y-5">
 					<div class="">
-						<h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">GT Currency Market</h2>
-						<p class="text-gray-600 font-normal dark:text-gray-300">
-							See all the currencies and various pairs they offer.
-						</p>
-					</div>
-					<div class="space-y-6">
-						<Filter />
+						<h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+							GT Bank Exchange Rates
+						</h2>
 					</div>
 				</div>
 			</div>
 			<Rates data={{ rates: testData, currency: 'NGN', currencySymbols: data.currencySymbols }} />
 		</div>
 
-		<div class="container md:px-0 md:w-full md:mx-0 space-y-8">
+		<div class="container md:px-0 md:w-full md:mx-0 space-y-16">
 			<div class="w-full md:px-6 text-gray-500">
-				<div class="space-y-5">
-					<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-						About {changerName}?
-					</h3>
-					<p class="text-gray-500 dark:text-gray-300">
-						GT Bank is a leading financial institution in Nigeria, known for its innovative banking
-						solutions and commitment to customer satisfaction. Established in 1990, GT Bank has
-						grown to become one of the largest banks in Africa, offering a wide range of services
-						including personal banking, corporate banking, and investment services. With a strong
-						focus on technology and digital transformation, GT Bank provides its customers with
-						convenient and secure banking options through its extensive network of branches and
-						ATMs, as well as its robust online and mobile banking platforms. The bank is also
-						recognized for its corporate social responsibility initiatives, contributing to the
-						development of communities across Nigeria.
-					</p>
-				</div>
+				<AboutCard
+					changerName="GT Bank"
+					description="Moniepoint is a comprehensive business banking and financial services platform
+built to power the growth of entrepreneurs, SMEs, and large businesses across
+Africa, with a strong presence in Nigeria and Kenya. The platform provides
+reliable, secure, and scalable financial tools that help businesses manage
+payments, access credit, and streamline their day-to-day operations.
+
+Through its wide range of offerings, Moniepoint enables businesses to open and
+manage bank accounts, process digital and card payments, and access flexible
+working capital loans tailored to their unique cash-flow needs. Its point-of-sale
+(POS) terminals are widely adopted for their speed, reliability, and nationwide
+coverage, making payment collection seamless for merchants across urban and
+rural locations.
+
+Beyond payments and lending, Moniepoint empowers business owners with
+value-added services such as transaction analytics, invoicing tools, inventory
+support, and real-time reporting. These insights help merchants make informed
+decisions, optimize operations, and plan for sustainable growth. By combining
+technology, financial expertise, and deep local market understanding, Moniepoint
+continues to redefine how businesses access and experience financial services
+across the continent."
+					industry="Finance"
+					companyType="Commercial Bank"
+					foundedYear="1990"
+					companySize="1,000+ employees"
+				/>
 			</div>
 
 			<div class="md:px-6 space-y-5">
@@ -200,31 +208,23 @@
 				/>
 			</div>
 
-			<div class="md:px-6 space-y-5">
-				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Convert</h3>
-				<MiniConverter />
-			</div>
-
 			<div class="md:px-6 space-y-3">
-	<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-		Disclaimer
-	</h3>
+				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Disclaimer</h3>
 
-	<p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-		All information provided on this page is for general informational purposes only.
-		While we strive to keep the information accurate and up to date, we make no
-		representations or warranties of any kind, express or implied, about the completeness,
-		accuracy, reliability, suitability, or availability of the information displayed.
-	</p>
+				<p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+					All information provided on this page is for general informational purposes only. While we
+					strive to keep the information accurate and up to date, we make no representations or
+					warranties of any kind, express or implied, about the completeness, accuracy, reliability,
+					suitability, or availability of the information displayed.
+				</p>
 
-	<p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-		Any reliance you place on such information is strictly at your own risk. We shall not
-		be held responsible or liable for any loss, damage, or inconvenience arising from the
-		use of, or reliance on, the information presented, including but not limited to exchange
-		rates, financial data, or third-party content.
-	</p>
-</div>
-
+				<p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+					Any reliance you place on such information is strictly at your own risk. We shall not be
+					held responsible or liable for any loss, damage, or inconvenience arising from the use of,
+					or reliance on, the information presented, including but not limited to exchange rates,
+					financial data, or third-party content.
+				</p>
+			</div>
 		</div>
 	</div>
 </div>

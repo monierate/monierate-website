@@ -110,50 +110,23 @@
 </script>
 
 <div class="container p-0 w-full m-0 md:max-w-[1200px] md:m-auto" bind:this={content}>
-	<div class="overflow-x-auto bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+	<div class="overflow-x-auto bg-white dark:bg-gray-900 rounded-lg border border-gray-200/80 dark:border-gray-700/80">
 		<table class="text-sm text-gray-800 min-w-full table-auto">
 			<thead
-				class="bg-gray-50 dark:bg-gray-800/50 text-xs text-gray-600 dark:text-gray-400 tracking-wider"
+				class="bg-gray-50 dark:bg-gray-800/50 text-xs text-black dark:text-gray-400 tracking-wider"
 			>
 				<tr>
-					<!-- <th class="px-6 pr-10 py-4 text-left font-medium w-12 hidden md:inline-block"></th> -->
-					<th class="px-2 py-4 text-right font-medium w-4 hidden md:inline-block">#</th>
-					<th class="px-6 py-4 text-left font-medium">Name</th>
-					<th class="px-6 py-4 text-right font-medium">Buy Price</th>
-					<th class="px-6 py-4 text-right font-medium">Sell Price</th>
-					<th class="px-6 py-4 text-right font-medium">Last Updated</th>
-					<th class="px-6 py-4 text-right font-medium"
-						>Last 7 Days <span class="text-xs bg-green-500/20 text-green-500 p-1 rounded-md"
-							>Buy</span
-						></th
-					>
+					<th class="px-6 py-4 text-left font-bold">Name</th>
+					<th class="px-6 py-4 text-left font-bold">Buying</th>
+					<th class="px-6 py-4 text-left font-bold">Selling</th>
+					<th class="px-6 py-4 text-left font-bold">Last Updated</th>
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-gray-100 dark:divide-gray-800">
 				{#each paginatedRows as rate, i}
 					{@const sparklineData = generateSparklineData()}
 					<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
-						<!-- Index -->
-						<!-- <td class="px-6 pr-10 py-4 text-gray-500 dark:text-gray-400 font-medium hidden md:inline-block">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								class="size-5 -rotate-45"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
-								/>
-							</svg>
-						</td> -->
-						<td class="text-right px-2 py-4 text-gray-500 dark:text-gray-400 font-medium hidden md:inline-block">
-							{(currentPage - 1) * rowsPerPage + i + 1}
-						</td>
-
+						
 						<!-- Currency Pair -->
 						<td class="px-6 py-4">
 							<div class="flex items-center gap-2">
@@ -169,7 +142,7 @@
 						</td>
 
 						<!-- Buy Price -->
-						<td class="px-6 py-4 text-right">
+						<td class="px-6 py-4 text-left">
 							{#if rate.price_buy > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
@@ -199,7 +172,7 @@
 						</td>
 
 						<!-- Sell Price -->
-						<td class="px-6 py-4 text-right">
+						<td class="px-6 py-4 text-left">
 							{#if rate.price_sell > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
@@ -228,35 +201,8 @@
 						</td>
 
 						<!-- Last Updated -->
-						<td class="px-6 py-4 text-right text-gray-600 dark:text-gray-400 text-sm">
+						<td class="px-6 py-4 text-left text-gray-600 dark:text-gray-400 text-sm">
 							{friendlyDate(rate.updated_at)}
-						</td>
-
-						<!-- Sparkline Chart -->
-						<td class="px-6 py-4 text-right">
-							<div class="inline-flex justify-end w-24">
-								<svg
-									width="100"
-									height="30"
-									class="text-green-500 dark:text-green-400"
-									style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));"
-								>
-									<path
-										d={createSparklinePath(sparklineData)}
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										opacity="0.8"
-									/>
-									<path
-										d={createSparklinePath(sparklineData) + ` L 100,30 L 0,30 Z`}
-										fill="currentColor"
-										opacity="0.1"
-									/>
-								</svg>
-							</div>
 						</td>
 					</tr>
 				{/each}
