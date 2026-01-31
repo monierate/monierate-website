@@ -42,9 +42,9 @@
 						<td class="px-6 py-4">
 							<div class="flex items-center gap-2">
 								<img
-									src={`https://stablerate.app/icons/currencies/${currency}.png`}
+									src={`https://stablerate.app/icons/currencies/${pair.pair_code.replace('ngn', '')}.png`}
 									class="w-5 h-5 rounded-full object-fit"
-									alt={currency}
+									alt={pair.pair_code}
 								/>
 								<span class="font-medium text-gray-900 dark:text-gray-100">
 									{pair.pair_code.toUpperCase()}
