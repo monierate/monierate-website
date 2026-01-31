@@ -143,7 +143,7 @@
 	<div>
 		<div class="space-y-6 container px-0 mx-0 w-full md:px-6 md:mx-auto">
 			<div class="px-4 md:px-0">
-				<div class="space-y-6">
+				<div class="space-y-5">
 					<div class="">
 						<h2 class="text-xl md:text-2xl mb-2 dark:text-gray-100">GT Currency Market</h2>
 						<p class="text-gray-600 font-normal dark:text-gray-300">
@@ -158,9 +158,9 @@
 			<Rates data={{ rates: testData, currency: 'NGN', currencySymbols: data.currencySymbols }} />
 		</div>
 
-		<div class="container md:px-0 md:w-full md:mx-0 space-y-6">
+		<div class="container md:px-0 md:w-full md:mx-0 space-y-8">
 			<div class="w-full md:px-6 text-gray-500">
-				<div class="space-y-6">
+				<div class="space-y-5">
 					<h3 class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-100">
 						About {changerName}?
 					</h3>
@@ -176,15 +176,11 @@
 						development of communities across Nigeria.
 					</p>
 				</div>
-
-				
 			</div>
 
-			<div class="md:px-6 space-y-6">
-								<h3 class="text-xl md:text-2xl mb-2 dark:text-gray-100">Featured News</h3>
+			<div class="md:px-6 space-y-5">
+				<h3 class="text-xl md:text-2xl mb-2 dark:text-gray-100">Featured News</h3>
 				<FeaturedNews
-					title="Featured News"
-					viewAllUrl="/blog"
 					posts={[
 						{
 							id: '1',
@@ -203,11 +199,32 @@
 					]}
 				/>
 			</div>
-		
-			<div class="md:px-6 space-y-6">
+
+			<div class="md:px-6 space-y-5">
 				<h3 class="text-xl md:text-2xl mb-2 dark:text-gray-100">Convert</h3>
 				<MiniConverter />
 			</div>
+
+			<div class="md:px-6 space-y-3">
+	<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+		Disclaimer
+	</h3>
+
+	<p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+		All information provided on this page is for general informational purposes only.
+		While we strive to keep the information accurate and up to date, we make no
+		representations or warranties of any kind, express or implied, about the completeness,
+		accuracy, reliability, suitability, or availability of the information displayed.
+	</p>
+
+	<p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+		Any reliance you place on such information is strictly at your own risk. We shall not
+		be held responsible or liable for any loss, damage, or inconvenience arising from the
+		use of, or reliance on, the information presented, including but not limited to exchange
+		rates, financial data, or third-party content.
+	</p>
+</div>
+
 		</div>
 	</div>
 </div>
