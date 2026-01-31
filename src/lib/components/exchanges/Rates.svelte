@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatNumber, friendlyDate, setUrlParam } from '$lib/functions';
+	import { formatNumber, friendlyDate } from '$lib/functions';
 
 	type PairMap = Record<string, Record<string, any>>;
 

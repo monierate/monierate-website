@@ -65,7 +65,17 @@
 					</div>
 				</div>
 			</div>
-			<Rates data={{ pairs: changer.pairs, currencySymbols: data.currencySymbols, changer: changer.code }} />
+			{#if !changer.pairs}
+				<Rates
+					data={{
+						pairs: changer.pairs,
+						currencySymbols: data.currencySymbols,
+						changer: changer.code
+					}}
+				/>
+			{:else}
+				<div class="text-center p-16">There's no pair data for {changer.name}</div>
+			{/if}
 		</div>
 
 		<div class="container md:px-0 md:w-full md:mx-0 space-y-16">
@@ -75,14 +85,16 @@
 				</div>
 			{/if}
 
-			{#if changer.featured_publications && changer.featured_publications.length > 0}
-				<div class="md:px-6 space-y-5">
-					<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-						Featured Publications
-					</h3>
+			<div class="md:px-6 space-y-5">
+				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+					Featured Publications
+				</h3>
+				{#if changer.featured_publications && changer.featured_publications.length > 0}
 					<FeaturedPublications posts={changer.featured_publications} />
-				</div>
-			{/if}
+				{:else}
+					<div class="text-center p-16">There's no featured publications for {changer.name}</div>
+				{/if}
+			</div>
 
 			{#if relatedChangers}
 				<div class="md:px-6 space-y-5">
