@@ -13,6 +13,7 @@
 	export let data: {
 		pairs: any;
 		currencySymbols: Record<string, string>;
+		changer: string;
 	};
 
 	$: pairs = (extractPairs(data.pairs || {}) || []) as any[];
@@ -40,7 +41,13 @@
 					<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
 						<!-- Currency Pair -->
 						<td class="px-6 py-4">
-							<div class="flex items-center gap-2">
+							<a
+								class="flex items-center gap-2"
+								href="/converter/{data.changer}?Amount=1&From={pair.pair_code.replace(
+									'ngn',
+									''
+								)}&To=ngn"
+							>
 								<img
 									src={`https://wise.com/public-resources/assets/flags/rectangle/${pair.pair_code.replace('ngn', '')}.png`}
 									class="w-5 h-5 rounded-full object-fit"
@@ -49,7 +56,7 @@
 								<span class="font-medium text-gray-900 dark:text-gray-100">
 									{pair.pair_code.toUpperCase()}
 								</span>
-							</div>
+							</a>
 						</td>
 
 						<!-- Buy Price -->

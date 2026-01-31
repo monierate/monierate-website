@@ -65,7 +65,7 @@
 					</div>
 				</div>
 			</div>
-			<Rates data={{ pairs: changer.pairs, currencySymbols: data.currencySymbols }} />
+			<Rates data={{ pairs: changer.pairs, currencySymbols: data.currencySymbols, changer: changer.code }} />
 		</div>
 
 		<div class="container md:px-0 md:w-full md:mx-0 space-y-16">
