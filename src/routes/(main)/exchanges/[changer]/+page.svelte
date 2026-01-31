@@ -145,7 +145,7 @@
 			<div class="px-4 md:px-0">
 				<div class="space-y-5">
 					<div class="">
-						<h2 class="text-xl md:text-2xl mb-2 dark:text-gray-100">GT Currency Market</h2>
+						<h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">GT Currency Market</h2>
 						<p class="text-gray-600 font-normal dark:text-gray-300">
 							See all the currencies and various pairs they offer.
 						</p>
@@ -161,7 +161,7 @@
 		<div class="container md:px-0 md:w-full md:mx-0 space-y-8">
 			<div class="w-full md:px-6 text-gray-500">
 				<div class="space-y-5">
-					<h3 class="text-xl md:text-2xl font-bold text-gray-700 dark:text-gray-100">
+					<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
 						About {changerName}?
 					</h3>
 					<p class="text-gray-500 dark:text-gray-300">
@@ -179,7 +179,7 @@
 			</div>
 
 			<div class="md:px-6 space-y-5">
-				<h3 class="text-xl md:text-2xl mb-2 dark:text-gray-100">Featured News</h3>
+				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Featured News</h3>
 				<FeaturedNews
 					posts={[
 						{
@@ -201,7 +201,7 @@
 			</div>
 
 			<div class="md:px-6 space-y-5">
-				<h3 class="text-xl md:text-2xl mb-2 dark:text-gray-100">Convert</h3>
+				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Convert</h3>
 				<MiniConverter />
 			</div>
 
