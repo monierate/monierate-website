@@ -232,8 +232,8 @@ convertNow();
                     <a href="{changer.link}?utm_source=monierate&utm_medium=website&utm_campaign=monierate" class="block button w-full md:inline-block md:w-auto mr-4 mb-4 ">
                         Open {changer.name}                   
                     </a>
-                    <a href="https://tinyurl.com/cedar-app-native-buttons" class="block button buy font-bold w-full md:inline-block md:w-auto">
-                        Get the best rate on Cedar Money
+                    <a href="https://tinyurl.com/mavapay-monierate-link" class="block button buy font-bold w-full md:inline-block md:w-auto">
+                        Get the best rate on Mavapay
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-4 h-4 ml-2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                         </svg> 
