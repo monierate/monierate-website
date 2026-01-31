@@ -35,7 +35,7 @@
 					<th class="px-6 py-4 text-left font-bold">Last Updated</th>
 				</tr>
 			</thead>
-			<tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+			<tbody class="divide-y divide-gray-100 dark:divide-gray-800 text-nowrap">
 				{#each pairs as pair}
 					<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
 						<!-- Currency Pair -->
