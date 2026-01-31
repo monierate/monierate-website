@@ -65,7 +65,7 @@
 					</div>
 				</div>
 			</div>
-			{#if !changer.pairs}
+			{#if changer.pairs}
 				<Rates
 					data={{
 						pairs: changer.pairs,
