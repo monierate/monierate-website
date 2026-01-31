@@ -42,7 +42,7 @@
 						<td class="px-6 py-4">
 							<div class="flex items-center gap-2">
 								<img
-									src={`https://stablerate.app/icons/currencies/${pair.pair_code.replace('ngn', '')}.png`}
+									src={`https://wise.com/public-resources/assets/flags/rectangle/${pair.pair_code.replace('ngn', '')}.png`}
 									class="w-5 h-5 rounded-full object-fit"
 									alt={pair.pair_code}
 								/>
