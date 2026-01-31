@@ -10,29 +10,10 @@
 		url: string;
 	};
 
-	export let title: string = 'Featured News';
 	export let posts: BlogPost[] = [];
-	export let showViewAll: boolean = true;
-	export let viewAllUrl: string = '/blog';
 </script>
 
 <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm">
-	<!-- Header -->
-	<div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
-		<h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 tracking-wide">
-			{title}
-		</h3>
-
-		{#if showViewAll}
-			<a
-				href={viewAllUrl}
-				class="text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-			>
-				View all
-			</a>
-		{/if}
-	</div>
-
 	<!-- List -->
 	<ul class="divide-y divide-gray-100 dark:divide-gray-800">
 		{#each posts as post}

@@ -4,6 +4,7 @@
 	import AdBanner from '$lib/components/AdBanner.svelte';
 	import ViewMore from '$lib/components/ViewMore.svelte';
 	import FeaturedNews from '$lib/components/exchanges/FeaturedNews.svelte';
+	import MiniConverter from '$lib/components/exchanges/MiniConverter.svelte';
 
 	export let data;
 	const currencies = data.currencies;
@@ -179,7 +180,8 @@
 				
 			</div>
 
-			<div class="md:px-6">
+			<div class="md:px-6 space-y-6">
+								<h3 class="text-xl md:text-2xl mb-2 dark:text-gray-100">Featured News</h3>
 				<FeaturedNews
 					title="Featured News"
 					viewAllUrl="/blog"
@@ -200,6 +202,11 @@
 						}
 					]}
 				/>
+			</div>
+		
+			<div class="md:px-6 space-y-6">
+				<h3 class="text-xl md:text-2xl mb-2 dark:text-gray-100">Convert</h3>
+				<MiniConverter />
 			</div>
 		</div>
 	</div>
