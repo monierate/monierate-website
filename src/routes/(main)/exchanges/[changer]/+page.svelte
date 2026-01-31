@@ -4,6 +4,7 @@
 	import ViewMore from '$lib/components/ViewMore.svelte';
 	import FeaturedNews from '$lib/components/exchanges/FeaturedNews.svelte';
 	import AboutCard from '$lib/components/exchanges/AboutCard.svelte';
+	import RelatedExchanges from '$lib/components/exchanges/RelatedExchanges.svelte';
 
 	export let data;
 	const currencies = data.currencies;
@@ -206,6 +207,10 @@ across the continent."
 						}
 					]}
 				/>
+			</div>
+
+			<div class="md:px-6 space-y-5">
+				<RelatedExchanges />
 			</div>
 
 			<div class="md:px-6 space-y-3">
