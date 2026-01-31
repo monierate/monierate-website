@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { friendlyDate } from '$lib/functions';
 
-    type BlogPost = {
-		id: string;
+	type BlogPost = {
 		title: string;
-		excerpt?: string;
-		cover?: string;
-		published_at: string;
+		description: string;
 		url: string;
 	};
 
@@ -17,36 +14,30 @@
 	<!-- List -->
 	<ul class="divide-y divide-gray-100 dark:divide-gray-800">
 		{#each posts as post}
-			<li class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition">
+			<li
+				class="px-6 py-4 bg-gray-50/70 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition"
+			>
 				<div class="flex items-start gap-4">
 					<!-- Cover / Icon -->
 					<div class="shrink-0">
-						{#if post.cover}
-							<img
-								src={post.cover}
-								alt={post.title}
-								class="w-10 h-10 rounded-md object-cover"
-							/>
-						{:else}
-							<div
-								class="w-10 h-10 rounded-md bg-blue-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center"
+						<div
+							class="w-10 h-10 rounded-md bg-blue-600/10 text-blue-600 dark:text-blue-400 flex items-center justify-center"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="w-5 h-5"
 							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke-width="1.5"
-									stroke="currentColor"
-									class="w-5 h-5"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125V5.25A3.375 3.375 0 0 0 10.125 1.875H8.25m0 8.25h8.25m-8.25 3h8.25m-8.25 3h5.25"
-									/>
-								</svg>
-							</div>
-						{/if}
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125V5.25A3.375 3.375 0 0 0 10.125 1.875H8.25m0 8.25h8.25m-8.25 3h8.25m-8.25 3h5.25"
+								/>
+							</svg>
+						</div>
 					</div>
 
 					<!-- Content -->
@@ -58,15 +49,15 @@
 							{post.title}
 						</a>
 
-						{#if post.excerpt}
+						{#if post.description}
 							<p class="mt-1 text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
-								{post.excerpt}
+								{post.description}
 							</p>
 						{/if}
 
-						<div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
+						<!-- <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
 							{friendlyDate(post.published_at)}
-						</div>
+						</div> -->
 					</div>
 
 					<!-- Action -->

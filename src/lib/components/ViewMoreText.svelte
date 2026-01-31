@@ -13,7 +13,7 @@
 
   $: collapsedText =
     maxChars && !expanded
-      ? text.slice(0, maxChars).trimEnd() + '…'
+      ? text.slice(0, maxChars).trimEnd() + `${text.length > maxChars ? '...' : ''}`
       : text;
 </script>
 

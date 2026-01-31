@@ -1,20 +1,14 @@
-<script>
+<script lang="ts">
 	import { slide } from 'svelte/transition';
 
-	export let changerName;
-	export let description;
-
-	export let industry;
-	export let companyType;
-	export let foundedYear;
-	export let companySize;
+	export let changer: any;
 
 	let expanded = false;
 </script>
 
 <div>
 	<h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-		About {changerName}
+		About {changer.name}
 	</h3>
 
 	<div
@@ -29,7 +23,7 @@
 					{#if !expanded}
 						<div class="relative max-h-[200px] overflow-hidden">
 							<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-								{description}
+								{changer.about}
 							</p>
 
 							<!-- FADE -->
@@ -44,7 +38,7 @@
 					{#if expanded}
 						<div in:slide={{ duration: 250 }} out:slide={{ duration: 200 }}>
 							<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-								{description}
+								{changer.about}
 							</p>
 						</div>
 					{/if}
@@ -62,23 +56,12 @@
 			<!-- RIGHT -->
 			<div class="space-y-5 text-sm">
 				<div class="space-y-1">
-					<p class="font-medium text-gray-700 dark:text-gray-100">Brand industry</p>
-					<p class="font-bold text-gray-900 dark:text-gray-100">{industry}</p>
+					<p class="font-medium text-gray-700 dark:text-gray-100">Year launched</p>
+					<p class="font-bold text-gray-900 dark:text-gray-100">{changer.year_launched || '-'}</p>
 				</div>
-
 				<div class="space-y-1">
-					<p class="font-medium text-gray-700 dark:text-gray-100">Company type</p>
-					<p class="font-bold text-gray-900 dark:text-gray-100">{companyType || 'Suggest company type'}</p>
-				</div>
-
-				<div class="space-y-1">
-					<p class="font-medium text-gray-700 dark:text-gray-100">Year founded</p>
-					<p class="font-bold text-gray-900 dark:text-gray-100">{foundedYear || 'Suggest founded year'}</p>
-				</div>
-
-				<div class="space-y-1">
-					<p class="font-medium text-gray-700 dark:text-gray-100">Company size</p>
-					<p class="font-bold text-gray-900 dark:text-gray-100">{companySize || 'Suggest company size'}</p>
+					<p class="font-medium text-gray-700 dark:text-gray-100">Year closed</p>
+					<p class="font-bold text-gray-900 dark:text-gray-100">{changer.year_closed || '-'}</p>
 				</div>
 			</div>
 		</div>
