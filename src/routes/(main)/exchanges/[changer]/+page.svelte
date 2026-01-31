@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Rates from '$lib/components/exchanges/Rates.svelte';
 	import AdBanner from '$lib/components/AdBanner.svelte';
-	import ViewMore from '$lib/components/ViewMore.svelte';
+	import ViewMoreText from '$lib/components/ViewMoreText.svelte';
 	import FeaturedNews from '$lib/components/exchanges/FeaturedNews.svelte';
 	import AboutCard from '$lib/components/exchanges/AboutCard.svelte';
 	import RelatedExchanges from '$lib/components/exchanges/RelatedExchanges.svelte';
@@ -69,7 +69,7 @@
 			</div>
 
 			<div class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-				<ViewMore
+				<ViewMoreText
 					text="GT Bank is a leading financial institution in Nigeria, known for its innovative banking
 								solutions and commitment to customer satisfaction. Established in 1990, GT Bank has
 								grown to become one of the largest banks in Africa, offering a wide range of services
