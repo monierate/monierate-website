@@ -96,11 +96,11 @@
 				{/if}
 			</div>
 
-			{#if relatedChangers}
+			<!-- {#if relatedChangers}
 				<div class="md:px-6 space-y-5">
 					<RelatedExchanges exchanges={relatedChangers} />
 				</div>
-			{/if}
+			{/if} -->
 
 			<div class="md:px-6 space-y-3">
 				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Disclaimer</h3>
