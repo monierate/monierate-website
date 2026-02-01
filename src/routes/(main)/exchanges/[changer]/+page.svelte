@@ -14,7 +14,21 @@
 </script>
 
 <svelte:head>
-	<title>{changer.name} Exchange Rate</title>
+	<title>{changer.name} | Monierate</title>
+
+	<meta
+		name="description"
+		content={`${changer.name} on Monierate. Learn about ${changer.name}, view supported exchange pairs, and see market prices updated in real time.`}
+	/>
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content={`${changer.name} | Monierate`} />
+	<meta
+		property="og:description"
+		content={`Explore ${changer.name} on Monierate. Get information about the exchanger, available pairs, and live market prices in one place.`}
+	/>
+	<meta property="og:url" content={`https://monierate.com/exchanges/${changer.slug}`} />
+	<meta property="og:image" content="https://monierate.com/monierate-og-image.png" />
 </svelte:head>
 
 <!-- <AdBanner name="footer" /> -->
