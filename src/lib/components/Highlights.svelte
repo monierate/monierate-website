@@ -83,6 +83,7 @@
 				highlightType="auto"
 				title="🔥 New Listing"
 				currency={currency.symbol || currency.code}
+				currencyCode={currency.code}
 			/>
 		{/if}
 
@@ -94,6 +95,7 @@
 				title="🔥 Best Buy Rate"
 				link="/buy/usd-with-ngn-best-buying-rate"
 				currency={currency.symbol || currency.code}
+				currencyCode={currency.code}
 			/>
 		{/if}
 
@@ -105,6 +107,7 @@
 				title="🔥 Best Sell Rate"
 				link="/sell/usd-get-ngn-best-selling-rate"
 				currency={currency.symbol || currency.code}
+				currencyCode={currency.code}
 			/>
 		{/if}
 
@@ -116,6 +119,7 @@
 				title="🔥 Best Sending Rate"
 				link="/send/usd-to-ng-best-rate"
 				currency={currency.symbol || currency.code}
+				currencyCode={currency.code}
 			/>
 		{/if}
 
@@ -128,6 +132,7 @@
 				link="/card/usd-ngn-best-funding-rate"
 				mobileOnly={true}
 				currency={currency.symbol || currency.code}
+				currencyCode={currency.code}
 			/>
 		{/if}
 	</div>
