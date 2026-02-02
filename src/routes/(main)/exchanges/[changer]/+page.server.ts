@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 		getJson<any>(fetch, `/api/changer/get_similar_changers?code=${encodeURIComponent(changer)}`)
 	]);
 
-	if (!changerResult) {
+	if (!changerResult || Object.entries(changerResult).length <= 0) {
 		throw error(404, 'Changer not found');
 	}
 
