@@ -42,6 +42,7 @@
 	"dependencies": {
 		"@multiavatar/multiavatar": "^1.0.7",
 		"buffer": "^6.0.3",
+		"chart.js": "^4.5.0",
 		"choices.js": "^10.2.0",
 		"currency.js": "^2.0.4",
 		"date-and-time": "^3.0.2",
