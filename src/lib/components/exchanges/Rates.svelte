@@ -49,7 +49,7 @@
 								)}&To=ngn"
 							>
 								<img
-									src={`https://wise.com/public-resources/assets/flags/rectangle/${pair.pair_code.replace('ngn', '')}.png`}
+									src={`/icons/currencies/${pair.pair_code.replace('ngn', '')}.png`}
 									class="w-5 h-5 rounded-full object-fit"
 									alt={pair.pair_code}
 								/>
