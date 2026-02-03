@@ -106,7 +106,7 @@
 				{#if changer.featured_publications && changer.featured_publications.length > 0}
 					<FeaturedPublications posts={changer.featured_publications} />
 				{:else}
-					<div class="text-center p-16">There's no featured publications for {changer.name}</div>
+					<div class="text-center p-16 bg-white dark:bg-gray-900 rounded-lg shadow-sm">There's no featured publications for {changer.name}</div>
 				{/if}
 			</div>
 
