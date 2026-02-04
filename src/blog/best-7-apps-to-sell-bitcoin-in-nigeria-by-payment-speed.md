@@ -36,7 +36,7 @@ Well, you don’t need to test all of them yourself. I’ve done research on the
 
 Mavapay is widely regarded as the fastest app to sell Bitcoin in Nigeria. It is built for users who prioritise instant [BTC and SAT to Naira](https://mavapay.money/) payouts.
 
-Unlike P2P platforms, Mavapay a fully automated conversion system. There are no buyers, negotiations, or waiting periods involved. With it supports for Lightning Network, payouts often arrive within 30 seconds of the sale.
+Unlike P2P platforms, Mavapay is a fully automated conversion system. There are no buyers, negotiations, or waiting periods involved. With it support for Lightning Network, payouts often arrive within 30 seconds of the sale.
 
 The platform is designed for Nigerians and broader African users. Its interface is simple, fast, and reliability focused. For transaction speed, [Mavapay](https://monierate.com/exchanges/mavapay) ranks first in my list.
 
