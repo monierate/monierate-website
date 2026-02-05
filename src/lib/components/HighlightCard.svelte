@@ -23,6 +23,7 @@
 	export let title: string = 'Highlight';
 	export let link: string = '';
 	export let mobileOnly: boolean = false;
+	export let currencyCode: string = 'usd';
 </script>
 
 {#if highlightData && highlightData.length}
@@ -44,7 +45,7 @@
 			{#each highlightData as { rate, changer }}
 				<li class="flex justify-between text-sm text-gray-800 dark:text-gray-200 mb-2 text-nowrap">
 					<a
-						href={`/converter/${rate.changer_code}?Amount=1&From=usd&To=ngn`}
+						href={`/converter/${rate.changer_code}?Amount=1&From=${currencyCode.toLowerCase()}&To=ngn`}
 						class="flex items-center"
 						title={`${changer.name} dollar to naira rate.`}
 					>

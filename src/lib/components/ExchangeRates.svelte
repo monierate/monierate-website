@@ -226,7 +226,7 @@
 						<!-- Name with icon and link -->
 						<td class="px-4 py-3 text-left dark:text-gray-200 font-bold md:text-[17px]">
 							<a
-								href={`/converter/${rate.changer_code}?Amount=1&From=usd&To=ngn`}
+								href={`/converter/${rate.changer_code}?Amount=1&From=${base.toLowerCase()}&To=${quote.toLowerCase()}`}
 								class="flex items-center gap-2 text-gray-700 dark:text-gray-200"
 							>
 								<picture class="h-6 w-6 rounded-full overflow-hidden">

@@ -12,6 +12,7 @@
 	// Get server-provided banner index from data (if available)
 	export let bannerIndexes: any = {};
 	export let isMobile: boolean = false;
+	export let cover: boolean = false;
 
 	let banners: any[] = [];
 	let current = 0;
@@ -58,7 +59,7 @@
 <div class={mobileOnly ? 'md:hidden' : ''}>
 	{#if banners.length > 0}
 		{#key current}
-			<div class="container {banners[current].mobile_only ? 'md:hidden' : ''} text-center">
+			<div class="container {banners[current].mobile_only ? 'md:hidden' : ''} text-center {cover ? 'p-0 m-0' : ''}">
 				{#if banners[current].url}
 					<a
 						href={banners[current].url}

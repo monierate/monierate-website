@@ -52,7 +52,7 @@
 		<span class="mr-2 -mb-1">
 			<span
 				class="inline-block w-5 h-5 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin"
-			/>
+			></span>
 		</span>
 	{/if}
 	<label class="inline-flex items-center cursor-pointer">

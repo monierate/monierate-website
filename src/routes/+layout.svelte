@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import { partytownSnippet } from '@builder.io/partytown/integration';
+	// import { partytownSnippet } from '@builder.io/partytown/integration';
 </script>
 
 <svelte:head>

@@ -499,16 +499,40 @@ export function setUrlParam(key: string, value: string | number) {
  * Copies text to clipboard
  */
 export async function copyToClipboard(text: string): Promise<boolean> {
-  if (typeof navigator === "undefined" || !navigator.clipboard) {
-    console.warn("Clipboard API not available");
-    return false;
-  }
+	if (typeof navigator === 'undefined' || !navigator.clipboard) {
+		console.warn('Clipboard API not available');
+		return false;
+	}
 
+	try {
+		await navigator.clipboard.writeText(text);
+		return true;
+	} catch (err) {
+		console.error('Failed to copy text:', err);
+		return false;
+	}
+}
+
+export function extractBaseDomain(url: string): string | null {
   try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch (err) {
-    console.error("Failed to copy text:", err);
-    return false;
+    const normalizedUrl =
+      url.startsWith('http://') || url.startsWith('https://')
+        ? url
+        : `https://${url}`;
+
+    const hostname = new URL(normalizedUrl).hostname;
+
+    const parts = hostname.split('.');
+
+    // Handle domains like example.com
+    if (parts.length <= 2) {
+      return hostname;
+    }
+
+    // Default: take last two parts
+    return parts.slice(-2).join('.');
+  } catch {
+    return null;
   }
 }
+

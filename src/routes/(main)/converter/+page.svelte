@@ -573,10 +573,10 @@
 
 				<span class="block mt-12 mb-4">
 					<a
-						href="https://tinyurl.com/koyn-native-button-1"
-						class="block button buy font-bold w-full md:inline-block md:w-auto mr-4"
+						href="https://tinyurl.com/mavapay-monierate-link"
+						class="block button buy font-bold w-full md:inline-block md:w-auto"
 					>
-						Sell Crypto on Koyn
+						Get the best rate on Mavapay
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"

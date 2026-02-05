@@ -186,24 +186,84 @@
 </div>
 
 <div class="mb-24">
-	<div class="w-[100%] md:w-[100%] px-8 pb-4 mx-auto mb-4 text-center">
-		<h1 class="text-2xl md:text-4xl">
-			<span class="block font-black mb-4 text-xl">{changer.name} Converter:</span>
-			{Money.format(convertAmount)}
-			{convertFrom} to {convertTo} on {changer.name}
-		</h1>
-		<span
-			class="inline-block bg-transparent border border-black rounded-full w-[32px] h-[32px] mt-4"
-		>
-			<img
-				src="/icons/{changer.icon}"
-				width="30px"
-				height="30px"
-				class="rounded-full"
-				alt="{changer.name} icon"
-			/>
-		</span>
-	</div>
+    <div class="w-[100%] md:w-[100%] px-8 pb-4 mx-auto mb-4 text-center">
+        <h1 class="text-2xl md:text-4xl">
+            <span class="block font-black mb-4 text-xl">{changer.name} Converter:</span> {Money.format(convertAmount)} {convertFrom} to {convertTo} on {changer.name}
+        </h1>
+        <span class="inline-block bg-transparent border border-black rounded-full w-[32px] h-[32px] mt-4">
+            <img src="/icons/{changer.icon}" width="30px" height="30px" class="rounded-full" alt="{changer.name} icon">
+        </span>
+    </div>
+    
+    <div id="changer-rate-wrapper" class="w-[95%] md:w-[70%] bg-white dark:bg-gray-900 shadow-lg rounded-lg px-8 py-4 mx-auto">
+        <div class="flex justify-center item-center">
+            <div class="w-full">
+                <div class="block md:flex md:justify-between md:items-center">
+                    <span class="block md:w-[30%]">
+                        <label class="label" for="field-convert-amount">Amount</label>
+                        <input type="number" id="field-convert-amount" class="input" bind:value={convertAmount} on:input={() => convertNow()}>
+                    </span>
+                    <span class="block md:w-[30%]">
+                        <label class="label" for="field-convert-from">From</label>
+                        <select id="field-convert-from" class="select" bind:value={convertFrom} on:change={convertNow}>
+                            {#each Object.entries(currencies) as [index, currency]}
+                                <option value="{currency.code.toUpperCase()}">{currency.code.toUpperCase()} - {currency.name}</option>
+                            {/each}
+                        </select>
+                    </span>
+                    <span class="block md:w-[30%]">
+                        <label class="label" for="field-convert-to">To</label>
+                        <select id="field-convert-to" class="select" bind:value={convertTo} on:change={convertNow}>
+                            {#each Object.entries(currencies) as [index, currency]}
+                                <option value="{currency.code.toUpperCase()}">{currency.code.toUpperCase()} - {currency.name}</option>
+                            {/each}
+                        </select>
+                    </span>
+                </div>
+                <div id="convert-result" class="mt-8 mb-8">
+                    <span class="block font-semibold text-lg text-gray-600 dark:text-gray-300 mb-2">
+                        {Money.format(convertAmount)} {currencyFrom.name} =
+                    </span>
+                    <span class="block font-bold text-3xl mb-2 dark:text-gray-200">
+                        {Money.format(convertResult.conversion)} {currencyTo.name}
+                    </span>
+                    <span class="block text-gray-500 dark:text-gray-400">
+                        1 {convertFrom} = {Money.format(convertResult.rate)} {convertTo}
+                    </span>
+                    <span class="block text-gray-500 dark:text-gray-400">
+                        1 {convertTo} = {Money.format(convertResult.rateInverse)} {convertFrom}
+                    </span>
+                </div>
+                <div class="block md:flex md:justify-between md:items-center">
+                    <span class="flex justify-between items-center bg-accent-100 md:w-[40%] border dark:border-gray-700 rounded-lg p-4 mb-8 md:mb-0">
+                        <span class="inline-block mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                            </svg>                          
+                        </span>
+                        <span class="text-gray-600 dark:text-gray-300 text-sm">
+                            We use the exchange rate from {changer.name} for this conversion. This is for informational purposes only.
+                        </span>
+                    </span>
+                    <span class="block text-sm md:w-[50%] p-4">
+                        {currencyFrom.name} to {currencyTo.name} conversion on {changer.name} — Last updated {new Date(changer_rate.updated_at)}
+                    </span>
+                </div>
+                
+                <span class="block mt-12 mb-4">
+                    <a href="{changer.link}?utm_source=monierate&utm_medium=website&utm_campaign=monierate" class="block button w-full md:inline-block md:w-auto mr-4 mb-4 ">
+                        Open {changer.name}                   
+                    </a>
+                    <a href="https://tinyurl.com/mavapay-monierate-link" class="block button buy font-bold w-full md:inline-block md:w-auto">
+                        Get the best rate on Mavapay
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-4 h-4 ml-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg> 
+                    </a>
+                 </span>
+            </div> 
+        </div>
+    </div>
 
 	<div
 		id="changer-rate-wrapper"
