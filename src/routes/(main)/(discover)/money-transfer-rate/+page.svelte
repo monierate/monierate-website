@@ -7,6 +7,10 @@
 	import MainFaq from '$lib/components/MainFAQ.svelte';
 	import Highlights from '$lib/components/Highlights.svelte';
 	import ExchangeRates from '$lib/components/ExchangeRates.svelte';
+	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { onDestroy } from 'svelte';
+	import { browser } from '$app/environment';
 
 	interface Changer {
 		code: string;
@@ -18,12 +22,15 @@
 	export let data;
 	const currencySymbols = data.currencySymbols as any;
 	const currencies = data.mergedCurrencies as any;
-	const pairs = data.pairs || {};
-	$: currency = data.currency;
-	$: getCurrencySymbol = currencySymbols[currency] || currency;
 
-	// Reactive pair based on currency
-	$: pair = pairs.find((pair: any) => pair.code === `${currency.toLowerCase()}ngn`);
+	// Core reactive values
+	$: pair = data.pair ?? {};
+	$: highlights = data.highlights;
+	$: base = data.base;
+	$: quote = data.quote;
+
+	$: baseSymbol = currencySymbols[base] ?? base;
+	$: quoteSymbol = currencySymbols[quote] ?? quote;
 
 	// Reactive rates from selected pair
 	$: rates = pair?.changers || [];
@@ -87,88 +94,78 @@
 		filteredRates = filtered;
 	};
 
-	let highlights = data.highlights;
-	let highlightsLoading: boolean = false;
-	const getHighlights = async (pair: string): Promise<any> => {
-		try {
-			highlightsLoading = true;
-			const res = await fetch('/api/highlights?max=5&pair=' + pair);
-			if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-			return await res.json();
-		} catch (err) {
-			console.error('getHighlights error:', err);
-			return [];
-		} finally {
-			highlightsLoading = false;
-		}
-	};
+	// Sync default quote currency
+	const unsubscribe = defaultCurrencyStore.subscribe((value) => {
+		if (!browser || !quote || value === quote) return;
+		handleQuoteCurrencyChange(value);
+	});
 
-	const handleFilterByCurrency = async (currency_: string) => {
-		currency = currency_;
-		highlights = await getHighlights(`${currency.toLowerCase()}ngn`);
-	};
+	onDestroy(unsubscribe);
 </script>
 
 <svelte:head>
-	<title
-		>Send {currencies[currency] || currency} to Nigeria – Fast Money Transfers | Monierate</title
-	>
+	<title>Send {currencies[base] || base} to Nigeria – Fast Money Transfers | Monierate</title>
 
 	<meta
 		name="description"
-		content="Send {currencies[currency] ||
-			currency} to Naira securely and instantly. Compare real-time transfer rates, track conversions, and get the best payout with Monierate's money transfer tools."
+		content="Send {currencies[base] || base} to {currencies[quote] ||
+			quote} securely and instantly. Compare real-time transfer rates, track conversions, and get the best payout with Monierate's money transfer tools."
 	/>
 
 	<meta property="og:type" content="website" />
 	<meta
 		property="og:title"
-		content="Send {currencies[currency] || currency} to Naira – Money Transfer Rates | Monierate"
+		content="Send {currencies[base] || base} to {currencies[quote] ||
+			quote} – Money Transfer Rates | Monierate"
 	/>
 	<meta
 		property="og:description"
-		content="Transfer {currencies[currency] ||
-			currency} to Naira with transparent, real-time rates. Compare providers, monitor fees, and get alerts to maximize value on every transfer."
+		content="Transfer {currencies[base] || base} to {currencies[quote] ||
+			quote} with transparent, real-time rates. Compare providers, monitor fees, and get alerts to maximize value on every transfer."
 	/>
 	<meta property="og:url" content="https://monierate.com" />
-	<meta property="og:image" content="https://monierate.com/media/og-images/money-transfer-rate.webp" />
+	<meta
+		property="og:image"
+		content="https://monierate.com/media/og-images/money-transfer-rate.webp"
+	/>
 </svelte:head>
 
 <!-- partner -->
 <div class="bg-white dark:bg-gray-800">
-	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile}/>
+	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile} />
 </div>
 
 <div class="container px-0">
-	{#if !data.isValidCurrency}
+	{#if !data.isValidBase}
 		<Notice
-			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {currency.toUpperCase()}.</Notice
+			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {base.toUpperCase()}.</Notice
 		>
 	{/if}
 
 	<ExchangeRateText
-		title={`${currencies[currency] || currency} to Naira rates for sending to Nigeria`}
+		title={`${currencies[base] || base} to Naira ${currencies[quote] || quote} for sending to Nigeria`}
 		data={{
-			currencies: currencies,
-			currency: { name: currency, symbol: getCurrencySymbol },
-			rate: { now: pair.price.current, last: pair.price_30d }
+			currencies,
+			base: { name: base, symbol: baseSymbol },
+			quote: { name: quote, symbol: quoteSymbol },
+			rate: { now: pair.price?.current, last: pair.price_30d }
 		}}
 	/>
 
 	<Highlights
-		currency={{ code: currency, symbol: getCurrencySymbol }}
+		base={{ code: base, symbol: baseSymbol }}
+		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
-		inProgress={highlightsLoading}
 	/>
 </div>
 
 <div class="container px-0 mb-4">
 	<ExchangeFilter
 		onSearch={handleSearch}
-		selectedCurrency={currency}
-		onChangeCurrency={handleFilterByCurrency}
+		selectedCurrency={base}
+		onChangeCurrency={handleBaseCurrencyChange}
 		selectedCategory="/money-transfer-rate"
 	/>
 </div>
@@ -179,8 +176,10 @@
 			data={{
 				rates: filteredRates,
 				providers,
-				currency,
-				currencySymbols
+				base,
+				baseSymbol,
+				quote,
+				quoteSymbol
 			}}
 			bind:currentPage={data.page}
 		/>
