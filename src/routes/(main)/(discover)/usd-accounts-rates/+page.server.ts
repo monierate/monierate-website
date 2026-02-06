@@ -1,65 +1,64 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { get_changers } from '$lib/server/changer.service';
+
 import currencySymbols from '$data/currency-symbols.json';
 import currencies from '$data/currencies.json';
 
+import { getAllChangers } from '$lib/services/changer.service';
+import { getPair } from '$lib/services/pair.service';
+import { getHighlights } from '$lib/services/highlight.service';
+import { normalizeCurrency } from '$lib/functions';
+
 type CurrencyMap = Record<string, string>;
+type Provider = Awaited<ReturnType<typeof getAllChangers>>[number];
+type ProviderMap = Record<string, Provider>;
 
-const getHighlights = async (fetch: typeof globalThis.fetch, pair: string): Promise<any> => {
+const DEFAULT_BASE = 'USD';
+const DEFAULT_QUOTE = 'NGN';
+
+export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depends }) => {
 	try {
-		const res = await fetch('/api/highlights?max=5&pair=' + pair);
-		if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-		return await res.json();
-	} catch (err) {
-		console.error('getHighlights error:', err);
-		return [];
-	}
-};
+		const { VALID_CURRENCIES, SUPPORTED_QUOTE_CURRENCIES, defaultCurrency } = await parent();
 
-export const load: PageServerLoad = async ({ fetch, url, parent, cookies }) => {
-	try {
-		const { VALID_CURRENCIES } = await parent();
-		const page = Number(url.searchParams.get('page') || '1');
-		const rawCurrency = (url.searchParams.get('currency') ?? 'USD').toUpperCase();
-		const isValidCurrency = (VALID_CURRENCIES as readonly string[]).includes(rawCurrency);
-		const currency = isValidCurrency ? (rawCurrency as string) : 'USD';
-		const pair = `${currency}NGN`.toLowerCase();
+		const page = Number(url.searchParams.get('page')) || 1;
 
-		let showHighlights: boolean = true;
-		if (cookies.get('showHighlights')) {
-			showHighlights = cookies.get('showHighlights') === 'true';
-		}
+		const base = normalizeCurrency(url.searchParams.get('base'), VALID_CURRENCIES, DEFAULT_BASE);
 
-		// Fetch changers and rate data in parallel
-		const [rawProviders, highlights] = await Promise.all([
-			get_changers(),
-			getHighlights(fetch, pair)
+		const quote = normalizeCurrency(
+			url.searchParams.get('quote') ?? defaultCurrency,
+			SUPPORTED_QUOTE_CURRENCIES,
+			DEFAULT_QUOTE
+		);
+
+		depends('param:base');
+		depends('param:quote');
+
+		const pairCode = `${base.value}${quote.value}`.toLowerCase();
+		const showHighlights = cookies.get('showHighlights') !== 'false';
+
+		const [rawProviders, pair, highlights] = await Promise.all([
+			getAllChangers(fetch),
+			getPair(fetch, pairCode),
+			getHighlights(fetch, pairCode)
 		]);
 
-		if (!rawProviders || rawProviders.length === 0) {
+		if (!rawProviders?.length) {
 			throw error(500, {
 				message: 'Unable to fetch platforms data, try again in a few minutes.'
 			});
 		}
 
-		const availablePairs: any[] = [];
+		const providers: ProviderMap = {};
+		const availablePairs = new Set<string>();
 
-		// Transform providers into key-value pair for easy lookup
-		const providers: Record<string, (typeof rawProviders)[0]> = {};
 		for (const provider of rawProviders) {
-			if (provider.changer_tags && provider.changer_tags.includes('account')) {
-				providers[provider.code] = provider;
-				try {
-					if (provider.pairs) {
-						Object.keys(provider.pairs).forEach((pair) => {
-							if (!availablePairs.includes(pair)) {
-								availablePairs.push(pair);
-							}
-						});
-					}
-				} catch (err) {
-					console.error(err);
+			if (!provider.changer_tags?.includes('account')) continue;
+
+			providers[provider.code] = provider;
+
+			if (provider.pairs) {
+				for (const pair of Object.keys(provider.pairs)) {
+					availablePairs.add(pair);
 				}
 			}
 		}
@@ -69,19 +68,22 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies }) => {
 			...currencies.fiat
 		};
 
-		// Return everything to page
 		return {
-			providers,
 			page,
-			currency,
+			providers,
+			base: base.value,
+			quote: quote.value,
+			isValidBase: base.isValid,
+			isValidQuote: quote.isValid,
 			currencySymbols,
-			isValidCurrency,
 			mergedCurrencies,
 			highlights,
-			showHighlights
+			showHighlights,
+			pair
 		};
-	} catch (err: any) {
+	} catch (err) {
 		console.error('Page load error:', err);
+
 		throw error(500, {
 			message: 'Unable to display data, try again in a few minutes.'
 		});

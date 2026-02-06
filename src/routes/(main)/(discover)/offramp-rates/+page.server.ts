@@ -5,6 +5,7 @@ import currencies from '$data/currencies.json';
 import { getAllChangers } from '$lib/services/changer.service';
 import { getHighlights } from '$lib/services/highlight.service';
 import { getPair } from '$lib/services/pair.service';
+import { normalizeCurrency } from '$lib/functions';
 
 type CurrencyMap = Record<string, string>;
 type Provider = Awaited<ReturnType<typeof getAllChangers>>[number];
@@ -12,17 +13,9 @@ type Provider = Awaited<ReturnType<typeof getAllChangers>>[number];
 const DEFAULT_BASE = 'USD';
 const DEFAULT_QUOTE = 'NGN';
 
-function normalizeCurrency(raw: string | null, valid: readonly string[], fallback: string) {
-	const value = (raw ?? fallback).toUpperCase();
-	return {
-		value: valid.includes(value) ? value : fallback,
-		isValid: valid.includes(value)
-	};
-}
-
 export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depends }) => {
 	try {
-		const { VALID_CURRENCIES, SUPPORTED_QUOTE_CURRENCIES } = await parent();
+		const { VALID_CURRENCIES, SUPPORTED_QUOTE_CURRENCIES, defaultCurrency } = await parent();
 
 		const page = Number(url.searchParams.get('page') ?? 1);
 
@@ -33,15 +26,13 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		);
 
 		const quoteParam = normalizeCurrency(
-			url.searchParams.get('quote'),
+			url.searchParams.get('quote') ?? defaultCurrency,
 			SUPPORTED_QUOTE_CURRENCIES,
 			DEFAULT_QUOTE
 		);
 
 		depends('param:base');
 		depends('param:quote');
-
-		console.log(quoteParam.value, baseParam.value);
 
 		const pairCode = `${baseParam.value}${quoteParam.value}`.toLowerCase();
 

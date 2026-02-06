@@ -1,5 +1,7 @@
 <script lang="ts">
-	/** @type {import('./$types').PageData} */
+	import { onDestroy } from 'svelte';
+	import { browser } from '$app/environment';
+
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
 	import Notice from '$lib/components/Notice.svelte';
@@ -8,6 +10,12 @@
 	import Highlights from '$lib/components/Highlights.svelte';
 	import Rates from '$lib/components/Rates.svelte';
 
+	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url';
+
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+
+	import type { PageData } from './$types';
+
 	interface Changer {
 		code: string;
 		name: string;
@@ -15,98 +23,60 @@
 		pairs: Record<string, unknown>;
 	}
 
-	export let data;
+	export let data: PageData;
+
 	const currencySymbols = data.currencySymbols as any;
 	const currencies = data.mergedCurrencies as any;
-	const pairs = data.pairs || {};
-	$: currency = data.currency;
-	$: getCurrencySymbol = currencySymbols[currency] || currency;
 
-	// Reactive pair based on currency
-	$: pair = pairs.find((pair: any) => pair.code === `${currency.toLowerCase()}ngn`);
+	// Core reactive values
+	$: pair = data.pair ?? {};
+	$: highlights = data.highlights;
+	$: base = data.base;
+	$: quote = data.quote;
 
-	// Reactive rates from selected pair
-	$: rates = pair?.changers || [];
+	$: baseSymbol = currencySymbols[base] ?? base;
+	$: quoteSymbol = currencySymbols[quote] ?? quote;
 
-	// Reactive provider lookup
-	const providers: Record<string, Changer> = data.providers || {};
-	let total = 0;
-	$: if (rates) {
-		total = Object.entries(rates).length;
-	}
+	// Providers lookup
+	const providers: Record<string, Changer> = data.providers ?? {};
 
-	// Sort and filter rates reactively
-	$: sortedFilteredRates = (() => {
-		if (!rates) return [];
+	// Rates from pair
+	$: rates = pair?.changers ?? [];
 
-		// Separate non-zero and zero `price_buy` rates
-		const nonZeroRates = rates.filter((rate: any) => rate.price_buy > 0);
-		const zeroRates = rates.filter((rate: any) => rate.price_buy <= 0);
+	// Sorted rates (non-zero buys first)
+	$: sortedRates = (() => {
+		if (!rates.length) return [];
 
-		// Sort non-zero in ascending price_buy
-		nonZeroRates.sort((a: any, b: any) => a.price_buy - b.price_buy);
+		const nonZero = rates.filter((r: any) => r.price_buy > 0);
+		const zero = rates.filter((r: any) => r.price_buy <= 0);
 
-		// Sort zero rates in descending price_sell
-		zeroRates.sort((a: any, b: any) => b.price_sell - a.price_sell);
+		nonZero.sort((a: any, b: any) => a.price_buy - b.price_buy);
+		zero.sort((a: any, b: any) => b.price_sell - a.price_sell);
 
-		// Combine both lists
-		return nonZeroRates.concat(zeroRates);
+		return [...nonZero, ...zero];
 	})();
 
-	// Search filtering
+	// Search
 	let searchTerm = '';
-	$: filteredRates = sortedFilteredRates.filter((rate: any) => {
-		const providerName = providers[rate.changer_code]?.name || '';
-		return (
-			providers[rate.changer_code] && providerName.toLowerCase().includes(searchTerm.toLowerCase())
-		);
-	});
 
-	let originalFilteredRates: any[] | null = null;
+	$: filteredRates = !searchTerm
+		? sortedRates
+		: sortedRates.filter((rate) => {
+				const name = providers[rate.changer_code]?.name;
+				return name?.toLowerCase().includes(searchTerm);
+			});
 
 	const handleSearch = (e: Event) => {
-		const searchTerm = (e.target as HTMLInputElement).value.toLowerCase().trim();
-
-		// Backup the original list once
-		if (!originalFilteredRates) {
-			originalFilteredRates = [...filteredRates];
-		}
-
-		// If empty, restore full list
-		if (!searchTerm) {
-			filteredRates = originalFilteredRates;
-			return;
-		}
-
-		// Filter using provider name
-		const filtered = originalFilteredRates.filter((item: any) => {
-			const provider = providers[item.changer_code];
-			return provider && provider.name && provider.name.toLowerCase().includes(searchTerm);
-		});
-
-		filteredRates = filtered;
+		searchTerm = (e.target as HTMLInputElement).value.toLowerCase().trim();
 	};
 
-	let highlights = data.highlights;
-	let highlightsLoading: boolean = false;
-	const getHighlights = async (pair: string): Promise<any> => {
-		try {
-			highlightsLoading = true;
-			const res = await fetch('/api/highlights?max=5&pair=' + pair);
-			if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-			return await res.json();
-		} catch (err) {
-			console.error('getHighlights error:', err);
-			return [];
-		} finally {
-			highlightsLoading = false;
-		}
-	};
+	// Sync default quote currency
+	const unsubscribe = defaultCurrencyStore.subscribe((value) => {
+		if (!browser || !quote || value === quote) return;
+		handleQuoteCurrencyChange(value);
+	});
 
-	const handleFilterByCurrency = async (currency_: string) => {
-		currency = currency_;
-		highlights = await getHighlights(`${currency.toLowerCase()}ngn`);
-	};
+	onDestroy(unsubscribe);
 </script>
 
 <svelte:head>
@@ -118,68 +88,72 @@
 	/>
 
 	<meta property="og:type" content="website" />
-
 	<meta
 		property="og:title"
 		content="USD Accounts Providers - Best Rates & Secure Online Payments | Monierate"
 	/>
-
 	<meta
 		property="og:description"
 		content="Discover reliable USD account providers with Monierate. Compare offers, track real-time updates, and enjoy safe and seamless global transactions."
 	/>
-
 	<meta property="og:url" content="https://monierate.com" />
-	<meta property="og:image" content="https://monierate.com/media/og-images/usd-accounts-rates.webp" />
+	<meta
+		property="og:image"
+		content="https://monierate.com/media/og-images/usd-accounts-rates.webp"
+	/>
 </svelte:head>
 
-<!-- partner -->
+<!-- Partner banner -->
 <div class="bg-white dark:bg-gray-800">
 	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile} />
 </div>
 
 <div class="container px-0">
-	{#if !data.isValidCurrency}
-		<Notice
-			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {currency.toUpperCase()}.</Notice
-		>
+	{#if !data.isValidBase}
+		<Notice>
+			Looks like the currency you entered isn't valid. We've reset it to
+			{base.toUpperCase()}.
+		</Notice>
 	{/if}
 
 	<ExchangeRateText
-		title={`${currencies[currency] || currency} to Naira rates for USD Accounts Providers`}
+		title={`${currencies[base] ?? base} to Naira rates for USD Accounts Providers`}
 		data={{
-			currencies: currencies,
-			currency: { name: currency, symbol: getCurrencySymbol },
-			rate: { now: pair.price.current, last: pair.price_30d }
+			currencies,
+			base: { name: base, symbol: baseSymbol },
+			quote: { name: quote, symbol: quoteSymbol },
+			rate: { now: pair.price?.current, last: pair.price_30d }
 		}}
 	/>
 
 	<Highlights
-		currency={{ code: currency, symbol: getCurrencySymbol }}
+		base={{ code: base, symbol: baseSymbol }}
+		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
-		inProgress={highlightsLoading}
 	/>
 </div>
 
 <div class="container px-0 mb-4">
 	<ExchangeFilter
 		onSearch={handleSearch}
-		selectedCurrency={currency}
-		onChangeCurrency={handleFilterByCurrency}
+		selectedCurrency={base}
+		onChangeCurrency={handleBaseCurrencyChange}
 		selectedCategory="/usd-accounts-rates"
 	/>
 </div>
 
 <main>
-	{#if filteredRates && filteredRates.length > 0}
+	{#if filteredRates.length}
 		<Rates
 			data={{
 				rates: filteredRates,
 				providers,
-				currency,
-				currencySymbols
+				base,
+				baseSymbol,
+				quote,
+				quoteSymbol
 			}}
 			bind:currentPage={data.page}
 		/>
