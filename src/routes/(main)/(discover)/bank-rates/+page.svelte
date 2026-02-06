@@ -7,6 +7,10 @@
 	import MainFaq from '$lib/components/MainFAQ.svelte';
 	import Highlights from '$lib/components/Highlights.svelte';
 	import ExchangeRates from '$lib/components/ExchangeRates.svelte';
+	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { browser } from '$app/environment';
+	import { onDestroy } from 'svelte';
 
 	interface Changer {
 		code: string;
@@ -18,12 +22,15 @@
 	export let data;
 	const currencySymbols = data.currencySymbols as any;
 	const currencies = data.mergedCurrencies as any;
-	const pairs = data.pairs || {};
-	$: currency = data.currency;
-	$: getCurrencySymbol = currencySymbols[currency] || currency;
 
-	// Reactive pair based on currency
-	$: pair = pairs.find((pair: any) => pair.code === `${currency.toLowerCase()}ngn`);
+	// Core reactive values
+	$: pair = data.pair ?? {};
+	$: highlights = data.highlights;
+	$: base = data.base;
+	$: quote = data.quote;
+
+	$: baseSymbol = currencySymbols[base] ?? base;
+	$: quoteSymbol = currencySymbols[quote] ?? quote;
 
 	// Reactive rates from selected pair
 	$: rates = pair?.changers || [];
@@ -57,9 +64,10 @@
 	let searchTerm = '';
 	$: filteredRates = sortedFilteredRates.filter((rate: any) => {
 		const providerName = providers[rate.changer_code]?.name || '';
-		return providers[rate.changer_code] && providerName.toLowerCase().includes(searchTerm.toLowerCase());
+		return (
+			providers[rate.changer_code] && providerName.toLowerCase().includes(searchTerm.toLowerCase())
+		);
 	});
-
 
 	let originalFilteredRates: any[] | null = null;
 
@@ -86,48 +94,38 @@
 		filteredRates = filtered;
 	};
 
-	let highlights = data.highlights;
-	let highlightsLoading: boolean = false;
-	const getHighlights = async (pair: string): Promise<any> => {
-		try {
-			highlightsLoading = true;
-			const res = await fetch('/api/highlights?max=5&pair=' + pair);
-			if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-			return await res.json();
-		} catch (err) {
-			console.error('getHighlights error:', err);
-			return [];
-		} finally {
-			highlightsLoading = false;
-		}
-	};
+	// Sync default quote currency
+	const unsubscribe = defaultCurrencyStore.subscribe((value) => {
+		if (!browser || !quote || value === quote) return;
+		handleQuoteCurrencyChange(value);
+	});
 
-	const handleFilterByCurrency = async (currency_: string) => {
-		currency = currency_;
-		highlights = await getHighlights(`${currency.toLowerCase()}ngn`);
-	};
+	onDestroy(unsubscribe);
 </script>
 
 <svelte:head>
-	<title>{currencies[currency] || currency} to Naira Today - Bank Rates | Monierate</title>
+	<title
+		>{currencies[base] || base} to {currencies[quote] || quote} Today - Bank Rates | Monierate</title
+	>
 
 	<meta
 		name="description"
-		content="Check the latest {currencies[currency] ||
-			currency} to Naira exchange rates from top Nigerian banks. Compare rates, convert currencies, and track updates in real time with Monierate."
+		content="Check the latest {currencies[base] || base} to {currencies[quote] ||
+			quote} exchange rates from top banks. Compare rates, convert currencies, and track updates in real time with Monierate."
 	/>
 
 	<meta property="og:type" content="website" />
 
 	<meta
 		property="og:title"
-		content="{currencies[currency] || currency} to Naira - Live Bank Rates | Monierate"
+		content="{currencies[base] || base} to {currencies[quote] ||
+			quote} - Live Bank Rates | Monierate"
 	/>
 
 	<meta
 		property="og:description"
-		content="Get real-time {currencies[currency] ||
-			currency} to Naira exchange rates from Nigerian banks. Monitor bank and black market rates, convert dollars, and track crypto rates from Binance, Bybit, and more."
+		content="Get real-time {currencies[base] || base} to {currencies[quote] ||
+			quote} exchange rates from banks. Monitor bank and black market rates, convert dollars, and track crypto rates from Binance, Bybit, and more."
 	/>
 
 	<meta property="og:url" content="https://monierate.com" />
@@ -136,39 +134,40 @@
 
 <!-- partner -->
 <div class="bg-white dark:bg-gray-800">
-	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile}/>
+	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile} />
 </div>
 
 <div class="container px-0">
-	{#if !data.isValidCurrency}
+	{#if !data.isValidBase}
 		<Notice
-			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {currency.toUpperCase()}.</Notice
+			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {base.toUpperCase()}.</Notice
 		>
 	{/if}
 
 	<ExchangeRateText
-		title={`${currencies[currency] || currency} to Naira rates Across Banks`}
+		title={`${currencies[base] || base} to Naira rates Across Banks`}
 		data={{
-			currencies: currencies,
-			currency: { name: currency, symbol: getCurrencySymbol },
-			rate: { now: pair.price.current, last: pair.price_30d }
+			currencies,
+			base: { name: base, symbol: baseSymbol },
+			quote: { name: quote, symbol: quoteSymbol },
+			rate: { now: pair.price?.current, last: pair.price_30d }
 		}}
 	/>
 
 	<Highlights
-		currency={{ code: currency, symbol: getCurrencySymbol }}
+		base={{ code: base, symbol: baseSymbol }}
+		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
-		inProgress={highlightsLoading}
 	/>
 </div>
 
 <div class="container px-0 mb-4">
 	<ExchangeFilter
 		onSearch={handleSearch}
-		selectedCurrency={currency}
-		onChangeCurrency={handleFilterByCurrency}
+		selectedCurrency={base}
+		onChangeCurrency={handleBaseCurrencyChange}
 		selectedCategory="/bank-rates"
 	/>
 </div>
@@ -179,8 +178,10 @@
 			data={{
 				rates: filteredRates,
 				providers,
-				currency,
-				currencySymbols
+				base,
+				baseSymbol,
+				quote,
+				quoteSymbol
 			}}
 			bind:currentPage={data.page}
 		/>
