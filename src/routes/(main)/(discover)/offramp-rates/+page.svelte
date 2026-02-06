@@ -1,5 +1,4 @@
 <script lang="ts">
-	/** @type {import('./$types').PageData} */
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
 	import Notice from '$lib/components/Notice.svelte';
@@ -7,6 +6,10 @@
 	import MainFaq from '$lib/components/MainFAQ.svelte';
 	import Highlights from '$lib/components/Highlights.svelte';
 	import Rates from '$lib/components/Rates.svelte';
+	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { browser } from '$app/environment';
+	import { onDestroy } from 'svelte';
 
 	interface Changer {
 		code: string;
@@ -15,120 +18,95 @@
 		pairs: Record<string, unknown>;
 	}
 
-	export let data;
-	const currencySymbols = data.currencySymbols as any;
-	const currencies = data.mergedCurrencies as any;
-	const pairs = data.pairs || {};
-	$: currency = data.currency;
-	$: getCurrencySymbol = currencySymbols[currency] || currency;
-
-	// Reactive pair based on currency
-	$: pair = pairs.find((pair: any) => pair.code === `${currency.toLowerCase()}ngn`);
-
-	// Reactive rates from selected pair
-	$: rates = pair?.changers || [];
-
-	// Reactive provider lookup
-	const providers: Record<string, Changer> = data.providers || {};
-	let total = 0;
-	$: if (rates) {
-		total = Object.entries(rates).length;
+	interface Rate {
+		changer_code: string;
+		price_buy: number;
+		price_sell: number;
 	}
 
-	// Sort and filter rates reactively
-	$: sortedFilteredRates = (() => {
-		if (!rates) return [];
+	export let data;
 
-		// Separate non-zero and zero `price_buy` rates
-		const nonZeroRates = rates.filter((rate: any) => rate.price_buy > 0);
-		const zeroRates = rates.filter((rate: any) => rate.price_buy <= 0);
+	const currencySymbols = data.currencySymbols as Record<string, string>;
+	const currencies = data.mergedCurrencies as Record<string, string>;
+	const providers: Record<string, Changer> = data.providers || {};
 
-		// Sort non-zero in ascending price_buy
-		nonZeroRates.sort((a: any, b: any) => a.price_buy - b.price_buy);
+	$: base = data.base;
+	$: quote = data.quote;
+	$: pair = data.pair || {};
+	$: highlights = data.highlights;
 
-		// Sort zero rates in descending price_sell
-		zeroRates.sort((a: any, b: any) => b.price_sell - a.price_sell);
+	$: baseSymbol = currencySymbols[base] || base;
+	$: quoteSymbol = currencySymbols[quote] || quote;
 
-		// Combine both lists
-		return nonZeroRates.concat(zeroRates);
+	// Rates from selected pair
+	$: rates = (pair?.changers || []) as Rate[];
+
+	// Total providers
+	$: total = rates.length;
+
+	/**
+	 * Sort logic:
+	 * - Non-zero buy prices (ascending)
+	 * - Zero buy prices (descending sell)
+	 */
+	$: sortedRates = (() => {
+		if (!rates.length) return [];
+
+		const nonZero = rates.filter((r) => r.price_buy > 0);
+		const zero = rates.filter((r) => r.price_buy <= 0);
+
+		nonZero.sort((a, b) => a.price_buy - b.price_buy);
+		zero.sort((a, b) => b.price_sell - a.price_sell);
+
+		return [...nonZero, ...zero];
 	})();
 
-	// Search filtering
+	// Search
 	let searchTerm = '';
-	$: filteredRates = sortedFilteredRates.filter((rate: any) => {
-		const providerName = providers[rate.changer_code]?.name || '';
-		return (
-			providers[rate.changer_code] && providerName.toLowerCase().includes(searchTerm.toLowerCase())
-		);
-	});
-
-	let originalFilteredRates: any[] | null = null;
 
 	const handleSearch = (e: Event) => {
-		const searchTerm = (e.target as HTMLInputElement).value.toLowerCase().trim();
-
-		// Backup the original list once
-		if (!originalFilteredRates) {
-			originalFilteredRates = [...filteredRates];
-		}
-
-		// If empty, restore full list
-		if (!searchTerm) {
-			filteredRates = originalFilteredRates;
-			return;
-		}
-
-		// Filter using provider name
-		const filtered = originalFilteredRates.filter((item: any) => {
-			const provider = providers[item.changer_code];
-			return provider && provider.name && provider.name.toLowerCase().includes(searchTerm);
-		});
-
-		filteredRates = filtered;
+		searchTerm = (e.target as HTMLInputElement).value.toLowerCase().trim();
 	};
 
-	let highlights = data.highlights;
-	let highlightsLoading: boolean = false;
-	const getHighlights = async (pair: string): Promise<any> => {
-		try {
-			highlightsLoading = true;
-			const res = await fetch('/api/highlights?max=5&pair=' + pair);
-			if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-			return await res.json();
-		} catch (err) {
-			console.error('getHighlights error:', err);
-			return [];
-		} finally {
-			highlightsLoading = false;
-		}
-	};
+	// Filtered rates (reactive, no mutation)
+	$: filteredRates = sortedRates.filter((rate) => {
+		if (!searchTerm) return true;
+		const provider = providers[rate.changer_code];
+		return provider?.name?.toLowerCase().includes(searchTerm);
+	});
 
-	const handleFilterByCurrency = async (currency_: string) => {
-		currency = currency_;
-		highlights = await getHighlights(`${currency.toLowerCase()}ngn`);
-	};
+	// Default currency sync
+	const unsubscribe = defaultCurrencyStore.subscribe((value) => {
+		if (!browser || !quote || value === quote) return;
+		handleQuoteCurrencyChange(value);
+	});
+
+	onDestroy(unsubscribe);
 </script>
 
 <svelte:head>
-	<title>Sell {currencies[currency] || currency} to Naira - Best Offramp Rates | Monierate</title>
+	<title
+		>Sell {currencies[base] || base} to {currencies[quote] || quote} - Best Offramp Rates | Monierate</title
+	>
 
 	<meta
 		name="description"
-		content="Cash out {currencies[currency] ||
-			currency} to Naira at the best offramp rates. Compare providers, track real-time updates, and withdraw securely with Monierate."
+		content="Cash out {currencies[base] || base} to {currencies[quote] ||
+			quote} at the best offramp rates. Compare providers, track real-time updates, and withdraw securely with Monierate."
 	/>
 
 	<meta property="og:type" content="website" />
 
 	<meta
 		property="og:title"
-		content="Sell {currencies[currency] || currency} to Naira - Offramp Rates | Monierate"
+		content="Sell {currencies[base] || base} to {currencies[quote] ||
+			quote} - Offramp Rates | Monierate"
 	/>
 
 	<meta
 		property="og:description"
-		content="Get the best offramp rates to convert {currencies[currency] ||
-			currency} into Naira. Compare providers, track live updates, and withdraw your funds with Monierate."
+		content="Get the best offramp rates to convert {currencies[base] ||
+			base} into Naira. Compare providers, track live updates, and withdraw your funds with Monierate."
 	/>
 
 	<meta property="og:url" content="https://monierate.com" />
@@ -141,35 +119,36 @@
 </div>
 
 <div class="container px-0">
-	{#if !data.isValidCurrency}
+	{#if !data.isValidBase}
 		<Notice
-			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {currency.toUpperCase()}.</Notice
+			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {base.toUpperCase()}.</Notice
 		>
 	{/if}
 
 	<ExchangeRateText
-		title={`${currencies[currency] || currency} to Naira off-ramp rates across providers`}
+		title={`${currencies[base] || base} to ${currencies[quote] || quote} off-ramp rates across providers`}
 		data={{
 			currencies: currencies,
-			currency: { name: currency, symbol: getCurrencySymbol },
-			rate: { now: pair.price.current, last: pair.price_30d }
+			base: { name: base, symbol: baseSymbol },
+			quote: { name: quote, symbol: quoteSymbol },
+			rate: { now: pair?.price?.current, last: pair?.price_30d }
 		}}
 	/>
 
 	<Highlights
-		currency={{ code: currency, symbol: getCurrencySymbol }}
+		base={{ code: base, symbol: baseSymbol }}
+		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
-		inProgress={highlightsLoading}
 	/>
 </div>
 
 <div class="container px-0 mb-4">
 	<ExchangeFilter
 		onSearch={handleSearch}
-		selectedCurrency={currency}
-		onChangeCurrency={handleFilterByCurrency}
+		selectedCurrency={base}
+		onChangeCurrency={handleBaseCurrencyChange}
 		selectedCategory="/offramp-rates"
 	/>
 </div>
@@ -180,8 +159,10 @@
 			data={{
 				rates: filteredRates,
 				providers,
-				currency,
-				currencySymbols
+				base,
+				baseSymbol: baseSymbol,
+				quote,
+				quoteSymbol: quoteSymbol
 			}}
 			bind:currentPage={data.page}
 		/>

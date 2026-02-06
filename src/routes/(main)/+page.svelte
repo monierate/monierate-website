@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { goto, invalidate } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url.js';
+	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url';
 
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
