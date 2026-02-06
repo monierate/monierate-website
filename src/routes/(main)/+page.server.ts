@@ -34,8 +34,8 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		const quoteInput = (quoteParam ?? defaultCurrency).toUpperCase();
 
 		const isValidCurrency = (VALID_CURRENCIES as readonly string[]).includes(baseInput);
-		const base = isValidCurrency ? baseInput : 'USD';
 		const quote = quoteInput || defaultCurrency;
+		let base = isValidCurrency ? baseInput : 'USD';
 
 		const pairCode = `${base}${quote}`.toLowerCase();
 
@@ -47,11 +47,25 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		/* -----------------------------
 		 * Fetch data
 		 * ----------------------------- */
-		const [providers, highlights, pair] = await Promise.all([
+		let [providers, highlights, pair] = await Promise.all([
 			getAllChangers(fetch),
 			getHighlights(fetch, pairCode),
 			getPair(fetch, pairCode)
 		]);
+
+		
+		if (!pair || pair.changers.length === 0) {
+			for (const currency of testCurrencies) {
+				const testPairCode = `${currency}${quote}`.toLowerCase();
+				if (testPairCode) {
+					pair = await getPair(fetch, testPairCode);
+					if (pair && pair.changers.length > 0) {
+						base = currency;
+						break;
+					}
+				}
+			}
+		}
 
 		if (!providers?.length) {
 			throw error(500, {
@@ -96,3 +110,5 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		});
 	}
 };
+
+const testCurrencies = ['USD', 'USDT', 'USDC'];

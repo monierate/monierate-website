@@ -96,7 +96,7 @@
 			currencies: currencies,
 			base: { name: base, symbol: baseSymbol },
 			quote: { name: quote, symbol: quoteSymbol },
-			rate: { now: pair.price.current, last: pair.price_30d }
+			rate: { now: pair?.price?.current, last: pair?.price_30d }
 		}}
 	/>
 

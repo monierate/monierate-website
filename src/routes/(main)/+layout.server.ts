@@ -46,7 +46,8 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch }) => {
 		bannerIndexes: 0,
 		isMobile,
 		VALID_CURRENCIES,
-		defaultCurrency
+		defaultCurrency,
+		FULL_FEATURE_SUPPORT_FOR,
 	};
 };
 
@@ -86,3 +87,5 @@ const getTopPairs = async (fetch: any) => {
 };
 
 const VALID_CURRENCIES = ['USD', 'EUR', 'GBP', 'CAD', 'BTC', 'USDT', 'USDC'] as const;
+
+const FULL_FEATURE_SUPPORT_FOR = ['NGN'] as const;
