@@ -1,7 +1,7 @@
 import { array_to_key_object } from '$lib/helper'
-import { get_changers } from '$lib/server/changer.service'
 import type { PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
+import { getChanger } from '$lib/services/changer.service'
 
 export const load: PageServerLoad = async ({ fetch, params }) => {
     try {
@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
             throw error(404, `Provider not found`);
         }
 
-        const changer = await get_changers(changer_code);
+        const changer = await getChanger(fetch, changer_code);
 
         return {
             changer,
