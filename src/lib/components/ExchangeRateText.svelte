@@ -39,9 +39,9 @@
 		</p>
 		{#if readMore}
 			<p in:slide={{ duration: 250 }} out:slide={{ duration: 250 }}>
-				Rates provided are for indicative and guidance purposes only. You need at least ₦{formatNumber(
+				Rates provided are for indicative and guidance purposes only. You need at least {data.quote.symbol}{formatNumber(
 					(data.rate.now || 0) * 100
-				)} to get {data.base.symbol}100 now, and if you have $100 you can get {data.quote
+				)} to get {data.base.symbol}100 now, and if you have {data.base.symbol}100 you can get {data.quote
 					.symbol}{formatNumber(data.rate.now * 100)} or less.
 			</p>
 			<p>

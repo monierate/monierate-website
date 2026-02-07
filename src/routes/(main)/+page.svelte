@@ -72,7 +72,7 @@
 </script>
 
 <svelte:head>
-	<title>Dollar to naira today black market | Monierate</title>
+	<title>{currencies[base] || base} to {currencies[quote] || quote} today black market | Monierate</title>
 	<meta
 		name="description"
 		content="Monierate offers reliable naira exchange rates from 40+ exchanges. Track rates, convert dollars, and get crypto price alerts."
