@@ -5,8 +5,10 @@
 	export let data: {
 		rates: any[];
 		providers: Record<string, any>;
-		currency: string;
-		currencySymbols: Record<string, string>;
+		base: string;
+		baseSymbol: string;
+		quote: string;
+		quoteSymbol: string;
 	};
 	export let pagination: boolean = true;
 	export let currentPage: number = 1;
@@ -27,8 +29,10 @@
 				}
 			}) || [];
 	$: providers = data.providers || {};
-	$: currency = data.currency || 'usd';
-	$: currencySymbols = data.currencySymbols || {};
+	$: base = data.base;
+	$: baseSymbol = data.baseSymbol || {};
+	$: quote = data.quote;
+	$: quoteSymbol = data.quoteSymbol || {};
 
 	const excludedPlatforms = ['market', 'binance'];
 
@@ -199,7 +203,7 @@
 						<!-- Name with icon and link -->
 						<td class="px-4 py-3 text-left dark:text-gray-200 font-bold md:text-[17px]">
 							<a
-								href={`/converter/${rate.changer_code}?Amount=1&From=${currency.toLowerCase()}&To=ngn`}
+								href={`/converter/${rate.changer_code}?Amount=1&From=${base.toLowerCase()}&To=${quote.toLowerCase()}`}
 								class="flex items-center gap-2 text-gray-700 dark:text-gray-200"
 							>
 								<picture class="h-6 w-6 rounded-full overflow-hidden">
@@ -221,10 +225,10 @@
 								{#if rate.price_buy > 0}
 									<div class="space-y-1">
 										<div class="font-semibold">
-											₦{formatNumber(rate.price_buy, 'en-US', { maximumFractionDigits: 0 })}
+											{quoteSymbol || quote + ' '}{formatNumber(rate.price_buy, 'en-US', { maximumFractionDigits: 0 })}
 										</div>
 										<div class="text-gray-400 text-xs">
-											per {currencySymbols[currency] || currency + ' '}1
+											per {baseSymbol || base + ' '}1
 										</div>
 									</div>
 								{:else}
@@ -233,10 +237,10 @@
 							{:else if rate.price_sell > 0}
 								<div class="space-y-1">
 									<div class="font-semibold">
-										₦{formatNumber(rate.price_sell, 'en-US', { maximumFractionDigits: 0 })}
+										{quoteSymbol || quote + ' '}{formatNumber(rate.price_sell, 'en-US', { maximumFractionDigits: 0 })}
 									</div>
 									<div class="text-gray-400 text-xs">
-										per {currencySymbols[currency] || currency + ' '}1
+										per {baseSymbol || base + ' '}1
 									</div>
 								</div>
 							{:else}

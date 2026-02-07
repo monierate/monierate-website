@@ -23,7 +23,7 @@
 
 <script lang="ts">
 	import { page } from '$app/stores';
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	export let data;
 
 	$: currentPath = $page.url.pathname;
