@@ -12,18 +12,25 @@
 	import Breadcrumb from '$lib/components/layout/Breadcrumb.svelte';
 	import PromotionBar from '$lib/components/layout/PromotionBar.svelte';
 	import Notification from '$lib/components/layout/Notification.svelte';
+	import { getUserCountryClient } from '$lib/utils/userCountry.js';
 
 	export let data;
 
 	// toggle navbar collapse menu on mobile
 	onMount(() => {
-		if (browser) {
-			const getTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-			if (getCookie('timezone') !== getTimezone) {
+		try {
+			if (browser) {
+				const getTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+				if (getCookie('timezone') !== getTimezone) {
+					setCookie('timezone', getTimezone, 1);
+				}
 				setCookie('timezone', getTimezone, 1);
+				timezone.set(getTimezone);
+	
+				// getUserCountryClient();
 			}
-			setCookie('timezone', getTimezone, 1);
-			timezone.set(getTimezone);
+		} catch(e: any) {
+			console.error(e);
 		}
 	});
 
