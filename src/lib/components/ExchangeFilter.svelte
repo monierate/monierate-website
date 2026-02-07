@@ -10,8 +10,13 @@
 	export let selectedCategory = '/';
 	export let disableSearch: boolean = false;
 	export let enableCategories: boolean = true;
+	export let quoteCurrency: string = 'NGN';
 
 	let currencies = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'USDC'];
+
+	if(quoteCurrency === 'KES') {
+		currencies = ['USD', 'USDT', 'USDC', 'BTC',];
+	}
 
 	$: parseCurrencyInUrl =
 		selectedCurrency && selectedCurrency !== 'USD' ? `?base=${selectedCurrency}` : '';

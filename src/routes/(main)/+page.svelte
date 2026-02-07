@@ -126,6 +126,7 @@
 		selectedCurrency={base}
 		onChangeCurrency={handleBaseCurrencyChange}
 		enableCategories={ENABLE_CATEGORIES_FOR.includes(quote)}
+		quoteCurrency={quote}
 	/>
 </div>
 
