@@ -1,7 +1,6 @@
 import { basicAuth  } from "$lib/helper";
 import type { PageServerLoad } from './$types'
 import { bearer } from '$lib/functions';
-import { getEndpointV1 } from "$lib/server/utilities";
 
 export const load: PageServerLoad = async ({ url, cookies }) => {
     const params = url.searchParams
@@ -50,35 +49,35 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 }
 
 async function getAlerts(token: string) {
-    const endpoint = getEndpointV1("/auth/alerting");
-    const res = await fetch(endpoint, bearer('GET', token, {}));
-    const result = await res.json();
+    // const endpoint = getEndpointV1("/auth/alerting");
+    // const res = await fetch(endpoint, bearer('GET', token, {}));
+    // const result = await res.json();
 
-    if (result.status == "error") {
-        return []
-    }
+    // if (result.status == "error") {
+    //     return []
+    // }
 
-    return result.data
+    // return result.data
 }
 
 async function getAuth(token: string) {
-    const payload = {
-        token,
-    };
-    const endpoint = getEndpointV1("/public/alerting/auth");
-    const res = await fetch(endpoint, basicAuth('POST', payload, 'system'));
-    const result = await res.json();
+    // const payload = {
+    //     token,
+    // };
+    // const endpoint = getEndpointV1("/public/alerting/auth");
+    // const res = await fetch(endpoint, basicAuth('POST', payload, 'system'));
+    // const result = await res.json();
 
-    return result
+    // return result
 }
 
 async function confirmAlert(token: string) {
-    const payload = {
-        token,
-    };
-    const endpoint = getEndpointV1("/public/alerting/confirm");
-    const res = await fetch(endpoint, basicAuth('POST', payload, 'system'));
-    const result = await res.json();
+    // const payload = {
+    //     token,
+    // };
+    // const endpoint = getEndpointV1("/public/alerting/confirm");
+    // const res = await fetch(endpoint, basicAuth('POST', payload, 'system'));
+    // const result = await res.json();
 
-    return result
+    // return result
 }
