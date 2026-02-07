@@ -111,4 +111,4 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 	}
 };
 
-const testCurrencies = ['USD', 'USDT', 'USDC'];
+const testCurrencies = ['USDT', 'USDC'];

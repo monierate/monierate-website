@@ -38,11 +38,24 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 
 		const showHighlights = cookies.get('showHighlights') !== 'false';
 
-		const [rawProviders, pair, highlights] = await Promise.all([
+		let [rawProviders, pair, highlights] = await Promise.all([
 			getAllChangers(fetch),
 			getPair(fetch, pairCode),
 			getHighlights(fetch, pairCode)
 		]);
+
+			if (!pair || pair.changers.length === 0) {
+			for (const currency of testCurrencies) {
+				const testPairCode = `${currency}${quoteParam.value}`.toLowerCase();
+				if (testPairCode) {
+					pair = await getPair(fetch, testPairCode);
+					if (pair && pair.changers.length > 0) {
+						baseParam.value = currency;
+						break;
+					}
+				}
+			}
+		}
 
 		if (!rawProviders?.length) {
 			throw error(500, {
@@ -90,3 +103,5 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		});
 	}
 };
+
+const testCurrencies = ['USDT', 'USDC'];

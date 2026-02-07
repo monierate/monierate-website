@@ -21,7 +21,7 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		// ---- BASE ----
 		const rawBase = (url.searchParams.get('base') ?? 'USD').toUpperCase();
 		const isValidBase = (VALID_CURRENCIES as readonly string[]).includes(rawBase);
-		const base = isValidBase ? rawBase : 'USD';
+		let base = isValidBase ? rawBase : 'USD';
 
 		// ---- QUOTE ----
 		const rawQuote = url.searchParams.get('quote')?.toUpperCase();
@@ -33,11 +33,24 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 
 		let showHighlights = cookies.get('showHighlights') !== 'false';
 
-		const [rawProviders, highlights, pair] = await Promise.all([
+		let [rawProviders, highlights, pair] = await Promise.all([
 			getAllChangers(fetch),
 			getHighlights(fetch, pairCode),
 			getPair(fetch, pairCode)
 		]);
+
+		if (!pair || pair.changers.length === 0) {
+			for (const currency of testCurrencies) {
+				const testPairCode = `${currency}${quote}`.toLowerCase();
+				if (testPairCode) {
+					pair = await getPair(fetch, testPairCode);
+					if (pair && pair.changers.length > 0) {
+						base = currency;
+						break;
+					}
+				}
+			}
+		}
 
 		if (!rawProviders || rawProviders.length === 0) {
 			throw error(500, {
@@ -86,3 +99,5 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		});
 	}
 };
+
+const testCurrencies = ['USDT', 'USDC'];
