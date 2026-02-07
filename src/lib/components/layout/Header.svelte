@@ -131,7 +131,7 @@
 					</div>
 				{/if} -->
 
-				<span class="hidden md:inline">
+				<span>
 					<CurrencySelector
 						onSelect={(currency) => defaultCurrencyStore.set(currency)}
 						bind:selected={defaultCurrency}
@@ -141,7 +141,7 @@
 				<a
 					href="/alerts"
 					type="button"
-					class="button px-3 bg-gray-900 dark:bg-gray-200 font-semibold text-white dark:text-gray-900"
+					class="button px-3 bg-gray-900 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 hidden md:inline-block"
 				>
 					Get alert
 				</a>
