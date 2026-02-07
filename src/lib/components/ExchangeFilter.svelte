@@ -14,8 +14,11 @@
 
 	let currencies = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'USDC'];
 
-	if(quoteCurrency === 'KES') {
-		currencies = ['USD', 'USDT', 'USDC', 'BTC',];
+	let defaultCurrencies: string[] = currencies;
+	$: if(quoteCurrency === 'KES') {
+		currencies = ['USDT', 'USDC', 'BTC', 'USD', ];
+	} else {
+		currencies = defaultCurrencies;
 	}
 
 	$: parseCurrencyInUrl =
