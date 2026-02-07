@@ -2,9 +2,9 @@ import type { PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
 import * as Countries from '$data/countries.json'
 import * as Currencies from '$data/currencies.json'
-import { get_pairs } from '$lib/server/pair.service'
-import { get_changers } from '$lib/server/changer.service'
 import { array_to_key_object } from '$lib/helper'
+import { getAllChangers } from '$lib/services/changer.service';
+import { getPair } from '$lib/services/pair.service'
 
 export const load: PageServerLoad = async ({ fetch, params }) => {
     try {
@@ -45,9 +45,9 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
             throw error(500, `Currency name couldn't be obtained`);
         }
 
-        const changers = await get_changers();
+        const changers = await getAllChangers(fetch);
         const pair_code = `${currency.code.toLowerCase()}ngn`;
-        const pair = await get_pairs(pair_code);
+        const pair = (await getPair(fetch, pair_code)) as any;
         const pair_changers = pair.changers;
 
         return {
