@@ -101,7 +101,8 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 			providers: providersByCode,
 			total: Object.keys(providersByCode).length,
 			currencySymbols,
-			mergedCurrencies
+			mergedCurrencies,
+			ENABLE_CATEGORIES_FOR
 		};
 	} catch (err) {
 		console.error('Page load error:', err);
@@ -112,3 +113,4 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 };
 
 const testCurrencies = ['USDT', 'USDC'];
+const ENABLE_CATEGORIES_FOR = ['NGN'];

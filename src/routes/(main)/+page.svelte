@@ -13,6 +13,8 @@
 
 	export let data;
 
+	const ENABLE_CATEGORIES_FOR = data.ENABLE_CATEGORIES_FOR;
+
 	/* -----------------------------
 	 * Derived data (single source of truth)
 	 * ----------------------------- */
@@ -113,6 +115,7 @@
 		onSearch={handleSearch}
 		selectedCurrency={base}
 		onChangeCurrency={handleBaseCurrencyChange}
+		enableCategories={ENABLE_CATEGORIES_FOR.includes(quote)}
 	/>
 </div>
 
