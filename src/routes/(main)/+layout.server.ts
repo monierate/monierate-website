@@ -74,8 +74,6 @@ const select_top_pairs = (pairs: any[], quote: string) => {
 
 	const selectedPairs = [...priorityPairs, ...remainingPairs].slice(0, 6);
 
-	selectedPairs.sort((a, b) => b.price.current - a.price.current);
-
 	const result: Record<string, any> = {};
 
 	selectedPairs.forEach((pair) => {
