@@ -2,8 +2,9 @@ import type { LayoutServerLoad } from './$types';
 import { DEFAULT_CURRENCY_COOKIE_NAME } from '$lib/stores/defaultCurrency';
 import { getAllPairs } from '$lib/services/pair.service';
 import { getUser } from '$lib/services/user.service';
+import countriesToCurrency from '$data/countries-to-currencies.json';
 
-export const load: LayoutServerLoad = async ({ request, cookies, fetch }) => {
+export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals }) => {
 	const userAgent = request.headers.get('user-agent') || '';
 	const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
 
@@ -17,7 +18,16 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch }) => {
 		user: null
 	};
 
-	const defaultCurrency = cookies.get(DEFAULT_CURRENCY_COOKIE_NAME) || 'NGN';
+	const ucountry = locals.ucountry || cookies.get('ucountry') || 'XX'; // XX is default country code
+	const typedCountriesToCurrency: Record<string, string> = countriesToCurrency as Record<
+		string,
+		string
+	>;
+	const currencyFromCountry = (typedCountriesToCurrency[ucountry.toUpperCase()] || 'NGN') as any;
+
+	const defaultCurrency = SUPPORTED_QUOTE_CURRENCIES.includes(currencyFromCountry)
+		? currencyFromCountry
+		: 'NGN';
 
 	/* -------------------- */
 	/* User authentication */
@@ -49,6 +59,7 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch }) => {
 		defaultCurrency,
 		SUPPORTED_QUOTE_CURRENCIES,
 		ENABLE_CATEGORIES_FOR,
+		ucountry
 	};
 };
 
