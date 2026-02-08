@@ -12,7 +12,7 @@
 	import Breadcrumb from '$lib/components/layout/Breadcrumb.svelte';
 	import PromotionBar from '$lib/components/layout/PromotionBar.svelte';
 	import Notification from '$lib/components/layout/Notification.svelte';
-	import { getUserCountryClient } from '$lib/utils/userCountry.js';
+	import { getUserCountryClient } from '$lib/utils/userCountry';
 
 	export let data;
 
@@ -27,7 +27,7 @@
 				setCookie('timezone', getTimezone, 1);
 				timezone.set(getTimezone);
 	
-				// getUserCountryClient();
+				getUserCountryClient();
 			}
 		} catch(e: any) {
 			console.error(e);
