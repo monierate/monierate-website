@@ -8,13 +8,17 @@ export async function GET({ url }) {
 	const pair_code = urlParams.get('pair_code') || null;
 	const page = urlParams.get('page') || '1';
 	const limit = urlParams.get('limit') || '100';
+	const quote = urlParams.get('quote') || undefined;
+
+	console.log(quote)
 
 	const response = await serverApiRequest('/pairs/get_all_pairs', {
 		method: 'GET',
 		params: {
 			code: pair_code || undefined,
 			page: page,
-			limit: limit
+			limit: limit,
+			quote: quote || undefined
 		}
 	});
 
