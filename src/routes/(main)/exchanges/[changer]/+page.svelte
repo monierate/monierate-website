@@ -11,6 +11,7 @@
 	const currencies = data.currencies;
 	$: changer = data.changer;
 	$: relatedChangers = data.relatedChangers;
+	$: pairs = data.pairs;
 </script>
 
 <svelte:head>
@@ -79,10 +80,10 @@
 					</div>
 				</div>
 			</div>
-			{#if changer.pairs}
+			{#if pairs && pairs.length > 0}
 				<Rates
 					data={{
-						pairs: changer.pairs,
+						pairs: pairs,
 						currencySymbols: data.currencySymbols,
 						changer: changer.code
 					}}

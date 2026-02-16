@@ -15,10 +15,13 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 		...currencies.coins
 	};
 
-	const [changerResult, relatedChangers] = await Promise.all([
+	const [changerResult, relatedChangers, pairs] = await Promise.all([
 		getJson<any>(fetch, `/api/changer?code=${encodeURIComponent(changer)}`),
-		getJson<any>(fetch, `/api/changer/get_similar_changers?code=${encodeURIComponent(changer)}`)
+		getJson<any>(fetch, `/api/changer/get_similar_changers?code=${encodeURIComponent(changer)}`),
+		getJson<any>(fetch, `/api/pairs/get_all_pairs_?changer=${encodeURIComponent(changer)}`)
 	]);
+
+	const availablePairs = pairs ? getAvailablePairs(changer, pairs.result) : [];
 
 	if (!changerResult || Object.entries(changerResult).length <= 0) {
 		throw error(404, 'Changer not found');
@@ -28,7 +31,8 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 		changer: changerResult,
 		currencies: allCurrencies,
 		currencySymbols,
-		relatedChangers: relatedChangers?.data ?? []
+		relatedChangers: relatedChangers?.data ?? [],
+		pairs: availablePairs
 	};
 };
 
@@ -52,3 +56,27 @@ async function getJson<T>(fetchFn: typeof fetch, url: string): Promise<T | null>
 		return null;
 	}
 }
+
+interface Changer {
+	changer_code: string;
+	[key: string]: any;
+}
+
+interface Pair {
+	code: string;
+	changers: Changer[];
+}
+
+const getAvailablePairs = (
+	changerCode: string,
+	pairs: Pair[]
+): (Changer & { pair_code: string })[] => {
+	return pairs.flatMap((pair) =>
+		pair.changers
+			.filter((changer) => changer.changer_code === changerCode)
+			.map((changer) => ({
+				...changer,
+				pair_code: pair.code
+			}))
+	);
+};
