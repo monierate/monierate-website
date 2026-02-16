@@ -48,8 +48,8 @@
 									''
 								)}&To=ngn"
 							>
-								<img
-									src={`/icons/currencies/${pair.pair_code.replace('ngn', '')}.png`}
+									<img
+										src={`/icons/currencies/${pair.pair_code.replace(/ngn|kes/g, '')}.png`}
 									class="w-5 h-5 rounded-full object-fit"
 									alt={pair.pair_code}
 								/>
