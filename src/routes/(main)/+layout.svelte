@@ -16,6 +16,9 @@
 
 	export let data;
 
+	$: top_pairs = data.top_pairs;
+	$: defaultCurrency = data.defaultCurrency;
+
 	// toggle navbar collapse menu on mobile
 	onMount(() => {
 		try {
@@ -45,8 +48,8 @@
 
 <LoadingIndicator />
 <TopBanner />
-<Header defaultCurrency={data.defaultCurrency} />
-<MarketTicker top_pairs={data.top_pairs} />
+<Header bind:defaultCurrency={defaultCurrency} />
+<MarketTicker top_pairs={top_pairs} />
 <Breadcrumb />
 
 <slot />

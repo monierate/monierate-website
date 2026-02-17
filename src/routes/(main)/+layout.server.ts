@@ -4,9 +4,11 @@ import { getAllPairs } from '$lib/services/pair.service';
 import { getUser } from '$lib/services/user.service';
 import countriesToCurrency from '$data/countries-to-currencies.json';
 
-export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals }) => {
+export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals, depends, url }) => {
 	const userAgent = request.headers.get('user-agent') || '';
 	const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+
+	depends('params:quote');
 
 	const auth: {
 		isLoggedIn: boolean;
@@ -19,15 +21,18 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals }
 	};
 
 	const ucountry = locals.ucountry || cookies.get('ucountry') || 'XX'; // XX is default country code
+	const selectedCurrencyFromCookie = cookies.get(DEFAULT_CURRENCY_COOKIE_NAME) || undefined;
 	const typedCountriesToCurrency: Record<string, string> = countriesToCurrency as Record<
 		string,
 		string
 	>;
 	const currencyFromCountry = (typedCountriesToCurrency[ucountry.toUpperCase()] || 'NGN') as any;
+	const quote = url.searchParams.get('quote') ?? undefined;
 
-	const defaultCurrency = SUPPORTED_QUOTE_CURRENCIES.includes(currencyFromCountry)
-		? currencyFromCountry
-		: 'NGN';
+	const defaultCurrency =
+		quote ||
+		selectedCurrencyFromCookie ||
+		(SUPPORTED_QUOTE_CURRENCIES.includes(currencyFromCountry) ? currencyFromCountry : 'NGN');
 
 	/* -------------------- */
 	/* User authentication */
@@ -44,8 +49,8 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals }
 	/* Market data          */
 	/* -------------------- */
 
-	const allPairs = await getTopPairs(fetch);
-	const top_pairs = select_top_pairs(allPairs?.result ?? [], 'NGN');
+	const allPairs = await getTopPairs(fetch, defaultCurrency || 'NGN');
+	const top_pairs = select_top_pairs(allPairs?.result ?? [], defaultCurrency || 'NGN');
 
 	const market_avg_rate = top_pairs?.usdngn?.price ?? 0;
 
@@ -91,8 +96,8 @@ const select_top_pairs = (pairs: any[], quote: string) => {
 	return result;
 };
 
-const getTopPairs = async (fetch: any) => {
-	const result = await getAllPairs(fetch, undefined, 1, 100);
+const getTopPairs = async (fetch: any, quote = 'NGN') => {
+	const result = await getAllPairs(fetch, undefined, 1, 100, quote);
 	return result ?? null;
 };
 
