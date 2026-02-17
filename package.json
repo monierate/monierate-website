@@ -7,7 +7,7 @@
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "node src/scripts/generate-posts.ts && vite build",
+"build": "tsx src/scripts/generate-posts.ts && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
@@ -33,6 +33,7 @@
 		"svelte-check": "^4.3.3",
 		"svelte-preprocess": "^6.0.3",
 		"tailwindcss": "^3.2.4",
+		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
 		"vite": "^7.1.10",
 		"vite-plugin-compression2": "^2.3.0",

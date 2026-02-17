@@ -1,6 +1,6 @@
 import { json, error } from '@sveltejs/kit';
-import { get_changers } from '$lib/server/changer.service';
-import { get_pairs_changers } from '$lib/server/pair.service';
+import { getAllChangers } from '$lib/services/changer.service';
+import { getPairChangers, ChangerServiceCategory } from '$lib/services/pair.service.js';
 
 interface Changer {
 	code: string;
@@ -78,7 +78,7 @@ const findNewPlatforms = (
 	}
 };
 
-export const GET = async ({ url }) => {
+export const GET = async ({ url, fetch }) => {
 	const pair = url.searchParams.get('pair')?.trim() || null;
 	const max = (url.searchParams.get('max')?.trim() || 10) as number;
 
@@ -87,14 +87,14 @@ export const GET = async ({ url }) => {
 	}
 
 	const [rawChangers, remittance, ramp, card, all] = await Promise.all([
-		get_changers(),
-		get_pairs_changers(pair, 'remittance'),
-		get_pairs_changers(pair, 'ramp'),
-		get_pairs_changers(pair, 'card'),
-		get_pairs_changers(pair)
+		getAllChangers(fetch),
+		getPairChangers(fetch, pair, ChangerServiceCategory.Remittance),
+		getPairChangers(fetch, pair, ChangerServiceCategory.Ramp),
+		getPairChangers(fetch, pair, ChangerServiceCategory.Card),
+		getPairChangers(fetch, pair)
 	]);
 
-	if (!rawChangers?.length) {
+	if (!rawChangers) {
 		throw error(500, 'Platform data unavailable. Try again shortly.');
 	}
 

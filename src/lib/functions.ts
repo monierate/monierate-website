@@ -188,11 +188,13 @@ function eraseCookie(key: string) {
 	setCookie(key, keyValue, -1);
 }
 
-export function changeParam(param: string, value: number | string) {
+export function changeParam(param: string, value: number | string, callInvalidateAll = true) {
 	const url = new URL(window.location.toString());
 	url.searchParams.set(param, `${value}`);
 	history.replaceState(history.state, '', url);
-	invalidateAll();
+	if(callInvalidateAll) {
+		invalidateAll();
+	}
 }
 
 export function changePath(path: string) {
@@ -534,3 +536,10 @@ export function extractBaseDomain(url: string): string | null {
   }
 }
 
+export function normalizeCurrency(raw: string | null, valid: readonly string[], fallback: string) {
+	const value = (raw ?? fallback).toUpperCase();
+	return {
+		value: valid.includes(value) ? value : fallback,
+		isValid: valid.includes(value)
+	};
+}

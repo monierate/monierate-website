@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Rates from '$lib/components/exchanges/Rates.svelte';
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	// import AdBanner from '$lib/components/AdBanner.svelte';
 	import ViewMoreText from '$lib/components/ViewMoreText.svelte';
 	import FeaturedPublications from '$lib/components/exchanges/FeaturedPublications.svelte';
 	import AboutCard from '$lib/components/exchanges/AboutCard.svelte';

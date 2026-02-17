@@ -1,23 +1,40 @@
-import { basicAccountAuth, getAccountEndpoint } from "$lib/server/utilities.js";
-import { json } from "@sveltejs/kit";
+import { json } from '@sveltejs/kit';
+import { userAccountRequest } from '$lib/api/userAccountApi';
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ cookies, fetch, request }) {
-    const user_token = cookies.get("auth_token");
-    const body = await request.json();
-    if(!body.id) {
-        return new Response("Missing id", { status: 400 });
-    }
-    const id = body.id;
-    delete body.id;
-    const payload = {
-        user_token: user_token,
-        ...body
-    };
-    const endpoint = getAccountEndpoint("/alerts/" + id);
-    const res = await fetch(endpoint, basicAccountAuth('PATCH', payload));
+export async function POST({ cookies, request }) {
+	const userToken = cookies.get('auth_token');
 
-    const result = await res.text();
+	if (!userToken) {
+		return json(
+			{ error: 'User not authenticated' },
+			{ status: 401 }
+		);
+	}
 
-    return json(result);
+	const body = await request.json();
+
+	if (!body?.id) {
+		return json(
+			{ error: 'Missing id' },
+			{ status: 400 }
+		);
+	}
+
+	const { id, ...updatePayload } = body;
+
+	const res = await userAccountRequest(`/alerts/${id}`, {
+		method: 'PATCH',
+		userToken,
+		body: updatePayload
+	});
+
+	if (!res.success) {
+		return json(
+			{ error: res.error ?? 'Failed to update alert' },
+			{ status: res.status || 500 }
+		);
+	}
+
+	return json(res.data);
 }

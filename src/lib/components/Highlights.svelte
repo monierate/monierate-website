@@ -4,7 +4,8 @@
 	import { setCookie } from '$lib/functions';
 	import { beforeNavigate } from '$app/navigation';
 
-	export let currency: { symbol: string; code: string };
+	export let base: { symbol: string; code: string };
+	export let quote: { symbol: string; code: string };
 	export let highlights: {
 		newResult: any;
 		buyingResult: any;
@@ -51,7 +52,7 @@
 		<span class="mr-2 -mb-1">
 			<span
 				class="inline-block w-5 h-5 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin"
-			/>
+			></span>
 		</span>
 	{/if}
 	<label class="inline-flex items-center cursor-pointer">
@@ -66,7 +67,7 @@
 		/>
 		<div
 			class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
-		/>
+		></div>
 	</label>
 </div>
 
@@ -82,8 +83,8 @@
 				highlightData={newResult}
 				highlightType="auto"
 				title="🔥 New Listing"
-				currency={currency.symbol || currency.code}
-				currencyCode={currency.code}
+				base={base.symbol || base.code}
+				quote={quote.symbol || quote.code}
 			/>
 		{/if}
 
@@ -94,8 +95,8 @@
 				highlightType="buy"
 				title="🔥 Best Buy Rate"
 				link="/buy/usd-with-ngn-best-buying-rate"
-				currency={currency.symbol || currency.code}
-				currencyCode={currency.code}
+				base={base.symbol || base.code}
+				quote={quote.symbol || quote.code}
 			/>
 		{/if}
 
@@ -106,8 +107,8 @@
 				highlightType="sell"
 				title="🔥 Best Sell Rate"
 				link="/sell/usd-get-ngn-best-selling-rate"
-				currency={currency.symbol || currency.code}
-				currencyCode={currency.code}
+				base={base.symbol || base.code}
+				quote={quote.symbol || quote.code}
 			/>
 		{/if}
 
@@ -118,8 +119,8 @@
 				highlightType="sell"
 				title="🔥 Best Sending Rate"
 				link="/send/usd-to-ng-best-rate"
-				currency={currency.symbol || currency.code}
-				currencyCode={currency.code}
+				base={base.symbol || base.code}
+				quote={quote.symbol || quote.code}
 			/>
 		{/if}
 
@@ -131,8 +132,8 @@
 				title="🔥 Best Card Rate"
 				link="/card/usd-ngn-best-funding-rate"
 				mobileOnly={true}
-				currency={currency.symbol || currency.code}
-				currencyCode={currency.code}
+				base={base.symbol || base.code}
+				quote={quote.symbol || quote.code}
 			/>
 		{/if}
 	</div>
