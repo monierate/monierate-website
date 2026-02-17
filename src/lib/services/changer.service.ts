@@ -43,3 +43,21 @@ export const getChanger = async (fetch: typeof globalThis.fetch, code: string) =
 
 	return result;
 };
+
+export const getSimilarChangers = async (fetch: typeof globalThis.fetch, code: string) => {
+	const result = await clientApiFetch<Record<string, any>>(
+		'/changers/get_similar_changers',
+		{
+			params: {
+				code
+			}
+		},
+		fetch
+	);
+
+	if (!result) {
+		return null;
+	}
+
+	return result;
+};
