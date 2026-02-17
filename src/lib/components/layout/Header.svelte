@@ -184,9 +184,9 @@
 							>Converter</a
 						>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="/ng/compare" class={path == 'ng' ? 'active' : ''}>Compare</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="/alerts" class={path == 'alerts' ? 'active' : ''}>Price Alerts</a>
 					</li>
