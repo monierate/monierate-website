@@ -1,6 +1,42 @@
 [
   {
     "layout": "blog",
+    "title": "Best 7 Apps to Sell Bitcoin in Nigeria, by Payment Speed",
+    "description": "In crypto transactions, speed is everything because prices change rapidly. This is why choosing the right platform to sell Bitcoin in Nigeria is extremely important. But with so many Bitcoin to Naira apps available in 2026, how do you know which one is truly fast without using them yourself?",
+    "createdAt": "2026-02-02T16:30:00.000Z",
+    "updatedAt": "2026-02-02T19:40:00.000Z",
+    "tag": "guide",
+    "image": "https://ik.imagekit.io/monierate/Blog/Listicles/7_best_apps_to_sell_bitcoin_in_nigeria.webp",
+    "published": true,
+    "author": "Tim Bolarinwa",
+    "slug": "best-7-apps-to-sell-bitcoin-in-nigeria-by-payment-speed"
+  },
+  {
+    "layout": "blog",
+    "title": "Mavapay: Bitcoin Off-Ramp & Instant Payment Solution",
+    "description": "If you have Bitcoin and you love getting the best value for your money, Mavapay, Africa’s leading app and API for seamless Bitcoin conversions, has been officially listed on monierate.com.",
+    "createdAt": "2026-01-27T15:07:00.000Z",
+    "updatedAt": "2026-01-27T15:07:00.000Z",
+    "tag": "product",
+    "image": "https://ik.imagekit.io/monierate/Blog/product/mavapay.webp",
+    "published": true,
+    "author": "Monierate Editorial Team",
+    "slug": "mavapay-bitcoin-off-ramp-instant-payment-solution"
+  },
+  {
+    "layout": "blog",
+    "title": "Understanding Market Structure & Liquidity In Crypto Trading",
+    "description": "Crypto trading is a fast-paced and volatile market that provides traders with many opportunities. Every price change is a reflection of a larger ecosystem that dictates transaction processing and overall efficiency in the marketplace; understanding these two elements will allow traders to mitigate unnecessary expenses, limit risk, and ultimately enhance their ability to make sound trading decisions.",
+    "createdAt": "2026-01-26T13:44:00.000Z",
+    "updatedAt": "2026-01-26T13:48:00.000Z",
+    "tag": "guide",
+    "image": "https://ik.imagekit.io/monierate/Blog/bitcoin-coins-leaf.webp",
+    "published": true,
+    "author": "Editorial Team",
+    "slug": "understanding-market-structure-liquidity-in-crypto-trading"
+  },
+  {
+    "layout": "blog",
     "title": "What Are Stablecoins? Everything You Need to Know",
     "description": "Unlike many cryptocurrencies whose value depends on hype, belief, or speculation, stablecoins are designed to mirror the value of real-world assets, such as the US dollar, the euro, and even the Nigerian naira.",
     "createdAt": "2025-11-13T07:37:00.000Z",

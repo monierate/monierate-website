@@ -1,120 +1,86 @@
 <script lang="ts">
-	/** @type {import('./$types').PageData} */
-	import AdBanner from '$lib/components/AdBanner.svelte';
+	import { browser } from '$app/environment';
+	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url';
+
+	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
 	import Notice from '$lib/components/Notice.svelte';
 	import ExchangeRateText from '$lib/components/ExchangeRateText.svelte';
 	import MainFaq from '$lib/components/MainFAQ.svelte';
 	import Highlights from '$lib/components/Highlights.svelte';
 	import ExchangeRates from '$lib/components/ExchangeRates.svelte';
-
-	interface Changer {
-		code: string;
-		name: string;
-		link: string;
-		pairs: Record<string, unknown>;
-	}
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 
 	export let data;
+
+	const ENABLE_CATEGORIES_FOR = data.ENABLE_CATEGORIES_FOR;
+
+	/* -----------------------------
+	 * Derived data (single source of truth)
+	 * ----------------------------- */
+	$: pair = data.pair ?? {};
+	$: base = data.base;
+	$: quote = data.quote;
+	$: rates = data.rates ?? [];
+	$: providers = data.providers ?? {};
+	$: highlights = data.highlights ?? [];
+
 	const currencySymbols = data.currencySymbols as any;
-	const currencies = data.mergedCurrencies as any;
-	const pairs = data.pairs || {};
-	$: currency = data.currency;
-	$: getCurrencySymbol = currencySymbols[currency] || currency;
+	const currencies = data.mergedCurrencies;
 
-	// Reactive pair based on currency
-	$: pair = pairs.find((pair: any) => pair.code === `${currency.toLowerCase()}ngn`);
+	$: baseSymbol = currencySymbols[base] ?? base;
+	$: quoteSymbol = currencySymbols[quote] ?? quote;
 
-	// Reactive rates from selected pair
-	$: rates = pair?.changers || [];
+	/* -----------------------------
+	 * Sorting (reactive)
+	 * ----------------------------- */
+	$: sortedRates = (() => {
+		if (!rates.length) return [];
 
-	// Reactive provider lookup
-	const providers: Record<string, Changer> = data.providers || {};
-	let total = 0;
-	$: if (rates) {
-		total = Object.entries(rates).length;
-	}
+		const nonZero = rates.filter((r: any) => r.price_buy > 0);
+		const zero = rates.filter((r: any) => r.price_buy <= 0);
 
-	// Sort and filter rates reactively
-	$: sortedFilteredRates = (() => {
-		if (!rates) return [];
+		nonZero.sort((a: any, b: any) => a.price_buy - b.price_buy);
+		zero.sort((a: any, b: any) => b.price_sell - a.price_sell);
 
-		// Separate non-zero and zero `price_buy` rates
-		const nonZeroRates = rates.filter((rate: any) => rate.price_buy > 0);
-		const zeroRates = rates.filter((rate: any) => rate.price_buy <= 0);
-
-		// Sort non-zero in ascending price_buy
-		nonZeroRates.sort((a: any, b: any) => a.price_buy - b.price_buy);
-
-		// Sort zero rates in descending price_sell
-		zeroRates.sort((a: any, b: any) => b.price_sell - a.price_sell);
-
-		// Combine both lists
-		return nonZeroRates.concat(zeroRates);
+		return [...nonZero, ...zero];
 	})();
 
-	// Search filtering
+	/* -----------------------------
+	 * Search filtering (reactive)
+	 * ----------------------------- */
 	let searchTerm = '';
-	$: filteredRates = sortedFilteredRates.filter((rate: any) => {
-		const providerName = providers[rate.changer_code]?.name || '';
-		return providers[rate.changer_code] && providerName.toLowerCase().includes(searchTerm.toLowerCase());
-	});
 
-	let originalFilteredRates: any[] | null = null;
+	$: filteredRates = !searchTerm
+		? sortedRates
+		: sortedRates.filter((rate: any) => {
+				const provider = providers[rate.changer_code];
+				return provider?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+			});
 
 	const handleSearch = (e: Event) => {
-		const searchTerm = (e.target as HTMLInputElement).value.toLowerCase().trim();
-
-		// Backup the original list once
-		if (!originalFilteredRates) {
-			originalFilteredRates = [...filteredRates];
-		}
-
-		// If empty, restore full list
-		if (!searchTerm) {
-			filteredRates = originalFilteredRates;
-			return;
-		}
-
-		// Filter using provider name
-		const filtered = originalFilteredRates.filter((item: any) => {
-			const provider = providers[item.changer_code];
-			return provider && provider.name && provider.name.toLowerCase().includes(searchTerm);
-		});
-
-		filteredRates = filtered;
+		searchTerm = (e.target as HTMLInputElement).value.trim();
 	};
 
-	let highlights = data.highlights;
-	let highlightsLoading: boolean = false;
-	const getHighlights = async (pair: string): Promise<any> => {
-		try {
-			highlightsLoading = true;
-			const res = await fetch('/api/highlights?max=5&pair=' + pair);
-			if (!res.ok) throw new Error(`Failed to fetch highlights: ${res.status}`);
-			return await res.json();
-		} catch (err) {
-			console.error('getHighlights error:', err);
-			return [];
-		} finally {
-			highlightsLoading = false;
-		}
-	};
-
-	const handleFilterByCurrency = async (currency_: string) => {
-		currency = currency_;
-		highlights = await getHighlights(`${currency.toLowerCase()}ngn`);
-	};
+	defaultCurrencyStore.subscribe((value) => {
+		if (!browser) return;
+		if (!quote) return;
+		if (value === quote) return;
+		console.log('Default currency changed:', value);
+		handleQuoteCurrencyChange(value);
+	});
 </script>
 
 <svelte:head>
-	<title>Dollar to naira today black market | Monierate</title>
+	<title
+		>{currencies[base] || base} to {currencies[quote] || quote} today black market | Monierate</title
+	>
 	<meta
 		name="description"
 		content="Monierate offers reliable naira exchange rates from 40+ exchanges. Track rates, convert dollars, and get crypto price alerts from Binance, Bybit, etc."
 	/>
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content="Naira exchange rates & converter | Monierate" />
+	<meta property="og:title" content="{currencies[base] || base} to {currencies[quote] || quote} exchange rates & converter | Monierate" />
 	<meta
 		property="og:description"
 		content="Compare the naira exchange rates from over 40 exchanges in Nigeria. Track naira rates today. Convert dollar to naira using CBN and black market rate. Get price alert from your favourite crypto exchange such as Binance, Bybit, Quidax, etc."
@@ -123,52 +89,57 @@
 	<meta property="og:image" content="https://monierate.com/monierate-og-image.png" />
 </svelte:head>
 
-<!-- partner -->
+<!-- Partner banner -->
 <div class="bg-white dark:bg-gray-800">
-	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile}/>
+	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile} />
 </div>
 
 <div class="container px-0">
 	{#if !data.isValidCurrency}
-		<Notice
-			>Looks like the currency you entered isn't valid. Don't worry — we've reset it to {currency.toUpperCase()}.</Notice
-		>
+		<Notice>
+			Looks like the currency you entered isn't valid. We've reset it to {base}.
+		</Notice>
 	{/if}
 
 	<ExchangeRateText
-		title={`Today ${currencies[currency] || currency} to Naira rates on exchanges`}
+		title={`Today ${currencies[base] || base} to ${currencies[quote] || quote} rates on exchanges`}
 		data={{
 			currencies: currencies,
-			currency: { name: currency, symbol: getCurrencySymbol },
-			rate: { now: pair.price.current, last: pair.price_30d }
+			base: { name: base, symbol: baseSymbol },
+			quote: { name: quote, symbol: quoteSymbol },
+			rate: { now: pair?.price?.current, last: pair?.price_30d }
 		}}
 	/>
 
 	<Highlights
-		currency={{ code: currency, symbol: getCurrencySymbol }}
+		base={{ code: base, symbol: baseSymbol }}
+		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
-		inProgress={highlightsLoading}
 	/>
 </div>
 
 <div class="container px-0 mb-4">
 	<ExchangeFilter
 		onSearch={handleSearch}
-		selectedCurrency={currency}
-		onChangeCurrency={handleFilterByCurrency}
+		selectedCurrency={base}
+		onChangeCurrency={handleBaseCurrencyChange}
+		enableCategories={ENABLE_CATEGORIES_FOR.includes(quote)}
+		quoteCurrency={quote}
 	/>
 </div>
 
 <main>
-	{#if filteredRates && filteredRates.length > 0}
+	{#if filteredRates.length > 0}
 		<ExchangeRates
 			data={{
 				rates: filteredRates,
 				providers,
-				currency,
-				currencySymbols
+				base,
+				baseSymbol,
+				quote,
+				quoteSymbol
 			}}
 			bind:currentPage={data.page}
 		/>

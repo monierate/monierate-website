@@ -5,8 +5,9 @@ declare namespace App {
 	// interface Error {}
 	interface Locals {
 		access: {
-			token: string
-		}
+			token: string;
+		};
+		ucountry: string;
 	}
 	// interface PageData {}
 	// interface Platform {}

@@ -1,38 +1,52 @@
-import { get_changers } from '$lib/server/changer.service';
-import { get_currencies } from '$lib/server/currency.service';
-import type { PageServerLoad } from './$types'
-import { error } from "@sveltejs/kit";
+import type { PageServerLoad } from './$types';
+import { error } from '@sveltejs/kit';
+import { getChanger } from '$lib/services/changer.service';
+import { getCurrencies } from '$lib/services/currency.service';
+import { getPair } from '$lib/services/pair.service';
 
-export const load: PageServerLoad = (async ({ params, url, fetch }) => {
+export const load: PageServerLoad = async ({ params, url, fetch, depends }) => {
+	try {
+		const changer_code = params.changer;
 
-    try {
-        const changer_code = params.changer;
+		const search = url.searchParams;
 
-        let urlParams = url.searchParams
-        const convert = {
-            From: urlParams.get('From') || 'usd',
-            To: urlParams.get('To') || 'ngn',
-            Amount: urlParams.get('Amount') || 1
-        }
+		const convert = {
+			From: search.get('From') ?? 'usd',
+			To: search.get('To') ?? 'ngn',
+			Amount: Number(search.get('Amount')) || 1
+		};
 
-        const changer = await get_changers(changer_code);
-        const currencies = await get_currencies();
+		depends(`convert:from=${convert.From}`, `convert:to=${convert.To}`);
 
-        if (Object.keys(currencies).length == 0) {
-            throw error(500, "Currencies data failed.")
-        }
-        if (Object.keys(changer).length == 0) {
-            throw error(500, "Changer data failed.")
-        }
-        
-        return {
-            changer,
-            convert,
-            currencies
-        }
-    }
-    catch(e: any) {
-        console.log(e)
-        throw error(502, `Unable to fetch an important data`)
-    }
-})
+		const pairCode = `${convert.From}${convert.To}`;
+
+		const changer = (await getChanger(fetch, changer_code)) as any;
+		const currencies = await getCurrencies(fetch);
+		let pair = await getPair(fetch, pairCode);
+		let rateInverse: boolean = false;
+
+		if (!pair) {
+			pair = await getPair(fetch, `${convert.To}${convert.From}`);
+			rateInverse = true;
+		}
+
+		if (!Object.keys(currencies).length) {
+			throw error(500, 'Currencies data failed.');
+		}
+
+		if (!Object.keys(changer).length) {
+			throw error(500, 'Changer data failed.');
+		}
+
+		return {
+			changer,
+			convert,
+			currencies,
+			pair,
+			rateInverse
+		};
+	} catch (e) {
+		console.error(e);
+		throw error(502, 'Unable to fetch an important data');
+	}
+};

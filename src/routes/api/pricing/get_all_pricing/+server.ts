@@ -1,14 +1,16 @@
-import { basicAuth, getAccountEndpoint } from "$lib/server/utilities.js";
-import { json } from "@sveltejs/kit";
+import { json } from '@sveltejs/kit';
+import { userAccountRequest } from '$lib/api/userAccountApi';
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET({ fetch }) {
-  const payload = {};
-  const endpoint = getAccountEndpoint("/pricing/get_all_pricing");
-  const res = await fetch(endpoint, basicAuth("GET", payload));
+export async function GET({}) {
+	const res = await userAccountRequest('/pricing/get_all_pricing', {
+		method: 'GET',
+		userToken: ''
+	});
 
-  const result = await res.text();
-  //console.log(result);
+	if (!res?.success) {
+		return json({ error: res?.error ?? 'Failed to fetch pricing' }, { status: res?.status ?? 500 });
+	}
 
-  return json(result);
+	return json({ data: res.data });
 }

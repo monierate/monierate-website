@@ -1,16 +1,28 @@
-import { basicAccountAuth, getAccountEndpoint } from "$lib/server/utilities.js";
-import { json } from "@sveltejs/kit";
+import { json } from '@sveltejs/kit';
+import { userAccountRequest } from '$lib/api/userAccountApi';
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ cookies, fetch }) {
-    const user_token = cookies.get("auth_token");
-    const payload = {
-        user_token: user_token,
-    };
-    const endpoint = getAccountEndpoint("/alerts/all");
-    const res = await fetch(endpoint, basicAccountAuth('DELETE', payload));
+export async function POST({ cookies }) {
+	const userToken = cookies.get('auth_token');
 
-    const result = await res.text();
+	if (!userToken) {
+		return json(
+			{ error: 'User not authenticated' },
+			{ status: 401 }
+		);
+	}
 
-    return json(result);
+	const res = await userAccountRequest('/alerts/all', {
+		method: 'DELETE',
+		userToken
+	});
+
+	if (!res.success) {
+		return json(
+			{ error: res.error ?? 'Failed to delete alerts' },
+			{ status: res.status || 500 }
+		);
+	}
+
+	return json(res.data);
 }
