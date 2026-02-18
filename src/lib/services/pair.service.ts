@@ -34,7 +34,8 @@ export const getAllPairs = async (
 	pairCode: string | undefined,
 	page: number = 1,
 	limit: number = 100,
-	quote?: string
+	quote?: string,
+	changer?: string
 ) => {
 	const result = await clientApiFetch<Record<string, any>>(
 		'/pairs/get_all_pairs',
@@ -43,7 +44,8 @@ export const getAllPairs = async (
 				pair_code: pairCode,
 				page,
 				limit,
-				quote
+				quote,
+				changer,
 			}
 		},
 		fetch

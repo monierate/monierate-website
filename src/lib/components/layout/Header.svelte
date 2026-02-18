@@ -2,8 +2,8 @@
 	import CurrencySelector from '$lib/components/CurrencySelector.svelte';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 	import { page, navigating } from '$app/stores';
-    import { onMount } from 'svelte';
-    import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 
 	export let defaultCurrency: string;
 	// export let user: {
@@ -15,7 +15,7 @@
 	$: paths.shift();
 	$: path = paths[0] ?? 'home';
 
-    	// hide sticky navbar menu on page change
+	// hide sticky navbar menu on page change
 	$: if ($navigating) {
 		if (browser) {
 			const targetEl = document.getElementById('navbar-sticky');
@@ -23,11 +23,10 @@
 		}
 	}
 
-    // let showDropdown = false;
+	// let showDropdown = false;
 
-    	// toggle navbar collapse menu on mobile
+	// toggle navbar collapse menu on mobile
 	onMount(() => {
-
 		const collapse = () => {
 			const triggerEl = document.getElementById('nav-collapse-trigger');
 			const targetEl = document.getElementById('navbar-sticky');
@@ -133,17 +132,17 @@
 
 				<span>
 					<CurrencySelector
-						onSelect={(currency) => defaultCurrencyStore.set(currency)}
+						onSelect={(currency: any) => defaultCurrencyStore.set(currency)}
 						bind:selected={defaultCurrency}
 					/>
 				</span>
 
 				<a
-					href="/alerts"
+					href="https://account.monierate.com/signup?callback_url=https://account.monierate.com/subscription"
 					type="button"
 					class="button px-3 bg-gray-900 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 hidden md:inline-block"
 				>
-					Get alert
+					Get API
 				</a>
 
 				<button
@@ -185,9 +184,9 @@
 							>Converter</a
 						>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="/ng/compare" class={path == 'ng' ? 'active' : ''}>Compare</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="/alerts" class={path == 'alerts' ? 'active' : ''}>Price Alerts</a>
 					</li>
@@ -229,4 +228,3 @@
 		@apply text-black dark:text-primary;
 	}
 </style>
-
