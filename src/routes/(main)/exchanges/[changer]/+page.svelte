@@ -11,21 +11,22 @@
 	const currencies = data.currencies;
 	$: changer = data.changer;
 	$: relatedChangers = data.relatedChangers;
+	$: pairs = data.pairs;
 </script>
 
 <svelte:head>
-	<title>{changer.name} | Monierate</title>
+	<title>{changer.name} Exchange Rates & Profile | Monierate</title>
 
 	<meta
 		name="description"
-		content={`${changer.name} on Monierate. Learn about ${changer.name}, view supported exchange pairs, and see market prices updated in real time.`}
+		content={`The ${changer.name} bio info + "view ${changer.name} exchange rates and company profile".`}
 	/>
 
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content={`${changer.name} | Monierate`} />
+	<meta property="og:title" content={`${changer.name} Exchange Rates & Profile | Monierate`} />
 	<meta
 		property="og:description"
-		content={`Explore ${changer.name} on Monierate. Get information about the exchanger, available pairs, and live market prices in one place.`}
+		content={`The ${changer.name} bio info + "view ${changer.name} exchange rates and company profile".`}
 	/>
 	<meta property="og:url" content={`https://monierate.com/exchanges/${changer.slug}`} />
 	<meta property="og:image" content="https://monierate.com/monierate-og-image.png" />
@@ -79,10 +80,10 @@
 					</div>
 				</div>
 			</div>
-			{#if changer.pairs}
+			{#if pairs && pairs.length > 0}
 				<Rates
 					data={{
-						pairs: changer.pairs,
+						pairs: pairs,
 						currencySymbols: data.currencySymbols,
 						changer: changer.code
 					}}
@@ -106,7 +107,9 @@
 				{#if changer.featured_publications && changer.featured_publications.length > 0}
 					<FeaturedPublications posts={changer.featured_publications} />
 				{:else}
-					<div class="text-center p-16 bg-white dark:bg-gray-900 rounded-lg shadow-sm">There's no featured publications for {changer.name}</div>
+					<div class="text-center p-16 bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+						There's no featured publications for {changer.name}
+					</div>
 				{/if}
 			</div>
 
