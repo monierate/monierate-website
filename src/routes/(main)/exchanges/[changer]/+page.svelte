@@ -19,14 +19,14 @@
 
 	<meta
 		name="description"
-		content={`The ${changer.name} bio info + "view ${changer.name} exchange rates and company profile".`}
+		content={`${changer.bio} view ${changer.name} exchange rates and company profile.`}
 	/>
 
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content={`${changer.name} Exchange Rates & Profile | Monierate`} />
 	<meta
 		property="og:description"
-		content={`The ${changer.name} bio info + "view ${changer.name} exchange rates and company profile".`}
+		content={`${changer.bio} view ${changer.name} exchange rates and company profile.`}
 	/>
 	<meta property="og:url" content={`https://monierate.com/exchanges/${changer.slug}`} />
 	<meta property="og:image" content="https://monierate.com/monierate-og-image.png" />
