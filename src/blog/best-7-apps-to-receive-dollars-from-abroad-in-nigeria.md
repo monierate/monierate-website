@@ -180,9 +180,9 @@ If you run a business and want to receive dollars from abroad. Graph is the best
 
 The best app for you really depends on what matters most to you when receiving payments from abroad. Since most of these apps offer similar features and aim to achieve the same goal, there are subtle differences that define your experience. Choosing the right one just comes down to what works best for your lifestyle.
 
-**If you want to receive dollars and earn interest at the same time, **[**Karsa**](https://monierate.com/exchanges/karsa)** is a great choice**. The platform allows your dollars to grow right inside your wallet, and you can easily transfer your funds to a Nigerian bank account whenever you need to.
+**If you want to receive dollars and earn interest at the same time,** [**Karsa**](https://monierate.com/exchanges/karsa) **is a great choice**. The platform allows your dollars to grow right inside your wallet, and you can easily transfer your funds to a Nigerian bank account whenever you need to.
 
-**If you are a freelancer or remote worker on platforms like Upwork and Fiveer, I recommend using **[**nsave**](https://monierate.com/exchanges/nsave)**, Cleva or Raenest.** You get that speed feature that puts money in your pocket in under an hour, or you can stick with nsave to get a solid rate.
+**If you are a freelancer or remote worker on platforms like Upwork and Fiveer, I recommend using** [**nsave**](https://monierate.com/exchanges/nsave)**, Cleva or Raenest.** You get that speed feature that puts money in your pocket in under an hour, or you can stick with nsave to get a solid rate.
 
 [**Grey**](https://monierate.com/exchanges/grey) and nsave too is a solid choice if you want that "global citizen" feel, especially if you deal with British or European clients and need multiple IBANs in one place.
 
