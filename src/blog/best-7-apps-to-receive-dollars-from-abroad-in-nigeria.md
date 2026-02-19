@@ -43,7 +43,8 @@ These ratings are based on fees, app stores ratings, and feedback from users onl
 **Pros**
 
 - 4–5% yield on dollar balances tied to US Treasury rates.
-- Fast virtual Visa card generation for international shopping.
+- Free virtual USD card for international shopping.
+- Receive stablecoins directly into your wallet.
 - Very modern, fast-loading mobile app.
 
 **Cons**
