@@ -168,7 +168,7 @@ If you run a business and want to receive dollars from abroad. Graph is the best
 
 | App Name | Account Creation Fee | Deposit Fee (ACH & Wire - SWIFT) | Conversion Rate & Fee (USD to NGN) | Withdrawal to Naira Bank Account |
 | --- | --- | --- | --- | --- |
-| Karsa | Free | $0 | Rate: ₦1,367 / Extra Fee: None | Free |
+| Karsa | Free | 1% (ACH & SWIFT) | Rate: ₦1,367 / Extra Fee: None | Free |
 | Cleva | Free | ACH: $1 for deposits &lt; $300; $3 for deposits &gt; $300. Wire (SWIFT): $10 flat. | Rate: ₦1,372 / Extra Fee: None | Free |
 | Grey | Free | ACH: 0.8% (min $2, max $10). Wire (SWIFT): $20 flat. | Rate: ₦1,321 / Extra Fee: 0.5% capped at $2.7 | Free |
 | Accrue | $3 | ACH: 1% (min $1.50). SWIFT: Not supported. | Rate: ₦1,326 / Extra Fee: None | 1% capped at $1 |
