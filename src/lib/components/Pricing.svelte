@@ -5,19 +5,17 @@
 	let currencySymbols: any = data.currencySymbols;
 	let subscriptionPlans: any = data.subscriptionPlans
 		.sort((a: any, b: any) => b.price - a.price)
-		.slice(0, 3);
+		.slice(0, 4);
 </script>
 
-<div class="grid md:grid-cols-3 gap-5 mb-16">
+<div class="flex flex-wrap gap-5 mb-16 justify-center">
 	{#if subscriptionPlans}
 		{#each subscriptionPlans as plan, i}
 			<div
-				class="bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 {i === 1
+				class="w-full md:basis-[calc(33.333%-1.25rem)] bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 {i ===
+				1
 					? 'border-blue-500/50 outline outline-2 outline-blue-500/10 outline-offset-2'
-					: 'border-gray-200 dark:border-gray-700'} rounded-lg shadow-md p-6 hover:scale-105 transition-all duration-300 {plan.code ===
-				'free'
-					? 'md:col-span-3 md:place-self-center'
-					: ''}"
+					: 'border-gray-200 dark:border-gray-700'} rounded-lg shadow-md p-6 hover:scale-105 transition-all duration-300"
 			>
 				<div class="">
 					<div class="mb-6">
@@ -25,10 +23,10 @@
 							class="inline-block text-lg {i === 0
 								? 'text-yellow-800 dark:text-yellow-200 bg-yellow-800/10'
 								: i === 1
-								? 'text-blue-500 bg-blue-800/10'
-								: i === 2
-								? 'text-green-500 bg-green-800/10'
-								: 'text-gray-800 dark:text-gray-200 bg-gray-800'} rounded-lg p-1 px-4"
+									? 'text-blue-500 bg-blue-800/10'
+									: i === 2
+										? 'text-green-500 bg-green-800/10'
+										: 'text-gray-800 dark:text-gray-200 bg-gray-800'} rounded-lg p-1 px-4"
 						>
 							{plan.name}
 						</span>
