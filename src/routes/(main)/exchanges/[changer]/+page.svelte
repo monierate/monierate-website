@@ -29,7 +29,7 @@
 		content={`${changer.bio} view ${changer.name} exchange rates and company profile.`}
 	/>
 	<meta property="og:url" content={`https://monierate.com/exchanges/${changer.slug}`} />
-	<meta property="og:image" content="https://monierate.com/monierate-og-image.png" />
+	<meta property="og:image" content="https://ik.imagekit.io/monierate/thumbnails/{changer.code}-og.png" />
 </svelte:head>
 
 <!-- <AdBanner name="footer" /> -->
