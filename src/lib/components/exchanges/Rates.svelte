@@ -116,7 +116,7 @@
 							{#if pair.price_sell > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
-										₦{formatNumber(pair.price_sell)}
+										{formatNumber(pair.price_sell)}
 									</div>
 									<!-- {#if pair.price_change_percent_1hr >= 0}
 										<div
