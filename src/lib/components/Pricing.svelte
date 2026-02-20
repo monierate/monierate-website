@@ -8,7 +8,7 @@
 		.slice(0, 4);
 </script>
 
-<div class="flex flex-wrap gap-5 mb-16 justify-center">
+<div class="flex flex-wrap gap-5 gap-y-16 mb-16 justify-center">
 	{#if subscriptionPlans}
 		{#each subscriptionPlans as plan, i}
 			<div
