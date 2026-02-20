@@ -8,7 +8,7 @@
 		.slice(0, 4);
 </script>
 
-<div class="flex flex-wrap gap-5 mb-16 justify-center">
+<div class="flex flex-wrap gap-5 gap-y-16 mb-16 justify-center">
 	{#if subscriptionPlans}
 		{#each subscriptionPlans as plan, i}
 			<div
@@ -26,7 +26,7 @@
 									? 'text-blue-500 bg-blue-800/10'
 									: i === 2
 										? 'text-green-500 bg-green-800/10'
-										: 'text-gray-800 dark:text-gray-200 bg-gray-800'} rounded-lg p-1 px-4"
+										: 'text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-800'} rounded-lg p-1 px-4"
 						>
 							{plan.name}
 						</span>
