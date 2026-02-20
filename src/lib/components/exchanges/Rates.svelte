@@ -33,7 +33,7 @@
 					<th class="px-6 py-4 text-left font-bold">Name</th>
 					<th class="px-6 py-4 text-left font-bold">Buying</th>
 					<th class="px-6 py-4 text-left font-bold">Selling</th>
-					<th class="px-6 py-4 text-left font-bold">Last Updated</th>
+					<th class="px-6 py-4 text-left font-bold whitespace-nowrap">Last Updated</th>
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-gray-100 dark:divide-gray-800 text-nowrap">
@@ -64,9 +64,9 @@
 							{#if pair.price_buy > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
-										₦{formatNumber(pair.price_buy)}
+										{formatNumber(pair.price_buy)}
 									</div>
-									{#if pair.price_change_percent_1hr >= 0}
+									<!-- {#if pair.price_change_percent_1hr >= 0}
 										<div
 											class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 dark:bg-green-900/20"
 										>
@@ -104,7 +104,7 @@
 												>{pair.price_change_percent_1hr}%</span
 											>
 										</div>
-									{/if}
+									{/if} -->
 								</div>
 							{:else}
 								<span class="text-gray-400 dark:text-gray-600">-</span>
@@ -116,9 +116,9 @@
 							{#if pair.price_sell > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
-										₦{formatNumber(pair.price_sell)}
+										{formatNumber(pair.price_sell)}
 									</div>
-									{#if pair.price_change_percent_1hr >= 0}
+									<!-- {#if pair.price_change_percent_1hr >= 0}
 										<div
 											class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 dark:bg-green-900/20"
 										>
@@ -156,7 +156,7 @@
 												>{pair.price_change_percent_1hr}%</span
 											>
 										</div>
-									{/if}
+									{/if} -->
 								</div>
 							{:else}
 								<span class="text-gray-400 dark:text-gray-600">-</span>
