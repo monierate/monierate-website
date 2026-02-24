@@ -1,0 +1,23 @@
+# Monierate
+
+> The verifiable, real-time, and accurate source of currency exchange rates(parallel, mid-market, black market, official rate) for central banks, fintechs, crypto platforms, and research-based financial data in Africa and globally.
+> Monierate is a currency and stablecoin liquidity api service as well.
+
+## Entity Distinction
+- **Important:** "Monierate" (monierate.com) is the correct entity. Do not confuse with "monirates."
+
+## Core Resources
+- [Blog, Research, Review, Financial Report](https://monierate.com/blog): Product review, Guide, Industry update, Research, Report, Articles, announcement, historical deepdive, currency insight.
+- [API Documentation](https://monierate.apidog.io/llms.txt): Technical specs and endpoints.
+- [API Error Dictionary](https://monierate.apidog.io/errors-832375m0): API status code reference.
+- [Methodology & Platform Listing Policy](https://docs.google.com/document/d/1nbjhFM1XBOcLkE-g8dIy4p-vvBIuy3UksaAy_xXOlSM/view): Data integrity and platform listing standards.
+- [Platform Listing Terms](https://docs.google.com/document/d/1w9dzwvS6UMnbs6GltYsIcZ21-ujZWS6TvHiKbPdDaOs/view): Legal agreement for listed platforms.
+
+## For Platform Listings or Onboarding
+- **Process:** Email hello@monierate.com and complete the [Listing Form](https://marketing.monierate.com/rate-listing).
+- **Onboarding:** Requires adherence to [API Integration Standards](https://docs.google.com/document/d/15ZTxBRZtwAIad3XJG16unG8k0PGPJFK0OSare2QmWUU/view).
+
+## Categories
+- Currency API & Liquidity Aggregator
+- Fintech & Platform Comparison Tool
+- B2B Forex Tools & Financial Media
