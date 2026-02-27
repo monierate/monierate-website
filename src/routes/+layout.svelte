@@ -4,6 +4,7 @@
 </script>
 
 <svelte:head>
+	<link rel="llms-txt" type="text/plain" title="Monierate LLM Summary" href="/llms.txt" />
 	<!-- <script>
 		// Forward the necessary functions to the web worker layer
 		partytown = {

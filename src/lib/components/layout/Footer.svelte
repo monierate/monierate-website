@@ -47,6 +47,11 @@
 						>Convert USDC on Luno</a
 					>
 				</li>
+				<li>
+					<a data-sveltekit-reload href="/converter/gate?Amount=1&From=USDT&To=NGN"
+						>Convert USDT on Gate.com</a
+					>
+				</li>
 			</ul>
 		</div>
 		<div class="w-full md:w-[30%]">
