@@ -190,13 +190,13 @@ This table breaks down the real costs of moving money from Nigeria to Kenya toda
 |  |  |  |  |
 | --- | --- | --- | --- |
 | **App Name** | **Payout Method** | **Speed (minute)** | **Conversion Rate & Fees** |
-| Mavapay | M-Pesa / USSD | < 10 | ₦10.92 / KSh |
-| Hizo Africa | M-Pesa / Bank | < 20 | ₦10.92 / KSh **Fee**: ₦72 KSh (Flat) |
-| Bitnob | M-Pesa / Bank | < 30 | ₦10.91 / KSh |
-| Spendin | Bank Account | < 30 | ₦13.05 / KSh**Fee**: 100 KSh (Flat) |
-| Eversend | M-Pesa / Bank | < 30 | ₦11.12 / KSh |
-| Cashwyre | M-Pesa / Bank | < 30 | ₦10.98 / KSh |
-| Boundless Pay | M-Pesa | < 30 | - |
+| Mavapay | M-Pesa / USSD | &lt; 10 | ₦10.92 / KSh |
+| Hizo Africa | M-Pesa / Bank | &lt; 20 | ₦10.92 / KSh **Fee**: ₦72 KSh (Flat) |
+| Bitnob | M-Pesa / Bank | &lt; 30 | ₦10.91 / KSh |
+| Spendin | Bank Account | &lt; 30 | ₦13.05 / KSh**Fee**: 100 KSh (Flat) |
+| Eversend | M-Pesa / Bank | &lt; 30 | ₦11.12 / KSh |
+| Cashwyre | M-Pesa / Bank | &lt; 30 | ₦10.98 / KSh |
+| Boundless Pay | M-Pesa | &lt; 30 | - |
 
 ## **Which App Should You Use?**
 
