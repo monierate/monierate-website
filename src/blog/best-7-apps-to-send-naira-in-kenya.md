@@ -14,8 +14,8 @@ author: Tim Bolarinwa
 
 Are you a Nigerian travelling to Kenya and looking to pay for things?
 
-If you want to send naira to Kenya before reading this article, you might walk into a bank, convert your naira to dollars, and provide some documentation. Then you wait for days for your money to get to the person or business after paying expensive fees.\
-\
+If you want to send naira to Kenya before reading this article, you might walk into a bank, convert your naira to dollars, and provide some documentation. Then you wait for days for your money to get to the person or business after paying expensive fees.
+
 In this article, I break down the 7 best apps for sending naira to Kenya. They are fast, easy to use, and don’t charge like banks.
 
 ## **My Top 7 Apps to Send Naira to Kenya**
