@@ -233,13 +233,13 @@ Chipper Cash is an easy-to-use mobile app that makes money transfers fast,and  
 |                        |                             |                 |                                                                     |
 | :--------------------: | :-------------------------: | :-------------: | ------------------------------------------------------------------- |
 |        App Name        |        Payout Method        | Speed (minutes) | Conversion Rate & Fees                                              |
-|      MoMo (by MTN)     |      Mobile Money (GHS)     |       < 10      |   ₦128.205 / GHS**Fee**: 4% and zero charges on weekends            |
-|       Hizo Africa      |     Bank & Mobile Money     |       < 20      |   ₦133.88/GHS **Fee**: None                                         |
-|         Bitnob         |      Mobile Money / USD     |       < 30      |   ₦131.02/GHS **Fee**: 9.91 GHS                                     |
-|        Cashwyre        |     Bank & Mobile Money     |       < 30      |   ₦132.32/GHS                                                       |
-|        Eversend        | Mobile Money (MTN/Vodafone) |       < 30      |   ₦131.54/GHS **Fee**: 8 GHS                                        |
-| Send App (Flutterwave) |     Bank & Mobile Money     |       < 30      |   ₦132.84/GHS **Fee**: 1% Flat fee of any transfer                  |
-|      Chipper Cash      |     Bank & Mobile Money     |       < 20      |   ₦133.62/GHS **Fee**: Zero transaction fee between chipper wallets |
+|      MoMo (by MTN)     |      Mobile Money (GHS)     |       &lt; 10      |   ₦128.205 / GHS**Fee**: 4% and zero charges on weekends            |
+|       Hizo Africa      |     Bank & Mobile Money     |       &lt; 20      |   ₦133.88/GHS **Fee**: None                                         |
+|         Bitnob         |      Mobile Money / USD     |       &lt; 30      |   ₦131.02/GHS **Fee**: 9.91 GHS                                     |
+|        Cashwyre        |     Bank & Mobile Money     |       &lt; 30      |   ₦132.32/GHS                                                       |
+|        Eversend        | Mobile Money (MTN/Vodafone) |       &lt; 30      |   ₦131.54/GHS **Fee**: 8 GHS                                        |
+| Send App (Flutterwave) |     Bank & Mobile Money     |       &lt; 30      |   ₦132.84/GHS **Fee**: 1% Flat fee of any transfer                  |
+|      Chipper Cash      |     Bank & Mobile Money     |       &lt; 20      |   ₦133.62/GHS **Fee**: Zero transaction fee between chipper wallets |
 
 
 ### **Which App Should You Use?**
