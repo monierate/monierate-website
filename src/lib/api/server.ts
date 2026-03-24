@@ -2,7 +2,7 @@ import { env } from '$env/dynamic/private';
 import type { ApiOptions, ApiResponse } from './types';
 
 const BASE_URL =
-	env.API_URL ?? 'https://monierate-currency-api-production.up.railway.app/core';
+	env.API_URL ?? 'https://currency-staging-api-production.up.railway.app/core';
 
 const DEFAULT_TIMEOUT = 10_000;
 
