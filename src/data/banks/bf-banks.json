@@ -1,0 +1,65 @@
+{
+    "banque_nationale": {
+        "name": "Banque Nationale de Développement du Burkina",
+        "link": "https://www.bnb.bf",
+        "address": "Avenue Kwame N'Krumah",
+        "city": "Ouagadougou",
+        "branch": "Siège Social"
+    },
+    "ecobank": {
+        "name": "Ecobank Burkina Faso",
+        "link": "https://www.ecobank.com/bf",
+        "address": "Avenue Dimdolobsom",
+        "city": "Ouagadougou",
+        "branch": "Agence Principale"
+    },
+    "bank_of_africa": {
+        "name": "Bank Of Africa Burkina Faso",
+        "link": "https://www.boabf.bf",
+        "address": "Avenue de la Nation",
+        "city": "Ouagadougou",
+        "branch": "Agence Centrale"
+    },
+    "coris_bank": {
+        "name": "Coris Bank International",
+        "link": "https://www.corisbank.bf",
+        "address": "Avenue de la Nation",
+        "city": "Ouagadougou",
+        "branch": "Siège"
+    },
+    "societe_generale": {
+        "name": "Société Générale Burkina Faso",
+        "link": "https://www.societegenerale.bf",
+        "address": "Avenue Dimdolobsom",
+        "city": "Ouagadougou",
+        "branch": "Agence Principale"
+    },
+    "biciab": {
+        "name": "Banque Internationale pour le Commerce, l'Industrie et l'Agriculture du Burkina",
+        "link": "https://www.biciab.bf",
+        "address": "Avenue Kwame N'Krumah",
+        "city": "Ouagadougou",
+        "branch": "Siège Social"
+    },
+    "faarf": {
+        "name": "Fonds d'Appui aux Activités Rémunératrices des Femmes",
+        "link": "https://www.faarf.bf",
+        "address": "Avenue de la Nation",
+        "city": "Ouagadougou",
+        "branch": "Direction Générale"
+    },
+    "orabank": {
+        "name": "Orabank Burkina Faso",
+        "link": "https://www.orabank.net/fr/filiale/burkina",
+        "address": "Avenue de l'UEMOA",
+        "city": "Ouagadougou",
+        "branch": "Agence Principale"
+    },
+    "wcb": {
+        "name": "Wendkuni Bank International",
+        "link": "https://www.wcb.bf",
+        "address": "Avenue Président Sankara",
+        "city": "Ouagadougou",
+        "branch": "Siège Social"
+    }
+}

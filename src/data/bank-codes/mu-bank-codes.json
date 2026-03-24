@@ -1,0 +1,58 @@
+{
+  "mcb": {
+      "swift": ["MCBLMUMU"],
+      "ussd": {
+          "start": "*187#",
+          "balance": "*187*1#",
+          "transfer_to_same_bank": "*187*2*1*account_number*amount#"
+      }
+  },
+  "sbm": {
+      "swift": ["STCBMUMU"],
+      "ussd": {
+          "start": "*167#",
+          "balance": "*167*1#",
+          "transfer_to_same_bank": "*167*2*account_number*amount#"
+      }
+  },
+  "abcbanking": {
+      "swift": ["AFBLMUMU"],
+      "ussd": null
+  },
+  "hsbc": {
+      "swift": ["HSBCMUMU"],
+      "ussd": null
+  },
+  "barclays": {
+      "swift": ["BARCMUMU"],
+      "ussd": {
+          "start": "*247#",
+          "balance": "*247*1#",
+          "transfer_to_same_bank": "*247*2*account_number*amount#"
+      }
+  },
+  "bankone": {
+      "swift": ["BONEMUМУ"],
+      "ussd": null
+  },
+  "maubank": {
+      "swift": ["MAUBMUMU"],
+      "ussd": {
+          "start": "*181#",
+          "balance": "*181*1#",
+          "transfer_to_same_bank": "*181*2*account_number*amount#"
+      }
+  },
+  "investec": {
+      "swift": ["IVMUMUMU"],
+      "ussd": null
+  },
+  "standard": {
+      "swift": ["SBICMUMU"],
+      "ussd": null
+  },
+  "habib": {
+      "swift": ["HBLIMUMU"],
+      "ussd": null
+  }
+}

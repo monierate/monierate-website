@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" media="(prefers-color-scheme: light)" />
-		<link rel="icon" href="%sveltekit.assets%/favicon-white.png" media="(prefers-color-scheme: dark)" />
+		<link rel="icon" href="%sveltekit.assets%/favicon-1.png" media="(prefers-color-scheme: light)" />
+		<link rel="icon" href="%sveltekit.assets%/favicon-white-1.png" media="(prefers-color-scheme: dark)" />
 
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-59H6DBC82L"></script>
@@ -15,17 +15,17 @@
 
 			gtag('config', 'G-59H6DBC82L');
 		</script>
-		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9886145381404391"
-		crossorigin="anonymous"></script>
-		<meta name="google-adsense-account" content="ca-pub-9886145381404391">
-		
 		<meta name="norton-safeweb-site-verification" content="TBJG32VZI17QDM26VOTA-B8I9NJ5TXWQ6B072IU80ZIMQ69XRZU72THZEM81PY38O9XTMOV-J42ZNNB7CINTL0Y09C1OLJFN65OH1WZTOLC04R9H55J-0-XCUNYKRQ2M" />
-
 		<meta name="theme-color" content="#000000" />
 
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="tap">
+		<!-- Loading Indicator -->
+		<div id="loading-container" class="fixed top-0 left-0 w-full h-1 rounded-full" style="z-index: 9999;display: none;">
+			<div id="loading-bar" class="bg-blue-500 h-1 w-0 rounded-full" style="transition: 1s;"></div>
+		</div>
+
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

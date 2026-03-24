@@ -1,0 +1,72 @@
+{
+  "dfcu": {
+    "name": "DFCU Bank",
+    "link": "https://www.dfcu.co.ug",
+    "address": "Plot 26 Kyadondo Road, Nakasero, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "stanbic": {
+    "name": "Stanbic Bank Uganda",
+    "link": "https://www.stanbicbank.co.ug",
+    "address": "Crested Towers, Plot 17 Hannington Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "absa": {
+    "name": "Absa Bank Uganda (formerly Barclays Bank)",
+    "link": "https://www.absa.co.ug",
+    "address": "Plot 2 Hannington Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "centenary": {
+    "name": "Centenary Bank",
+    "link": "https://www.centenarybank.co.ug",
+    "address": "Mapeera House, Plot 44-46 Kampala Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "icb": {
+    "name": "I&M Bank Uganda (formerly ICB)",
+    "link": "https://www.imbank.com/uganda",
+    "address": "Plot 41, Kampala Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "orient": {
+    "name": "I&M Bank Uganda (formerly Orient Bank)",
+    "link": "https://www.imbank.com/uganda",
+    "address": "Plot 6/6A, Nasser Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "kcb": {
+    "name": "KCB Bank Uganda",
+    "link": "https://ug.kcbgroup.com",
+    "address": "Commercial Plaza, Plot 7 Kampala Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "equity": {
+    "name": "Equity Bank Uganda",
+    "link": "https://equitybanking.co.ug",
+    "address": "Church House, Plot 34 Kampala Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "bankofafrica": {
+    "name": "Bank of Africa Uganda",
+    "link": "https://www.boauganda.com",
+    "address": "Plot 45 Jinja Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  },
+  "postbank": {
+    "name": "PostBank Uganda",
+    "link": "https://www.postbank.co.ug",
+    "address": "Plot 4/6 Nkrumah Road, Kampala",
+    "city": "Kampala",
+    "branch": "Main Branch"
+  }
+}

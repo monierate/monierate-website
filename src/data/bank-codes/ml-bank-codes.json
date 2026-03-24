@@ -1,0 +1,50 @@
+{
+  "bms": {
+    "swift": ["BMSMMLML"],
+    "ussd": {
+      "start": "*123#",
+      "balance": "*123*1#",
+      "transfer_to_same_bank": "*123*amount*account_number#"
+    }
+  },
+  "banquemali": {
+    "swift": ["BAMLMMLM"],
+    "ussd": {
+      "start": "*789#",
+      "balance": "*789*1#",
+      "transfer_to_same_bank": "*789*amount*account_number#"
+    }
+  },
+  "bcs": {
+    "swift": ["BCSMLML"],
+    "ussd": {
+      "start": "*321#",
+      "balance": "*321*1#",
+      "transfer_to_same_bank": "*321*amount*account_number#"
+    }
+  },
+  "uba": {
+    "swift": ["UBAMMLML"],
+    "ussd": {
+      "start": "*555#",
+      "balance": "*555*1#",
+      "transfer_to_same_bank": "*555*amount*account_number#"
+    }
+  },
+  "ecobank": {
+    "swift": ["ECOCMWMW"],
+    "ussd": {
+      "start": "*200#",
+      "balance": "*200*1#",
+      "transfer_to_same_bank": "*200*amount*account_number#"
+    }
+  },
+  "bicim": {
+    "swift": ["BICIMLML"],
+    "ussd": {
+      "start": "*300#",
+      "balance": "*300*1#",
+      "transfer_to_same_bank": "*300*amount*account_number#"
+    }
+  }
+}

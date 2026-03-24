@@ -1,0 +1,79 @@
+{
+    "bnda": {
+        "name": "BNDA (Banque Nationale de Développement Agricole)",
+        "link": "https://www.bnda-mali.com",
+        "address": "Avenue de la Nation, Quartier du Fleuve",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "bim": {
+        "name": "BIM s.a. (Banque Internationale pour le Mali)",
+        "link": "https://www.bim.ml",
+        "address": "Boulevard de l'Indépendance",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "bms": {
+        "name": "BMS sa (Banque Malienne de Solidarité)",
+        "link": "https://www.bms-sa.ml",
+        "address": "Avenue du Fleuve",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "boa": {
+        "name": "BOA Mali (Bank of Africa)",
+        "link": "https://www.boamali.com",
+        "address": "Rue 326 Hamdallaye ACI 2000",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "bcs": {
+        "name": "BCS (Banque Commerciale du Sahel)",
+        "link": "https://www.bcs-bank.com",
+        "address": "Rue 286 Quartier du Fleuve",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "ecobank": {
+        "name": "Ecobank Mali",
+        "link": "https://www.ecobank.com/ml",
+        "address": "Place de la Nation, Quartier du Fleuve",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "uba": {
+        "name": "UBA Mali (United Bank for Africa)",
+        "link": "https://www.ubagroup.com/mali",
+        "address": "Hamdallaye ACI 2000",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "bicim": {
+        "name": "BICIM (Banque Internationale pour le Commerce et l'Industrie au Mali)",
+        "link": "https://www.bicim.ml",
+        "address": "Boulevard de l'Indépendance",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "orabank": {
+        "name": "Orabank Mali",
+        "link": "https://www.orabank.net/fr/filiale/mali",
+        "address": "Avenue de la Nation, ACI 2000",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "coris": {
+        "name": "Coris Bank International Mali",
+        "link": "https://www.coris-bank.com/filiale/mali",
+        "address": "ACI 2000 Hamdallaye",
+        "city": "Bamako",
+        "branch": "Head Office"
+    },
+    "banquemali": {
+        "name": "Banque (Mali) Centrale des Etats de l'Afrique et de l'Ouest",
+        "link": "https://www.banquemali.ml",
+        "address": "MOPTI, MOPTI",
+        "city": "MOPTI",
+        "branch": "Head Office"
+    }
+}

@@ -1,0 +1,74 @@
+{
+  "slcb": {
+      "swift": ["SLCBSLFR"],
+      "ussd": {
+          "start": "*303#",
+          "balance": "*303*1#",
+          "transfer_to_same_bank": "*303*2*1*account_number*amount#"
+      }
+  },
+  "rokel": {
+      "swift": ["ROELSLFR"],
+      "ussd": {
+          "start": "*161#",
+          "balance": "*161*1#",
+          "transfer_to_same_bank": "*161*2*account_number*amount#"
+      }
+  },
+  "accessbank": {
+      "swift": ["ABSLSLFR"],
+      "ussd": {
+          "start": "*901#",
+          "balance": "*901*0#",
+          "transfer_to_same_bank": "*901*1*account_number*amount#"
+      }
+  },
+  "ecobank": {
+      "swift": ["ECOCSLFR"],
+      "ussd": {
+          "start": "*777#",
+          "balance": "*777*0#",
+          "transfer_to_same_bank": "*777*2*account_number*amount#"
+      }
+  },
+  "fib": {
+      "swift": ["FIBSSLFR"],
+      "ussd": {
+          "start": "*778#",
+          "balance": "*778*1#",
+          "transfer_to_same_bank": "*778*2*account_number*amount#"
+      }
+  },
+  "zenith": {
+      "swift": ["ZEIBSLFR"],
+      "ussd": {
+          "start": "*247#",
+          "balance": "*247*1#",
+          "transfer_to_same_bank": "*247*2*account_number*amount#"
+      }
+  },
+  "bsl": {
+      "swift": ["BSLGSLFR"],
+      "ussd": null
+  },
+  "union": {
+      "swift": ["UNTLSLFR"],
+      "ussd": {
+          "start": "*990#",
+          "balance": "*990*1#",
+          "transfer_to_same_bank": "*990*2*account_number*amount#"
+      }
+  },
+  "sldb": {
+      "swift": ["SLDBSLFR"],
+      "ussd": null
+  },
+  "scb": {
+      "swift": ["SCBLSLFR"],
+      "ussd": {
+          "start": "*722#",
+          "balance": "*722*1#",
+          "transfer_to_same_bank": "*722*2*account_number*amount#"
+      }
+  }
+}

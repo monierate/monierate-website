@@ -1,0 +1,72 @@
+{
+    "cbz": {
+        "name": "CBZ Bank Limited",
+        "link": "https://www.cbz.co.zw",
+        "address": "Union House, 60 Kwame Nkrumah Avenue",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "stanbic": {
+        "name": "Stanbic Bank Zimbabwe Limited",
+        "link": "https://www.stanbicbank.co.zw",
+        "address": "59 Samora Machel Avenue",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "fbc": {
+        "name": "FBC Bank Limited",
+        "link": "https://www.fbc.co.zw",
+        "address": "45 Nelson Mandela Avenue",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "ecobank": {
+        "name": "Ecobank Zimbabwe Limited",
+        "link": "https://www.ecobank.com/zw",
+        "address": "Block A, Sam Levy's Office Park, 2 Piers Road, Borrowdale",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "metbank": {
+        "name": "Metbank Limited",
+        "link": "https://www.metbank.co.zw",
+        "address": "12 Natal Road, Belgravia",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "zbbank": {
+        "name": "ZB Bank Limited",
+        "link": "https://www.zbbank.co.zw",
+        "address": "21 Natal Road, Avondale",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "firstcapital": {
+        "name": "First Capital Bank Limited",
+        "link": "https://www.firstcapitalbank.co.zw",
+        "address": "Barclays House, Corner First Street/Jason Moyo Avenue",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "cabs": {
+        "name": "CABS",
+        "link": "https://www.cabs.co.zw",
+        "address": "Old Mutual Centre, Third Street/Jason Moyo Avenue",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "nmb": {
+        "name": "NMB Bank Limited",
+        "link": "https://www.nmbz.co.zw",
+        "address": "Unity Court, Corner First Street/Kwame Nkrumah Avenue",
+        "city": "Harare",
+        "branch": "Head Office"
+    },
+    "nedbank": {
+        "name": "Nedbank Zimbabwe Limited",
+        "link": "https://www.nedbank.co.zw",
+        "address": "14 Central Avenue",
+        "city": "Harare",
+        "branch": "Head Office"
+    }
+}

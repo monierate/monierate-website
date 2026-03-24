@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: jeremyikwuje/monierate-website
+  repo: monierate/monierate-website
   branch: main
   base_url: https://sveltia-cms-auth.monierate.workers.dev
 
@@ -27,4 +27,5 @@ collections:
       - {label: "Tags", name: "tag", widget: "string"}
       - {label: "Featured Image", name: "image", widget: "image"}
       - {label: "Published", name: "published", widget: "boolean"}
+      - {label: "Author", name: "author", widget: "string", default: "Monierate Editorial Team"}
       - {label: "Body", name: "body", widget: "markdown"}

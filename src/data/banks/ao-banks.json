@@ -1,0 +1,65 @@
+{
+    "banco_bai": {
+        "name": "Banco Angolano de Investimentos",
+        "link": "https://www.bancobai.ao",
+        "address": "Complexo Garden Towers, Torre BAI, Travessa Ho Chi Minh, Distrito Urbano da Maianga",
+        "city": "Luanda",
+        "branch": "Sede"
+    },
+    "banco_nacional": {
+        "name": "Banco Nacional de Angola",
+        "link": "https://www.bna.ao",
+        "address": "Avenida 4 de Fevereiro, nº 151",
+        "city": "Luanda",
+        "branch": "Sede Central"
+    },
+    "banco_bfa": {
+        "name": "Banco de Fomento Angola",
+        "link": "https://www.bfa.ao",
+        "address": "Rua Amílcar Cabral, nº 58",
+        "city": "Luanda",
+        "branch": "Sede"
+    },
+    "banco_bic": {
+        "name": "Banco BIC Angola",
+        "link": "https://www.bancobic.ao",
+        "address": "Edifício Banco BIC, Bairro de Talatona, Município de Belas",
+        "city": "Luanda",
+        "branch": "Sede"
+    },
+    "banco_atlantico": {
+        "name": "Banco Millennium Atlântico",
+        "link": "https://www.atlantico.ao",
+        "address": "Via S8, Complexo Cidade Financeira, Edifício Atlantico, Talatona",
+        "city": "Luanda",
+        "branch": "Sede"
+    },
+    "banco_sol": {
+        "name": "Banco Sol",
+        "link": "https://www.bancosol.ao",
+        "address": "Rua Américo Boavida, nº 27",
+        "city": "Luanda",
+        "branch": "Sede"
+    },
+    "banco_bpc": {
+        "name": "Banco de Poupança e Crédito",
+        "link": "https://www.bpc.ao",
+        "address": "Largo do Kinaxixi, nº 1",
+        "city": "Luanda",
+        "branch": "Sede"
+    },
+    "banco_bda": {
+        "name": "Banco de Desenvolvimento de Angola",
+        "link": "https://www.bda.ao",
+        "address": "Rua Major Kanhangulo, nº 35",
+        "city": "Luanda",
+        "branch": "Sede Principal"
+    },
+    "banco_sba": {
+        "name": "Standard Bank Angola",
+        "link": "https://www.standardbank.co.ao",
+        "address": "Condomínio Belas Business Park, Edifício Kuando Kubango, 8º andar",
+        "city": "Luanda",
+        "branch": "Sede"
+    }
+}

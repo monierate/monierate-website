@@ -1,0 +1,93 @@
+{
+  "fnb_botswana": {
+    "swift": [
+      "FIRNBWGX"
+    ],
+    "ussd": {
+      "start": "*182#",
+      "transfer_to_same_bank": "*182*1*amount*account_number#",
+      "transfer_other_banks": "*182*2*amount*account_number*bank_code#",
+      "airtime_self": "*182*3*amount#",
+      "airtime_others": "*182*4*amount*phone_number#",
+      "balance": "*182*5#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "stanbic_bk": {
+    "swift": [
+      "SBICBWGX"
+    ],
+    "ussd": {
+      "start": "*171#",
+      "transfer_to_same_bank": "*171*1*amount*account_number#",
+      "transfer_other_banks": "*171*2*amount*account_number*bank_code#",
+      "airtime_self": "*171*3*amount#",
+      "airtime_others": "*171*4*amount*phone_number#",
+      "balance": "*171*5#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "absa_botswana": {
+    "swift": [
+      "BARCBWGX"
+    ],
+    "ussd": {
+      "start": "*161#",
+      "transfer_to_same_bank": "*161*1*amount*account_number#",
+      "transfer_other_banks": "*161*2*amount*account_number*bank_code#",
+      "airtime_self": "*161*3*amount#",
+      "airtime_others": "*161*4*amount*phone_number#",
+      "balance": "*161*5#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "bank_of_botswana": {
+    "swift": [
+      "BBOTBWGX"
+    ],
+    "ussd": null
+  },
+  "bank_gaborone": {
+    "swift": [
+      "BGLBWGXX"
+    ],
+    "ussd": {
+      "start": "*187#",
+      "transfer_to_same_bank": "*187*1*amount*account_number#",
+      "transfer_other_banks": "*187*2*amount*account_number*bank_code#",
+      "airtime_self": "*187*3*amount#",
+      "airtime_others": "*187*4*amount*phone_number#",
+      "balance": "*187*5#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "access_bank": {
+    "swift": [
+      "ACPLBWGX"
+    ],
+    "ussd": {
+      "start": "*903#",
+      "transfer_to_same_bank": "*903*1*amount*account_number#",
+      "transfer_other_banks": "*903*2*amount*account_number*bank_code#",
+      "airtime_self": "*903*3*amount#",
+      "airtime_others": "*903*4*amount*phone_number#",
+      "balance": "*903*5#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  }
+}

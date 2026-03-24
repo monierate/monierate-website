@@ -1,0 +1,91 @@
+{
+    "fnb": {
+        "swift": ["FIRNZAJJ"],
+        "ussd": {
+            "start": "*120*321#",
+            "balance": "*120*321*5#",
+            "transfer_to_same_bank": "*120*321*2*1*amount*account_number#",
+            "transfer_other_banks": "*120*321*2*2*amount*account_number*bank_code#",
+            "airtime_self": "*120*321*3*1*amount#",
+            "airtime_others": "*120*321*3*2*amount*phone_number#"
+        }
+    },
+    "standardbank": {
+        "swift": ["SBZAZAJJ"],
+        "ussd": {
+            "start": "*120*2345#",
+            "balance": "*120*2345*0#",
+            "transfer_to_same_bank": "*120*2345*1*amount*account_number#",
+            "transfer_other_banks": "*120*2345*2*amount*account_number*bank_code#",
+            "airtime_self": "*120*2345*4*1*amount#",
+            "airtime_others": "*120*2345*4*2*amount*phone_number#"
+        }
+    },
+    "absa": {
+        "swift": ["ABSAZAJJ"],
+        "ussd": {
+            "start": "*120*2272#",
+            "balance": "*120*2272*1#",
+            "transfer_to_same_bank": "*120*2272*2*1*amount*account_number#",
+            "transfer_other_banks": "*120*2272*2*2*amount*account_number*bank_code#",
+            "airtime_self": "*120*2272*3*1*amount#",
+            "airtime_others": "*120*2272*3*2*amount*phone_number#"
+        }
+    },
+    "capitec": {
+        "swift": ["CABLZAJJ"],
+        "ussd": {
+            "start": "*120*1*0#",
+            "balance": "*120*1*0*1#",
+            "transfer_to_same_bank": "*120*1*0*2*amount*account_number#",
+            "transfer_other_banks": "*120*1*0*3*amount*account_number*bank_code#",
+            "airtime_self": "*120*1*0*4*1*amount#",
+            "airtime_others": "*120*1*0*4*2*amount*phone_number#"
+        }
+    },
+    "nedbank": {
+        "swift": ["NEDSZAJJ"],
+        "ussd": {
+            "start": "*120*001#",
+            "balance": "*120*001*1#",
+            "transfer_to_same_bank": "*120*001*2*1*amount*account_number#",
+            "transfer_other_banks": "*120*001*2*2*amount*account_number*bank_code#",
+            "airtime_self": "*120*001*3*1*amount#",
+            "airtime_others": "*120*001*3*2*amount*phone_number#"
+        }
+    },
+    "tymebank": {
+        "swift": ["TYMEZAJJ"],
+        "ussd": {
+            "start": "*120*543#",
+            "balance": "*120*543*1#",
+            "transfer_to_same_bank": "*120*543*2*amount*account_number#",
+            "transfer_other_banks": "*120*543*3*amount*account_number*bank_code#",
+            "airtime_self": "*120*543*4*amount#",
+            "airtime_others": "*120*543*4*phone_number*amount#"
+        }
+    },
+    "africanbank": {
+        "swift": ["AFRCZAJJ"],
+        "ussd": {
+            "start": "*120*225#",
+            "balance": "*120*225*1#",
+            "transfer_to_same_bank": "*120*225*2*amount*account_number#",
+            "transfer_other_banks": "*120*225*3*amount*account_number*bank_code#",
+            "airtime_self": "*120*225*4*1*amount#",
+            "airtime_others": "*120*225*4*2*amount*phone_number#"
+        }
+    },
+    "discovery": {
+        "swift": ["DISCZAJJ"],
+        "ussd": null
+    },
+    "investec": {
+        "swift": ["IVESZAJJ"],
+        "ussd": null
+    },
+    "bankzero": {
+        "swift": ["BZEROZAJ"],
+        "ussd": null
+    }
+}

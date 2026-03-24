@@ -1,0 +1,122 @@
+{
+  "ecobank_chad": {
+      "swift": ["ECOCTDND"],
+      "ussd": {
+          "start": "*326#",
+          "transfer_to_same_bank": "*326*1*amount*account_number#",
+          "transfer_other_banks": "*326*2*amount*account_number*bank_code#",
+          "airtime_self": "*326*3*amount#",
+          "airtime_others": "*326*4*amount*phone_number#",
+          "balance": "*326*5#",
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "sgc": {
+      "swift": ["SGCNTDND"],
+      "ussd": {
+          "start": "*933#",
+          "transfer_to_same_bank": "*933*1*amount*account_number#",
+          "transfer_other_banks": "*933*2*amount*account_number*bank_code#",
+          "airtime_self": "*933*3*amount#",
+          "airtime_others": "*933*4*amount*phone_number#",
+          "balance": "*933*5#",
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "cbao": {
+      "swift": ["CBAOTDND"],
+      "ussd": {
+          "start": "*955#",
+          "transfer_to_same_bank": "*955*1*amount*account_number#",
+          "transfer_other_banks": "*955*2*amount*account_number*bank_code#",
+          "airtime_self": "*955*3*amount#",
+          "airtime_others": "*955*4*amount*phone_number#",
+          "balance": "*955*5#",
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "orabank": {
+      "swift": ["ORBKTDND"],
+      "ussd": {
+          "start": "*910#",
+          "transfer_to_same_bank": "*910*1*amount*account_number#",
+          "transfer_other_banks": "*910*2*amount*account_number*bank_code#",
+          "airtime_self": "*910*3*amount#",
+          "airtime_others": "*910*4*amount*phone_number#",
+          "balance": "*910*5#",
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "bcc": {
+      "swift": ["BCCHTDND"],
+      "ussd": {
+          "start": "*224#",
+          "transfer_to_same_bank": "*224*1*amount*account_number#",
+          "transfer_other_banks": "*224*2*amount*account_number*bank_code#",
+          "airtime_self": "*224*3*amount#",
+          "airtime_others": "*224*4*amount*phone_number#",
+          "balance": "*224*5#",
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "sgtb": {
+      "swift": ["SGTETDND"],
+      "ussd": {
+          "start": "*738#",
+          "transfer_to_same_bank": "*738*1*amount*account_number#",
+          "transfer_other_banks": "*738*2*amount*account_number*bank_code#",
+          "airtime_self": "*738*3*amount#",
+          "airtime_others": "*738*4*amount*phone_number#",
+          "balance": "*738*5#",
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "bsic": {
+      "swift": ["BSICTDND"],
+      "ussd": {
+          "start": "*744#",
+          "transfer_to_same_bank": "*744*1*amount*account_number#",
+          "transfer_other_banks": "*744*2*amount*account_number*bank_code#",
+          "airtime_self": "*744*3*amount#",
+          "airtime_others": "*744*4*amount*phone_number#",
+          "balance": "*744*5#",
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "uba": {
+      "swift": ["UNAFTDND"],
+      "ussd": {
+          "start": "*919#",
+          "transfer_to_same_bank": "*919*1*amount*account_number#",
+          "transfer_other_banks": "*919*2*amount*account_number*bank_code#",
+          "airtime_self": "*919*3*amount#",
+          "airtime_others": "*919*4*amount*phone_number#",
+          "balance": "*919*5#",
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  }
+}

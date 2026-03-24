@@ -1,0 +1,37 @@
+{
+    "bange": {
+        "name": "Banco Nacional de Guinea Ecuatorial (BANGE)",
+        "link": "https://www.bannge.com",
+        "address": "Avenida de la Independencia, Malabo",
+        "city": "Malabo",
+        "branch": "Sede Central"
+    },
+    "sgbge": {
+        "name": "Société Générale de Banques en Guinée Équatoriale",
+        "link": "https://www.societegenerale.gq",
+        "address": "Carretera del Aeropuerto, Malabo II",
+        "city": "Malabo",
+        "branch": "Agencia Principal"
+    },
+    "bgfi": {
+        "name": "BGFIBank Guinée Équatoriale",
+        "link": "https://guineaecuatorial.groupebgfibank.com",
+        "address": "Carretera de Luba, Malabo II",
+        "city": "Malabo",
+        "branch": "Sede Principal"
+    },
+    "ccei": {
+        "name": "CCEI Bank Guinée Équatoriale (Groupe Afriland First Bank)",
+        "link": "https://www.cceibankge.com",
+        "address": "Avenida de la Independencia, Malabo",
+        "city": "Malabo",
+        "branch": "Agencia Central"
+    },
+    "ecobank": {
+        "name": "Ecobank Guinée Équatoriale",
+        "link": "https://www.ecobank.com/gq/personal-banking/countries",
+        "address": "Carretera del Aeropuerto, Malabo II",
+        "city": "Malabo",
+        "branch": "Sucursal Principal"
+    }
+}

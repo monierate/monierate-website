@@ -1,0 +1,82 @@
+{
+  "bnr": {
+    "swift": ["BNRWRWRW"],
+    "ussd": null
+  },
+  "bk": {
+    "swift": ["BKIGRWRW"],
+    "ussd": {
+      "start": "*334#",
+      "balance": "*334*1#",
+      "transfer_to_same_bank": "*334*1*2*account_number*amount#",
+      "mini_statement": "*334*1*3#"
+    }
+  },
+  "eco": {
+    "swift": ["ECOCRWRW"],
+    "ussd": {
+      "start": "*247#",
+      "balance": "*247*1#",
+      "transfer_to_same_bank": "*247*2*1*account_number*amount#",
+      "mini_statement": "*247*1*2#"
+    }
+  },
+  "brd": {
+    "swift": ["BRDRWRW"],
+    "ussd": null
+  },
+  "kcb": {
+    "swift": ["KCBLRWRW"],
+    "ussd": {
+      "start": "*522#",
+      "balance": "*522*1#",
+      "transfer_to_same_bank": "*522*2*1*account_number*amount#",
+      "mini_statement": "*522*1*2#"
+    }
+  },
+  "gtbank": {
+    "swift": ["GTBIRWRW"],
+    "ussd": {
+      "start": "*182#",
+      "balance": "*182*1#",
+      "transfer_to_same_bank": "*182*2*1*account_number*amount#",
+      "mini_statement": "*182*1*2#"
+    }
+  },
+  "equity": {
+    "swift": ["EQBLRWRW"],
+    "ussd": {
+      "start": "*555#",
+      "balance": "*555*1#",
+      "transfer_to_same_bank": "*555*2*1*account_number*amount#",
+      "mini_statement": "*555*1*2#"
+    }
+  },
+  "bankofafrica": {
+    "swift": ["AFRIRWRW"],
+    "ussd": {
+      "start": "*765#",
+      "balance": "*765*1#",
+      "transfer_to_same_bank": "*765*2*1*account_number*amount#",
+      "mini_statement": "*765*1*2#"
+    }
+  },
+  "imb": {
+    "swift": ["IMRWRWRW"],
+    "ussd": {
+      "start": "*227#",
+      "balance": "*227*1#",
+      "transfer_to_same_bank": "*227*2*1*account_number*amount#",
+      "mini_statement": "*227*1*2#"
+    }
+  },
+  "cogebanque": {
+    "swift": ["CGBKRWRW"],
+    "ussd": {
+      "start": "*505#",
+      "balance": "*505*1#",
+      "transfer_to_same_bank": "*505*2*1*account_number*amount#",
+      "mini_statement": "*505*1*2#"
+    }
+  }
+}

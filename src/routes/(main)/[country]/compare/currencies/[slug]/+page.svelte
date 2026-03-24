@@ -1,23 +1,17 @@
 <script>
     /** @type {import('./$types').PageServerData} */
     import Money from "$lib/money";
-    import { round, chain } from "mathjs"
-    import { format } from "$lib/functions";
+    import { format, friendlyDate, sortRates } from "$lib/functions";
 
     export let data;
 
-    const currency = data.currency
-    const country = data.country
-    const rates = data.rates
-    const providers = data.providers
+    const currency = data.currency;
+    const country = data.country;
+    const pair_changers = sortRates(data.pair_changers);
+    const market_changer = pair_changers.find(changer => changer.changer_code === 'market');
+    const changers = data.changers;
 
-    function sortRates(rates) {
-        const sortedObject = Object.entries(rates).sort((x, y) => x[1].buy - y[1].buy)
-        console.log(sortedObject)
-        return sortedObject
-    }
-
-    const sortedRates = sortRates(rates)
+    console.log(pair_changers);
 </script>
 
 <svelte:head>
@@ -46,22 +40,23 @@
         <section class="bg-white py-[10px] mb-16 border rounded-lg shadow-sm dark:bg-gray-900 dark:text-light w-full md:w-[768px] md:mx-auto overflow-x-scroll md:overflow-x-hidden">
             <div class="py-8 text-center">
                 <span class="market-rate block text-xl md:text-2xl font-bold">
-                    1 {currency.code} = {Money.format(rates['market'].buy || "0")} NGN
+                    1 {currency.code} = 
+                    {Money.format(market_changer.price_buy || market_changer.price_sell || "0")} NGN
                 </span>
                 <span class="block text-sm text-gray-700 dark:text-gray-300">
                     Mid-market exchange rate
-                    <span class="block">{format(rates['market'].updatedAt)}</span>
+                    <span class="block">{format(market_changer.updated_at)}</span>
                 </span>
             </div>
 
-            {#if Object.entries(rates).length > 1}
+            {#if pair_changers.length > 1}
                 <table class="table-auto overflow-x-scroll w-full text-sm text-left ">
                     <thead>
                         <tr>
-                            <th scope="col" class="py-3 md:pl-0 font-bold font-bitter">
+                            <th scope="col" class="py-3 md:pl-0 w-[30%] font-bold font-bitter">
                                 Provider
                             </th>
-                            <th scope="col" class="pl-6 pr-6 py-3 w-[40%] font-bold font-bitter text-right">
+                            <th scope="col" class="pl-6 pr-6 py-3 font-bold font-bitter text-right">
                                 Buy rate
                             </th>
                             <th scope="col" class="pl-6 pr-6 py-3 font-bold font-bitter text-right">
@@ -73,28 +68,40 @@
                         </tr>
                     </thead>
                     <tbody class="providers">
-                        {#each sortedRates as [provider, rate]}
-                            {#if provider != 'market'}
+                        {#each pair_changers as pair_changer}
+                            {#if pair_changer.changer_code != 'market'}
                             <tr class="mb-4 border-t border-gray-200 dark:border-gray-700">
                                 <td>
-                                    <a href="/converter/{provider}?Amount=1&From=USD&To=NGN" class="flex items-center">
+                                    <a href="/converter/{pair_changer.changer_code}?Amount=1&From=USD&To=NGN" class="flex items-center">
                                         <span class="provider-icon">
-                                            <img width="22px" height="22px" src="/icons/{providers[provider].icon}" class="rounded-full" alt="{providers[provider].name} icon">
+                                            <img width="22px" height="22px" src="/icons/{changers[pair_changer.changer_code].icon}" class="rounded-full" alt="{changers[pair_changer.changer_code].name} icon">
                                         </span>
-                                        <span class="provider-title">{providers[provider].name}</span>
+                                        <span class="provider-title">{changers[pair_changer.changer_code].name}</span>
                                     </a>
                                 </td>
                                 <td class="text-right pl-6 pr-6">
-                                    <span class="provider-rate">₦{Money.format(rate.buy)}</span>
+                                    <span class="provider-rate">
+                                        {#if Money.format(pair_changer.price_buy, 0) === "0"}
+                                        -
+                                        {:else}
+                                            ₦{Money.format(pair_changer.price_buy, 0)}
+                                        {/if}
+                                    </span>
                                     <small class="provider-rate-base">per {currency.code}</small>
                                 </td>
                                 <td class="text-right pl-6 pr-6">
-                                    <span class="provider-rate">₦{Money.format(rate.sell)}</span>
+                                    <span class="provider-rate">
+                                        {#if Money.format(pair_changer.price_sell, 0) === "0"}
+                                        -
+                                        {:else}
+                                            ₦{Money.format(pair_changer.price_sell, 0)}
+                                        {/if}
+                                    </span>
                                     <small class="provider-rate-base">per {currency.code}</small>
                                 </td>
-                                <td class="text-right py-2 pr-2 md:pr-4 whitespace-nowrap">
-                                    {#if (rate.updatedAt) }
-                                        {format(new Date(rate.updatedAt))}
+                                <td class="text-right py-2 pr-2 md:pr-4 whitespace-nowrap text-sm">
+                                    {#if (pair_changer.updated_at) }
+                                        {friendlyDate(new Date(pair_changer.updated_at))}
                                     {/if}
                                 </td>
                             </tr>
@@ -105,7 +112,13 @@
             {:else}
                 <div class="text-center py-16">
                     <span class="block pb-6">
-                        <svg class="mx-auto" width="85px" height="85px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.0315 6.93751C4.75731 4.72857 6.30192 2.69766 8.54207 2.32168L8.93963 2.25496C10.9651 1.91501 13.0349 1.91501 15.0604 2.25496L15.4579 2.32168C17.6981 2.69766 19.2427 4.72857 18.9685 6.93751L18.9505 7.08273C18.8855 7.6063 18.4315 8 17.8928 8H6.10719C5.56847 8 5.11452 7.6063 5.04953 7.08273L5.0315 6.93751Z" stroke="#888888" stroke-width="1.5"></path> <path d="M9 8L6 22" stroke="#888888" stroke-width="1.5" stroke-linecap="round"></path> <path d="M15 8L15.75 11.5M18 22L16.5 15" stroke="#888888" stroke-width="1.5" stroke-linecap="round"></path> <path d="M16.5 17H7.5" stroke="#888888" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+                        <svg class="mx-auto" width="85px" height="85px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path d="M5.0315 6.93751C4.75731 4.72857 6.30192 2.69766 8.54207 2.32168L8.93963 2.25496C10.9651 1.91501 13.0349 1.91501 15.0604 2.25496L15.4579 2.32168C17.6981 2.69766 19.2427 4.72857 18.9685 6.93751L18.9505 7.08273C18.8855 7.6063 18.4315 8 17.8928 8H6.10719C5.56847 8 5.11452 7.6063 5.04953 7.08273L5.0315 6.93751Z" stroke="#888888" stroke-width="1.5"></path>
+                                <path d="M9 8L6 22" stroke="#888888" stroke-width="1.5" stroke-linecap="round"></path> <path d="M15 8L15.75 11.5M18 22L16.5 15" stroke="#888888" stroke-width="1.5" stroke-linecap="round"></path> <path d="M16.5 17H7.5" stroke="#888888" stroke-width="1.5" stroke-linecap="round"></path>
+                            </g>
+                        </svg>
                     </span>
                     <span class="text-xl fold-bold block">
                         We should have shown you rates from other market providers – we haven’t gotten to them all yet.
@@ -167,7 +180,6 @@ table tbody tr td {
 table tr td:first-child, table thead th:first-child {
     @apply pl-4
 }
-
 .provider {
     @apply flex justify-between items-center py-2 border-b border-gray-200;
 }
@@ -178,12 +190,12 @@ table tr td:first-child, table thead th:first-child {
     @apply bg-transparent border border-black rounded-full w-[24px] h-[24px] mr-2;
 }
 .provider-title {
-    @apply font-semibold text-lg capitalize text-gray-800 dark:text-gray-300;
+    @apply font-semibold text-sm capitalize text-gray-800 dark:text-gray-300;
 }
 .provider-rate-base {
     @apply text-gray-500 dark:text-gray-400;
 }
 .provider-rate {
-    @apply block font-semibold text-lg text-gray-800 dark:text-light;
+    @apply block font-semibold text-sm text-gray-800 dark:text-light;
 }
 </style>

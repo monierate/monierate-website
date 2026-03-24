@@ -1,13 +1,13 @@
 import type { PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
+import { getAllChangers } from '$lib/services/changer.service';
 
 export const load: PageServerLoad = async ({ fetch }) => {
     try {
-        const getChangers = await fetch(`/api/changer`);
-        let providers = await getChangers.json()
+        const changers = await getAllChangers(fetch);
 
         return {
-            providers
+            changers
         }
 
     } catch (e) {

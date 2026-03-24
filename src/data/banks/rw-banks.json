@@ -1,0 +1,72 @@
+{
+  "bnr": {
+    "name": "National Bank of Rwanda (BNR)",
+    "link": "https://www.bnr.rw",
+    "address": "KN 6 Ave 4, P.O. Box 531",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "bk": {
+    "name": "Bank of Kigali Plc",
+    "link": "https://www.bk.rw",
+    "address": "KN 4 Ave 12, P.O. Box 175",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "eco": {
+    "name": "Ecobank Rwanda Plc",
+    "link": "https://www.ecobank.com/rw",
+    "address": "KN 14 Ave, Plot No 314",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "brd": {
+    "name": "Development Bank of Rwanda (BRD)",
+    "link": "https://www.brd.rw",
+    "address": "KN 3 Ave, Boulevard de la Revolution",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "kcb": {
+    "name": "KCB Bank Rwanda Plc",
+    "link": "https://rw.kcbgroup.com",
+    "address": "Avenue de la Paix, P.O. Box 5620",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "gtbank": {
+    "name": "Guaranty Trust Bank Rwanda Plc",
+    "link": "https://www.gtbank.com/rwanda",
+    "address": "KN 2 Ave, Rue des Parcs",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "equity": {
+    "name": "Equity Bank Rwanda Plc",
+    "link": "https://rw.equitybankgroup.com",
+    "address": "KN 3 Ave, P.O. Box 6929",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "bankofafrica": {
+    "name": "Bank of Africa Rwanda Ltd",
+    "link": "https://www.boarwanda.com",
+    "address": "KN 4 Ave, P.O. Box 265",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "imb": {
+    "name": "I&M Bank Rwanda Plc",
+    "link": "https://www.imbank.com/rwanda",
+    "address": "KN 3 Rd, P.O. Box 354",
+    "city": "Kigali",
+    "branch": "Head Office"
+  },
+  "cogebanque": {
+    "name": "Compagnie Générale de Banque Plc (COGEBANQUE)",
+    "link": "https://www.cogebanque.co.rw",
+    "address": "KN 63 St, P.O. Box 5230",
+    "city": "Kigali",
+    "branch": "Head Office"
+  }
+}

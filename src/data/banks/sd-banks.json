@@ -1,0 +1,72 @@
+{
+    "cbos": {
+        "name": "Central Bank of Sudan",
+        "link": "https://www.cbos.gov.sd",
+        "address": "Gamhoria Street, P.O. Box 313",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    },
+    "bok": {
+        "name": "Bank of Khartoum",
+        "link": "https://www.bankofkhartoum.com",
+        "address": "Bank of Khartoum Tower, Al Qasr Street",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    },
+    "fib": {
+        "name": "Faisal Islamic Bank",
+        "link": "https://www.fibsudan.com",
+        "address": "P.O. Box 1139, Khartoum",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    },
+    "albaraka": {
+        "name": "Al Baraka Bank Sudan",
+        "link": "https://www.albaraka.com.sd",
+        "address": "Al Baraka Tower, P.O. Box 3583",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    },
+    "omdurman": {
+        "name": "Omdurman National Bank",
+        "link": "https://www.onb.com.sd",
+        "address": "P.O. Box 1991, Omdurman",
+        "city": "Omdurman",
+        "branch": "Head Office"
+    },
+    "animal": {
+        "name": "Animal Resources Bank",
+        "link": "https://www.arb.sd",
+        "address": "Al Gamhuria Street",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    },
+    "tadamon": {
+        "name": "Tadamon Islamic Bank",
+        "link": "https://www.tadamonbank.com",
+        "address": "P.O. Box 6667",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    },
+    "savings": {
+        "name": "Savings & Social Development Bank",
+        "link": "https://www.ssdb.sd",
+        "address": "Al Baladiya Street",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    },
+    "alshamal": {
+        "name": "Al Shamal Islamic Bank",
+        "link": "https://www.shib.sd",
+        "address": "P.O. Box 10036",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    },
+    "agricultural": {
+        "name": "Agricultural Bank of Sudan",
+        "link": "https://www.abs.sd",
+        "address": "P.O. Box 1363",
+        "city": "Khartoum",
+        "branch": "Head Office"
+    }
+}

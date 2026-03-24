@@ -1,0 +1,155 @@
+{
+  "banque_de_la_republique_du_burundi": {
+    "swift": [
+      "BRBUBIBI"
+    ],
+    "ussd": {
+      "start": "*164#",
+      "transfer_to_same_bank": "*164*1*amount*account_number#",
+      "transfer_other_banks": "*164*2*amount*account_number*bank_code#",
+      "airtime_self": "*164*4*amount#",
+      "airtime_others": "*164*4*amount*phone_number#",
+      "balance": "*164*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "bgf": {
+    "swift": [
+      "BGFOBIBI"
+    ],
+    "ussd": {
+      "start": "*181#",
+      "transfer_to_same_bank": "*181*1*amount*account_number#",
+      "transfer_other_banks": "*181*2*amount*account_number*bank_code#",
+      "airtime_self": "*181*4*amount#",
+      "airtime_others": "*181*4*amount*phone_number#",
+      "balance": "*181*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "bancobu": {
+    "swift": [
+      "BCBUBIBI"
+    ],
+    "ussd": {
+      "start": "*222#",
+      "transfer_to_same_bank": "*222*1*amount*account_number#",
+      "transfer_other_banks": "*222*2*amount*account_number*bank_code#",
+      "airtime_self": "*222*4*amount#",
+      "airtime_others": "*222*4*amount*phone_number#",
+      "balance": "*222*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "ecobank_burundi": {
+    "swift": [
+      "ECOCBIBI"
+    ],
+    "ussd": {
+      "start": "*326#",
+      "transfer_to_same_bank": "*326*0*account_number*amount#",
+      "transfer_other_banks": "*326*1*account_number*amount*bank_code#",
+      "airtime_self": "*326*2*amount#",
+      "airtime_others": "*326*2*phone_number*amount#",
+      "balance": "*326*0#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "finbank": {
+    "swift": [
+      "FNBKBIBI"
+    ],
+    "ussd": {
+      "start": "*505#",
+      "transfer_to_same_bank": "*505*1*amount*account_number#",
+      "transfer_other_banks": "*505*2*amount*account_number*bank_code#",
+      "airtime_self": "*505*4*amount#",
+      "airtime_others": "*505*4*amount*phone_number#",
+      "balance": "*505*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "interbank_burundi": {
+    "swift": [
+      "IBBIBIBI"
+    ],
+    "ussd": {
+      "start": "*444#",
+      "transfer_to_same_bank": "*444*1*amount*account_number#",
+      "transfer_other_banks": "*444*2*amount*account_number*bank_code#",
+      "airtime_self": "*444*4*amount#",
+      "airtime_others": "*444*4*amount*phone_number#",
+      "balance": "*444*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "kcb_bank": {
+    "swift": [
+      "KCBLBIBI"
+    ],
+    "ussd": {
+      "start": "*522#",
+      "transfer_to_same_bank": "*522*1*amount*account_number#",
+      "transfer_other_banks": "*522*2*amount*account_number*bank_code#",
+      "airtime_self": "*522*4*amount#",
+      "airtime_others": "*522*4*amount*phone_number#",
+      "balance": "*522*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "crdb_bank": {
+    "swift": [
+      "CRDBBIBI"
+    ],
+    "ussd": {
+      "start": "*255#",
+      "transfer_to_same_bank": "*255*1*amount*account_number#",
+      "transfer_other_banks": "*255*2*amount*account_number*bank_code#",
+      "airtime_self": "*255*4*amount#",
+      "airtime_others": "*255*4*amount*phone_number#",
+      "balance": "*255*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "dtb_burundi": {
+    "swift": [
+      "DTBKBIBI"
+    ],
+    "ussd": {
+      "start": "*366#",
+      "transfer_to_same_bank": "*366*1*amount*account_number#",
+      "transfer_other_banks": "*366*2*amount*account_number*bank_code#",
+      "airtime_self": "*366*4*amount#",
+      "airtime_others": "*366*4*amount*phone_number#",
+      "balance": "*366*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  }
+}

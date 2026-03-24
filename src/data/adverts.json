@@ -1,0 +1,118 @@
+{
+	"footer": {
+		"name": "",
+		"url": "https://gokarsa.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+		"image": "/media/banners/karsa.avif",
+		"formats": ["avif", "gif"],
+		"label": "Karsa",
+		"mobile_only": false,
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
+		"disabled": false,
+		"_v": 1
+	},
+	"blog": [
+		{
+			"url": "https://tinyurl.com/ipay-btc-signup-link",
+			"image": "/media/banners/ipaybtc-2.gif",
+			"label": "iPayBTC",
+			"width": "400px"
+		},
+		{
+			"url": "https://tinyurl.com/2vy69z82",
+			"image": "/media/banners/spenda-small.avif",
+			"label": "Spenda",
+			"width": "400px"
+		},
+		{
+			"url": "https://tinyurl.com/2vy69z82",
+			"image": "/media/banners/spenda.avif",
+			"label": "Spenda",
+			"width": "400px"
+		}
+	],
+	"home": {
+		"name": "",
+		"url": "https://gokarsa.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+		"image": "/media/banners/karsa.avif",
+		"formats": ["avif", "gif"],
+		"label": "Karsa",
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
+		"mobile_only": false,
+		"disabled": false,
+		"_v": 1
+	},
+	"compare": {
+		"name": "",
+		"url": "https://gokarsa.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+		"image": "/media/banners/karsa.avif",
+		"formats": ["avif", "gif"],
+		"label": "Karsa",
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
+		"mobile_only": false,
+		"disabled": false,
+		"_v": 1
+	},
+	"converter": {
+		"name": "",
+		"url": "https://gokarsa.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+		"image": "/media/banners/karsa.avif",
+		"formats": ["avif", "gif"],
+		"label": "Karsa",
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
+		"mobile_only": false,
+		"disabled": false,
+		"_v": 1
+	},
+	"blog_home": {
+		"name": "",
+		"url": "https://gokarsa.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+		"image": "/media/banners/karsa.avif",
+		"formats": ["avif", "gif"],
+		"label": "Karsa",
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
+		"mobile_only": false,
+		"disabled": false,
+		"_v": 1
+	},
+	"converter_mobile_only": {
+		"name": "",
+		"url": "https://tinyurl.com/ipay-btc-signup-link",
+		"image": "/media/banners/ipaybtc-2.avif",
+		"formats": ["avif", "gif"],
+		"label": "iPayBTC",
+		"mobile_only": true,
+		"disabled": false,
+		"width": "350px",
+		"height": "390px",
+		"_v": 1
+	},
+	"bank_codes": {
+		"name": "",
+		"url": "https://gokarsa.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+		"image": "/media/banners/karsa.avif",
+		"formats": ["avif", "gif"],
+		"label": "Karsa",
+		"mobileWidth": "100%",
+		"mobileHeight": "70px",
+		"mobile_only": false,
+		"disabled": false,
+		"_v": 1
+	},
+	"bank_codes_side": {
+		"name": "",
+		"url": "https://tinyurl.com/ipay-btc-signup-link",
+		"image": "/media/banners/ipaybtc-2.avif",
+		"formats": ["avif", "gif"],
+		"label": "iPayBTC",
+		"mobile_only": false,
+		"disabled": false,
+		"width": "350px",
+		"height": "390px",
+		"_v": 1
+	}
+}

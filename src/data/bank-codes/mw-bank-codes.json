@@ -1,0 +1,58 @@
+{
+  "nationalbankofmalawi": {
+    "swift": ["NBMAMWMW"],
+    "ussd": {
+      "start": "*626#",
+      "balance": "*626*1#",
+      "transfer_to_same_bank": "*626*2*1*account_number*amount#"
+    }
+  },
+  "fdhbank": {
+    "swift": ["FDHAMWMW"],
+    "ussd": {
+      "start": "*525#",
+      "balance": "*525*2#",
+      "transfer_to_same_bank": "*525*3*1*account_number*amount#"
+    }
+  },
+  "standardbankmalawi": {
+    "swift": ["SBICMWMX"],
+    "ussd": {
+      "start": "*247#",
+      "balance": "*247*1*1#",
+      "transfer_to_same_bank": "*247*2*1*account_number*amount#"
+    }
+  },
+  "firstcapitalbank": {
+    "swift": ["FCBMMWMW"],
+    "ussd": {
+      "start": "*130#",
+      "balance": "*130*1#",
+      "transfer_to_same_bank": "*130*2*account_number*amount#"
+    }
+  },
+  "mybucksmalawi": {
+    "swift": ["MYBKMWMW"],
+    "ussd": {
+      "start": "*632#",
+      "balance": "*632*1#",
+      "transfer_to_same_bank": "*632*4*account_number*amount#"
+    }
+  },
+  "ecobankmalawi": {
+    "swift": ["ECOCMWMX"],
+    "ussd": {
+      "start": "*326#",
+      "balance": "*326*1#",
+      "transfer_to_same_bank": "*326*2*1*account_number*amount#"
+    }
+  },
+  "nbsbank": {
+    "swift": ["NBSTMWMW"],
+    "ussd": {
+      "start": "*322#",
+      "balance": "*322*1#",
+      "transfer_to_same_bank": "*322*2*account_number*amount#"
+    }
+  }
+}

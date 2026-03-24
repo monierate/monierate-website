@@ -1,0 +1,72 @@
+{
+    "slcb": {
+        "name": "Sierra Leone Commercial Bank",
+        "link": "https://www.slcb.com",
+        "address": "25-27 Siaka Stevens Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "rokel": {
+        "name": "Rokel Commercial Bank",
+        "link": "https://www.rokelbank.sl",
+        "address": "25/27 Siaka Stevens Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "accessbank": {
+        "name": "Access Bank Sierra Leone",
+        "link": "https://www.accessbank.com/sl",
+        "address": "30 Siaka Stevens Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "ecobank": {
+        "name": "Ecobank Sierra Leone",
+        "link": "https://www.ecobank.com/sl",
+        "address": "7 Lightfoot Boston Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "fib": {
+        "name": "First International Bank",
+        "link": "https://www.fibsl.com",
+        "address": "31A Siaka Stevens Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "zenith": {
+        "name": "Zenith Bank Sierra Leone",
+        "link": "https://www.zenithbank.com.sl",
+        "address": "14/15 Charlotte Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "bsl": {
+        "name": "Bank of Sierra Leone",
+        "link": "https://www.bsl.gov.sl",
+        "address": "30 Siaka Stevens Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "union": {
+        "name": "Union Trust Bank",
+        "link": "https://www.utbsl.com",
+        "address": "14 Charlotte Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "sldb": {
+        "name": "Sierra Leone Development Bank",
+        "link": "https://www.sldb.sl",
+        "address": "27 Siaka Stevens Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    },
+    "scb": {
+        "name": "Standard Chartered Bank Sierra Leone",
+        "link": "https://www.sc.com/sl",
+        "address": "9 & 11 Lightfoot Boston Street, Freetown",
+        "city": "Freetown",
+        "branch": "Head Office"
+    }
+}

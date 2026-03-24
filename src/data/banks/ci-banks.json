@@ -1,0 +1,72 @@
+{
+  "bici": {
+    "name": "Banque Internationale pour le Commerce et l'Industrie de Côte d'Ivoire",
+    "link": "https://www.bicici.com",
+    "address": "Avenue Houdaille, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Plateau Branch"
+  },
+  "ecobank": {
+    "name": "Ecobank Côte d'Ivoire",
+    "link": "https://www.ecobank.com/ci/personal-banking",
+    "address": "Rue du Commerce, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Plateau Branch"
+  },
+  "sgci": {
+    "name": "Société Générale Côte d'Ivoire",
+    "link": "https://societegenerale.ci",
+    "address": "5-7 Avenue Joseph Anoma, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Plateau Branch"
+  },
+  "bni": {
+    "name": "Banque Nationale d'Investissement",
+    "link": "https://www.bni.ci",
+    "address": "8-10 Avenue Joseph Anoma, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Siège Principal"
+  },
+  "corisbank": {
+    "name": "Coris Bank International Côte d'Ivoire",
+    "link": "https://www.corisbank.ci",
+    "address": "Boulevard VGE, Marcory",
+    "city": "Abidjan",
+    "branch": "Marcory Branch"
+  },
+  "uba": {
+    "name": "United Bank for Africa Côte d'Ivoire",
+    "link": "https://www.ubacotedivoire.com",
+    "address": "Boulevard de la République, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Plateau Branch"
+  },
+  "nsia": {
+    "name": "NSIA Banque Côte d'Ivoire",
+    "link": "https://www.nsiabanque.ci",
+    "address": "8-10 Avenue Joseph Anoma, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Siège"
+  },
+  "bridge": {
+    "name": "Bridge Bank Group Côte d'Ivoire",
+    "link": "https://www.bridgebank.ci",
+    "address": "Rue du Commerce, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Plateau Branch"
+  },
+  "orabank": {
+    "name": "Orabank Côte d'Ivoire",
+    "link": "https://www.orabank.net/fr/filiale/cote-divoire",
+    "address": "Avenue Terrasson de Fougères, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Siège"
+  },
+  "afriland": {
+    "name": "Afriland First Bank Côte d'Ivoire",
+    "link": "https://www.afrilandfirstbank.com/index.php/en/cote-d-ivoire",
+    "address": "Avenue Noguès, Abidjan Plateau",
+    "city": "Abidjan",
+    "branch": "Siège Principal"
+  }
+}

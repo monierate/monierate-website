@@ -1,0 +1,78 @@
+{
+  "bna": {
+    "swift": ["BNTETNTT"],
+    "ussd": {
+      "start": "*111#",
+      "balance": "*111*1#",
+      "transfer_to_same_bank": "*111*2*amount*account_number#"
+    }
+  },
+  "bhti": {
+    "swift": ["BHTNTNTT"],
+    "ussd": {
+      "start": "*120#",
+      "balance": "*120*1#",
+      "transfer_to_same_bank": "*120*2*amount*account_number#"
+    }
+  },
+  "bt": {
+    "swift": ["BTBKTNTT"],
+    "ussd": {
+      "start": "*130#",
+      "balance": "*130*1#",
+      "transfer_to_same_bank": "*130*2*amount*account_number#"
+    }
+  },
+  "biat": {
+    "swift": ["BIATTNTT"],
+    "ussd": {
+      "start": "*140#",
+      "balance": "*140*1#",
+      "transfer_to_same_bank": "*140*2*amount*account_number#"
+    }
+  },
+  "sbt": {
+    "swift": ["STBKTNTT"],
+    "ussd": {
+      "start": "*150#",
+      "balance": "*150*1#",
+      "transfer_to_same_bank": "*150*2*amount*account_number#"
+    }
+  },
+  "attijari": {
+    "swift": ["ATBKTNTT"],
+    "ussd": {
+      "start": "*160#",
+      "balance": "*160*1#",
+      "transfer_to_same_bank": "*160*2*amount*account_number#"
+    }
+  },
+  "bts": {
+    "swift": ["TSIBTNTT"],
+    "ussd": {
+      "start": "*170#",
+      "balance": "*170*1#",
+      "transfer_to_same_bank": "*170*2*amount*account_number#"
+    }
+  },
+  "socgen": {
+    "swift": ["UIBKTNTT"],
+    "ussd": {
+      "start": "*180#",
+      "balance": "*180*1#",
+      "transfer_to_same_bank": "*180*2*amount*account_number#"
+    }
+  },
+  "utb": {
+    "swift": ["UBCITNT1"],
+    "ussd": {
+      "start": "*190#",
+      "balance": "*190*1#",
+      "transfer_to_same_bank": "*190*2*amount*account_number#"
+    }
+  },
+  "cpat": {
+    "swift": ["CARTTNTT"],
+    "ussd": null  
+  }
+}

@@ -9,7 +9,7 @@
 
 <svelte:head>
 	<title>Compare naira exchange rates | Monierate</title>
-	<meta name="description" content="">
+	<meta name="description" content="Compare naira exchange rates by 52+ currencies | Monierate">
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Compare naira exchange rates by 52+ currencies | Monierate" />
 	<meta property="og:description" content="Choose the currency you're exchanging naira to, and we'll compare the best exchange rate providers for you." />

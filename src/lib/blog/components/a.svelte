@@ -1,7 +1,9 @@
 <script lang="ts">
-	export let href: string
+	export let href: string;
+	export let nofollow: boolean = false;
 </script>
 
-<a {href} rel="noopener" target="_blank" style="text-decoration: none;">
+<a 
+	{href} rel={nofollow ? "noopener nofollow" : "noopener"} target="_blank" style="text-decoration: underline;">
 	<slot />
 </a>

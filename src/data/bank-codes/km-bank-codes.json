@@ -1,0 +1,65 @@
+{
+  "bnpi_comores": {
+      "swift": ["BNPICMKM"],
+      "ussd": {
+          "start": "*555#",
+          "transfer_to_same_bank": "*555*1*amount*account_number#",
+          "transfer_other_banks": "*555*2*amount*account_number*bank_code#",
+          "balance": "*555*0#"
+      }
+  },
+  "bdc": {
+      "swift": ["BDCMKMKM"],
+      "ussd": {
+          "start": "*123#",
+          "transfer_to_same_bank": "*123*1*amount*account_number#",
+          "transfer_other_banks": "*123*2*amount*account_number*bank_code#",
+          "balance": "*123*0#"
+      }
+  },
+  "bic": {
+      "swift": ["BICCKMKM"],
+      "ussd": {
+          "start": "*444#",
+          "transfer_to_same_bank": "*444*1*amount*account_number#",
+          "transfer_other_banks": "*444*2*amount*account_number*bank_code#",
+          "airtime_self": "*444*3*amount#",
+          "airtime_others": "*444*4*amount*phone_number#",
+          "balance": "*444*0#"
+      }
+  },
+  "eximbank": {
+      "swift": ["EXCOMKKM"],
+      "ussd": {
+          "start": "*247#",
+          "transfer_to_same_bank": "*247*1*amount*account_number#",
+          "transfer_other_banks": "*247*2*amount*account_number*bank_code#",
+          "balance": "*247*0#"
+      }
+  },
+  "fcb": {
+      "swift": ["FCBKKMKM"],
+      "ussd": {
+          "start": "*777#",
+          "transfer_to_same_bank": "*777*1*amount*account_number#",
+          "transfer_other_banks": "*777*2*amount*account_number*bank_code#",
+          "balance": "*777*0#"
+      }
+  },
+  "postal_bank": {
+      "swift": ["SNPSCMKM"],
+      "ussd": {
+          "start": "*505#",
+          "transfer_to_same_bank": "*505*1*amount*account_number#",
+          "balance": "*505*0#"
+      }
+  },
+  "meck": {
+      "swift": ["MECKCMKM"],
+      "ussd": {
+          "start": "*280#",
+          "transfer_to_same_bank": "*280*1*amount*account_number#",
+          "balance": "*280*0#"
+      }
+  }
+}

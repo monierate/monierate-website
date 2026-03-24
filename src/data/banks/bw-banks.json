@@ -1,0 +1,44 @@
+{
+  "fnb_botswana": {
+    "name": "First National Bank Botswana",
+    "link": "https://www.fnbbotswana.co.bw",
+    "address": "Plot 54368, First Place, CBD, Gaborone",
+    "city": "Gaborone",
+    "branch": "Main Branch"
+  },
+  "stanbic_bk": {
+    "name": "Stanbic Bank Botswana",
+    "link": "https://www.stanbicbank.co.bw",
+    "address": "Plot 50672, Stanbic House, Industrial, Gaborone",
+    "city": "Gaborone",
+    "branch": "Head Office"
+  },
+  "absa_botswana": {
+    "name": "Absa Bank Botswana",
+    "link": "https://www.absa.co.bw",
+    "address": "5th Floor, Building 4, Prime Plaza, Plot 74358, CBD, Gaborone",
+    "city": "Gaborone",
+    "branch": "Main Branch"
+  },
+  "bank_of_botswana": {
+    "name": "Bank of Botswana",
+    "link": "https://www.bankofbotswana.bw",
+    "address": "Plot 17938, Khama Crescent, Main Mall, Gaborone",
+    "city": "Gaborone",
+    "branch": "Head Office"
+  },
+  "bank_gaborone": {
+    "name": "Bank Gaborone",
+    "link": "https://www.bankgaborone.co.bw",
+    "address": "Plot 5129, Queens Road, Main Mall, Gaborone",
+    "city": "Gaborone",
+    "branch": "Main Branch"
+  },
+  "access_bank": {
+    "name": "Access Bank Botswana",
+    "link": "https://www.accessbankplc.com/bw",
+    "address": "Plot 54358, CBD, Gaborone",
+    "city": "Gaborone",
+    "branch": "Main Branch"
+  }
+}

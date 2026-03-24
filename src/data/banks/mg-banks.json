@@ -1,0 +1,72 @@
+{
+  "bfvsg": {
+    "name": "BFV-Société Générale Madagascar",
+    "link": "https://societegenerale.mg",
+    "address": "14, Rue Général Rabehevitra, Antaninarenina",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "bni": {
+    "name": "BNI MADAGASCAR",
+    "link": "https://bni.mg",
+    "address": "74, Rue du 26 juin 1960, Analakely",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "bankofafrica": {
+    "name": "Bank Of Africa Madagascar",
+    "link": "https://boa.mg",
+    "address": "9, Avenue Patrice Lumumba BP 196, Antaninarenina",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "accebank": {
+    "name": "AccèsBanque Madagascar",
+    "link": "https://accesbanque.mg",
+    "address": "Villa Analamanga, Rue Solombavambahoaka Frantsay 77, Antsahavola",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "mbi": {
+    "name": "Madagascar Banque Industrielle",
+    "link": "https://mbi.mg",
+    "address": "Immeuble Océan Trade, Zone Galaxy Andraharo",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "bgfi": {
+    "name": "BGFIBank Madagascar",
+    "link": "https://madagascar.bgfi.com",
+    "address": "Immeuble ARO, Avenue de l'Indépendance, Anosy",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "bmoim": {
+    "name": "Banque Malgache de l'Océan Indien",
+    "link": "https://bmoi.mg",
+    "address": "9, Rue du Docteur Villette, Antsahavola",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "microcred": {
+    "name": "Baobab Banque Madagascar",
+    "link": "https://baobab.bz/madagascar",
+    "address": "103, Rue de Prince Ratsimamanga, Antaninarenina",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "acep": {
+    "name": "ACEP Madagascar SA",
+    "link": "https://acep-madagasikara.mg",
+    "address": "Lot II K 39 Ter Ambatobe",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  },
+  "sbm": {
+    "name": "SBM Bank (Madagascar) Limited",
+    "link": "https://sbmgroup.mu/madagascar",
+    "address": "1, Rue Andrianary Ratianarivo, Antaninarenina",
+    "city": "Antananarivo",
+    "branch": "Head Office"
+  }
+}

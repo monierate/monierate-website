@@ -1,0 +1,135 @@
+{
+  "accessbank": {
+    "name": "Access Bank",
+    "link": "https://www.accessbankplc.com",
+    "address": "Plot 999c, Danmole Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "zenithbank": {
+    "name": "Zenith Bank",
+    "link": "https://www.zenithbank.com",
+    "address": "87, Ajose Adeogun Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "uba": {
+    "name": "United Bank for Africa",
+    "link": "https://www.ubagroup.com",
+    "address": "57 Marina, Lagos Island",
+    "city": "Lagos",
+    "branch": "Marina Branch"
+  },
+  "firstbank": {
+    "name": "First Bank of Nigeria",
+    "link": "https://www.firstbanknigeria.com",
+    "address": "35 Marina, Lagos Island",
+    "city": "Lagos",
+    "branch": "Marina Branch"
+  },
+  "gtbank": {
+    "name": "Guaranty Trust Bank",
+    "link": "https://www.gtbank.com",
+    "address": "635, Akin Adesola Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "fidelitybank": {
+    "name": "Fidelity Bank",
+    "link": "https://www.fidelitybank.ng",
+    "address": "2, Kofo Abayomi Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "opay": {
+    "name": "OPay Digital Services",
+    "link": "https://www.opayweb.com",
+    "address": "1, Oju Olobun Close, Off Adetokunbo Ademola Street",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "sterlingbank": {
+    "name": "Sterling Bank",
+    "link": "https://sterling.ng",
+    "address": "20, Marina, Lagos Island",
+    "city": "Lagos",
+    "branch": "Marina Branch"
+  },
+  "wemabank": {
+    "name": "Wema Bank",
+    "link": "https://wemabank.com",
+    "address": "54, Marina, Lagos Island",
+    "city": "Lagos",
+    "branch": "Marina Branch"
+  },
+  "keystonebank": {
+    "name": "Keystone Bank",
+    "link": "https://www.keystonebankng.com",
+    "address": "27, Adeola Odeku Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "ecobank": {
+    "name": "Ecobank Nigeria",
+    "link": "https://ecobank.com/ng",
+    "address": "21, Ahmadu Bello Way, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "fcmb": {
+    "name": "First City Monument Bank",
+    "link": "https://www.fcmb.com",
+    "address": "1, Ajose Adeogun Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "unionbank": {
+    "name": "Union Bank of Nigeria",
+    "link": "https://www.unionbankng.com",
+    "address": "36, Marina, Lagos Island",
+    "city": "Lagos",
+    "branch": "Marina Branch"
+  },
+  "unitybank": {
+    "name": "Unity Bank",
+    "link": "https://www.unitybankng.com",
+    "address": "42, Ahmed Onibudo Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "standardchartered": {
+    "name": "Standard Chartered Bank Nigeria",
+    "link": "https://www.sc.com/ng",
+    "address": "142, Ahmadu Bello Way, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "jaizbank": {
+    "name": "Jaiz Bank",
+    "link": "https://jaizbankplc.com",
+    "address": "73, Ralph Shodeinde Street, Central Business District",
+    "city": "Abuja",
+    "branch": "CBD Branch"
+  },
+  "polarisbank": {
+    "name": "Polaris Bank",
+    "link": "https://www.polarisbanklimited.com",
+    "address": "3, Adeola Hopewell Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "heritagebank": {
+    "name": "Heritage Banking Company",
+    "link": "https://www.hbng.com",
+    "address": "292B, Ajose Adeogun Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  },
+  "lotusbank": {
+    "name": "Lotus Bank",
+    "link": "https://lotusbank.com.ng",
+    "address": "42, Adetokunbo Ademola Street, Victoria Island",
+    "city": "Lagos",
+    "branch": "Victoria Island Branch"
+  }
+}

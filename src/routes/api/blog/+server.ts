@@ -1,41 +1,21 @@
-import { json } from '@sveltejs/kit'
-import type { Post } from '$lib/blog/types'
+import { json } from '@sveltejs/kit';
+import allPosts from '$lib/blog/posts.json';  // Bundled from static/posts.json (adjust path if needed)
+import type { PageServerLoad } from '../../(main)/$types';
 
-async function getPosts(tag: string = "") {
-	let posts: Post[] = []
+export const GET: PageServerLoad = async ({ url }) => {
+  const tag = url.searchParams.get('tag') || '';
 
-	const paths = import.meta.glob('/src/blog/*.md', { eager: true })
+  let posts: any[] = [...allPosts];  // Copy to avoid mutating
 
-	for (const path in paths) {
-		const file = paths[path]
-		const slug = path.split('/').at(-1)?.replace('.md', '')
+  if (tag.length > 0) {
+    const searchTag = tag.toLowerCase();
+    posts = posts.filter(post => 
+      post.tags && post.tags.some((t: any) => t.toLowerCase().includes(searchTag))
+    );
+  }
 
-		if (file && typeof file === 'object' && 'metadata' in file && slug) {
-			const metadata = file.metadata as Omit<Post, 'slug'>
-			const post = { ...metadata, slug } satisfies Post
+  // Optional: Limit for perf (e.g., top 20)
+  // posts = posts.slice(0, 20);
 
-			if (tag.length != 0) {
-				if ( tag === post.tag || '') {
-					post.published && posts.push(post)
-				}
-			}
-            else {
-				post.published && posts.push(post)
-			}
-		}
-	}
-
-	posts = posts.sort((first, second) =>
-    	new Date(second.createdAt).getTime() - new Date(first.createdAt).getTime()
-	)
-
-	return posts
-}
-
-export async function GET({ url }) {
-	const params = url.searchParams
-	const tag = params.get('tag') || ''
-
-	const posts = await getPosts(tag)
-	return json(posts)
-}
+  return json(posts);
+};

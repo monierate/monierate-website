@@ -6,17 +6,17 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        bitter: ["Roboto", "serif"],
-        worksans: ["Roboto", "sans-serif"],
+        bitter: ["Arial", "serif"],
+        worksans: ["Arial", "sans-serif"],
       },
       typography: {
         DEFAULT: {
           css: {
             color: '#666',
             a: {
-              color: '#06D68A',
+              color: '#3662ff',
               '&:hover': {
-                color: '#048354',
+                color: '#203ff6',
               },
             },
           },
@@ -37,8 +37,9 @@ module.exports = {
       'light': '#EEFEF8',
       'lighter': '#EEFEF8',
       'dark': '#121212',
-      'primary': '#06D68A'
+      'primary': '#3662ff',
+      'top-banner': '#7449ee',
     },
   },
-  plugins: [require('flowbite-typography'),],
+  plugins: [require('flowbite-typography'), require('tailwind-scrollbar'),],
 }

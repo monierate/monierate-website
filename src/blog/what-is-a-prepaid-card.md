@@ -1,15 +1,13 @@
 ---
 layout: blog
 title: What is a Prepaid Card
-description: In this article, you will be learning about prepaid cards, types of
-  prepaid cards, and how to get one in Nigeria.
+description: In this article, you will be learning about prepaid cards, types of prepaid cards, and how to get one in Nigeria.
 createdAt: 2023-04-13T20:23:00.673Z
 updatedAt: 2023-04-13T20:23:00.793Z
 tag: virtualcard
 image: https://substackcdn.com/image/fetch/w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3f87f260-d45f-4230-934a-e15f0e0033e7_512x512
 published: true
 ---
-  
 Prepaid Cards are pre-funded and re-loadable cards that can be used to pay bills and make purchases. If you own a prepaid card, you fund them directly, there is no need for you to have a formal bank account. In this email, you will be learning about prepaid cards, types of prepaid cards, and how to get one in Nigeria.
 
 [](https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3f87f260-d45f-4230-934a-e15f0e0033e7_512x512)
@@ -81,7 +79,7 @@ Virtual prepaid cards are easier to get compared to physical ones. There are sev
 
 Best dollar virtual card apps in 2023 (April)
 
-A virtual card is an online payment card. Unlike a physical card, you can’t use a virtual card offline (POS or ATMs). You can only use a virtual card to pay for things online. To get a virtual card, you simply need a virtual card provider. The easiest way is to…
+A virtual card is an online payment card. Unlike a physical card, you can’t use a virtual card offline ([POS](https://monierate.com/blog/what-is-a-point-of-sale-pos-and-how-it-works-in-nigeria) or [ATMs](https://monierate.com/blog/what-is-an-automated-teller-machine-atm-and-how-it-works-in-nigeria)). You can only use a virtual card to pay for things online. To get a virtual card, you simply need a virtual card provider. The easiest way is to…
 
 Read more
 

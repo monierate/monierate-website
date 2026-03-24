@@ -1,0 +1,155 @@
+{
+  "banque_internationale_du_benin": {
+    "swift": [
+      "BIBEBJBJ"
+    ],
+    "ussd": {
+      "start": "*855#",
+      "transfer_to_same_bank": "*855*1*amount*account_number#",
+      "transfer_other_banks": "*855*2*amount*account_number*bank_code#",
+      "airtime_self": "*855*4*amount#",
+      "airtime_others": "*855*4*amount*phone_number#",
+      "balance": "*855*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "banque_atlantique": {
+    "swift": [
+      "ATBJBJBJ"
+    ],
+    "ussd": {
+      "start": "*955#",
+      "transfer_to_same_bank": "*955*1*amount*account_number#",
+      "transfer_other_banks": "*955*2*amount*account_number*bank_code#",
+      "airtime_self": "*955*4*amount#",
+      "airtime_others": "*955*4*amount*phone_number#",
+      "balance": "*955*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "bank_of_africa": {
+    "swift": [
+      "AFBJBJBJ"
+    ],
+    "ussd": {
+      "start": "*155#",
+      "transfer_to_same_bank": "*155*1*amount*account_number#",
+      "transfer_other_banks": "*155*2*amount*account_number*bank_code#",
+      "airtime_self": "*155*4*amount#",
+      "airtime_others": "*155*4*amount*phone_number#",
+      "balance": "*155*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "ecobank_benin": {
+    "swift": [
+      "ECOCBJBJ"
+    ],
+    "ussd": {
+      "start": "*326#",
+      "transfer_to_same_bank": "*326*0*account_number*amount#",
+      "transfer_other_banks": "*326*1*account_number*amount*bank_code#",
+      "airtime_self": "*326*2*amount#",
+      "airtime_others": "*326*2*phone_number*amount#",
+      "balance": "*326*0#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "orabank_benin": {
+    "swift": [
+      "ORBKBJBJ"
+    ],
+    "ussd": {
+      "start": "*492#",
+      "transfer_to_same_bank": "*492*1*amount*account_number#",
+      "transfer_other_banks": "*492*2*amount*account_number*bank_code#",
+      "airtime_self": "*492*4*amount#",
+      "airtime_others": "*492*4*amount*phone_number#",
+      "balance": "*492*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "societe_generale_benin": {
+    "swift": [
+      "SGBJBJBJ"
+    ],
+    "ussd": {
+      "start": "*742#",
+      "transfer_to_same_bank": "*742*1*amount*account_number#",
+      "transfer_other_banks": "*742*2*amount*account_number*bank_code#",
+      "airtime_self": "*742*4*amount#",
+      "airtime_others": "*742*4*amount*phone_number#",
+      "balance": "*742*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "coris_bank_international": {
+    "swift": [
+      "COBJBJBJ"
+    ],
+    "ussd": {
+      "start": "*922#",
+      "transfer_to_same_bank": "*922*1*amount*account_number#",
+      "transfer_other_banks": "*922*2*amount*account_number*bank_code#",
+      "airtime_self": "*922*4*amount#",
+      "airtime_others": "*922*4*amount*phone_number#",
+      "balance": "*922*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "nsia_banque": {
+    "swift": [
+      "NSIABJBJ"
+    ],
+    "ussd": {
+      "start": "*660#",
+      "transfer_to_same_bank": "*660*1*amount*account_number#",
+      "transfer_other_banks": "*660*2*amount*account_number*bank_code#",
+      "airtime_self": "*660*4*amount#",
+      "airtime_others": "*660*4*amount*phone_number#",
+      "balance": "*660*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  },
+  "diamond_bank": {
+    "swift": [
+      "DBLNBJBJ"
+    ],
+    "ussd": {
+      "start": "*433#",
+      "transfer_to_same_bank": "*433*1*amount*account_number#",
+      "transfer_other_banks": "*433*2*amount*account_number*bank_code#",
+      "airtime_self": "*433*4*amount#",
+      "airtime_others": "*433*4*amount*phone_number#",
+      "balance": "*433*7#",
+      "bvn": null,
+      "update_bvn_details": null,
+      "stop_debit_transactions": null,
+      "activate_code": null
+    }
+  }
+}

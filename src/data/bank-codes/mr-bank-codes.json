@@ -1,0 +1,74 @@
+{
+  "attijari": {
+      "swift": ["BCMRMRMR"],
+      "ussd": {
+          "start": "*444#",
+          "balance": "*444*1#",
+          "transfer_to_same_bank": "*444*2*account_number*amount#"
+      }
+  },
+  "bnm": {
+      "swift": ["BNMRMRMR"],
+      "ussd": {
+          "start": "*555#",
+          "balance": "*555*1#",
+          "transfer_to_same_bank": "*555*2*account_number*amount#"
+      }
+  },
+  "bmci": {
+      "swift": ["BMCIMRMR"],
+      "ussd": {
+          "start": "*333#",
+          "balance": "*333*1#",
+          "transfer_to_same_bank": "*333*2*account_number*amount#"
+      }
+  },
+  "societegenerale": {
+      "swift": ["SGMRMRMR"],
+      "ussd": {
+          "start": "*222#",
+          "balance": "*222*1#",
+          "transfer_to_same_bank": "*222*2*account_number*amount#"
+      }
+  },
+  "bam": {
+      "swift": ["BAMRMRMR"],
+      "ussd": null
+  },
+  "bci": {
+      "swift": ["BCIRMRMR"],
+      "ussd": {
+          "start": "*666#",
+          "balance": "*666*1#",
+          "transfer_to_same_bank": "*666*2*account_number*amount#"
+      }
+  },
+  "orabank": {
+      "swift": ["ORBKMRMR"],
+      "ussd": {
+          "start": "*777#",
+          "balance": "*777*1#",
+          "transfer_to_same_bank": "*777*2*account_number*amount#"
+      }
+  },
+  "qnb": {
+      "swift": ["QNBAMRMR"],
+      "ussd": null
+  },
+  "bim": {
+      "swift": ["BIMMRMMR"],
+      "ussd": {
+          "start": "*888#",
+          "balance": "*888*1#",
+          "transfer_to_same_bank": "*888*2*account_number*amount#"
+      }
+  },
+  "chinguitel": {
+      "swift": ["CHNGMRMR"],
+      "ussd": {
+          "start": "*111#",
+          "balance": "*111*1#",
+          "transfer_to_same_bank": "*111*2*account_number*amount#"
+      }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "fnb": {
+    "swift": ["FIRNNANX"],
+    "ussd": {
+      "start": "*140#",
+      "balance": "*140*1#",
+      "transfer_to_same_bank": "*140*2*amount*account_number#"
+    }
+  },
+  "bankwindhoek": {
+    "swift": ["BWLINANX"],
+    "ussd": {
+      "start": "*140*982#",
+      "balance": "*140*982*1#",
+      "transfer_to_same_bank": "*140*982*2*amount*account_number#"
+    }
+  },
+  "nedbank": {
+    "swift": ["NEDSNANX"],
+    "ussd": {
+      "start": "*101#",
+      "balance": "*101*1#",
+      "transfer_to_same_bank": "*101*2*amount*account_number#"
+    }
+  },
+  "standardbank": {
+    "swift": ["SBNMNANX"],
+    "ussd": {
+      "start": "*662#",
+      "balance": "*662*1#",
+      "transfer_to_same_bank": "*662*2*amount*account_number#"
+    }
+  },
+  "letshego": {
+    "swift": ["LTGSNANX"],
+    "ussd": {
+      "start": "*140*555#",
+      "balance": "*140*555*1#",
+      "transfer_to_same_bank": "*140*555*2*amount*account_number#"
+    }
+  },
+  "trustco": {
+    "swift": ["TCBKNANX"],
+    "ussd": {
+      "start": "*140*554#",
+      "balance": "*140*554*1#",
+      "transfer_to_same_bank": "*140*554*2*amount*account_number#"
+    }
+  },
+  "bon": {
+    "swift": ["CBONNANX"],
+    "ussd": null
+  },
+  "nampost": {
+    "swift": ["NPSBNANX"],
+    "ussd": {
+      "start": "*140*277#",
+      "balance": "*140*277*1#",
+      "transfer_to_same_bank": "*140*277*2*amount*account_number#"
+    }
+  }
+}

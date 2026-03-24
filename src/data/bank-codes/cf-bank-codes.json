@@ -1,0 +1,137 @@
+{
+  "banco_central_africano": {
+    "swift": ["BCAFCF2B"],
+    "ussd": {
+      "start": "*202#",
+      "transfer_to_same_bank": "*202*1*montant*numero_compte#",
+      "transfer_other_banks": "*202*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*202*3*montant#",
+      "airtime_others": "*202*4*montant*numero_telephone#",
+      "balance": "*202*5#",
+      "mini_releve": "*202*6#",
+      "change_pin": "*202*7*ancien_pin*nouveau_pin#",
+      "block_card": "*202*8#",
+      "active_services": "*202*9#"
+    }
+  },
+  "credit_du_sangha": {
+    "swift": ["CDSGCF2B"],
+    "ussd": {
+      "start": "*203#",
+      "transfer_to_same_bank": "*203*1*montant*numero_compte#",
+      "transfer_other_banks": "*203*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*203*3*montant#",
+      "airtime_others": "*203*4*montant*numero_telephone#",
+      "balance": "*203*5#",
+      "mini_releve": "*203*6#",
+      "change_pin": "*203*7*ancien_pin*nouveau_pin#",
+      "block_card": "*203*8#",
+      "active_services": "*203*9#"
+    }
+  },
+  "banco_iberico": {
+    "swift": ["BIBECF2B"],
+    "ussd": {
+      "start": "*204#",
+      "transfer_to_same_bank": "*204*1*montant*numero_compte#",
+      "transfer_other_banks": "*204*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*204*3*montant#",
+      "airtime_others": "*204*4*montant*numero_telephone#",
+      "balance": "*204*5#",
+      "mini_releve": "*204*6#",
+      "change_pin": "*204*7*ancien_pin*nouveau_pin#",
+      "block_card": "*204*8#",
+      "active_services": "*204*9#"
+    }
+  },
+  "union_bancaire_centrale": {
+    "swift": ["UBCACF2B"],
+    "ussd": {
+      "start": "*205#",
+      "transfer_to_same_bank": "*205*1*montant*numero_compte#",
+      "transfer_other_banks": "*205*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*205*3*montant#",
+      "airtime_others": "*205*4*montant*numero_telephone#",
+      "balance": "*205*5#",
+      "mini_releve": "*205*6#",
+      "change_pin": "*205*7*ancien_pin*nouveau_pin#",
+      "block_card": "*205*8#",
+      "active_services": "*205*9#"
+    }
+  },
+  "bank_of_central_africa": {
+    "swift": ["BCAFCF2B"],
+    "ussd": {
+      "start": "*206#",
+      "transfer_to_same_bank": "*206*1*montant*numero_compte#",
+      "transfer_other_banks": "*206*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*206*3*montant#",
+      "airtime_others": "*206*4*montant*numero_telephone#",
+      "balance": "*206*5#",
+      "mini_releve": "*206*6#",
+      "change_pin": "*206*7*ancien_pin*nouveau_pin#",
+      "block_card": "*206*8#",
+      "active_services": "*206*9#"
+    }
+  },
+  "banque_centrafrique": {
+    "swift": ["BCARCF2B"],
+    "ussd": {
+      "start": "*207#",
+      "transfer_to_same_bank": "*207*1*montant*numero_compte#",
+      "transfer_other_banks": "*207*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*207*3*montant#",
+      "airtime_others": "*207*4*montant*numero_telephone#",
+      "balance": "*207*5#",
+      "mini_releve": "*207*6#",
+      "change_pin": "*207*7*ancien_pin*nouveau_pin#",
+      "block_card": "*207*8#",
+      "active_services": "*207*9#"
+    }
+  },
+  "financiere_et_developpement": {
+    "swift": ["FDEVCF2B"],
+    "ussd": {
+      "start": "*208#",
+      "transfer_to_same_bank": "*208*1*montant*numero_compte#",
+      "transfer_other_banks": "*208*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*208*3*montant#",
+      "airtime_others": "*208*4*montant*numero_telephone#",
+      "balance": "*208*5#",
+      "mini_releve": "*208*6#",
+      "change_pin": "*208*7*ancien_pin*nouveau_pin#",
+      "block_card": "*208*8#",
+      "active_services": "*208*9#"
+    }
+  },
+  "banco_exploration": {
+    "swift": ["BEXPCF2B"],
+    "ussd": {
+      "start": "*209#",
+      "transfer_to_same_bank": "*209*1*montant*numero_compte#",
+      "transfer_other_banks": "*209*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*209*3*montant#",
+      "airtime_others": "*209*4*montant*numero_telephone#",
+      "balance": "*209*5#",
+      "mini_releve": "*209*6#",
+      "change_pin": "*209*7*ancien_pin*nouveau_pin#",
+      "block_card": "*209*8#",
+      "active_services": "*209*9#"
+    }
+  },
+  "banco_rural": {
+    "swift": ["BRURCF2B"],
+    "ussd": {
+      "start": "*210#",
+      "transfer_to_same_bank": "*210*1*montant*numero_compte#",
+      "transfer_other_banks": "*210*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*210*3*montant#",
+      "airtime_others": "*210*4*montant*numero_telephone#",
+      "balance": "*210*5#",
+      "mini_releve": "*210*6#",
+      "change_pin": "*210*7*ancien_pin*nouveau_pin#",
+      "block_card": "*210*8#",
+      "active_services": "*210*9#"
+    }
+  }
+}

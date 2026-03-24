@@ -1,0 +1,44 @@
+{
+  "standardbank": {
+    "name": "Standard Lesotho Bank",
+    "link": "https://www.standardbank.co.ls",
+    "address": "Standard Bank Centre, Kingsway Road",
+    "city": "Maseru",
+    "branch": "Head Office"
+  },
+  "nedbank": {
+    "name": "Nedbank Lesotho",
+    "link": "https://www.nedbank.co.ls",
+    "address": "Nedbank House, Kingsway Road",
+    "city": "Maseru",
+    "branch": "Head Office"
+  },
+  "fnb": {
+    "name": "First National Bank Lesotho",
+    "link": "https://www.fnb.co.ls",
+    "address": "FNB Building, Kingsway Road",
+    "city": "Maseru",
+    "branch": "Head Office"
+  },
+  "lpb": {
+    "name": "Lesotho PostBank",
+    "link": "https://www.lpb.co.ls",
+    "address": "Post Office Building, Kingsway Road",
+    "city": "Maseru",
+    "branch": "Head Office"
+  },
+  "bancabc": {
+    "name": "BancABC Lesotho",
+    "link": "https://lesotho.bancabc.com",
+    "address": "BancABC House, Kingsway Road",
+    "city": "Maseru",
+    "branch": "Head Office"
+  },
+  "mpesa": {
+    "name": "M-PESA Lesotho",
+    "link": "https://www.mpesa.co.ls",
+    "address": "Vodacom Park, Corner Constitution & Old School Roads",
+    "city": "Maseru",
+    "branch": "Head Office"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "bna": {
+    "name": "Banque Nationale d'Algérie",
+    "link": "https://www.bna.dz",
+    "address": "8 Boulevard Ernesto Che Guevara, Alger",
+    "city": "Alger",
+    "branch": "Siège Social"
+  },
+  "bea": {
+    "name": "Banque Extérieure d'Algérie",
+    "link": "https://www.bea.dz",
+    "address": "48 Rue des Frères Bouadou, Bir Mourad Rais",
+    "city": "Alger",
+    "branch": "Siège"
+  },
+  "cnep": {
+    "name": "Caisse Nationale d'Épargne et de Prévoyance-Banque",
+    "link": "https://www.cnepbanque.dz",
+    "address": "Lot N° 2 Boulevard Colonel Amirouche, Alger",
+    "city": "Alger",
+    "branch": "Direction Générale"
+  },
+  "sga": {
+    "name": "Société Générale Algérie",
+    "link": "https://www.societegenerale.dz",
+    "address": "Résidence El Karma, Lot 33, Gué de Constantine",
+    "city": "Alger",
+    "branch": "Direction Générale"
+  },
+  "al_baraka": {
+    "name": "Banque Al Baraka d'Algérie",
+    "link": "https://www.albaraka-bank.dz",
+    "address": "Hai Bouteldja Houidef, Villa No. 1, Rocade Sud, Ben Aknoun",
+    "city": "Alger",
+    "branch": "Siège Social"
+  },
+  "bdl": {
+    "name": "Banque de Développement Local",
+    "link": "https://www.bdl.dz",
+    "address": "5 Rue Gaci Amar, Staoueli",
+    "city": "Alger",
+    "branch": "Siège"
+  },
+  "abc": {
+    "name": "Arab Banking Corporation-Algeria",
+    "link": "https://www.bank-abc.com/world/Algeria",
+    "address": "54, Avenue des Trois Frères Bouaddou, Bir Mourad Rais",
+    "city": "Alger",
+    "branch": "Siège Social"
+  },
+  "badr": {
+    "name": "Banque de l'Agriculture et du Développement Rural",
+    "link": "https://www.badr-bank.dz",
+    "address": "17 Boulevard Colonel Amirouche",
+    "city": "Alger",
+    "branch": "Siège Social"
+  },
+  "ba": {
+    "name": "Banque d'Algérie",
+    "link": "https://www.bank-of-algeria.dz",
+    "address": "38 Avenue Franklin Roosevelt",
+    "city": "Alger",
+    "branch": "Siège Central"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "banque_centrale_de_djibouti": {
+    "name": "Banque Centrale de Djibouti",
+    "link": "https://banque-centrale.dj",
+    "address": "Avenue Georges Clemenceau, BP 2118",
+    "city": "Djibouti",
+    "branch": "Headquarters"
+  },
+  "bcimr": {
+    "name": "Banque pour le Commerce et l'Industrie - Mer Rouge (BCIMR)",
+    "link": "https://www.bcimr.dj",
+    "address": "Place Lagarde, BP 2118",
+    "city": "Djibouti",
+    "branch": "Headquarters"
+  },
+  "bank_of_africa_djibouti": {
+    "name": "Bank of Africa - Djibouti",
+    "link": "https://boagroup.com/en/group/presence/djibouti",
+    "address": "Place Lagarde, BP 2323",
+    "city": "Djibouti",
+    "branch": "Main Branch"
+  },
+  "cab": {
+    "name": "CAC International Bank",
+    "link": "https://www.cab.dj",
+    "address": "Place Lagarde",
+    "city": "Djibouti",
+    "branch": "Main Branch"
+  },
+  "salam_bank": {
+    "name": "Salam African Bank",
+    "link": "https://www.salambankdj.com",
+    "address": "Rue de Marseille",
+    "city": "Djibouti",
+    "branch": "Main Branch"
+  },
+  "ecobank_djibouti": {
+    "name": "Ecobank Djibouti",
+    "link": "https://ecobank.com/dj/personal-banking",
+    "address": "Place Mahmoud Harbi",
+    "city": "Djibouti",
+    "branch": "Main Branch"
+  },
+  "east_africa_bank": {
+    "name": "East Africa Bank Djibouti",
+    "link": "https://www.eabdjibouti.dj",
+    "address": "Rue d'Ethiopie",
+    "city": "Djibouti",
+    "branch": "Main Branch"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "bcstp": {
+    "swift": ["BCSTPSTP"],
+    "ussd": {
+      "start": "*111#",
+      "balance": "*111*1#",
+      "transfer_to_same_bank": "*111*amount*account_number#"
+    }
+  },
+  "banco_internacional": {
+    "swift": ["BISTPTS"],
+    "ussd": {
+      "start": "*222#",
+      "balance": "*222*1#",
+      "transfer_to_same_bank": "*222*amount*account_number#"
+    }
+  },
+  "afriland": {
+    "swift": ["AFLBSTP"],
+    "ussd": {
+      "start": "*333#",
+      "balance": "*333*1#",
+      "transfer_to_same_bank": "*333*amount*account_number#"
+    }
+  },
+  "ecobank": {
+    "swift": ["ECOCSTS"],
+    "ussd": {
+      "start": "*444#",
+      "balance": "*444*1#",
+      "transfer_to_same_bank": "*444*amount*account_number#"
+    }
+  },
+  "bgfi": {
+    "swift": ["BGFISTP"],
+    "ussd": {
+      "start": "*555#",
+      "balance": "*555*1#",
+      "transfer_to_same_bank": "*555*amount*account_number#"
+    }
+  }
+}

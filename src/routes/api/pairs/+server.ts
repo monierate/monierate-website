@@ -1,4 +1,4 @@
-import { getEndpoint, basicAuth  } from "$lib/helper.svelte";
+import { getEndpoint, basicAuth  } from "$lib/helper";
 import { json, redirect } from "@sveltejs/kit";
 /** @type {import('./$types').RequestHandler} */
 

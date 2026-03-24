@@ -1,0 +1,66 @@
+{
+  "millennium": {
+    "swift": ["BIMOMZMX"],
+    "ussd": {
+      "start": "*181#",
+      "balance": "*181*1#",
+      "transfer_to_same_bank": "*181*2*1*amount*account_number#",
+      "mini_statement": "*181*4#",
+      "airtime": "*181*5#"
+    }
+  },
+  "bci": {
+    "swift": ["CGDIMZMX"],
+    "ussd": {
+      "start": "*123#",
+      "balance": "*123*1#",
+      "transfer_to_same_bank": "*123*2*1*account_number*amount#",
+      "mini_statement": "*123*4#",
+      "airtime": "*123*5#"
+    }
+  },
+  "standard": {
+    "swift": ["SBICMZMX"],
+    "ussd": {
+      "start": "*744#",
+      "balance": "*744*1#",
+      "transfer_to_same_bank": "*744*2*account_number*amount#",
+      "mini_statement": "*744*3#",
+      "airtime": "*744*4#"
+    }
+  },
+  "absa": {
+    "swift": ["BRDZMZMA"],
+    "ussd": {
+      "start": "*227#",
+      "balance": "*227*1#",
+      "transfer_to_same_bank": "*227*2*1*account_number*amount#",
+      "mini_statement": "*227*4#",
+      "airtime": "*227*5#"
+    }
+  },
+  "fnb": {
+    "swift": ["FIRMMZMX"],
+    "ussd": {
+      "start": "*776#",
+      "balance": "*776*1#",
+      "transfer_to_same_bank": "*776*2*account_number*amount#",
+      "mini_statement": "*776*3#",
+      "airtime": "*776*4#"
+    }
+  },
+  "banco_moc": {
+    "swift": ["BMOCMZMX"],
+    "description": "Central Bank - No USSD Banking"
+  },
+  "uba": {
+    "swift": ["UNAFMZMX"],
+    "ussd": {
+      "start": "*919#",
+      "balance": "*919*1#",
+      "transfer_to_same_bank": "*919*2*account_number*amount#",
+      "mini_statement": "*919*3#",
+      "airtime": "*919*4#"
+    }
+  }
+}

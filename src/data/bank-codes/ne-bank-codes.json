@@ -1,0 +1,66 @@
+{
+  "boa": {
+    "swift": ["AFNINE"],
+    "ussd": {
+      "start": "*555#",
+      "balance": "*555*1#",
+      "transfer_to_same_bank": "*555*2*amount*account_number#"
+    }
+  },
+  "sonibank": {
+    "swift": ["SNBKNE"],
+    "ussd": {
+      "start": "*628#",
+      "balance": "*628*1#",
+      "transfer_to_same_bank": "*628*2*amount*account_number#"
+    }
+  },
+  "ecobank": {
+    "swift": ["ECOCNENI"],
+    "ussd": {
+      "start": "*326#",
+      "balance": "*326*1#",
+      "transfer_to_same_bank": "*326*2*amount*account_number#"
+    }
+  },
+  "banque_atlantique": {
+    "swift": ["ATNINENI"],
+    "ussd": {
+      "start": "*955#",
+      "balance": "*955*1#",
+      "transfer_to_same_bank": "*955*2*amount*account_number#"
+    }
+  },
+  "bcn": {
+    "swift": ["BCNINE"],
+    "ussd": {
+      "start": "*700#",
+      "balance": "*700*1#",
+      "transfer_to_same_bank": "*700*2*amount*account_number#"
+    }
+  },
+  "bsic": {
+    "swift": ["BSICNENI"],
+    "ussd": {
+      "start": "*422#",
+      "balance": "*422*1#",
+      "transfer_to_same_bank": "*422*2*amount*account_number#"
+    }
+  },
+  "bagri": {
+    "swift": ["BAGRNENI"],
+    "ussd": {
+      "start": "*744#",
+      "balance": "*744*1#",
+      "transfer_to_same_bank": "*744*2*amount*account_number#"
+    }
+  },
+  "coris": {
+    "swift": ["CORINENI"],
+    "ussd": {
+      "start": "*312#",
+      "balance": "*312*1#",
+      "transfer_to_same_bank": "*312*2*amount*account_number#"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "lpc": {
+    "name": "La Congolaise de Banque",
+    "link": "https://www.lcb-bank.com",
+    "address": "Avenue Amilcar Cabral, Centre-ville",
+    "city": "Brazzaville",
+    "branch": "Siège Social"
+  },
+  "bgfi": {
+    "name": "BGFIBank Congo",
+    "link": "https://congo.bgfi.com",
+    "address": "Boulevard Denis Sassou-Nguesso, Centre-ville",
+    "city": "Brazzaville",
+    "branch": "Siège"
+  },
+  "bsca": {
+    "name": "Banque Sino-Congolaise pour l'Afrique",
+    "link": "https://www.bsca.cg",
+    "address": "Avenue Amilcar Cabral, Centre-ville",
+    "city": "Brazzaville",
+    "branch": "Siège Principal"
+  },
+  "ecobank": {
+    "name": "Ecobank Congo",
+    "link": "https://www.ecobank.com/cg/personal-banking",
+    "address": "Avenue du Camp, Centre-ville",
+    "city": "Brazzaville",
+    "branch": "Agence Principale"
+  },
+  "bcdc": {
+    "name": "Banque Commerciale Du Congo",
+    "link": "https://www.bcdc.cg",
+    "address": "Avenue William Guynet, Centre-ville",
+    "city": "Brazzaville",
+    "branch": "Direction Générale"
+  },
+  "uba": {
+    "name": "United Bank for Africa Congo",
+    "link": "https://www.ubagroup.com/congo-brazzaville",
+    "address": "Avenue du Port, Centre-ville",
+    "city": "Brazzaville",
+    "branch": "Siège"
+  },
+  "postbank": {
+    "name": "Banque Postale du Congo",
+    "link": "https://www.banquepostale.cg",
+    "address": "Avenue du Camp, Centre-ville",
+    "city": "Brazzaville",
+    "branch": "Siège Central"
+  },
+  "credit_du_congo": {
+    "name": "Crédit du Congo",
+    "link": "https://www.creditducongo.com",
+    "address": "Avenue Félix Eboué, Centre-ville",
+    "city": "Brazzaville",
+    "branch": "Agence Principale"
+  }
+}

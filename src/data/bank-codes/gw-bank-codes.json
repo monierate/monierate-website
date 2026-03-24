@@ -1,0 +1,82 @@
+{
+  "ecobankgb": {
+      "swift": ["ECOCGWGW"],
+      "ussd": {
+          "start": "*326#",
+          "transfer_to_same_bank": "*326*1*1*account_number*amount#",
+          "transfer_other_banks": "*326*1*2*bank_code*account_number*amount#",
+          "airtime_self": "*326*2*1*amount#",
+          "airtime_others": "*326*2*2*phone_number*amount#",
+          "balance": "*326*0#",
+          "mini_statement": "*326*5#",
+          "stop_transactions": "*326*911#"
+      }
+  },
+  "orabankgb": {
+      "swift": ["ORBKGWGW"],
+      "ussd": {
+          "start": "*955#",
+          "transfer_to_same_bank": "*955*1*account_number*amount#",
+          "transfer_other_banks": "*955*2*bank_code*account_number*amount#",
+          "airtime_self": "*955*3*amount#",
+          "airtime_others": "*955*4*phone_number*amount#",
+          "balance": "*955*7#"
+      }
+  },
+  "baogb": {
+      "swift": ["BAOBGWGW"],
+      "ussd": {
+          "start": "*777#",
+          "transfer_to_same_bank": "*777*1*account_number*amount#",
+          "transfer_other_banks": "*777*2*bank_code*account_number*amount#",
+          "airtime_self": "*777*3*amount#",
+          "airtime_others": "*777*4*phone_number*amount#",
+          "balance": "*777*5#"
+      }
+  },
+  "atlantiquebankgb": {
+      "swift": ["ATGWGWGW"],
+      "ussd": {
+          "start": "*812#",
+          "transfer_to_same_bank": "*812*1*account_number*amount#",
+          "transfer_other_banks": "*812*2*bank_code*account_number*amount#",
+          "airtime_self": "*812*3*amount#",
+          "airtime_others": "*812*4*phone_number*amount#",
+          "balance": "*812*5#"
+      }
+  },
+  "bankofafricagb": {
+      "swift": ["AFRIGWGW"],
+      "ussd": {
+          "start": "*144#",
+          "transfer_to_same_bank": "*144*1*account_number*amount#",
+          "transfer_other_banks": "*144*2*bank_code*account_number*amount#",
+          "airtime_self": "*144*3*amount#",
+          "airtime_others": "*144*4*phone_number*amount#",
+          "balance": "*144*5#"
+      }
+  },
+  "bgfigb": {
+      "swift": ["BGFIGWGW"],
+      "ussd": {
+          "start": "*182#",
+          "transfer_to_same_bank": "*182*1*account_number*amount#",
+          "transfer_other_banks": "*182*2*bank_code*account_number*amount#",
+          "airtime_self": "*182*3*amount#",
+          "airtime_others": "*182*4*phone_number*amount#",
+          "balance": "*182*5#"
+      }
+  },
+  "uba_gb": {
+      "swift": ["UNAFGWGW"],
+      "ussd": {
+          "start": "*919#",
+          "transfer_to_same_bank": "*919*1*account_number*amount#",
+          "transfer_other_banks": "*919*2*bank_code*account_number*amount#",
+          "airtime_self": "*919*3*amount#",
+          "airtime_others": "*919*4*phone_number*amount#",
+          "balance": "*919*0#",
+          "mini_statement": "*919*5#"
+      }
+  }
+}

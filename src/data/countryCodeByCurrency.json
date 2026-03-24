@@ -1,0 +1,7 @@
+{
+    "USD": "US",
+    "EUR": ["DE", "AD", "AT", "BE", "CY", "EE", "FI", "FR", "GR", "IE", "IT", "LV", "LT", "LU", "MT", "MC", "NL", "PT", "SM", "SK", "SI", "ES", "VA"],
+    "GBP": "GB",
+    "NGN": "NG"
+}
+  

@@ -1,0 +1,58 @@
+{
+    "cbs": {
+        "name": "Central Bank of Seychelles",
+        "link": "https://www.cbs.sc",
+        "address": "Independence Avenue, P.O. Box 701",
+        "city": "Victoria",
+        "branch": "Head Office"
+    },
+    "nbs": {
+        "name": "Nouvobanq (SIMBC)",
+        "link": "https://www.nouvobanq.sc",
+        "address": "Nouvobanq House, Victoria",
+        "city": "Victoria",
+        "branch": "Head Office"
+    },
+    "mcb": {
+        "name": "MCB Seychelles",
+        "link": "https://www.mcbseychelles.com",
+        "address": "P.O. Box 122, Victoria",
+        "city": "Victoria",
+        "branch": "Head Office"
+    },
+    "barclays": {
+        "name": "Absa Bank (Seychelles)",
+        "link": "https://www.absa.sc",
+        "address": "Independence Avenue, Victoria",
+        "city": "Victoria",
+        "branch": "Head Office"
+    },
+    "bmi": {
+        "name": "BMI Offshore Bank",
+        "link": "https://www.bmi-offshore.sc",
+        "address": "Maison Esplanade, Victoria",
+        "city": "Victoria",
+        "branch": "Head Office"
+    },
+    "scb": {
+        "name": "Seychelles Commercial Bank",
+        "link": "https://www.scb.sc",
+        "address": "Independence Avenue, Victoria",
+        "city": "Victoria",
+        "branch": "Head Office"
+    },
+    "al_salam": {
+        "name": "Al Salam Bank Seychelles",
+        "link": "https://www.alsalambankseychelles.com",
+        "address": "Al Salam Tower, Victoria",
+        "city": "Victoria",
+        "branch": "Head Office"
+    },
+    "sbs": {
+        "name": "Seychelles Building Society",
+        "link": "https://www.sbs.sc",
+        "address": "Independence Avenue, Victoria",
+        "city": "Victoria",
+        "branch": "Head Office"
+    }
+}

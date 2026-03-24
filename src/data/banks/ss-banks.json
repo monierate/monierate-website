@@ -1,0 +1,44 @@
+{
+  "boss": {
+    "name": "Bank of South Sudan",
+    "link": "https://boss.gov.ss",
+    "address": "BOSS Building, Ministries Road",
+    "city": "Juba",
+    "branch": "Head Office"
+  },
+  "equity": {
+    "name": "Equity Bank South Sudan Limited",
+    "link": "https://southsudan.equitybankgroup.com",
+    "address": "UAP Building, Ministry Road",
+    "city": "Juba",
+    "branch": "Head Office"
+  },
+  "kc": {
+    "name": "Kenya Commercial Bank South Sudan Ltd",
+    "link": "https://ss.kcbgroup.com",
+    "address": "KCB Plaza, Ministry Road",
+    "city": "Juba",
+    "branch": "Head Office"
+  },
+  "cooperative": {
+    "name": "Co-operative Bank of South Sudan",
+    "link": "https://www.co-opbank.ss",
+    "address": "Cooperative House, Unity Avenue",
+    "city": "Juba",
+    "branch": "Main Branch"
+  },
+  "ecobank": {
+    "name": "Ecobank South Sudan",
+    "link": "https://ecobank.com/ss",
+    "address": "Koita Complex Building",
+    "city": "Juba",
+    "branch": "Head Office"
+  },
+  "afriland": {
+    "name": "Afriland First Bank",
+    "link": "https://www.afrilandfirstbank.com/ss",
+    "address": "Juba Town",
+    "city": "Juba",
+    "branch": "Main Branch"
+  }
+}

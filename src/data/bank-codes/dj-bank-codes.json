@@ -1,0 +1,86 @@
+{
+  "banque_centrale_de_djibouti": {
+      "swift": ["BCDKDJJD"],
+      "ussd": {
+          "start": "*555#",
+          "balance": "*555*1#",
+          "mini_statement": "*555*2#",
+          "transfer_to_same_bank": "*555*3*amount*account_number#",
+          "transfer_other_banks": "*555*4*amount*account_number*bank_code#",
+          "airtime_self": "*555*5*amount#",
+          "airtime_others": "*555*6*amount*phone_number#"
+      }
+  },
+  "bcimr": {
+      "swift": ["BCIMDJJD"],
+      "ussd": {
+          "start": "*123#",
+          "balance": "*123*1#",
+          "mini_statement": "*123*2#",
+          "transfer_to_same_bank": "*123*3*amount*account_number#",
+          "transfer_other_banks": "*123*4*amount*account_number*bank_code#",
+          "airtime_self": "*123*5*amount#",
+          "airtime_others": "*123*6*amount*phone_number#"
+      }
+  },
+  "bank_of_africa_djibouti": {
+      "swift": ["AFRIDJ2D"],
+      "ussd": {
+          "start": "*126#",
+          "balance": "*126*1#",
+          "mini_statement": "*126*2#",
+          "transfer_to_same_bank": "*126*3*amount*account_number#",
+          "transfer_other_banks": "*126*4*amount*account_number*bank_code#",
+          "airtime_self": "*126*5*amount#",
+          "airtime_others": "*126*6*amount*phone_number#"
+      }
+  },
+  "cab": {
+      "swift": ["CACIDJ2D"],
+      "ussd": {
+          "start": "*127#",
+          "balance": "*127*1#",
+          "mini_statement": "*127*2#",
+          "transfer_to_same_bank": "*127*3*amount*account_number#",
+          "transfer_other_banks": "*127*4*amount*account_number*bank_code#",
+          "airtime_self": "*127*5*amount#",
+          "airtime_others": "*127*6*amount*phone_number#"
+      }
+  },
+  "salam_bank": {
+      "swift": ["SALADJJD"],
+      "ussd": {
+          "start": "*128#",
+          "balance": "*128*1#",
+          "mini_statement": "*128*2#",
+          "transfer_to_same_bank": "*128*3*amount*account_number#",
+          "transfer_other_banks": "*128*4*amount*account_number*bank_code#",
+          "airtime_self": "*128*5*amount#",
+          "airtime_others": "*128*6*amount*phone_number#"
+      }
+  },
+  "ecobank_djibouti": {
+      "swift": ["ECOCDJJD"],
+      "ussd": {
+          "start": "*125#",
+          "balance": "*125*1#",
+          "mini_statement": "*125*2#",
+          "transfer_to_same_bank": "*125*3*amount*account_number#",
+          "transfer_other_banks": "*125*4*amount*account_number*bank_code#",
+          "airtime_self": "*125*5*amount#",
+          "airtime_others": "*125*6*amount*phone_number#"
+      }
+  },
+  "east_africa_bank": {
+      "swift": ["EABKDJJD"],
+      "ussd": {
+          "start": "*129#",
+          "balance": "*129*1#",
+          "mini_statement": "*129*2#",
+          "transfer_to_same_bank": "*129*3*amount*account_number#",
+          "transfer_other_banks": "*129*4*amount*account_number*bank_code#",
+          "airtime_self": "*129*5*amount#",
+          "airtime_others": "*129*6*amount*phone_number#"
+      }
+  }
+}

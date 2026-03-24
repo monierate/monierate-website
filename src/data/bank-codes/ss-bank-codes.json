@@ -1,0 +1,50 @@
+{
+  "boss": {
+    "swift": ["BOSSSSDJ"],
+    "ussd": {
+      "start": "*211#",
+      "balance": "*211*1#",
+      "transfer_to_same_bank": "*211*amount*account_number#"
+    }
+  },
+  "equity": {
+    "swift": ["EQBLSSDJ"],
+    "ussd": {
+      "start": "*247#",
+      "balance": "*247*1#",
+      "transfer_to_same_bank": "*247*amount*account_number#"
+    }
+  },
+  "kc": {
+    "swift": ["KCBLSSDJ"],
+    "ussd": {
+      "start": "*522#",
+      "balance": "*522*1#",
+      "transfer_to_same_bank": "*522*amount*account_number#"
+    }
+  },
+  "cooperative": {
+    "swift": ["COOPSSDJ"],
+    "ussd": {
+      "start": "*512#",
+      "balance": "*512*1#",
+      "transfer_to_same_bank": "*512*amount*account_number#"
+    }
+  },
+  "ecobank": {
+    "swift": ["ECOSSSDJ"],
+    "ussd": {
+      "start": "*445#",
+      "balance": "*445*1#",
+      "transfer_to_same_bank": "*445*amount*account_number#"
+    }
+  },
+  "afriland": {
+    "swift": ["AFLBSSDJ"],
+    "ussd": {
+      "start": "*224#",
+      "balance": "*224*1#",
+      "transfer_to_same_bank": "*224*amount*account_number#"
+    }
+  }
+}

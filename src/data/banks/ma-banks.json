@@ -1,0 +1,72 @@
+{
+  "bmce": {
+    "name": "Bank of Africa",
+    "link": "https://www.bankofafrica.ma",
+    "address": "140, Avenue Hassan II",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  },
+  "bcp": {
+    "name": "Banque Centrale Populaire",
+    "link": "https://www.groupebcp.com",
+    "address": "101, Boulevard Mohammed Zerktouni",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  },
+  "attijariwafa": {
+    "name": "Attijariwafa Bank",
+    "link": "https://www.attijariwafabank.com",
+    "address": "2, Boulevard Moulay Youssef",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  },
+  "bankalmaghrib": {
+    "name": "Bank Al-Maghrib",
+    "link": "https://www.bkam.ma",
+    "address": "277, Avenue Mohammed V",
+    "city": "Rabat",
+    "branch": "Head Office"
+  },
+  "cih": {
+    "name": "CIH Bank",
+    "link": "https://www.cihbank.ma",
+    "address": "187, Avenue Hassan II",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  },
+  "sgmb": {
+    "name": "Société Générale Maroc",
+    "link": "https://www.sgmaroc.com",
+    "address": "55, Boulevard Abdelmoumen",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  },
+  "cfg": {
+    "name": "CFG Bank",
+    "link": "https://www.cfgbank.com",
+    "address": "5-7, Rue Ibnou Toufail",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  },
+  "bnp": {
+    "name": "BMCI (BNP Paribas Group)",
+    "link": "https://www.bmci.ma",
+    "address": "26, Place des Nations Unies",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  },
+  "cdm": {
+    "name": "Crédit du Maroc",
+    "link": "https://www.creditdumaroc.ma",
+    "address": "48-58, Boulevard Mohammed V",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  },
+  "arab": {
+    "name": "Arab Bank Morocco",
+    "link": "https://www.arabbank.ma",
+    "address": "174, Boulevard Mohammed V",
+    "city": "Casablanca",
+    "branch": "Head Office"
+  }
+}

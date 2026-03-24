@@ -1,0 +1,37 @@
+{
+  "standard_bank": {
+    "name": "Standard Bank Eswatini",
+    "link": "https://www.standardbank.co.sz",
+    "address": "Standard House, Corner Swazi Plaza, Dr Sishayi Road, Mbabane",
+    "city": "Mbabane",
+    "branch": "Head Office"
+  },
+  "fnb": {
+    "name": "First National Bank Eswatini",
+    "link": "https://www.fnb.co.sz",
+    "address": "FNB House, 2nd Street, Mbabane",
+    "city": "Mbabane",
+    "branch": "Head Office"
+  },
+  "nedbank": {
+    "name": "Nedbank Eswatini",
+    "link": "https://www.nedbank.co.sz",
+    "address": "Nedbank Centre, Corner of Swazi Plaza, Mbabane",
+    "city": "Mbabane",
+    "branch": "Head Office"
+  },
+  "eswatini_bank": {
+    "name": "Eswatini Bank",
+    "link": "https://www.eswazibank.co.sz",
+    "address": "Eswatini Bank Building, Gwamile Street, Mbabane",
+    "city": "Mbabane",
+    "branch": "Head Office"
+  },
+  "absa": {
+    "name": "Absa Bank Eswatini",
+    "link": "https://www.absa.co.sz",
+    "address": "Absa House, Gwamile Street, Mbabane",
+    "city": "Mbabane",
+    "branch": "Head Office"
+  }
+}

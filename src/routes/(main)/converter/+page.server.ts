@@ -1,42 +1,70 @@
-import type { PageServerLoad } from './$types'
-import { error } from '@sveltejs/kit'
+import { array_to_key_object } from '$lib/helper';
+import type { PageServerLoad } from './$types';
+import { error } from '@sveltejs/kit';
+import Countries from '$data/countries.json';
+import CountriesToCurrencies from '$data/countries-to-currencies.json';
+import CountryCodeByCurrency from '$data/countryCodeByCurrency.json';
+import { getPair, getPairChangers, ChangerServiceCategory } from '$lib/services/pair.service';
+import { getAllChangers } from '$lib/services/changer.service';
+import { getCurrencies } from '$lib/services/currency.service';
 
-export const load: PageServerLoad = async ({ fetch, params, url }) => {
-    try {
-        let resPairs = fetch(`/api/pairs`)
-        let resCurrencies = fetch(`/api/currencies`);
-        let resChanger = fetch(`/api/changer`);
-
-        let urlParams = url.searchParams
-        const convert = {
-            From: urlParams.get('From') || 'usd',
-            To: urlParams.get('To') || 'ngn',
-            Amount: urlParams.get('Amount') || 1
-        }
-
-        const pairs = (await (await resPairs).json())
-        const changers = (await (await resChanger).json())
-        const currencies = (await (await resCurrencies).json())
-
-        if (Object.keys(pairs).length == 0) {
-            throw error(500, "Pairs data failed.")
-        }
-        if (Object.keys(currencies).length == 0) {
-            throw error(500, "Currencies data failed.")
-        }
-        if (Object.keys(changers).length == 0) {
-            throw error(500, "Changer data failed.")
-        }
-
-        return {
-            pairs,
-            changers,
-            currencies,
-            convert
-        }
-    }
-    catch(e: any) {
-        console.log(e)
-        throw error(502, `Unable to fetch an important data`)
-    }
+interface CountriesMap {
+	[key: string]: string;
 }
+
+interface CountryCodeByCurrencyMap {
+	[currencyCode: string]: string | string[];
+}
+
+export const load: PageServerLoad = async ({ fetch, url, depends }) => {
+	const search = url.searchParams;
+
+	const convert = {
+		From: search.get('From') ?? 'usd',
+		To: search.get('To') ?? 'ngn',
+		Amount: Number(search.get('Amount')) || 1
+	};
+
+	depends(`convert:from=${convert.From}`, `convert:to=${convert.To}`);
+
+	const pairCode = `${convert.From}${convert.To}`;
+
+	try {
+		const [remittanceRates, rampRates, cardRates, changers, currencies] = await Promise.all([
+			getPairChangers(fetch, pairCode, ChangerServiceCategory.Remittance),
+			getPairChangers(fetch, pairCode, ChangerServiceCategory.Ramp),
+			getPairChangers(fetch, pairCode, ChangerServiceCategory.Card),
+			getAllChangers(fetch),
+			getCurrencies(fetch)
+		]);
+
+		let rateInverse: boolean = false;
+
+		let pair: any = await getPair(fetch, pairCode);
+
+		if (!pair) {
+			pair = await getPair(fetch, `${convert.To}${convert.From}`);
+			rateInverse = true;
+			console.log('rateInverse', rateInverse);
+		}
+
+		if (!currencies.length) throw error(500, 'Currencies data failed');
+
+		return {
+			convert,
+			pair,
+			changers: array_to_key_object(changers, 'code'),
+			currencies,
+			countries: Countries as CountriesMap,
+			countriesToCurrencies: CountriesToCurrencies as CountriesMap,
+			countryCodeByCurrency: CountryCodeByCurrency as CountryCodeByCurrencyMap,
+			remittanceRates,
+			rampRates,
+			cardRates,
+			rateInverse
+		};
+	} catch (err) {
+		console.error(err);
+		throw error(502, 'Unable to fetch an important data');
+	}
+};

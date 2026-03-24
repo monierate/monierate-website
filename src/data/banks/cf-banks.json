@@ -1,0 +1,65 @@
+{
+  "banco_central_africano": {
+    "name": "Banque Centrale Africaine",
+    "link": "https://www.bca.cf",
+    "address": "Avenue des Nations",
+    "city": "Bangui",
+    "branch": "Siège Principal"
+  },
+  "credit_du_sangha": {
+    "name": "Crédit du Sangha",
+    "link": "https://www.creditdusangha.cf",
+    "address": "Avenue de l'Indépendance",
+    "city": "Bangui",
+    "branch": "Agence Principale"
+  },
+  "banco_iberico": {
+    "name": "Banque Ibérique",
+    "link": "https://www.banqueiberique.cf",
+    "address": "Rue de la République",
+    "city": "Bangui",
+    "branch": "Agence Centrale"
+  },
+  "union_bancaire_centrale": {
+    "name": "Union Bancaire Centrafricaine",
+    "link": "https://www.ubc.cf",
+    "address": "Avenue de la Liberté",
+    "city": "Bangui",
+    "branch": "Direction Générale"
+  },
+  "bank_of_central_africa": {
+    "name": "Banque de l'Afrique Centrale",
+    "link": "https://www.bac.cf",
+    "address": "Avenue de la Réunification",
+    "city": "Bangui",
+    "branch": "Siège Central"
+  },
+  "banque_centrafrique": {
+    "name": "Banque Centrafricaine",
+    "link": "https://www.banquecentrafricaine.cf",
+    "address": "Rue de la Paix",
+    "city": "Bangui",
+    "branch": "Agence Principale"
+  },
+  "financiere_et_developpement": {
+    "name": "Banque Financière et de Développement de Centrafrique",
+    "link": "https://www.bfdc.cf",
+    "address": "Avenue de l'Environnement",
+    "city": "Bangui",
+    "branch": "Siège Social"
+  },
+  "banco_exploration": {
+    "name": "Banque d'Exploration",
+    "link": "https://www.banqueexploration.cf",
+    "address": "Avenue des Explorateurs",
+    "city": "Bangui",
+    "branch": "Direction Centrale"
+  },
+  "banco_rural": {
+    "name": "Banque Rurale de Centrafrique",
+    "link": "https://www.banquerurale.cf",
+    "address": "Rue du Commerce",
+    "city": "Bangui",
+    "branch": "Agence Principale"
+  }
+}

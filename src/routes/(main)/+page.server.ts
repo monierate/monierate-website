@@ -1,47 +1,114 @@
-import { basicAuth, getEndpoint } from "$lib/helper.svelte";
-import { error } from "@sveltejs/kit";
-import type { PageServerLoad } from './$types'
+import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+import currencySymbols from '$data/currency-symbols.json';
+import currencies from '$data/currencies.json';
+import { getAllChangers } from '$lib/services/changer.service';
+import { getPair } from '$lib/services/pair.service';
+import { getHighlights } from '$lib/services/highlight.service';
+import { mapProvidersByCode } from '$lib/utils';
 
-export const load: PageServerLoad = async ({ fetch }) => {
+type CurrencyMap = Record<string, string>;
 
-    try {
-        let getRates = await fetch('/api/pairs?pair=usdngn');
-        let rates = await getRates.json()
+export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depends }) => {
+	try {
+		/* -----------------------------
+		 * Explicit param dependencies
+		 * ----------------------------- */
+		depends('params:page', 'params:base', 'params:quote');
 
-        if (rates.length == 0) {
-            throw error(500, {
-                message: "Unable to fetch rates data, try again in few minutes."
-            })
-        }
+		const pageParam = url.searchParams.get('page');
+		const baseParam = url.searchParams.get('base');
+		const quoteParam = url.searchParams.get('quote');
 
-        delete rates.market
+		/* -----------------------------
+		 * Parent data
+		 * ----------------------------- */
+		const { VALID_CURRENCIES, defaultCurrency } = await parent();
 
-        const getChangers = await fetch(`/api/changer`);
-        let providers = await getChangers.json()
+		/* -----------------------------
+		 * Normalize params
+		 * ----------------------------- */
+		const page = Number(pageParam ?? '1');
 
-        if (providers.length == 0) {
-            throw error(500, {
-                message: "Unable to fetch platforms data, try again in few minutes."
-            })
-        }
-        
-        // change changers to object with changer code as key
-        let tmp_providers: any = {}
-        for (const key in providers) {
-            tmp_providers[providers[key].code] = providers[key]
-        }
+		const baseInput = (baseParam ?? 'USD').toUpperCase();
+		const quoteInput = (quoteParam ?? defaultCurrency).toUpperCase();
 
-        providers = tmp_providers
+		const isValidCurrency = (VALID_CURRENCIES as readonly string[]).includes(baseInput);
+		const quote = quoteInput || defaultCurrency;
+		let base = isValidCurrency ? baseInput : 'USD';
 
-        return {
-            rates,
-            providers
-        }
-    }
-    catch(error: any) {
-        throw error(500, {
-            message: "Unable to display data, try again in few minutes."
-        })
-    }
-    
-}
+		const pairCode = `${base}${quote}`.toLowerCase();
+
+		/* -----------------------------
+		 * UI preferences
+		 * ----------------------------- */
+		const showHighlights = cookies.get('showHighlights') !== 'false';
+
+		/* -----------------------------
+		 * Fetch data
+		 * ----------------------------- */
+		let [providers, highlights, pair] = await Promise.all([
+			getAllChangers(fetch),
+			getHighlights(fetch, pairCode),
+			getPair(fetch, pairCode)
+		]);
+
+		
+		if (!pair || pair.changers.length === 0) {
+			for (const currency of testCurrencies) {
+				const testPairCode = `${currency}${quote}`.toLowerCase();
+				if (testPairCode) {
+					pair = await getPair(fetch, testPairCode);
+					if (pair && pair.changers.length > 0) {
+						base = currency;
+						break;
+					}
+				}
+			}
+		}
+
+		if (!providers?.length) {
+			throw error(500, {
+				message: 'Unable to fetch platforms data, try again in a few minutes.'
+			});
+		}
+
+		/* -----------------------------
+		 * Providers & rates
+		 * ----------------------------- */
+		const providersByCode = mapProvidersByCode(providers, [pairCode]);
+
+		const rates = pair?.changers ?? [];
+		const filteredRates = rates.filter((rate: any) => !!providersByCode[rate.changer_code]);
+
+		/* -----------------------------
+		 * Currency maps
+		 * ----------------------------- */
+		const mergedCurrencies: CurrencyMap = {
+			...currencies.coins,
+			...currencies.fiat
+		};
+
+		return {
+			page,
+			base,
+			quote,
+			isValidCurrency,
+			showHighlights,
+			pair,
+			highlights,
+			rates: filteredRates,
+			providers: providersByCode,
+			total: Object.keys(providersByCode).length,
+			currencySymbols,
+			mergedCurrencies,
+		};
+	} catch (err) {
+		console.error('Page load error:', err);
+		throw error(500, {
+			message: 'Unable to display data, try again in a few minutes.'
+		});
+	}
+};
+
+const testCurrencies = ['USDT', 'USDC'];

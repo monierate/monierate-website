@@ -1,0 +1,51 @@
+{
+    "bnpi_comores": {
+        "name": "BNP Paribas International - Comores",
+        "link": "https://www.bnpi.km",
+        "address": "Place de France, BP 175",
+        "city": "Moroni",
+        "branch": "Siège Social"
+    },
+    "bdc": {
+        "name": "Banque de Développement des Comores",
+        "link": "https://www.bdc-comores.com",
+        "address": "Place de la Coulée, BP 298",
+        "city": "Moroni",
+        "branch": "Siège Social"
+    },
+    "bic": {
+        "name": "Banque pour l'Industrie et le Commerce - Comores",
+        "link": "https://www.biccom.km",
+        "address": "Place de l'Indépendance, BP 175",
+        "city": "Moroni",
+        "branch": "Agence Principale"
+    },
+    "eximbank": {
+        "name": "Exim Bank Comores",
+        "link": "https://www.eximbank.km",
+        "address": "Avenue Ali Soilihi, BP 811",
+        "city": "Moroni",
+        "branch": "Siège Social"
+    },
+    "fcb": {
+        "name": "Federal Commercial Bank",
+        "link": "https://www.fcb.km",
+        "address": "Boulevard de Strasbourg",
+        "city": "Moroni",
+        "branch": "Agence Principale"
+    },
+    "postal_bank": {
+        "name": "Société Nationale des Postes et Services Financiers",
+        "link": "https://www.snpsf.km",
+        "address": "Place de la Poste, BP 5000",
+        "city": "Moroni",
+        "branch": "Direction Générale"
+    },
+    "meck": {
+        "name": "Mutuelle d'Epargne et de Crédit ya Komor",
+        "link": "https://www.meck.km",
+        "address": "Rue de la Corniche",
+        "city": "Moroni",
+        "branch": "Siège Central"
+    }
+}

@@ -1,0 +1,82 @@
+{
+  "bnde": {
+    "swift": ["BNDESN22"],  
+    "ussd": {
+      "start": "*628#",  
+      "balance": "*628*1#",
+      "transfer_to_same_bank": "*628*2*amount*account_number#"
+    }
+  },
+  "bhs": {
+    "swift": ["BHSNSN22"],
+    "ussd": {
+      "start": "*454#",
+      "balance": "*454*1#",
+      "transfer_to_same_bank": "*454*2*amount*account_number#"
+    }
+  },
+  "bsic": {
+    "swift": ["BSICSN22"],
+    "ussd": {
+      "start": "*555#",
+      "balance": "*555*1#",
+      "transfer_to_same_bank": "*555*2*amount*account_number#"
+    }
+  },
+  "bicis": {  
+    "swift": ["BICISN22"], 
+    "ussd": {
+      "start": "*744#",
+      "balance": "*744*1#",
+      "transfer_to_same_bank": "*744*2*amount*account_number#"
+    }
+  },
+  "cncas": {  
+    "swift": ["CNCASN22"],
+    "ussd": {
+      "start": "*727#",
+      "balance": "*727*1#",
+      "transfer_to_same_bank": "*727*2*amount*account_number#"
+    }
+  },
+  "sgbs": {
+    "swift": ["SGSNSN22"],
+    "ussd": {
+      "start": "*933#",
+      "balance": "*933*1#",
+      "transfer_to_same_bank": "*933*2*amount*account_number#"
+    }
+  },
+  "ecobank": {
+    "swift": ["ECOCSNDA"],
+    "ussd": {
+      "start": "*326#",
+      "balance": "*326*1#",
+      "transfer_to_same_bank": "*326*2*amount*account_number#"
+    }
+  },
+  "boad": {     
+    "swift": ["BOADSN22"],
+    "ussd": {
+      "start": "*836#",
+      "balance": "*836*1#",
+      "transfer_to_same_bank": "*836*2*amount*account_number#"
+    }
+  },
+  "bceao": {     
+    "swift": ["BCAOSN22"],
+    "ussd": {
+      "start": "*888#",
+      "balance": "*888*1#",
+      "transfer_to_same_bank": "*888*2*amount*account_number#"
+    }
+  },
+  "orabank": {   
+    "swift": ["ORASN22X"],
+    "ussd": {
+      "start": "*242#",
+      "balance": "*242*1#",
+      "transfer_to_same_bank": "*242*2*amount*account_number#"
+    }
+  }
+}

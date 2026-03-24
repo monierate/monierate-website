@@ -1,0 +1,82 @@
+{
+  "dashenbank": {
+    "name": "Dashen Bank S.C.",
+    "link": "https://dashenbanksc.com",
+    "address": "Dashen Bank Head Office Building, Africa Avenue (Bole Road)",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 12752"
+  },
+  "wegagenbank": {
+    "name": "Wegagen Bank S.C.",
+    "link": "https://www.wegagen.com",
+    "address": "Wegagen Bank Head Office, Tefefi Mekonnin Road",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 1018"
+  },
+  "bunnabank": {
+    "name": "Bunna Bank S.C.",
+    "link": "https://www.bunnabank.com.et",
+    "address": "Bunna Bank Head Office, Beherawi Theatre Street",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 64422"
+  },
+  "cbe": {
+    "name": "Commercial Bank of Ethiopia",
+    "link": "https://www.combanketh.et",
+    "address": "CBE Head Office Building, Churchill Road",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 255"
+  },
+  "unionbank": {
+    "name": "United Bank S.C.",
+    "link": "https://www.unitedbank.com.et",
+    "address": "United Bank Head Office, Niger Street",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 19450"
+  },
+  "abyssinia": {
+    "name": "Bank of Abyssinia S.C.",
+    "link": "https://www.bankofabyssinia.com",
+    "address": "Bank of Abyssinia Head Office, Ras Mekonnen Avenue",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 12947"
+  },
+  "awash": {
+    "name": "Awash Bank S.C.",
+    "link": "https://www.awashbank.com",
+    "address": "Awash Bank Head Office, Ras Abebe Aregay Street",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 12638"
+  },
+  "zemen": {
+    "name": "Zemen Bank S.C.",
+    "link": "https://www.zemenbank.com",
+    "address": "Zemen Bank Head Office, Kazanchis",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 1212"
+  },
+  "coopbank": {
+    "name": "Cooperative Bank of Oromia S.C.",
+    "link": "https://www.coopbankoromia.com.et",
+    "address": "Cooperative Bank of Oromia Head Office, Mexico Square",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 27506"
+  },
+  "nib": {
+    "name": "Nib International Bank S.C.",
+    "link": "https://www.nibbank.com",
+    "address": "Nib Bank Head Office, Dembel City Center",
+    "city": "Addis Ababa",
+    "branch": "Head Office",
+    "postal_code": "P.O. Box 2439"
+  }
+}

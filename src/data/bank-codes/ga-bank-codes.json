@@ -1,0 +1,85 @@
+{
+  "bgfi": {
+    "swift": ["BGFIGALXXXX"],
+    "ussd": {
+      "start": "*812#",
+      "transfer_to_same_bank": "*812*1*account_number*amount#",
+      "transfer_other_banks": "*812*2*account_number*bank_code*amount#",
+      "airtime_self": "*812*4*1*amount#",
+      "airtime_others": "*812*4*2*phone_number*amount#",
+      "balance": "*812*2#",
+      "mini_statement": "*812*3#",
+      "stop_card": "*812*7*1#",
+      "activate_card": "*812*7*2#"
+    }
+  },
+  "uba": {
+    "swift": ["UNAFGALX"],
+    "ussd": {
+      "start": "*919#",
+      "transfer_to_same_bank": "*919*1*account_number*amount#",
+      "transfer_other_banks": "*919*2*account_number*bank_code*amount#",
+      "airtime_self": "*919*amount#",
+      "airtime_others": "*919*phone_number*amount#",
+      "balance": "*919*00#",
+      "mini_statement": "*919*3#",
+      "stop_card": "*919*911#"
+    }
+  },
+  "bici": {
+    "swift": ["BICIGALXXXX"],
+    "ussd": {
+      "start": "*142#",
+      "transfer_to_same_bank": "*142*1*account_number*amount#",
+      "transfer_other_banks": "*142*2*account_number*bank_code*amount#",
+      "airtime_self": "*142*3*amount#",
+      "airtime_others": "*142*3*phone_number*amount#",
+      "balance": "*142*1#"
+    }
+  },
+  "orabank": {
+    "swift": ["ORBKGALX"],
+    "ussd": {
+      "start": "*155#",
+      "transfer_to_same_bank": "*155*1*account_number*amount#",
+      "transfer_other_banks": "*155*2*account_number*bank_code*amount#",
+      "airtime_self": "*155*4*amount#",
+      "airtime_others": "*155*4*phone_number*amount#",
+      "balance": "*155*1#"
+    }
+  },
+  "societe_generale": {
+    "swift": ["SGABGALX"],
+    "ussd": {
+      "start": "*626#",
+      "transfer_to_same_bank": "*626*1*account_number*amount#",
+      "transfer_other_banks": "*626*2*account_number*bank_code*amount#",
+      "airtime_self": "*626*4*amount#",
+      "airtime_others": "*626*4*phone_number*amount#",
+      "balance": "*626*1#",
+      "mini_statement": "*626*2#"
+    }
+  },
+  "ecobank": {
+    "swift": ["ECOCGALX"],
+    "ussd": {
+      "start": "*326#",
+      "transfer_to_same_bank": "*326*1*account_number*amount#",
+      "transfer_other_banks": "*326*2*account_number*bank_code*amount#",
+      "airtime_self": "*326*amount#",
+      "airtime_others": "*326*phone_number*amount#",
+      "balance": "*326*0#"
+    }
+  },
+  "postbank": {
+    "swift": ["LPBGGAL1"],
+    "ussd": {
+      "start": "*241#",
+      "transfer_to_same_bank": "*241*1*account_number*amount#",
+      "transfer_other_banks": "*241*2*account_number*bank_code*amount#",
+      "airtime_self": "*241*3*amount#",
+      "airtime_others": "*241*3*phone_number*amount#",
+      "balance": "*241*1#"
+    }
+  }
+}

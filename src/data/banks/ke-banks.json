@@ -1,0 +1,72 @@
+{
+    "kcb": {
+        "name": "KCB Bank Kenya Limited",
+        "link": "https://ke.kcbgroup.com",
+        "address": "Kencom House, Moi Avenue",
+        "city": "Nairobi",
+        "branch": "Kencom House Branch"
+    },
+    "equity": {
+        "name": "Equity Bank Kenya Limited",
+        "link": "https://equitygroupholdings.com/ke",
+        "address": "Equity Centre, Hospital Road, Upper Hill",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    },
+    "absa": {
+        "name": "Absa Bank Kenya PLC",
+        "link": "https://www.absabank.co.ke",
+        "address": "Absa Towers, Loita Street",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    },
+    "coop": {
+        "name": "Co-operative Bank of Kenya Limited",
+        "link": "https://www.co-opbank.co.ke",
+        "address": "Co-operative Bank House, Haile Selassie Avenue",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    },
+    "stanbic": {
+        "name": "Stanbic Bank Kenya Limited",
+        "link": "https://www.stanbicbank.co.ke",
+        "address": "Stanbic Centre, Westlands Road",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    },
+    "dtb": {
+        "name": "Diamond Trust Bank Kenya Limited",
+        "link": "https://www.dtbk.dtbafrica.com",
+        "address": "DTB Centre, Mombasa Road",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    },
+    "standard_chartered": {
+        "name": "Standard Chartered Bank Kenya Limited",
+        "link": "https://www.sc.com/ke",
+        "address": "Standard Chartered Bank House, Westlands",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    },
+    "i_and_m": {
+        "name": "I&M Bank Limited",
+        "link": "https://www.imbank.com",
+        "address": "I&M Bank Tower, Kenyatta Avenue",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    },
+    "ncba": {
+        "name": "NCBA Bank Kenya PLC",
+        "link": "https://www.ncbagroup.com",
+        "address": "NCBA Centre, Mara Road, Upper Hill",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    },
+    "family": {
+        "name": "Family Bank Limited",
+        "link": "https://familybank.co.ke",
+        "address": "Family Bank Towers, Muindi Mbingu Street",
+        "city": "Nairobi",
+        "branch": "Head Office"
+    }
+}

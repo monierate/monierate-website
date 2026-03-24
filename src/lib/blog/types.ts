@@ -1,4 +1,4 @@
-export type Tags = 'virtualcard' | 'guide' | 'terms' | 'company' | 'finance' | 'engineering' | 'product'
+export type Tags = 'virtualcard' | 'guide' | 'terms' | 'company' | 'finance' | 'engineering' | 'product' | 'report' | 'people' | 'history' | 'technology'
 
 export type Post = {
 	title: string
@@ -9,4 +9,5 @@ export type Post = {
 	updatedAt: string
 	tag: Tags
 	published: boolean
+	author: string
 }

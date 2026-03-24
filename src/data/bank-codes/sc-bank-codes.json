@@ -1,0 +1,54 @@
+{
+  "cbs": {
+      "swift": ["CBSESCSC"],
+      "ussd": null
+  },
+  "nbs": {
+      "swift": ["NOVHSCSC"],
+      "ussd": {
+          "start": "*167#",
+          "balance": "*167*1#",
+          "transfer_to_same_bank": "*167*2*account_number*amount#"
+      }
+  },
+  "mcb": {
+      "swift": ["MCBLSCSC"],
+      "ussd": {
+          "start": "*222#",
+          "balance": "*222*1#",
+          "transfer_to_same_bank": "*222*2*account_number*amount#"
+      }
+  },
+  "barclays": {
+      "swift": ["BARCSCSC"],
+      "ussd": {
+          "start": "*247#",
+          "balance": "*247*1#",
+          "transfer_to_same_bank": "*247*2*account_number*amount#"
+      }
+  },
+  "bmi": {
+      "swift": ["BMIHSCSC"],
+      "ussd": null
+  },
+  "scb": {
+      "swift": ["SYCBSCSC"],
+      "ussd": {
+          "start": "*322#",
+          "balance": "*322*1#",
+          "transfer_to_same_bank": "*322*2*account_number*amount#"
+      }
+  },
+  "al_salam": {
+      "swift": ["ASSBSCSC"],
+      "ussd": {
+          "start": "*786#",
+          "balance": "*786*1#",
+          "transfer_to_same_bank": "*786*2*account_number*amount#"
+      }
+  },
+  "sbs": {
+      "swift": ["SBSLSCSC"],
+      "ussd": null
+  }
+}

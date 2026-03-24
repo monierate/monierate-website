@@ -10,7 +10,7 @@ published: true
 ---
 Have you ever wondered how big companies and banks in Nigeria move large amounts of money quickly and safely?
 
-There's a special system called RTGS that helps them do just that! Think of it like a special express lane for bulk money transfers and settlements.
+There's a special system called RTGS that helps them do just that! Think of it like a special express lane for bulk money transfer and settlements.
 
 ![Banking database network](https://monierate.com/uploads/blockchain-network.jpg)
 
@@ -106,7 +106,7 @@ The RTGS on the other hand, does not have an upper/maximum transaction limit. On
 
 Another difference between the NIP and RTGS systems is that one does not operate on a gross basis while the other does. Can you guess which one it is? 
 
-It is also clear that the RTGS system stands apart from the NEFT or NIBSS Electronic Funds Transfer system. There are two major differences here. One is that the maximum transaction limit for NEFT is set to NGN 100 Million. 
+It is also clear that the RTGS system stands apart from the [NEFT](https://monierate.com/blog/nigeria-electronic-fraud-forum-what-it-is-and-how-it-works) or NIBSS Electronic Funds Transfer system. There are two major differences here. One is that the maximum transaction limit for NEFT is set to NGN 100 Million. 
 
 The second difference between both systems is that NEFT transfers are received within 24 hours and nothing less. 
 

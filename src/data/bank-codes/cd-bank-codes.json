@@ -1,0 +1,122 @@
+{
+  "banque_congolaise": {
+    "swift": ["BCDCCDKK"],
+    "ussd": {
+      "start": "*800#",
+      "transfer_to_same_bank": "*800*1*montant*numero_compte#",
+      "transfer_other_banks": "*800*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*800*3*montant#",
+      "airtime_others": "*800*4*montant*numero_telephone#",
+      "balance": "*800*5#",
+      "mini_releve": "*800*6#",
+      "change_pin": "*800*7*ancien_pin*nouveau_pin#",
+      "stop_debit_transactions": "*800*8#",
+      "active_services": "*800*9#"
+    }
+  },
+  "banque_internationale_pour_lafrique": {
+    "swift": ["BIACCDKK"],
+    "ussd": {
+      "start": "*801#",
+      "transfer_to_same_bank": "*801*1*montant*numero_compte#",
+      "transfer_other_banks": "*801*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*801*3*montant#",
+      "airtime_others": "*801*4*montant*numero_telephone#",
+      "balance": "*801*5#",
+      "mini_releve": "*801*6#",
+      "change_pin": "*801*7*ancien_pin*nouveau_pin#",
+      "stop_debit_transactions": "*801*8#",
+      "active_services": "*801*9#"
+    }
+  },
+  "societe_generale_congo": {
+    "swift": ["SGCOCDKK"],
+    "ussd": {
+      "start": "*802#",
+      "transfer_to_same_bank": "*802*1*montant*numero_compte#",
+      "transfer_other_banks": "*802*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*802*3*montant#",
+      "airtime_others": "*802*4*montant*numero_telephone#",
+      "balance": "*802*5#",
+      "mini_releve": "*802*6#",
+      "change_pin": "*802*7*ancien_pin*nouveau_pin#",
+      "stop_debit_transactions": "*802*8#",
+      "active_services": "*802*9#"
+    }
+  },
+  "banque_de_developpement_rdc": {
+    "swift": ["BDCOCDKK"],
+    "ussd": {
+      "start": "*804#",
+      "transfer_to_same_bank": "*804*1*montant*numero_compte#",
+      "transfer_other_banks": "*804*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*804*3*montant#",
+      "airtime_others": "*804*4*montant*numero_telephone#",
+      "balance": "*804*5#",
+      "mini_releve": "*804*6#",
+      "change_pin": "*804*7*ancien_pin*nouveau_pin#",
+      "stop_debit_transactions": "*804*8#",
+      "active_services": "*804*9#"
+    }
+  },
+  "banque_de_lhabitat": {
+    "swift": ["BHCOCDKK"],
+    "ussd": {
+      "start": "*805#",
+      "transfer_to_same_bank": "*805*1*montant*numero_compte#",
+      "transfer_other_banks": "*805*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*805*3*montant#",
+      "airtime_others": "*805*4*montant*numero_telephone#",
+      "balance": "*805*5#",
+      "mini_releve": "*805*6#",
+      "change_pin": "*805*7*ancien_pin*nouveau_pin#",
+      "stop_debit_transactions": "*805*8#",
+      "active_services": "*805*9#"
+    }
+  },
+  "rawbank": {
+    "swift": ["RAWBCDKK"],
+    "ussd": {
+      "start": "*806#",
+      "transfer_to_same_bank": "*806*1*montant*numero_compte#",
+      "transfer_other_banks": "*806*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*806*3*montant#",
+      "airtime_others": "*806*4*montant*numero_telephone#",
+      "balance": "*806*5#",
+      "mini_releve": "*806*6#",
+      "change_pin": "*806*7*ancien_pin*nouveau_pin#",
+      "stop_debit_transactions": "*806*8#",
+      "active_services": "*806*9#"
+    }
+  },
+  "tmb": {
+    "swift": ["TRMSCDKK"],
+    "ussd": {
+      "start": "*807#",
+      "transfer_to_same_bank": "*807*1*montant*numero_compte#",
+      "transfer_other_banks": "*807*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*807*3*montant#",
+      "airtime_others": "*807*4*montant*numero_telephone#",
+      "balance": "*807*5#",
+      "mini_releve": "*807*6#",
+      "change_pin": "*807*7*ancien_pin*nouveau_pin#",
+      "stop_debit_transactions": "*807*8#",
+      "active_services": "*807*9#"
+    }
+  },
+  "equity_bcdc": {
+    "swift": ["EQBLCDKK"],
+    "ussd": {
+      "start": "*808#",
+      "transfer_to_same_bank": "*808*1*montant*numero_compte#",
+      "transfer_other_banks": "*808*2*montant*numero_compte*code_banque#",
+      "airtime_self": "*808*3*montant#",
+      "airtime_others": "*808*4*montant*numero_telephone#",
+      "balance": "*808*5#",
+      "mini_releve": "*808*6#",
+      "change_pin": "*808*7*ancien_pin*nouveau_pin#",
+      "stop_debit_transactions": "*808*8#",
+      "active_services": "*808*9#"
+    }
+  }
+}

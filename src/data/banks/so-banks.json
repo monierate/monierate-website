@@ -1,0 +1,73 @@
+{
+  "dahabshiil": {
+    "name": "Dahabshiil Money Transfer",
+    "link": "https://dahabshiil.com",
+    "icon": "dahabshiil.svg",
+    "address": "Hargeisa, Somaliland",
+    "city": "Hargeisa",
+    "branch": "Global Headquarters"
+  },
+  "amal": {
+    "name": "Amal Express",
+    "link": "https://amalexpress.com",
+    "address": "Bakara Market, Mogadishu, Somalia",
+    "city": "Mogadishu",
+    "branch": "Main Branch"
+  },
+  "premier": {
+    "name": "Premier Bank",
+    "link": "https://premierbank.so",
+    "address": "KM4, Mogadishu, Somalia",
+    "city": "Mogadishu",
+    "branch": "Headquarters"
+  },
+  "ifb": {
+    "name": "International Finance Bank",
+    "link": "https://ifbsomalia.so",
+    "address": "Maka Al-Mukarama Road, Mogadishu",
+    "city": "Mogadishu",
+    "branch": "Head Office"
+  },
+  "salaam": {
+    "name": "Salaam Somali Bank",
+    "link": "https://salaambank.so",
+    "address": "Makka Al Mukarama Road, Mogadishu",
+    "city": "Mogadishu",
+    "branch": "Head Office"
+  },
+  "amana": {
+    "name": "Amana Bank",
+    "link": "https://amanabank.so",
+    "address": "Maka Al-Mukarama Road, Mogadishu",
+    "city": "Mogadishu",
+    "branch": "Main Branch"
+  },
+  "mybank": {
+    "name": "MyBank Somalia",
+    "link": "https://mybankso.com",
+    "address": "Maka Al-Mukarama Road, Mogadishu",
+    "city": "Mogadishu",
+    "branch": "Head Office"
+  },
+  "cbs": {
+    "name": "Central Bank of Somalia",
+    "link": "https://centralbank.gov.so",
+    "address": "Corso Somalia Street, Mogadishu",
+    "city": "Mogadishu",
+    "branch": "Main Branch"
+  },
+  "idb": {
+    "name": "International Development Bank",
+    "link": "https://idbsomalia.so",
+    "address": "Maka Al-Mukarama Road, Mogadishu",
+    "city": "Mogadishu",
+    "branch": "Head Office"
+  },
+  "hormuud": {
+    "name": "Hormuud Telecom",
+    "link": "https://hormuud.com",
+    "address": "KM4 Junction, Mogadishu",
+    "city": "Mogadishu",
+    "branch": "Headquarters"
+  }
+}

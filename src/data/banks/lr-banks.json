@@ -1,0 +1,51 @@
+{
+    "ecobank": {
+        "name": "Ecobank Liberia Limited",
+        "link": "https://ecobank.com/lr/personal-banking",
+        "address": "Ashmun & Randall Streets",
+        "city": "Monrovia",
+        "branch": "Head Office"
+    },
+    "gtbank": {
+        "name": "Guaranty Trust Bank Liberia Ltd",
+        "link": "https://www.gtbank.com/liberia",
+        "address": "13th Street, Sinkor",
+        "city": "Monrovia",
+        "branch": "13th Street Branch"
+    },
+    "uba": {
+        "name": "United Bank for Africa Liberia Limited",
+        "link": "https://www.ubagroup.com/lr/",
+        "address": "Broad & Nelson Streets",
+        "city": "Monrovia",
+        "branch": "Head Office"
+    },
+    "lbdi": {
+        "name": "Liberian Bank for Development & Investment",
+        "link": "https://www.lbdi.net",
+        "address": "9th Street, Sinkor",
+        "city": "Monrovia",
+        "branch": "Head Office"
+    },
+    "iblliberia": {
+        "name": "International Bank Liberia Limited",
+        "link": "https://www.ibliberia.com",
+        "address": "Broad Street",
+        "city": "Monrovia",
+        "branch": "Head Office"
+    },
+    "gblliberia": {
+        "name": "Global Bank Liberia Limited",
+        "link": "https://www.globalbanklib.com",
+        "address": "5th Street, Sinkor",
+        "city": "Monrovia",
+        "branch": "Head Office"
+    },
+    "accessbank": {
+        "name": "Access Bank Liberia Limited",
+        "link": "https://www.accessbank.com.lr",
+        "address": "20th Street, Sinkor",
+        "city": "Monrovia",
+        "branch": "Head Office"
+    }
+}

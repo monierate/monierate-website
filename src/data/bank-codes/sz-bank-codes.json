@@ -1,0 +1,42 @@
+{
+  "standard_bank": {
+    "swift": ["SBECZSJ"],
+    "ussd": {
+      "start": "*120#",
+      "balance": "*120*1#",
+      "transfer_to_same_bank": "*120*amount*account_number#"
+    }
+  },
+  "fnb": {
+    "swift": ["FNBESZJ"],
+    "ussd": {
+      "start": "*140#",
+      "balance": "*140*1#",
+      "transfer_to_same_bank": "*140*amount*account_number#"
+    }
+  },
+  "eswatini_bank": {
+    "swift": ["ESWABK"],
+    "ussd": {
+      "start": "*150#",
+      "balance": "*150*1#",
+      "transfer_to_same_bank": "*150*amount*account_number#"
+    }
+  },
+  "absa": {
+    "swift": ["ABSAESJ"],
+    "ussd": {
+      "start": "*160#",
+      "balance": "*160*1#",
+      "transfer_to_same_bank": "*160*amount*account_number#"
+    }
+  },
+  "nedbank": {
+    "swift": ["NEDSSZJ"],
+    "ussd": {
+      "start": "*170#",
+      "balance": "*170*1#",
+      "transfer_to_same_bank": "*170*amount*account_number#"
+    }
+  }
+}

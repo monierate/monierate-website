@@ -1,12 +1,201 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>%sveltekit.error.message%</title>
-  </head>
-  <body>
-    <h1>My custom error page</h1>
-    <p>Status: %sveltekit.status%</p>
-    <p>Message: %sveltekit.error.message%</p>
-  </body>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Whoops…</title>
+
+<style>
+  /* Design tokens (roughly Tailwind's gray scale & spacing) */
+  :root{
+    --max-w-5xl: 64rem;             /* ≈ Tailwind max-w-5xl */
+    --space-1: .25rem;              /* 4px  */
+    --space-4: 1rem;                /* 16px */
+    --space-6: 1.5rem;              /* 24px */
+    --space-8: 2rem;                /* 32px */
+    --space-10: 2.5rem;             /* 40px */
+    --space-12: 3rem;               /* 48px */
+    --radius: .5rem;
+
+    --gray-900: #111827;
+    --gray-700: #374151;
+    --gray-500: #6b7280;
+    --gray-400: #9ca3af;
+    --gray-300: #d1d5db;
+    --gray-100: #f3f4f6;
+    --bg: #ffffff;
+    --fg: var(--gray-900);
+    --muted: var(--gray-500);
+    --muted-strong: var(--gray-700);
+    --card: #ffffff;
+    --button-bg: #111827;
+    --button-fg: #ffffff;
+    --button-border: #111827;
+    --button-bg-hover: #000000;
+    --button-border-hover: #000000;
+    --link: #111827;
+  }
+
+  /* Auto dark mode */
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg: #0b0f19;
+      --fg: #f3f4f6;
+      --muted: #9ca3af;
+      --muted-strong: #d1d5db;
+      --card: #0f1422;
+      --button-bg: #e5e7eb;
+      --button-fg: #0b0f19;
+      --button-border: #e5e7eb;
+      --button-bg-hover: #ffffff;
+      --button-border-hover: #ffffff;
+      --link: #e5e7eb;
+    }
+  }
+
+  /* Base reset-ish */
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body{
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.5;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+
+  .container{
+    max-width: var(--max-w-5xl);
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-6);
+    min-height: 100vh; /* full height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .layout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+  @media (min-width: 1024px){
+    .layout{ flex-direction: row; }
+  }
+
+  .col{
+    width: 100%;
+  }
+  @media (min-width: 1024px){
+    .col{ width: 50%; }
+  }
+
+  .right{
+    margin-top: var(--space-10);
+    display: flex;
+    justify-content: center;
+  }
+  @media (min-width: 1024px){
+    .right{ margin-top: 0; }
+  }
+
+  /* Typography & spacing */
+  .stack > * + *{ margin-top: var(--space-4); }
+  .mb-8{ margin-bottom: var(--space-8); }
+
+  h1{
+    font-size: 2.25rem; 
+    line-height: 2.5rem;
+    font-weight: 700;
+    color: var(--fg);
+    margin: 0;
+  }
+  h2{
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 500;
+    color: var(--muted-strong);
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+  h2 .ml-2{ margin-left: .5rem; }
+
+  p{
+    color: var(--muted);
+    max-width: 28rem;
+    margin: 0;
+  }
+
+  .button{
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: .625rem .9rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--button-border);
+    background: var(--button-bg);
+    color: var(--button-fg);
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1;
+    transition: background-color .15s ease, border-color .15s ease, transform .02s ease;
+    will-change: transform;
+  }
+  .button:active{ transform: translateY(1px); }
+  .button:hover{
+    background: var(--button-bg-hover);
+    border-color: var(--button-border-hover);
+  }
+
+  .icon-4{
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+  }
+
+  .illustration{
+    max-width: 24rem;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="layout">
+      <!-- Left Section (Text) -->
+      <div class="col">
+        <div class="stack mb-8">
+          <h1>Whoops....</h1>
+          <h2>
+            Something went wrong
+            <span class="ml-2">😎</span>
+          </h2>
+          <p>
+            A force is trying to stop you from accessing Monierate. Wait a little or refresh this page
+            but if it fails...
+          </p>
+        </div>
+
+        <a href="/" class="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="icon-4" aria-hidden="true">
+            <path fill-rule="evenodd" d="M14 8a.75.75 0 0 1-.75.75H4.56l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 1.06L4.56 7.25h8.69A.75.75 0 0 1 14 8Z" clip-rule="evenodd"/>
+          </svg>
+          <span>Back to home</span>
+        </a>
+      </div>
+
+      <!-- Right Section (Image) -->
+      <div class="col right">
+        <img src="/error-illustration.svg" alt="Error Illustration" class="illustration" />
+      </div>
+    </div>
+  </div>
+
+</body>
 </html>

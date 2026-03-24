@@ -1,0 +1,51 @@
+{
+  "nationalbankofmalawi": {
+    "name": "National Bank of Malawi",
+    "link": "https://www.natbank.co.mw",
+    "address": "7 Henderson Street",
+    "city": "Blantyre",
+    "branch": "Head Office"
+  },
+  "fdhbank": {
+    "name": "FDH Bank",
+    "link": "https://www.fdhbank.co.mw",
+    "address": "Umoyo House, Victoria Avenue",
+    "city": "Blantyre",
+    "branch": "Head Office"
+  },
+  "standardbankmalawi": {
+    "name": "Standard Bank Malawi",
+    "link": "https://www.standardbank.co.mw",
+    "address": "Standard Bank Centre, African Unity Avenue",
+    "city": "Lilongwe",
+    "branch": "City Centre Branch"
+  },
+  "firstcapitalbank": {
+    "name": "First Capital Bank",
+    "link": "https://www.firstcapitalbank.co.mw",
+    "address": "Livingstone Towers, Glyn Jones Road",
+    "city": "Blantyre",
+    "branch": "Head Office"
+  },
+  "mybucksmalawi": {
+    "name": "MyBucks Banking Corporation",
+    "link": "https://www.mybucksbanking.mw",
+    "address": "Michiru House, Victoria Avenue",
+    "city": "Blantyre",
+    "branch": "Head Office"
+  },
+  "ecobankmalawi": {
+    "name": "Ecobank Malawi",
+    "link": "https://www.ecobank.com/mw",
+    "address": "Ecobank House, Victoria Avenue",
+    "city": "Blantyre",
+    "branch": "Head Office"
+  },
+  "nbsbank": {
+    "name": "NBS Bank",
+    "link": "https://www.nbsmw.com",
+    "address": "NBS House, Chipembere Highway",
+    "city": "Blantyre",
+    "branch": "Head Office"
+  }
+}

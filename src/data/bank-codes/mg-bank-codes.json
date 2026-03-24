@@ -1,0 +1,82 @@
+{
+  "bfvsg": {
+    "swift": ["BFVMMGMG"],
+    "ussd": {
+      "start": "*144#",
+      "balance": "*144*1#",
+      "transfer_to_same_bank": "*144*amount*account_number#"
+    }
+  },
+  "bni": {
+    "swift": ["BNINMGMG"],
+    "ussd": {
+      "start": "*150#",
+      "balance": "*150*1#",
+      "transfer_to_same_bank": "*150*amount*account_number#"
+    }
+  },
+  "bankofafrica": {
+    "swift": ["AFRIMGMG"],
+    "ussd": {
+      "start": "*200#",
+      "balance": "*200*1#",
+      "transfer_to_same_bank": "*200*amount*account_number#"
+    }
+  },
+  "accebank": {
+    "swift": ["ACCEMGMG"],
+    "ussd": {
+      "start": "*160#",
+      "balance": "*160*1#",
+      "transfer_to_same_bank": "*160*amount*account_number#"
+    }
+  },
+  "mbi": {
+    "swift": ["MBINMGMG"],
+    "ussd": {
+      "start": "*180#",
+      "balance": "*180*1#",
+      "transfer_to_same_bank": "*180*amount*account_number#"
+    }
+  },
+  "bgfi": {
+    "swift": ["BGFIMGMG"],
+    "ussd": {
+      "start": "*190#",
+      "balance": "*190*1#",
+      "transfer_to_same_bank": "*190*amount*account_number#"
+    }
+  },
+  "bmoim": {
+    "swift": ["BMOIMGMG"],
+    "ussd": {
+      "start": "*170#",
+      "balance": "*170*1#",
+      "transfer_to_same_bank": "*170*amount*account_number#"
+    }
+  },
+  "microcred": {
+    "swift": ["MICRMGMG"],
+    "ussd": {
+      "start": "*120#",
+      "balance": "*120*1#",
+      "transfer_to_same_bank": "*120*amount*account_number#"
+    }
+  },
+  "acep": {
+    "swift": ["ACEPMGMG"],
+    "ussd": {
+      "start": "*140#",
+      "balance": "*140*1#",
+      "transfer_to_same_bank": "*140*amount*account_number#"
+    }
+  },
+  "sbm": {
+    "swift": ["SBMMGMG"],
+    "ussd": {
+      "start": "*130#",
+      "balance": "*130*1#",
+      "transfer_to_same_bank": "*130*amount*account_number#"
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "nbe": {
+      "swift": [
+          "NBEGEGCX"
+      ],
+      "ussd": {
+          "start": "*888#",
+          "transfer_to_same_bank": "*888*1*amount*account_number#",
+          "transfer_other_banks": "*888*2*amount*account_number*bank_code#",
+          "balance": "*888*3#",
+          "mini_statement": "*888*4#",
+          "bill_payment": "*888*5*biller_code*reference_number#",
+          "change_pin": "*888*6*old_pin*new_pin#"
+      }
+  },
+  "banquemisr": {
+      "swift": [
+          "BMISEGCX"
+      ],
+      "ussd": {
+          "start": "*445#",
+          "transfer_to_same_bank": "*445*1*amount*account_number#",
+          "transfer_other_banks": "*445*2*amount*account_number*bank_code#",
+          "balance": "*445*3#",
+          "mini_statement": "*445*4#",
+          "bill_payment": "*445*5*biller_code*reference_number#",
+          "change_pin": "*445*6*old_pin*new_pin#"
+      }
+  },
+  "cib": {
+      "swift": [
+          "CIBEEGCX"
+      ],
+      "ussd": {
+          "start": "*222#",
+          "transfer_to_same_bank": "*222*1*amount*account_number#",
+          "transfer_other_banks": "*222*2*amount*account_number*bank_code#",
+          "balance": "*222*3#",
+          "mini_statement": "*222*4#",
+          "bill_payment": "*222*5*biller_code*reference_number#",
+          "change_pin": "*222*6*old_pin*new_pin#"
+      }
+  },
+  "qnb": {
+      "swift": [
+          "QNBAEGCX"
+      ],
+      "ussd": {
+          "start": "*777#",
+          "transfer_to_same_bank": "*777*1*amount*account_number#",
+          "transfer_other_banks": "*777*2*amount*account_number*bank_code#",
+          "balance": "*777*3#",
+          "mini_statement": "*777*4#",
+          "bill_payment": "*777*5*biller_code*reference_number#",
+          "change_pin": "*777*6*old_pin*new_pin#"
+      }
+  },
+  "alexbank": {
+      "swift": [
+          "ALEXEGCX"
+      ],
+      "ussd": {
+          "start": "*123#",
+          "transfer_to_same_bank": "*123*1*amount*account_number#",
+          "transfer_other_banks": "*123*2*amount*account_number*bank_code#",
+          "balance": "*123*3#",
+          "mini_statement": "*123*4#",
+          "bill_payment": "*123*5*biller_code*reference_number#",
+          "change_pin": "*123*6*old_pin*new_pin#"
+      }
+  },
+  "hsbc": {
+      "swift": [
+          "EBBKEGCX"
+      ],
+      "ussd": {
+          "start": "*400#",
+          "transfer_to_same_bank": "*400*1*amount*account_number#",
+          "transfer_other_banks": "*400*2*amount*account_number*bank_code#",
+          "balance": "*400*3#",
+          "mini_statement": "*400*4#",
+          "bill_payment": "*400*5*biller_code*reference_number#",
+          "change_pin": "*400*6*old_pin*new_pin#"
+      }
+  },
+  "aub": {
+      "swift": [
+          "AUBKEGCA"
+      ],
+      "ussd": {
+          "start": "*919#",
+          "transfer_to_same_bank": "*919*1*amount*account_number#",
+          "transfer_other_banks": "*919*2*amount*account_number*bank_code#",
+          "balance": "*919*3#",
+          "mini_statement": "*919*4#",
+          "bill_payment": "*919*5*biller_code*reference_number#",
+          "change_pin": "*919*6*old_pin*new_pin#"
+      }
+  },
+  "cab": {
+      "swift": [
+          "AGRIEGCX"
+      ],
+      "ussd": {
+          "start": "*225#",
+          "transfer_to_same_bank": "*225*1*amount*account_number#",
+          "transfer_other_banks": "*225*2*amount*account_number*bank_code#",
+          "balance": "*225*3#",
+          "mini_statement": "*225*4#",
+          "bill_payment": "*225*5*biller_code*reference_number#",
+          "change_pin": "*225*6*old_pin*new_pin#"
+      }
+  },
+  "faisal": {
+      "swift": [
+          "FIEGEGCX"
+      ],
+      "ussd": {
+          "start": "*661#",
+          "transfer_to_same_bank": "*661*1*amount*account_number#",
+          "transfer_other_banks": "*661*2*amount*account_number*bank_code#",
+          "balance": "*661*3#",
+          "mini_statement": "*661*4#",
+          "bill_payment": "*661*5*biller_code*reference_number#",
+          "change_pin": "*661*6*old_pin*new_pin#"
+      }
+  }
+}

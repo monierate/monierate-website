@@ -1,16 +1,14 @@
 ---
 layout: blog
 title: Top Bitcoin Exchanges in Nigeria with Lightning Network Support
-description: Discover faster and cheaper Bitcoin transactions through the
-  Lightning Network in this article, featuring Nigeria's Lightning-friendly
-  exchanges/apps.
-createdAt: 2023-08-03T23:45:01.837Z
-updatedAt: 2023-08-03T23:45:01.968Z
+description: Discover faster and cheaper Bitcoin transactions through the Lightning Network in this article, featuring Nigeria's Lightning-friendly exchanges/apps.
+createdAt: 2023-08-04T00:45
+updatedAt: 2023-08-04T00:45
 tag: finance
 image: https://monierate.com/uploads/general-bytes-e9vmx2zihvq-unsplash-1-.jpg
 published: true
 ---
-If you're in Nigeria, buying Bitcoin is no longer an issue with 100+ platforms available. But, most platforms lack Lightning Network support, making transactions slow and costly on-chain. Discover faster and cheaper Bitcoin transactions through the Lightning Network in this article, featuring Nigeria's Lightning-friendly exchanges/apps.
+If you're in Nigeria, buying Bitcoin is no longer an issue with 100+ platforms available. However, most platforms lack Lightning Network support, making transactions slow and costly on-chain. Discover faster and cheaper Bitcoin transactions through the Lightning Network in this article, featuring Nigeria's Lightning-friendly exchanges/apps.
 
 > **Read**: [How we bought the Monierate.com domain with Bitcoin](https://monierate.com/blog/how-we-purchased-monierate-com-with-bitcoin)
 
@@ -18,32 +16,7 @@ If you're in Nigeria, buying Bitcoin is no longer an issue with 100+ platforms a
 
 ![Binance Website](https://monierate.com/uploads/screenshot-pikwy.com-2023.08.03-23_28_32.png)
 
-Binance, a major global crypto exchange, provides a mobile app for Nigerians to buy Bitcoin. They announced Bitcoin support on the Lightning Network on July 16, 2023, enhancing transaction speed and cost-efficiency. To use [Binance](https://monierate.com/converter/binance?Amount=1&From=USDT&To=NGN), download the app or visit their [website](https://accounts.binance.com/register?ref=WUYSW22E) and complete the account verification process.
-
-### How to buy bitcoin Bitcoin on Binance via P2P
-To buy Bitcoin on Binance via P2P Express:
-
-1. Open Binance app/website
-2. Click Trade > P2P
-3. Choose P2PExpress
-4. Enter Bitcoin amount in Naira/BTC
-5. Transfer money to merchant's bank account
-6. Tap "I've completed the Transfer"
-7. Payment confirmed, BTC in Binance Funding wallet.
- 
-Great! Next step is to Transfer bitcoins from _Funding_ to _Spot_ wallet for Lightning Network use on Binance.
-
-### How to transfer Bitcoin from Funding to Spot on Binance
-
-1. Open Binance App
-2. Go to Wallets
-3. Select Funding
-4. Click Transfer
-5. Confirm From Funding to Spot (BTC default)
-6. Enter transfer amount (Max option available)
-7. Confirm Transfer
-
-The Bitcoins get transferred to Binance _Spot_ wallet for payments on Lightning/Mainnet.
+Binance, a major global crypto exchange, provides a mobile app for Nigerians to buy Bitcoin. They announced Bitcoin support on the Lightning Network on July 16, 2023, enhancing transaction speed and cost efficiency. To use [Binance](https://monierate.com/converter/binance?Amount=1&From=USDT&To=NGN), download the app or visit their [website](https://accounts.binance.com/register?ref=WUYSW22E) and complete the account verification process.
 
 ### How to Send/Pay with Bitcoin via Lightning Network on Binance
 
@@ -52,9 +25,9 @@ The Bitcoins get transferred to Binance _Spot_ wallet for payments on Lightning/
 3. Select _Spot_
 4. Choose Bitcoin (BTC)
 5. Click _Withdraw_ > _Send via Crypto Network_
-6. Paste Lightning Invoice or Scan recipient's QR
+6. Paste the Lightning Invoice or Scan the recipient's QR
 7. Select _Lightning Network_ (auto if correct)
-8. Enter Bitcoin amount
+8. Enter the Bitcoin amount
 9. Click _Withdraw_
 
 **To receive Bitcoin on Binance via Lightning Network**, follow steps 1 to 4, then click Deposit > Lightning Network, enter the amount for the invoice.
@@ -91,7 +64,31 @@ To send/pay with Bitcoin via Lightning on Bitnob:
 4. Paste Lightning address/invoice or Scan QR code
 5. Click Continue to proceed.
 
-## 3. Paxful
+## 3. StealthEX
+
+![Stealth Exchange](https://ik.imagekit.io/monierate/thumbnails/stealthex-og.png?updatedAt=1716287352906)
+
+[StealthEX is a non-custodial crypto exchange](https://stealthex.io/) providing fast and secure swaps for over 1500 cryptocurrencies, including Bitcoin. It supports the [Lightning Network](https://stealthex.io/blog/bitcoin-lightning-network-a-breakthrough-in-cryptocurrency-scalability/), allowing for rapid, low-cost Bitcoin transactions. Here's how to use StealthEX for Bitcoin transactions in Nigeria:
+
+
+### How to Exchange Bitcoin on StealthEX
+
+1. **Visit StealthEX**: Go to StealthEX.io.
+
+2. **Select Crypto**: Choose Bitcoin (BTC-LIGHTNING) from the drop-down list on the left and, for example, USDT from the list of coins on the right.
+
+3. **Enter the Exchange Amount**: Specify the amount of Bitcoin you wish to exchange. You will see the estimated receiving sum in the field on your right. Click the Start Exchange button to continue.
+
+4. **Provide the Crypto Wallet Address**: Enter the crypto wallet address you will use to receive the funds. Revise the address provided and the amount of USDT you will receive. 
+
+5. **Exchange**: Send the BTC deposit to the address StealthEX has generated for you. Make sure the sum on the screen matches the one you send.  
+
+6. **Receive Crypto**: Your cryptocurrency will be sent to your wallet once the transaction is complete.
+
+StealthEX offers a seamless and secure way to exchange and buy Bitcoin, leveraging the Lightning Network for quick and cost-effective transactions. This makes it a great option for Nigerian users seeking efficiency in their crypto dealings.
+
+
+## 4. Paxful
 
 ![Paxful website](https://monierate.com/uploads/screenshot-paxful.com-2023.08.03-23_38_46.png)
 
@@ -104,7 +101,7 @@ To buy Bitcoin on Paxful and use Lightning Network:
 2. Click Buy > Bitcoin
 3. Choose Bank transfer as payment method
 4. Select NGN as currency and enter Naira amount
-5. Enter desired Bitcoin amount (e.g., 25,000 Naira)
+5. Enter the desired Bitcoin amount (e.g., 25,000 Naira)
 6. Click Find Offers
 7. Choose an offer and click Buy/View
 8. Confirm amount, click Buy now
@@ -128,7 +125,7 @@ To pay with Bitcoin via Lightning Network on Paxful:
 
 Ensure sufficient Bitcoin and correct recipient address for successful payment.
 
-## 4. CashWyre
+## 5. CashWyre
 
 ![CashWyre Homepage](http://monierate.com/uploads/screenshot-cashwyre.io-2023.08.03-23_41_59.jpg)
 
@@ -147,7 +144,7 @@ To buy Bitcoin in Nigeria using CashWyre:
 6. Naira will be converted to USD.
 
 #### Step 2: Convert USD to BTC on CashWyre
-1. Go to account dashboard, swipe to BTC balance
+1. Go to the account dashboard, swipe to BTC balance
 2. Click Buy
 3. Enter USD or BTC amount to buy
 4. Confirm fees and BTC received
@@ -164,18 +161,13 @@ To pay with Bitcoin via Lightning on CashWyre:
 2. Swipe to BTC balance
 3. Click Send
 4. Choose Pay Lightning Invoice
-5. Paste Lightning Invoice or Scan QR code
+5. Paste the Lightning Invoice or Scan QR code
 6. Click "I can confirm the address/receiver is correct"
 7. Click Proceed
 
-Recipient receives your payment almost instantly.
+The recipient receives your payment almost instantly.
 
 ## That's a wrap
 Indeed, Lightning Network has revolutionized Bitcoin transactions, enabling quick and low-fee micropayments. While not all exchanges support Lightning Network, the mentioned apps like Binance, Bitnob, Paxful, and CashWyre allow users to leverage this technology for faster and cost-effective Bitcoin transactions. Enjoy seamless and efficient transactions with these platforms! If you have any more questions or need further assistance, feel free to ask. Happy transacting!
 
 > **Read**: [What Led Jack Dorsey to Bitcoin: This was unexpected](https://monierate.com/blog/what-led-jack-dorsey-to-bitcoin-this-was-unexpected)
-
-
-
-
-

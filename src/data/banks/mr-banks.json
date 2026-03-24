@@ -1,0 +1,72 @@
+{
+    "attijari": {
+        "name": "Attijari Bank Mauritanie",
+        "link": "https://www.attijariwafabank.com/mr",
+        "address": "Avenue Roi Fayçal, Ilot A",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "bnm": {
+        "name": "BNM (Banque Nationale de Mauritanie)",
+        "link": "https://www.bnm.mr",
+        "address": "Avenue Charles de Gaulle",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "bmci": {
+        "name": "BMCI (Banque Mauritanienne pour le Commerce International)",
+        "link": "https://www.bmci.mr",
+        "address": "Avenue du Général de Gaulle",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "societegenerale": {
+        "name": "Société Générale Mauritanie",
+        "link": "https://societegenerale.mr",
+        "address": "Avenue de l'Indépendance",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "bam": {
+        "name": "BAM (Banque Al Muamalat As Sahiha)",
+        "link": "https://www.bam.mr",
+        "address": "Avenue Kennedy",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "bci": {
+        "name": "BCI (Banque pour le Commerce et l'Industrie)",
+        "link": "https://www.bci.mr",
+        "address": "Avenue de l'Indépendance",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "orabank": {
+        "name": "Orabank Mauritanie",
+        "link": "https://www.orabank.net/fr/filiale/mauritanie",
+        "address": "Avenue du Général de Gaulle",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "qnb": {
+        "name": "QNB Mauritanie (Qatar National Bank)",
+        "link": "https://www.qnb.com/mauritania",
+        "address": "Avenue du Roi Fayçal",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "bim": {
+        "name": "BIM (Banque Islamique de Mauritanie)",
+        "link": "https://www.bim.mr",
+        "address": "Avenue Charles de Gaulle",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    },
+    "chinguitel": {
+        "name": "Banque Chinguitel",
+        "link": "https://www.chinguitelbank.mr",
+        "address": "Avenue Gamal Abdel Nasser",
+        "city": "Nouakchott",
+        "branch": "Head Office"
+    }
+}

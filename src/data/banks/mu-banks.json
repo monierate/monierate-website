@@ -1,0 +1,72 @@
+{
+    "mcb": {
+        "name": "MCB (The Mauritius Commercial Bank Ltd)",
+        "link": "https://www.mcb.mu",
+        "address": "Sir William Newton Street",
+        "city": "Port Louis",
+        "branch": "Head Office"
+    },
+    "sbm": {
+        "name": "SBM Bank (Mauritius) Ltd",
+        "link": "https://www.sbmgroup.mu",
+        "address": "SBM Tower, 1 Queen Elizabeth II Avenue",
+        "city": "Port Louis",
+        "branch": "Head Office"
+    },
+    "abcbanking": {
+        "name": "AfrAsia Bank Limited",
+        "link": "https://www.afrasiabank.com",
+        "address": "Bowen Square, 10, Dr Ferrière Street",
+        "city": "Port Louis",
+        "branch": "Head Office"
+    },
+    "hsbc": {
+        "name": "HSBC Bank (Mauritius) Limited",
+        "link": "https://www.hsbc.co.mu",
+        "address": "6th Floor, HSBC Centre, 18 CyberCity",
+        "city": "Ebene",
+        "branch": "Head Office"
+    },
+    "barclays": {
+        "name": "ABSA Bank (Mauritius) Limited",
+        "link": "https://www.absa.mu",
+        "address": "Absa House, 68-68A Cyber City",
+        "city": "Ebene",
+        "branch": "Head Office"
+    },
+    "bankone": {
+        "name": "Bank One Limited",
+        "link": "https://www.bankone.mu",
+        "address": "16 Sir William Newton Street",
+        "city": "Port Louis",
+        "branch": "Head Office"
+    },
+    "maubank": {
+        "name": "MauBank Ltd",
+        "link": "https://www.maubank.mu",
+        "address": "25 Bank Street, Ebene Cybercity",
+        "city": "Ebene",
+        "branch": "Head Office"
+    },
+    "investec": {
+        "name": "Investec Bank (Mauritius) Limited",
+        "link": "https://www.investec.com/mauritius",
+        "address": "6th Floor, Dias Pier Building, Le Caudan Waterfront",
+        "city": "Port Louis",
+        "branch": "Head Office"
+    },
+    "standard": {
+        "name": "Standard Bank (Mauritius) Limited",
+        "link": "https://standardbank.mu",
+        "address": "Level 9, Tower A, 1 CyberCity",
+        "city": "Ebene",
+        "branch": "Head Office"
+    },
+    "habib": {
+        "name": "Habib Bank Limited",
+        "link": "https://www.hbl.com/mauritius",
+        "address": "Sir William Newton Street",
+        "city": "Port Louis",
+        "branch": "Head Office"
+    }
+}

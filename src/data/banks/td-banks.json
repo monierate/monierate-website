@@ -1,0 +1,58 @@
+{
+    "ecobank_chad": {
+        "name": "Ecobank Tchad",
+        "link": "https://www.ecobank.com/td/personal-banking",
+        "address": "Avenue Charles de Gaulle, BP 87, N'Djamena",
+        "city": "N'Djamena",
+        "branch": "Siège"
+    },
+    "sgc": {
+        "name": "Société Générale Tchad",
+        "link": "https://societegenerale.td",
+        "address": "Avenue Charles de Gaulle, BP 461, N'Djamena",
+        "city": "N'Djamena",
+        "branch": "Siège"
+    },
+    "cbao": {
+        "name": "CBAO Groupe Attijariwafa Bank Tchad",
+        "link": "https://www.cbao.td",
+        "address": "Rue du Commandant Galyam Negal, BP 474, N'Djamena",
+        "city": "N'Djamena",
+        "branch": "Siège"
+    },
+    "orabank": {
+        "name": "Orabank Tchad",
+        "link": "https://www.orabank.net/td",
+        "address": "Avenue Charles de Gaulle, BP 804, N'Djamena",
+        "city": "N'Djamena",
+        "branch": "Siège"
+    },
+    "bcc": {
+        "name": "Banque Commerciale du Chari (BCC)",
+        "link": "https://www.bcc.td",
+        "address": "Avenue Felix Eboué, BP 757, N'Djamena",
+        "city": "N'Djamena",
+        "branch": "Siège"
+    },
+    "sgtb": {
+        "name": "Société Générale Tchadienne de Banque",
+        "link": "https://www.sgtb.td",
+        "address": "Avenue Mobutu, BP 461, N'Djamena",
+        "city": "N'Djamena",
+        "branch": "Siège"
+    },
+    "bsic": {
+        "name": "Banque Sahélo-Saharienne pour l'Investissement et le Commerce",
+        "link": "https://www.bsic.td",
+        "address": "Avenue Charles de Gaulle, BP 1543, N'Djamena",
+        "city": "N'Djamena",
+        "branch": "Siège"
+    },
+    "uba": {
+        "name": "United Bank for Africa Chad",
+        "link": "https://www.ubagroup.com/td",
+        "address": "Avenue Charles de Gaulle, BP 1148, N'Djamena",
+        "city": "N'Djamena",
+        "branch": "Siège"
+    }
+}

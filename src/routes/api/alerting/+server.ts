@@ -1,52 +1,47 @@
-import { bearer } from "$lib/functions.js";
-import { getEndpoint  } from "$lib/helper.svelte";
-import { basicAuth } from "$lib/server/utilities.js";
-import { json } from "@sveltejs/kit";
+import { json } from '@sveltejs/kit';
+import { serverApiRequest } from '$lib/api/server.js';
 
 /** @type {import('./$types').RequestHandler} */
-export async function PUT({ request, fetch })
-{
-    const { email, interval } = await request.json();
-    const payload = {
-        email,
-        interval
-    };
-    const endpoint = getEndpoint("/alerting");
-    const res = await fetch(endpoint, basicAuth('PUT', payload, 'system'));
+export async function PUT({ request, fetch }) {
+	const { email, interval } = await request.json();
+	const payload = {
+		email,
+		interval
+	};
+	const result = serverApiRequest('/alerting', {
+		method: 'PUT',
+		body: payload
+	});
 
-    const result = await res.json();
-    console.log(result);
-
-    return json(result);
+	return json(result);
 }
 
 /** @type {import('./$types').RequestHandler} */
-export async function DELETE({ request, fetch, cookies })
-{
-    const { id } = await request.json();
-    const auth_token: string = cookies.get('auth') || ''
-    const endpoint = getEndpoint(`/auth/alerting?id=${id}`);
-    console.log(auth_token)
-    const res = await fetch(endpoint, bearer('DELETE', auth_token, {}));
+export async function DELETE({ request, fetch, cookies }) {
+	const { id } = await request.json();
+	const auth_token: string = cookies.get('auth') || '';
+	const result = serverApiRequest(`/auth/alerting?id=${id}`, {
+		method: 'DELETE',
+		body: {
+			auth_token
+		}
+	});
+	console.log(result);
 
-    const result = await res.json();
-    console.log(result);
-
-    return json(result);
+	return json(result);
 }
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ request, fetch })
-{
-    const { email } = await request.json();
-    const payload = {
-        email,
-    };
-    const endpoint = getEndpoint("/public/alerting/signin");
-    const res = await fetch(endpoint, basicAuth('POST', payload, 'system'));
+export async function POST({ request, fetch }) {
+	const { email } = await request.json();
+	const payload = {
+		email
+	};
+	const result = serverApiRequest('/public/alerting/signin', {
+		method: 'POST',
+		body: payload
+	});
+	console.log(result);
 
-    const result = await res.json();
-    console.log(result);
-
-    return json(result);
+	return json(result);
 }

@@ -1,0 +1,101 @@
+{
+  "bna": {
+    "swift": ["BNAADZ AL"],
+    "ussd": {
+      "start": "*200#",
+      "balance": "*200*1#",
+      "last_transactions": "*200*2#",
+      "transfer_to_same_bank": "*200*3*account_number*amount#",
+      "transfer_other_banks": "*200*4*bank_code*account_number*amount#",
+      "phone_recharge": "*200*5*operator_code*phone_number*amount#"
+    }
+  },
+  "bea": {
+    "swift": ["BEABDZ AL"],
+    "ussd": {
+      "start": "*120#",
+      "balance": "*120*1#",
+      "last_transactions": "*120*2#",
+      "transfer_to_same_bank": "*120*3*account_number*amount#",
+      "transfer_other_banks": "*120*4*bank_code*account_number*amount#",
+      "phone_recharge": "*120*5*operator_code*phone_number*amount#"
+    }
+  },
+  "cnep": {
+    "swift": ["CNEPDZAL"],
+    "ussd": {
+      "start": "*130#",
+      "balance": "*130*1#",
+      "last_transactions": "*130*2#",
+      "transfer_to_same_bank": "*130*3*account_number*amount#",
+      "transfer_other_banks": "*130*4*bank_code*account_number*amount#",
+      "phone_recharge": "*130*5*operator_code*phone_number*amount#"
+    }
+  },
+  "sga": {
+    "swift": ["SOGEDZAL"],
+    "ussd": {
+      "start": "*141#",
+      "balance": "*141*1#",
+      "last_transactions": "*141*2#",
+      "transfer_to_same_bank": "*141*3*account_number*amount#",
+      "transfer_other_banks": "*141*4*bank_code*account_number*amount#",
+      "phone_recharge": "*141*5*operator_code*phone_number*amount#"
+    }
+  },
+  "al_baraka": {
+    "swift": ["BRKADZ AL"],
+    "ussd": {
+      "start": "*161#",
+      "balance": "*161*1#",
+      "last_transactions": "*161*2#",
+      "transfer_to_same_bank": "*161*3*account_number*amount#",
+      "transfer_other_banks": "*161*4*bank_code*account_number*amount#",
+      "phone_recharge": "*161*5*operator_code*phone_number*amount#"
+    }
+  },
+  "bdl": {
+    "swift": ["BDLPDZAL"],
+    "ussd": {
+      "start": "*150#",
+      "balance": "*150*1#",
+      "last_transactions": "*150*2#",
+      "transfer_to_same_bank": "*150*3*account_number*amount#",
+      "transfer_other_banks": "*150*4*bank_code*account_number*amount#",
+      "phone_recharge": "*150*5*operator_code*phone_number*amount#"
+    }
+  },
+  "abc": {
+    "swift": ["ABCODZAL"],
+    "ussd": {
+      "start": "*180#",
+      "balance": "*180*1#",
+      "last_transactions": "*180*2#",
+      "transfer_to_same_bank": "*180*3*account_number*amount#",
+      "transfer_other_banks": "*180*4*bank_code*account_number*amount#",
+      "phone_recharge": "*180*5*operator_code*phone_number*amount#"
+    }
+  },
+  "badr": {
+    "swift": ["BADRDZAL"],
+    "ussd": {
+      "start": "*301#",
+      "balance": "*301*1#",
+      "last_transactions": "*301*2#",
+      "transfer_to_same_bank": "*301*3*account_number*amount#",
+      "transfer_other_banks": "*301*4*bank_code*account_number*amount#",
+      "phone_recharge": "*301*5*operator_code*phone_number*amount#"
+    }
+  },
+  "ba": {
+    "swift": ["BADALDZAL"],
+    "ussd": {
+      "start": "*100#",
+      "balance": "*100*1#",
+      "last_transactions": "*100*2#",
+      "transfer_to_same_bank": "*100*3*account_number*amount#",
+      "transfer_other_banks": "*100*4*bank_code*account_number*amount#",
+      "phone_recharge": "*100*5*operator_code*phone_number*amount#"
+    }
+  }
+}

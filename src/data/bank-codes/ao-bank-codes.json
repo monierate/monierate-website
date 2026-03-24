@@ -1,0 +1,60 @@
+{
+  "banco_bai": {
+      "swift": ["BAIPAOLU"],
+      "ussd": {
+          "start": "*402#",
+          "transfer_to_same_bank": null,
+          "transfer_other_banks": null,
+          "airtime_self": null,
+          "airtime_others": null,
+          "balance": null,
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "banco_nacional": {
+      "swift": ["BNARAOLU"],
+      "ussd": null
+  },
+  "banco_bfa": {
+      "swift": ["BFMXAOLU"],
+      "ussd": null
+  },
+  "banco_bic": {
+      "swift": ["BICKAOAU"],
+      "ussd": null
+  },
+  "banco_atlantico": {
+      "swift": ["ATLOAOLU"],
+      "ussd": {
+          "start": "*400#",
+          "transfer_to_same_bank": null,
+          "transfer_other_banks": null,
+          "airtime_self": null,
+          "airtime_others": null,
+          "balance": null,
+          "bvn": null,
+          "update_bvn_details": null,
+          "stop_debit_transactions": null,
+          "activate_code": null
+      }
+  },
+  "banco_sol": {
+      "swift": ["SOLAOLUL"],
+      "ussd": null
+  },
+  "banco_bpc": {
+      "swift": ["BPCLAOLU"],
+      "ussd": null
+  },
+  "banco_bda": {
+      "swift": ["BDALAOLU"],
+      "ussd": null
+  },
+  "banco_sba": {
+      "swift": ["SBICAOLU"],
+      "ussd": null
+  }
+}
