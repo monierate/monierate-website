@@ -68,7 +68,7 @@ export function basicAuth(method: string, body: any, level = "api")
 export function getEndpoint(endpoint: string)
 {
   const server = env.SERVER;
-  let apiUrl = env.API_URL || 'https://monierate-currency-api-production.up.railway.app/core';
+  let apiUrl = env.API_URL || 'https://currency-staging-api-production.up.railway.app/core';
   if (server == 'LOCAL') {
     apiUrl = 'http://localhost:4001/core';
   }
