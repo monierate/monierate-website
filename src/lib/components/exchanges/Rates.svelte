@@ -59,12 +59,12 @@
 							</a>
 						</td>
 
-						<!-- Buy Price -->
+						<!-- Buying Price -->
 						<td class="px-6 py-4 text-left">
-							{#if pair.price_buy > 0}
+							{#if pair.price_sell > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
-										{formatNumber(pair.price_buy)}
+										{formatNumber(pair.price_sell)}
 									</div>
 									<!-- {#if pair.price_change_percent_1hr >= 0}
 										<div
@@ -111,12 +111,12 @@
 							{/if}
 						</td>
 
-						<!-- Sell Price -->
+						<!-- Selling Price -->
 						<td class="px-6 py-4 text-left">
-							{#if pair.price_sell > 0}
+							{#if pair.price_buy > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
-										{formatNumber(pair.price_sell)}
+										{formatNumber(pair.price_buy)}
 									</div>
 									<!-- {#if pair.price_change_percent_1hr >= 0}
 										<div
