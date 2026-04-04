@@ -2,7 +2,7 @@
     /** @type {import('./$types').PageServerData} */
     import Money from "$lib/money";
     import { friendlyDate } from "$lib/functions";
-    import { getIconPath } from '$lib/utils';
+    import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
     export let data;
 
@@ -28,7 +28,7 @@
     <div class="container md:w-[768px] md:mx-auto">
         <section class="w-full mx-auto pb-16 text-center">
             <span class="inline-block bg-transparent border border-black rounded-full w-[32px] h-[32px] mt-4">
-                <img src={getIconPath(changer.icon)} width="30px" height="30px" class="rounded-full" alt="{changer.name} icon">
+                <ProviderIcon icon={changer.icon} width="30px" height="30px" class="rounded-full" alt="{changer.name} icon" />
             </span>
             <h1 class="text-2xl md:text-4xl mb-2 dark:text-gray-100">
                 {changer.name} exchange rates in Nigeria

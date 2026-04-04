@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { useImageOrDefault } from '$lib/utils/loadImageOrDefault';
 	import { copyToClipboard } from '$lib/functions';
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
 	export let data;
 
@@ -57,10 +58,10 @@
 
 	<!-- Header Button -->
 	<div class="flex items-center gap-3">
-		<img
-			class="w-[50px] h-[50px] object-cover rounded-full"
+		<ProviderIcon
+			icon={bank.icon}
 			alt="{bank.name} icon"
-			src="/icons/{bank.icon}"
+			class="w-[50px] h-[50px] object-cover rounded-full"
 		/>
 		<button
 			class="bg-primary/20 text-primary font-semibold rounded-full py-2 px-4 inline-flex gap-2 justify-center items-center hover:bg-primary/30 transition"

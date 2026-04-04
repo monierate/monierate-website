@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { extractBaseDomain } from '$lib/functions';
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
 	export let exchanges: any;
 </script>
@@ -21,7 +22,7 @@
 				<span
 					class="h-14 w-14 flex items-center justify-center rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden border border-gray-100 dark:border-gray-700"
 				>
-					<img src="/icons/{changer.icon}" alt={changer.name} class="h-14 w-14 object-contain" />
+					<ProviderIcon icon={changer.icon} alt={changer.name} class="h-14 w-14 object-contain" />
 				</span>
 
 				<!-- INFO -->
