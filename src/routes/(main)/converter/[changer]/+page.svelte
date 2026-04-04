@@ -5,6 +5,7 @@
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import { goto } from '$app/navigation';
 	import { changeParam } from '$lib/functions';
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
 	type Conversions = {
 		from: { amount: number; conversion: number }[];
@@ -191,7 +192,7 @@
             <span class="block font-black mb-4 text-xl">{changer.name} Converter:</span> {Money.format(convertAmount)} {convertFrom} to {convertTo} on {changer.name}
         </h1>
         <span class="inline-block bg-transparent border border-black rounded-full w-[32px] h-[32px] mt-4">
-            <img src="/icons/{changer.icon}" width="30px" height="30px" class="rounded-full" alt="{changer.name} icon">
+            <ProviderIcon icon={changer.icon} width="30px" height="30px" class="rounded-full" alt="{changer.name} icon" />
         </span>
     </div>
     

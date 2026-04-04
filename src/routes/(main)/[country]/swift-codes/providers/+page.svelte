@@ -43,7 +43,7 @@ interface ImageSources {
 			img.srcset = '';
 			img.removeAttribute('srcset');
 
-			const fallbackSrc = '/icons/default.png';
+			const fallbackSrc = '/icons/png/default.png';
 
 			// Create a new image to check if fallback exists
 			const testImage = new Image();

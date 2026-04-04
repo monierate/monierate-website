@@ -33,7 +33,7 @@
 		setTimeout(() => (copied = false), 1500);
 	};
 
-	let defaultImage: string = '/icons/default.png';
+	let defaultImage: string = '/icons/png/default.png';
 	onMount(async () => {
 		defaultImage = await useImageOrDefault(`/icons/svg/${bankInfo.id}.svg`, defaultImage);
 	});
@@ -57,16 +57,11 @@
 
 	<!-- Header Button -->
 	<div class="flex items-center gap-3">
-		<picture>
-			<source srcset={`/icons/svg/${bankInfo.id}.svg`} type="image/svg+xml" />
-			<source srcset={`/icons/png/${bankInfo.id}.png`} type="image/png" />
-			<img
-				class="w-[50px] h-[50px] object-cover rounded-full"
-				alt="{bankInfo.name} icon"
-				src={`/icons/svg/${bankInfo.id}.svg`}
-				srcset={defaultImage}
-			/>
-		</picture>
+		<img
+			class="w-[50px] h-[50px] object-cover rounded-full"
+			alt="{bankInfo.name} icon"
+			src={defaultImage}
+		/>
 		<button
 			class="bg-primary/20 text-primary font-semibold rounded-full py-2 px-4 inline-flex gap-2 justify-center items-center hover:bg-primary/30 transition"
 			on:click={() => handleCopy(bankInfo.ussd.start)}

@@ -6,6 +6,7 @@
 	import AboutCard from '$lib/components/exchanges/AboutCard.svelte';
 	import RelatedExchanges from '$lib/components/exchanges/RelatedExchanges.svelte';
 	import SocialLinks from '$lib/components/exchanges/SocialLinks.svelte';
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
 	export let data;
 	const currencies = data.currencies;
@@ -42,8 +43,8 @@
 			<div class="flex flex-col md:flex-row justify-between items-center gap-4">
 				<div class="w-full md:w-auto">
 					<h2 class="text-xl md:text-2xl font-bold flex items-center gap-1">
-						<img
-							src="/icons/{changer.icon}"
+						<ProviderIcon
+							icon={changer.icon}
 							alt="{changer.name} Logo"
 							class="w-10 h-10 rounded-full object-contain"
 						/>

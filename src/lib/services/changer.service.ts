@@ -23,7 +23,7 @@ export const getAllChangers = async (
 		return null;
 	}
 
-	return response.result;
+	return (response.result as any[])?.filter((c: any) => c.is_active) ?? response.result;
 };
 
 export const getChanger = async (fetch: typeof globalThis.fetch, code: string) => {

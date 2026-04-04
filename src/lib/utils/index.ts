@@ -1,3 +1,9 @@
+export function getIconPath(icon: string | undefined): string {
+	if (!icon) return '/icons/png/default.png';
+	if (icon.endsWith('.svg')) return `/icons/svg/${icon}`;
+	return `/icons/png/${icon}`;
+}
+
 export const getDeviceName = (request: any) => {
     const headers = request.headers;
     const userAgent = headers.get('user-agent') || '';

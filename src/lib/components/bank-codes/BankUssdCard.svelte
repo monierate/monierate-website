@@ -7,7 +7,7 @@
 	export let countryCode: string;
 	export let multiCountry: boolean = true;
 
-	let image: string = '/icons/default.png';
+	let image: string = '/icons/png/default.png';
 
 	let copied: boolean = false;
 	const handleCopy = (text: string) => {
@@ -25,17 +25,11 @@
 	class="bg-white dark:bg-gray-900/40 rounded-xl shadow-sm p-4 w-full md:w-72 border border-gray-200 dark:border-gray-700"
 >
 	<div class="flex items-center space-x-2 mb-3">
-		<picture>
-			<source srcset={`/icons/svg/${bankData.id}.svg`} type="image/svg+xml" />
-			<source srcset={`/icons/png/${bankData.id}.png`} type="image/png" />
-			<img
-				width="800"
-				height="114"
-				src={image}
-				class="rounded-full w-6 h-6 border border-gray-200 dark:border-gray-600 object-contain"
-				alt="{bankData.name} icon"
-			/>
-		</picture>
+		<img
+			src={image}
+			class="rounded-full w-6 h-6 border border-gray-200 dark:border-gray-600 object-contain"
+			alt="{bankData.name} icon"
+		/>
 		<h2 class="font-semibold text-gray-800 dark:text-gray-200 text-sm truncate">{bankData.name}</h2>
 	</div>
 

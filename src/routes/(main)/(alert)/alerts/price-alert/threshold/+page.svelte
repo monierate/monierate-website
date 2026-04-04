@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CustomSelectBox from '$lib/components/CustomSelectBox.svelte';
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
 	type Provider = { name: string; code: string; icon: string; pairs: any };
 	type DropdownOption = { label: string; value: string; icon: string };
@@ -150,10 +151,10 @@
 									<span
 										class="bg-gray-100 dark:bg-gray-800 text-sm px-2 py-1 rounded-full mr-2 inline-flex items-center mb-2"
 									>
-										<img
-											src="/icons/{Object.entries(providers).find(
+										<ProviderIcon
+											icon={Object.entries(providers).find(
 												([_, value]) => value.code === provider
-											)?.[1]?.icon}"
+											)?.[1]?.icon}
 											alt="icon"
 											class="w-4 h-4 mr-2"
 										/>
