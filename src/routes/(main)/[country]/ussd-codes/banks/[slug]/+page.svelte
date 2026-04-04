@@ -33,7 +33,7 @@
 		setTimeout(() => (copied = false), 1500);
 	};
 
-	let defaultImage: string = '/icons/default.png';
+	let defaultImage: string = '/icons/png/default.png';
 	onMount(async () => {
 		defaultImage = await useImageOrDefault(`/icons/svg/${bankInfo.id}.svg`, defaultImage);
 	});

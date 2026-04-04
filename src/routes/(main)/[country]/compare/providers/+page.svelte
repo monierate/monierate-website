@@ -1,6 +1,8 @@
 <script>
 	/** @type {import('./$types').PageServerData} */
 
+	import { getIconPath } from '$lib/utils';
+
 	export let data;
 	const providers = data.changers;
 </script>
@@ -46,7 +48,7 @@
 							<span class="flex items-center">
 								<span
 									class="inline-block w-[32px] h-[32px] rounded-full bg-no-repeat bg-cover border border-black bg-black-200 mr-4"
-									style="background-image: url('/icons/{provider.icon}');"
+									style="background-image: url('{getIconPath(provider.icon)}');"
 								/>
 								<span class="">{provider.name}</span>
 							</span>

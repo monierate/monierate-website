@@ -5,6 +5,7 @@
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import { goto } from '$app/navigation';
 	import { changeParam } from '$lib/functions';
+	import { getIconPath } from '$lib/utils';
 
 	type Conversions = {
 		from: { amount: number; conversion: number }[];

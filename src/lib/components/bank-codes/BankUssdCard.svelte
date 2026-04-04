@@ -7,7 +7,7 @@
 	export let countryCode: string;
 	export let multiCountry: boolean = true;
 
-	let image: string = '/icons/default.png';
+	let image: string = '/icons/png/default.png';
 
 	let copied: boolean = false;
 	const handleCopy = (text: string) => {
