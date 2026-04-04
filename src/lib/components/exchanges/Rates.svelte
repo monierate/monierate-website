@@ -49,8 +49,8 @@
 								)}&To=ngn"
 							>
 									<img
-										src={`/icons/currencies/${pair.pair_code.replace(/ngn|kes/g, '')}.png`}
-									class="w-5 h-5 rounded-full object-fit"
+										src={`/icons/pair/${pair.pair_code.toLowerCase()}.png`}
+									class="w-10 h-5 rounded-full object-fit"
 									alt={pair.pair_code}
 								/>
 								<span class="font-medium text-gray-900 dark:text-gray-100">
