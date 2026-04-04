@@ -6,11 +6,11 @@
 
 	const sponsored_partners = [
 		{
-			image: 'https://gokarsa.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
-			text: 'Get a dollar account and earn 4.5%.',
-			link: 'https://gokarsa.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
-			brand: 'Karsa',
-			cta: 'Recieve'
+			image: 'https://www.zobo.money/?ref=monierate&utm_source=monierate&utm_medium=referral',
+			text: 'Send money to Africa. Zero fees, great rates.',
+			link: 'https://www.zobo.money/?ref=monierate&utm_source=monierate&utm_medium=referral',
+			brand: 'Zobo',
+			cta: 'Send Money'
 		}
 		// {
 		//     image: 'https://bit.ly/3svJGhQ',
@@ -28,7 +28,7 @@
 <div
 	id="top-banner"
 	tabindex="-1"
-	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#051809] px-6 py-5 sm:px-3.5 sm:before:flex-1 whitespace-nowrap"
+	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#ed0578] px-6 py-5 sm:px-3.5 sm:before:flex-1 whitespace-nowrap"
 >
 	<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
 		<span class="text-sm leading-6 text-gray-100">
