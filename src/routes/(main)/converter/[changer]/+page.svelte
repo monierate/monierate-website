@@ -266,137 +266,8 @@
         </div>
     </div>
 
-	<div
-		id="changer-rate-wrapper"
-		class="w-[95%] md:w-[70%] bg-white dark:bg-gray-900 shadow-lg rounded-lg px-8 py-4 mx-auto"
-	>
-		<div class="flex justify-center item-center">
-			<div class="w-full">
-				<div class="block md:flex md:justify-between md:items-center">
-					<span class="block md:w-[30%]">
-						<label class="label" for="field-convert-amount">Amount</label>
-						<input
-							type="number"
-							id="field-convert-amount"
-							class="input"
-							bind:value={convertAmount}
-							on:input={() => changeParam('Amount', convertAmount)}
-						/>
-					</span>
-					<span class="block md:w-[30%]">
-						<label class="label" for="field-convert-from">From</label>
-						<select
-							id="field-convert-from"
-							class="select"
-							bind:value={convertFrom}
-							on:change={() => changeFrom(convertFrom)}
-						>
-							{#each Object.entries(currencies) as [index, currency]}
-								<option value={currency.code.toUpperCase()}
-									>{currency.code.toUpperCase()} - {currency.name}</option
-								>
-							{/each}
-						</select>
-					</span>
-					<span class="block md:w-[30%]">
-						<label class="label" for="field-convert-to">To</label>
-						<select
-							id="field-convert-to"
-							class="select"
-							bind:value={convertTo}
-							on:change={() => changeTo(convertTo)}
-						>
-							{#each Object.entries(currencies) as [index, currency]}
-								<option value={currency.code.toUpperCase()}
-									>{currency.code.toUpperCase()} - {currency.name}</option
-								>
-							{/each}
-						</select>
-					</span>
-				</div>
-				<div id="convert-result" class="mt-8 mb-8">
-					<span class="block font-semibold text-lg text-gray-600 dark:text-gray-300 mb-2">
-						{Money.format(convertAmount)}
-						{currencyFrom.name} =
-					</span>
-					<span class="block font-bold text-3xl mb-2 dark:text-gray-200">
-						{Money.format(convertResult.conversion)}
-						{currencyTo.name}
-					</span>
-					<span class="block text-gray-500 dark:text-gray-400">
-						1 {convertFrom} = {Money.format(convertResult.rate)}
-						{convertTo}
-					</span>
-					<span class="block text-gray-500 dark:text-gray-400">
-						1 {convertTo} = {Money.format(convertResult.rateInverse)}
-						{convertFrom}
-					</span>
-				</div>
-				<div class="block md:flex md:justify-between md:items-center">
-					<span
-						class="flex justify-between items-center bg-accent-100 md:w-[40%] border dark:border-gray-700 rounded-lg p-4 mb-8 md:mb-0"
-					>
-						<span class="inline-block mr-2">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								class="w-6 h-6"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-								/>
-							</svg>
-						</span>
-						<span class="text-gray-600 dark:text-gray-300 text-sm">
-							We use the exchange rate from {changer.name} for this conversion. This is for informational
-							purposes only.
-						</span>
-					</span>
-					<span class="block text-sm md:w-[50%] p-4">
-						{currencyFrom.name} to {currencyTo.name} conversion on {changer.name} — Last updated {new Date(
-							changer_rate?.updated_at ?? new Date().toDateString()
-						)}
-					</span>
-				</div>
 
-				<span class="block mt-12 mb-4">
-					<a
-						href="{changer.link}?utm_source=monierate&utm_medium=website&utm_campaign=monierate"
-						class="block button w-full md:inline-block md:w-auto mr-4 mb-4"
-					>
-						Open {changer.name}
-					</a>
-					<a
-						href="https://tinyurl.com/cedar-app-native-buttons"
-						class="block button buy font-bold w-full md:inline-block md:w-auto"
-					>
-						Get the best rate on Cedar Money
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="inline-block w-4 h-4 ml-2"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-							/>
-						</svg>
-					</a>
-				</span>
-			</div>
-		</div>
-	</div>
-
-	<div class="more-conversion">
+	<div class="more-conversion mt-10 w-[95%] md:w-[60%] mx-auto">
 		<div class="entry">
 			<span class="header">
 				<h2 class="text-center text-lg">
@@ -407,17 +278,17 @@
 				{#await moreConversions}
 					<span class="block text-center py-8 px-4">Loading...</span>
 				{:then conversions}
-					<table class="w-full text-center px-8">
+					<table class="w-full px-8">
 						<thead>
 							<tr>
-								<th class="py-4">{convertFrom}</th>
-								<th class="py-4">{convertTo}</th>
+								<th class="py-4 text-left pl-4">{convertFrom}</th>
+								<th class="py-4 text-right pr-4">{convertTo}</th>
 							</tr>
 						</thead>
 						<tbody>
 							{#each Object.entries(conversions.from) as [index, convert]}
 								<tr>
-									<td class="py-2.5">
+									<td class="py-2.5 text-left pl-4">
 										<a
 											data-sveltekit-reload
 											href="/converter/{changer.code}?Amount={convert.amount}&From={convertFrom}&To={convertTo}"
@@ -426,7 +297,7 @@
 											{convertFrom}
 										</a>
 									</td>
-									<td class="py-2.5">
+									<td class="py-2.5 text-right pr-4">
 										{Money.format(convert.conversion)}
 										{convertTo}
 									</td>
@@ -445,17 +316,17 @@
 				{#await moreConversions}
 					<span class="block text-center py-8 px-4">Loading...</span>
 				{:then conversions}
-					<table class="w-full text-center px-8">
-						<thead class="">
+					<table class="w-full px-8">
+						<thead>
 							<tr>
-								<th class="py-4">{convertTo}</th>
-								<th class="py-4">{convertFrom}</th>
+								<th class="py-4 text-left pl-4">{convertTo}</th>
+								<th class="py-4 text-right pr-4">{convertFrom}</th>
 							</tr>
 						</thead>
 						<tbody>
 							{#each Object.entries(conversions.to) as [index, convert]}
 								<tr>
-									<td class="py-2.5">
+									<td class="py-2.5 text-left pl-4">
 										<a
 											data-sveltekit-reload
 											href="/converter/{changer.code}?Amount={convert.amount}&From={convertTo}&To={convertFrom}"
@@ -464,7 +335,7 @@
 											{convertTo}
 										</a>
 									</td>
-									<td class="py-2.5">
+									<td class="py-2.5 text-right pr-4">
 										{Money.format(convert.conversion)}
 										{convertFrom}
 									</td>
@@ -525,9 +396,5 @@
 	}
 	table tbody tr td {
 		@apply py-6 whitespace-nowrap;
-	}
-	table tr td:first-child,
-	table thead th:first-child {
-		@apply pl-4;
 	}
 </style>
