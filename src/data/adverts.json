@@ -2,7 +2,7 @@
 	"footer": {
 		"name": "",
 		"url": "https://vban.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/vban.avif",
+		"image": "/media/banners/vban-v3.avif",
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobile_only": false,
@@ -34,7 +34,7 @@
 	"home": {
 		"name": "",
 		"url": "https://vban.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/vban.avif",
+		"image": "/media/banners/vban-v3.avif",
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
@@ -46,7 +46,7 @@
 	"compare": {
 		"name": "",
 		"url": "https://vban.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/vban.avif",
+		"image": "/media/banners/vban-v3.avif",
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
@@ -58,7 +58,7 @@
 	"converter": {
 		"name": "",
 		"url": "https://vban.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/vban.avif",
+		"image": "/media/banners/vban-v3.avif",
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
@@ -70,7 +70,7 @@
 	"blog_home": {
 		"name": "",
 		"url": "https://vban.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/vban.avif",
+		"image": "/media/banners/vban-v3.avif",
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
@@ -94,7 +94,7 @@
 	"bank_codes": {
 		"name": "",
 		"url": "https://vban.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/vban.avif",
+		"image": "/media/banners/vban-v3.avif",
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
