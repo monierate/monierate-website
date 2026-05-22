@@ -7,7 +7,7 @@
 		"label": "Vban",
 		"mobile_only": false,
 		"mobileWidth": "100%",
-		"mobileHeight": "70px",
+		"mobileHeight": "50px",
 		"disabled": false,
 		"_v": 1
 	},
@@ -38,7 +38,7 @@
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
-		"mobileHeight": "70px",
+		"mobileHeight": "50px",
 		"mobile_only": false,
 		"disabled": false,
 		"_v": 1
@@ -50,7 +50,7 @@
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
-		"mobileHeight": "70px",
+		"mobileHeight": "50px",
 		"mobile_only": false,
 		"disabled": false,
 		"_v": 1
@@ -62,7 +62,7 @@
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
-		"mobileHeight": "70px",
+		"mobileHeight": "50px",
 		"mobile_only": false,
 		"disabled": false,
 		"_v": 1
@@ -74,7 +74,7 @@
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
-		"mobileHeight": "70px",
+		"mobileHeight": "50px",
 		"mobile_only": false,
 		"disabled": false,
 		"_v": 1
@@ -98,7 +98,7 @@
 		"formats": ["avif", "gif"],
 		"label": "Vban",
 		"mobileWidth": "100%",
-		"mobileHeight": "70px",
+		"mobileHeight": "50px",
 		"mobile_only": false,
 		"disabled": false,
 		"_v": 1
