@@ -44,6 +44,8 @@
 					<div class="flex-1 min-w-0">
 						<a
 							href={post.url}
+							target="_blank"
+							rel="noopener noreferrer"
 							class="block text-sm font-medium text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 truncate"
 						>
 							{post.title}
@@ -64,6 +66,8 @@
 					<div class="shrink-0">
 						<a
 							href={post.url}
+							target="_blank"
+							rel="noopener noreferrer"
 							class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full
 								bg-gray-100 dark:bg-gray-800
 								text-gray-700 dark:text-gray-300
