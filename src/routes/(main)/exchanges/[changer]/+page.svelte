@@ -13,6 +13,16 @@
 	$: changer = data.changer;
 	$: relatedChangers = data.relatedChangers;
 	$: pairs = data.pairs;
+
+	$: appStoreLink = changer.featured_publications?.find((p: any) =>
+		p.url?.includes('apps.apple.com')
+	);
+	$: playStoreLink = changer.featured_publications?.find((p: any) =>
+		p.url?.includes('play.google.com')
+	);
+	$: filteredPublications = changer.featured_publications?.filter(
+		(p: any) => !p.url?.includes('apps.apple.com') && !p.url?.includes('play.google.com')
+	) ?? [];
 </script>
 
 <svelte:head>
@@ -68,6 +78,42 @@
 			{#if changer.media_handles && changer.media_handles.length > 0}
 				<SocialLinks links={changer.media_handles} />
 			{/if}
+
+			{#if appStoreLink || playStoreLink}
+				<div class="flex flex-col gap-2">
+					<p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Download App</p>
+					<div class="flex flex-wrap gap-3">
+						{#if playStoreLink}
+							<a
+								href={playStoreLink.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-900 dark:bg-gray-800 text-white hover:bg-gray-700 dark:hover:bg-gray-700 transition text-sm"
+							>
+								<img src="/icons/stores/playstore.png" alt="Google Play" class="w-5 h-5 object-contain" />
+								<div class="leading-tight">
+									<div class="text-[10px] text-gray-300">Get it on</div>
+									<div class="font-semibold text-xs">Google Play</div>
+								</div>
+							</a>
+						{/if}
+						{#if appStoreLink}
+							<a
+								href={appStoreLink.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-900 dark:bg-gray-800 text-white hover:bg-gray-700 dark:hover:bg-gray-700 transition text-sm"
+							>
+								<img src="/icons/stores/appstore.png" alt="App Store" class="w-5 h-5 object-contain" />
+								<div class="leading-tight">
+									<div class="text-[10px] text-gray-300">Download on the</div>
+									<div class="font-semibold text-xs">App Store</div>
+								</div>
+							</a>
+						{/if}
+					</div>
+				</div>
+			{/if}
 		</div>
 	</div>
 	<div class="md:w-2/3 space-y-16">
@@ -105,8 +151,8 @@
 				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
 					Featured Publications
 				</h3>
-				{#if changer.featured_publications && changer.featured_publications.length > 0}
-					<FeaturedPublications posts={changer.featured_publications} />
+				{#if filteredPublications.length > 0}
+					<FeaturedPublications posts={filteredPublications} />
 				{:else}
 					<div class="text-center p-16 bg-white dark:bg-gray-900 rounded-lg shadow-sm">
 						There's no featured publications for {changer.name}
