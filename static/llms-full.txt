@@ -33,7 +33,7 @@ To list a platform and onboard on Monierate, follow these steps:
 
 ### 5.1 Onboarding Flow (API Data Users)
 1. If you need a custom plan, email "hello@monierate.com", but if you don't need it, skip to 'step 2'.
-2. Select a plan and create an account at the [Dashboard](https://account.monierate.com/signup) and make a payment for the chosen plan.
+2. Select a plan and create an account at the [Dashboard](https://account.monierate.com/auth/signup) and make a payment for the chosen plan.
 3. **Mandatory**: Whitelist the platform IP address in the dashboard.
 4. Review [API Terms of Service](https://docs.google.com/document/d/16N7J884a1bQdh6LPqtSKJcpwtfTbthK1Gc7RlwW641A/view).
 
