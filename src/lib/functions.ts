@@ -303,15 +303,15 @@ export function formatNumber(
 
 export function login_uri(callbackPath: string | null = null) {
 	if (browser) {
-		let login_url = 'https://account.monierate.com/login';
+		let login_url = 'https://account.monierate.com/auth/login';
 		let current_origin = window.location.origin;
 		let callback_url = callbackPath ? `${current_origin}${callbackPath}` : window.location.href;
 
 		if (window.location.hostname === 'localhost') {
-			login_url = 'http://localhost:5174/login';
+			login_url = 'http://localhost:5174/auth/login';
 		}
 
-		return `${login_url}?callback_url=${encodeURIComponent(callback_url)}`;
+		return `${login_url}?redirectTo=${encodeURIComponent(callback_url)}`;
 	}
 	return null;
 }
