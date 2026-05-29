@@ -30,6 +30,10 @@ export const mapProvidersByCode = (providers: any[], pairs: string[]): Record<st
 			continue;
 		}
 
+		if (provider.is_public === false) {
+			continue;
+		}
+
 		filteredProviders[provider.code] = provider;
 
 		try {

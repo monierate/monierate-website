@@ -18,7 +18,10 @@
 	$: rates =
 		data.rates
 			.filter(
-				(rate) => providers[rate.changer_code] && !excludedPlatforms.includes(rate.changer_code)
+				(rate) => {
+					const provider = providers[rate.changer_code];
+					return provider && !excludedPlatforms.includes(rate.changer_code) && provider.is_public !== false;
+				}
 			)
 			.sort((a: any, b: any) => {
 				if (a.price_sell === 0 && b.price_sell !== 0) return 1;
