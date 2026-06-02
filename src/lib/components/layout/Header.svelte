@@ -142,7 +142,7 @@
 					type="button"
 					class="button px-3 bg-gray-900 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 hidden md:inline-block"
 				>
-					Signup
+					Sign Up
 				</a>
 
 				<button
