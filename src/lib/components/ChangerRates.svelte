@@ -76,9 +76,11 @@
 				rate,
 				changer: changers[rate.changer_code]
 			}))
-			.filter((item) =>
-				item.changer && useBuying === true ? item.rate.price_buy > 0 : item.rate.price_sell > 0
-			);
+			.filter((item) => {
+				const isPublic = item.changer?.is_public !== false;
+				const hasPriceData = useBuying === true ? item.rate.price_buy > 0 : item.rate.price_sell > 0;
+				return item.changer && isPublic && hasPriceData;
+			});
 
 		if (useBuying === true) {
 			return sortDesc

@@ -138,11 +138,11 @@
 				</span>
 
 				<a
-					href="https://account.monierate.com/signup?callback_url=https://account.monierate.com/subscription"
+					href="https://account.monierate.com/auth/signup?redirectTo=https://account.monierate.com/subscription"
 					type="button"
 					class="button px-3 bg-gray-900 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 hidden md:inline-block"
 				>
-					Get API
+					Signup
 				</a>
 
 				<button
