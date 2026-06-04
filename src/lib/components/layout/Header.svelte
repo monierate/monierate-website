@@ -4,6 +4,7 @@
 	import { page, navigating } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import { login_uri } from '$lib/functions';
 
 	export let defaultCurrency: string;
 	// export let user: {
@@ -136,6 +137,14 @@
 						bind:selected={defaultCurrency}
 					/>
 				</span>
+
+				<a
+					href={login_uri()}
+					type="button"
+					class="button px-3 bg-transparent border border-gray-900 dark:border-gray-200 font-semibold text-gray-900 dark:text-gray-200 hidden md:inline-block"
+				>
+					Login
+				</a>
 
 				<a
 					href="https://account.monierate.com/auth/signup?redirectTo=https://account.monierate.com/subscription"
