@@ -144,9 +144,7 @@
 					class="button px-3 bg-transparent border border-gray-900 dark:border-gray-200 font-semibold text-gray-900 dark:text-gray-200 hidden md:inline-block"
 				>
 					Login
-				</a>
-
-				<a
+				</a><a
 					href="https://account.monierate.com/auth/signup?redirectTo=https://account.monierate.com/subscription"
 					type="button"
 					class="button px-3 bg-gray-900 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 hidden md:inline-block"
