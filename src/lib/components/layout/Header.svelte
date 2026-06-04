@@ -203,15 +203,14 @@
 					<li>
 						<a href="/api" class={path == 'api' ? 'active' : ''}> API </a>
 					</li>
-					<!-- {#if !auth.isLoggedIn}
-						<li class="md:hidden">
-							<a href={login_uri()}> Login </a>
-						</li>
-                        {:else}
-						<li class="md:hidden">
-							<a href="https://account.monierate.com/"> Dashboard </a>
-						</li>
-					{/if} -->
+					<li class="md:hidden">
+						<a href={login_uri()}> Login </a>
+					</li>
+					<li class="md:hidden">
+						<a href="https://account.monierate.com/auth/signup?redirectTo=https://account.monierate.com/subscription">
+							Sign Up
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
