@@ -56,38 +56,13 @@
 	>
 		<div class="w-[95%] md:max-w-[1500px] flex flex-wrap items-center justify-between mx-auto p-4">
 			<div class="flex items-center">
-				<button
-					id="nav-collapse-trigger"
-					data-collapse-toggle="navbar-sticky"
-					type="button"
-					class="inline-flex items-center mr-3 justify-center text-sm text-blue-500 md:hidden focus:outline-none"
-					aria-controls="navbar-sticky"
-					aria-expanded="false"
-				>
-					<span class="sr-only">Open main menu</span>
-					<svg
-						class="w-6 h-6"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 17 14"
-					>
-						<path
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M1 4h15M1 10h15"
-						/>
-					</svg>
-				</button>
 				<a href="/" class="flex items-center">
 				<!-- Mobile: favicon (light mode) -->
 				<img
 					src="/favicon-blue-1.png"
 					width="32px"
 					height="32px"
-					class="block dark:hidden md:hidden h-8 w-8 mr-3"
+					class="block dark:hidden md:hidden h-10 w-10 mr-3"
 					alt="Monierate Logo"
 					loading="lazy"
 				/>
@@ -96,7 +71,7 @@
 					src="/favicon-white-1.png"
 					width="32px"
 					height="32px"
-					class="hidden dark:block md:dark:hidden h-8 w-8 mr-3"
+					class="hidden dark:block md:dark:hidden h-10 w-10 mr-3"
 					alt="Monierate Logo"
 					loading="lazy"
 				/>
@@ -198,6 +173,32 @@
 				>
 					Sign Up
 				</a>
+
+				<button
+					id="nav-collapse-trigger"
+					data-collapse-toggle="navbar-sticky"
+					type="button"
+					class="inline-flex items-center ml-3 justify-center text-sm text-blue-500 md:hidden focus:outline-none"
+					aria-controls="navbar-sticky"
+					aria-expanded="false"
+				>
+					<span class="sr-only">Open main menu</span>
+					<svg
+						class="w-6 h-6"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 17 14"
+					>
+						<path
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M1 4h15M1 10h15"
+						/>
+					</svg>
+				</button>
 			</div>
 			<div
 				class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
