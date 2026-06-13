@@ -77,7 +77,7 @@
 				/>
 				<!-- Desktop: full logo (light mode) -->
 				<img
-					src="/monierate-1.png"
+					src="/monierate-blue-black-1.png"
 					width="142px"
 					height="24px"
 					class="hidden md:block dark:md:hidden h-auto w-[142px] mr-3"
