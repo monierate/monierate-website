@@ -162,12 +162,16 @@
 
 				<a
 					href={login_uri()}
+					target="_blank"
+					rel="noopener noreferrer"
 					type="button"
 					class="button px-3 bg-transparent border border-blue-600 dark:border-gray-200 font-semibold text-blue-600 dark:text-gray-200 hidden md:inline-block md:mr-4"
 				>
 					Login
 				</a><a
 					href="https://account.monierate.com/auth/signup"
+					target="_blank"
+					rel="noopener noreferrer"
 					type="button"
 					class="button px-3 bg-blue-600 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 md:inline-block"
 				>
@@ -226,7 +230,7 @@
 						<a href="/api" class={path == 'api' ? 'active' : ''}> API </a>
 					</li>
 					<li class="md:hidden">
-						<a href={login_uri()}> Login </a>
+						<a href={login_uri()} target="_blank" rel="noopener noreferrer"> Login </a>
 					</li>
 				</ul>
 			</div>
