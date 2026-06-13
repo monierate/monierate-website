@@ -163,7 +163,7 @@
 				<a
 					href={login_uri()}
 					type="button"
-					class="button px-3 bg-transparent border border-gray-900 dark:border-gray-200 font-semibold text-gray-900 dark:text-gray-200 hidden md:inline-block md:mr-4"
+					class="button px-3 bg-transparent border border-blue-600 dark:border-gray-200 font-semibold text-blue-600 dark:text-gray-200 hidden md:inline-block md:mr-4"
 				>
 					Login
 				</a><a
