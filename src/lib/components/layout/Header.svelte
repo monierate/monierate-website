@@ -55,24 +55,71 @@
 		class="bg-white w-full z-20 top-0 left-0 border-b border-gray-200 dark:bg-gray-900 dark:border-none"
 	>
 		<div class="w-[95%] md:max-w-[1500px] flex flex-wrap items-center justify-between mx-auto p-4">
-			<a href="/" class="flex items-center">
+			<div class="flex items-center">
+				<button
+					id="nav-collapse-trigger"
+					data-collapse-toggle="navbar-sticky"
+					type="button"
+					class="inline-flex items-center mr-3 justify-center text-sm text-blue-500 md:hidden focus:outline-none"
+					aria-controls="navbar-sticky"
+					aria-expanded="false"
+				>
+					<span class="sr-only">Open main menu</span>
+					<svg
+						class="w-6 h-6"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 17 14"
+					>
+						<path
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M1 4h15M1 10h15"
+						/>
+					</svg>
+				</button>
+				<a href="/" class="flex items-center">
+				<!-- Mobile: favicon (light mode) -->
+				<img
+					src="/favicon-blue-1.png"
+					width="32px"
+					height="32px"
+					class="block dark:hidden md:hidden h-8 w-8 mr-3"
+					alt="Monierate Logo"
+					loading="lazy"
+				/>
+				<!-- Mobile: favicon (dark mode) -->
+				<img
+					src="/favicon-white-1.png"
+					width="32px"
+					height="32px"
+					class="hidden dark:block md:dark:hidden h-8 w-8 mr-3"
+					alt="Monierate Logo"
+					loading="lazy"
+				/>
+				<!-- Desktop: full logo (light mode) -->
 				<img
 					src="/monierate-1.png"
 					width="142px"
 					height="24px"
-					class="block dark:hidden h-auto w-[142px] mr-3"
+					class="hidden md:block dark:md:hidden h-auto w-[142px] mr-3"
 					alt="Monierate Logo"
 					loading="lazy"
 				/>
+				<!-- Desktop: full logo (dark mode) -->
 				<img
 					alt="Monierate Logo"
 					width="142px"
 					height="24px"
-					class="hidden dark:block h-auto w-[142px] mr-3"
+					class="hidden md:dark:block h-auto w-[142px] mr-3"
 					src="/monierate-logo-white-1.png"
 					loading="lazy"
 				/>
-			</a>
+				</a>
+			</div>
 			<div class="flex items-center md:order-2">
 				<!-- {#if !auth.isLoggedIn}
 					<a
@@ -131,7 +178,7 @@
 					</div>
 				{/if} -->
 
-				<span>
+				<span class="hidden md:inline-block">
 					<CurrencySelector
 						onSelect={(currency: any) => defaultCurrencyStore.set(currency)}
 						bind:selected={defaultCurrency}
@@ -141,42 +188,16 @@
 				<a
 					href={login_uri()}
 					type="button"
-					class="button px-3 bg-transparent border border-gray-900 dark:border-gray-200 font-semibold text-gray-900 dark:text-gray-200 md:inline-block md:mr-4"
+					class="button px-3 bg-transparent border border-gray-900 dark:border-gray-200 font-semibold text-gray-900 dark:text-gray-200 hidden md:inline-block md:mr-4"
 				>
 					Login
 				</a><a
-					href="https://account.monierate.com/auth/signup?redirectTo=https://account.monierate.com/subscription"
+					href="https://account.monierate.com/auth/signup"
 					type="button"
-					class="button px-3 bg-gray-900 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 hidden md:inline-block"
+					class="button px-3 bg-blue-600 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 md:inline-block"
 				>
 					Sign Up
 				</a>
-
-				<button
-					id="nav-collapse-trigger"
-					data-collapse-toggle="navbar-sticky"
-					type="button"
-					class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-					aria-controls="navbar-sticky"
-					aria-expanded="false"
-				>
-					<span class="sr-only">Open main menu</span>
-					<svg
-						class="w-5 h-5"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 17 14"
-					>
-						<path
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M1 1h15M1 7h15M1 13h15"
-						/>
-					</svg>
-				</button>
 			</div>
 			<div
 				class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
@@ -205,11 +226,6 @@
 					</li>
 					<li class="md:hidden">
 						<a href={login_uri()}> Login </a>
-					</li>
-					<li class="md:hidden">
-						<a href="https://account.monierate.com/auth/signup?redirectTo=https://account.monierate.com/subscription">
-							Sign Up
-						</a>
 					</li>
 				</ul>
 			</div>
