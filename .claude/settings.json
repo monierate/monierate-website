@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git stash *)",
+      "Bash(GIT_EDITOR=true git rebase --continue)",
+      "Bash(grep -rn \"^[[:space:]]*a[[:space:],{]\\\\|a:link\\\\|a {\" src/app.css)",
+      "Bash(node ./_measure.mjs)",
+      "Bash(curl -s http://localhost:5175/)",
+      "Bash(curl -s \"http://localhost:5175/\")",
+      "Bash(curl -s http://localhost:5175__TRACKED_VAR__)",
+      "Bash(curl -s \"http://localhost:5175/src/app.css\")",
+      "Bash(python3 -c 'import sys,re; s=sys.stdin.read\\(\\); s=s.encode\\(\\).decode\\('\\\\''unicode_escape'\\\\''\\); *)",
+      "Bash(npx playwright *)",
+      "Bash(pkill -f \"vite dev\")"
+    ]
+  }
+}
