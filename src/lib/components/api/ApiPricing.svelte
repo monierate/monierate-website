@@ -4,7 +4,7 @@
 	const plans = [
 		{
 			label: 'START FREE',
-			labelAccent: true,
+			labelAccent: false,
 			name: 'Free – PAYG',
 			tagline: 'Only pay when you act.',
 			description:
@@ -146,13 +146,9 @@
 						<!-- Label badge -->
 						<div class="flex items-center gap-1.5 mb-3">
 							<span
-								class="text-[10px] font-bold tracking-widest px-2 py-0.5 rounded-full"
-								class:bg-emerald-500={plan.labelAccent}
-								class:text-white={plan.labelAccent}
-								class:bg-gray-100={!plan.labelAccent}
-								class:dark:bg-gray-700={!plan.labelAccent}
-								class:text-gray-500={!plan.labelAccent}
-								class:dark:text-gray-400={!plan.labelAccent}
+								class="{plan.labelAccent
+									? 'bg-emerald-500 text-white'
+									: 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'} text-[10px] font-bold tracking-widest px-2 py-0.5 rounded-full"
 							>{plan.label}</span>
 						</div>
 
