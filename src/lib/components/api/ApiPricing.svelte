@@ -157,7 +157,7 @@
 						<div class="text-[12px] font-medium text-blue-500 mb-2">{plan.tagline}</div>
 
 						<!-- Description -->
-						<p class="text-[11px] text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
+						<p class="text-[11px] text-gray-500 dark:text-gray-400 mb-4 leading-relaxed min-h-[3.5rem]">
 							{plan.description}
 						</p>
 
