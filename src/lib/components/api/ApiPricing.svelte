@@ -113,22 +113,25 @@
 				>
 					Monthly
 				</button>
-				<button
-					on:click={() => (billing = 'yearly')}
-					class="px-4 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2"
-					class:bg-white={billing === 'yearly'}
-					class:dark:bg-gray-700={billing === 'yearly'}
-					class:shadow-sm={billing === 'yearly'}
-					class:text-gray-900={billing === 'yearly'}
-					class:dark:text-white={billing === 'yearly'}
-					class:text-gray-500={billing !== 'yearly'}
-					class:dark:text-gray-400={billing !== 'yearly'}
-				>
-					Yearly
-					<span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500 text-white"
-						>Save 17%</span
+				<div class="relative">
+					<span
+						class="absolute -top-4 left-1/2 -translate-x-1/2 text-[9px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap z-10"
+						style="background-color: #10b981; color: white;"
+					>Save 17%</span>
+					<button
+						on:click={() => (billing = 'yearly')}
+						class="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
+						class:bg-white={billing === 'yearly'}
+						class:dark:bg-gray-700={billing === 'yearly'}
+						class:shadow-sm={billing === 'yearly'}
+						class:text-gray-900={billing === 'yearly'}
+						class:dark:text-white={billing === 'yearly'}
+						class:text-gray-500={billing !== 'yearly'}
+						class:dark:text-gray-400={billing !== 'yearly'}
 					>
-				</button>
+						Yearly
+					</button>
+				</div>
 			</div>
 		</div>
 
