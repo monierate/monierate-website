@@ -208,15 +208,7 @@
 								<li class="flex items-center justify-between gap-2">
 									<span class="text-[12px] text-gray-500 dark:text-gray-400">{f.label}</span>
 									<span
-										class="text-[11px] font-medium px-2 py-0.5 rounded-full shrink-0"
-										class:text-blue-600={f.accent}
-										class:dark:text-blue-400={f.accent}
-										class:bg-blue-500={f.accent}
-										class:bg-opacity-10={f.accent}
-										class:text-gray-500={!f.accent}
-										class:dark:text-gray-400={!f.accent}
-										class:bg-gray-100={!f.accent}
-										class:dark:bg-gray-700={!f.accent}
+										class="text-[11px] font-medium px-2 py-0.5 rounded-full shrink-0 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
 									>{f.value}</span>
 								</li>
 							{/each}
