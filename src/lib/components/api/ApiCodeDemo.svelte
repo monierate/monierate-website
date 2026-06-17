@@ -40,7 +40,7 @@ const data = await res.json();`;
 		return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
 
-	// Uses single-quoted attributes so the string regex ("...") won't match them
+	// Single-quoted span attributes so the string regex ("...") never matches inside them
 	function highlightJson(code: string): string {
 		return esc(code).replace(
 			/("(?:\\u[0-9a-fA-F]{4}|\\[^u]|[^"\\])*"(?:\s*:)?|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|\btrue\b|\bfalse\b|\bnull\b)/g,
@@ -91,30 +91,30 @@ const data = await res.json();`;
 		</p>
 	</div>
 
-	<div class="grid md:grid-cols-2 gap-3 max-w-4xl mx-auto">
+	<div class="demo-grid max-w-4xl mx-auto">
 		<!-- Request panel -->
-		<div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-			<div class="flex items-center justify-between px-4 py-2 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
-				<div class="flex gap-1">
+		<div class="demo-panel">
+			<div class="panel-bar">
+				<div class="tabs">
 					<button
 						on:click={() => (activeTab = 'curl')}
-						class="tab-btn"
-						class:active={activeTab === 'curl'}
+						class="tab"
+						class:tab-active={activeTab === 'curl'}
 					>cURL</button>
 					<button
 						on:click={() => (activeTab = 'js')}
-						class="tab-btn"
-						class:active={activeTab === 'js'}
+						class="tab"
+						class:tab-active={activeTab === 'js'}
 					>JavaScript</button>
 				</div>
 				<button on:click={copyCode} class="copy-btn">
 					{#if copied}
-						<svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-							<path d="M1.5 6l3 3 6-6" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+						<svg width="13" height="13" viewBox="0 0 12 12" fill="none">
+							<path d="M1.5 6l3 3 6-6" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
-						<span style="color:#22c55e">Copied</span>
+						<span class="copy-ok">Copied</span>
 					{:else}
-						<svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+						<svg width="13" height="13" viewBox="0 0 12 12" fill="none">
 							<rect x="1" y="3.5" width="7.5" height="7.5" rx="1.2" stroke="currentColor" stroke-width="1.2" />
 							<path d="M3.5 1h6.5a1 1 0 011 1v6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
 						</svg>
@@ -126,13 +126,13 @@ const data = await res.json();`;
 		</div>
 
 		<!-- Response panel -->
-		<div class="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-			<div class="flex items-center gap-3 px-4 py-2 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
-				<span class="inline-flex items-center gap-1.5 text-xs font-semibold text-green-500">
-					<span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span>
+		<div class="demo-panel">
+			<div class="panel-bar">
+				<span class="status-badge">
+					<span class="status-dot"></span>
 					200 OK
 				</span>
-				<span class="text-xs text-gray-400">application/json</span>
+				<span class="content-type">application/json</span>
 			</div>
 			<pre class="code-pre"><code>{@html highlightedJson}</code></pre>
 		</div>
@@ -151,79 +151,129 @@ const data = await res.json();`;
 </div>
 
 <style>
-	.code-pre {
-		font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-		font-size: 0.75rem;
-		line-height: 1.7;
-		padding: 20px;
-		margin: 0;
-		overflow-x: auto;
-		white-space: pre;
-		background: #111827;
-		color: #abb2bf;
-		scrollbar-width: thin;
-		scrollbar-color: #374151 transparent;
+	.demo-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
 	}
 
-	.code-pre::-webkit-scrollbar { height: 4px; }
-	.code-pre::-webkit-scrollbar-track { background: transparent; }
-	.code-pre::-webkit-scrollbar-thumb {
-		background: #374151;
-		border-radius: 2px;
+	@media (max-width: 768px) {
+		.demo-grid { grid-template-columns: 1fr; }
 	}
 
-	:global(.dark) .code-pre {
-		background: #030712;
-		scrollbar-color: #1f2937 transparent;
+	.demo-panel {
+		border-radius: 10px;
+		overflow: hidden;
+		border: 1px solid #30363d;
+		background: #0d1117;
+		display: flex;
+		flex-direction: column;
 	}
 
-	:global(.dark) .code-pre::-webkit-scrollbar-thumb { background: #1f2937; }
+	.panel-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 16px;
+		height: 40px;
+		background: #161b22;
+		border-bottom: 1px solid #30363d;
+		flex-shrink: 0;
+	}
 
-	.tab-btn {
-		padding: 0.2rem 0.75rem;
-		border-radius: 0.25rem;
-		font-size: 0.75rem;
+	.tabs {
+		display: flex;
+		gap: 2px;
+	}
+
+	.tab {
+		padding: 4px 12px;
+		border-radius: 6px;
+		font-size: 12px;
 		font-weight: 600;
 		cursor: pointer;
 		border: none;
 		background: transparent;
-		color: #9ca3af;
+		color: #6e7681;
 		transition: background 0.15s, color 0.15s;
 	}
 
-	.tab-btn.active {
-		background: white;
-		color: #111827;
-	}
+	.tab:hover { color: #c9d1d9; }
 
-	:global(.dark) .tab-btn.active {
-		background: #374151;
-		color: white;
+	.tab-active {
+		background: #21262d;
+		color: #e6edf3;
 	}
 
 	.copy-btn {
 		display: flex;
 		align-items: center;
-		gap: 0.375rem;
-		font-size: 0.75rem;
-		color: #9ca3af;
+		gap: 5px;
+		font-size: 12px;
+		color: #6e7681;
 		background: transparent;
 		border: none;
 		cursor: pointer;
 		transition: color 0.15s;
+		padding: 0;
 	}
 
-	.copy-btn:hover { color: #6b7280; }
-	:global(.dark) .copy-btn:hover { color: #d1d5db; }
+	.copy-btn:hover { color: #c9d1d9; }
+
+	.copy-ok { color: #4ade80; }
+
+	.status-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 12px;
+		font-weight: 600;
+		color: #4ade80;
+	}
+
+	.status-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: #4ade80;
+		display: inline-block;
+	}
+
+	.content-type {
+		font-size: 12px;
+		color: #6e7681;
+	}
+
+	.code-pre {
+		font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+		font-size: 0.75rem;
+		line-height: 1.75;
+		padding: 18px 20px;
+		margin: 0;
+		overflow-x: auto;
+		white-space: pre;
+		background: #0d1117;
+		color: #c9d1d9;
+		flex: 1;
+		scrollbar-width: thin;
+		scrollbar-color: #30363d transparent;
+	}
+
+	.code-pre::-webkit-scrollbar { height: 4px; }
+	.code-pre::-webkit-scrollbar-track { background: transparent; }
+	.code-pre::-webkit-scrollbar-thumb {
+		background: #30363d;
+		border-radius: 2px;
+	}
 
 	/* One Dark–inspired syntax colors */
-	:global(.hl-key)    { color: #e06c75; } /* JSON keys */
-	:global(.hl-str)    { color: #98c379; } /* strings */
-	:global(.hl-num)    { color: #d19a66; } /* numbers */
-	:global(.hl-bool)   { color: #56b6c2; } /* booleans */
-	:global(.hl-null)   { color: #56b6c2; } /* null */
-	:global(.hl-kw)     { color: #c678dd; } /* keywords */
-	:global(.hl-fn)     { color: #61afef; } /* function names */
-	:global(.hl-flag)   { color: #56b6c2; } /* CLI flags */
-	:global(.hl-method) { color: #e5c07b; } /* HTTP method */
+	:global(.hl-key)    { color: #79c0ff; } /* JSON keys — blue */
+	:global(.hl-str)    { color: #a5d6ff; } /* strings — light blue */
+	:global(.hl-num)    { color: #d19a66; } /* numbers — orange */
+	:global(.hl-bool)   { color: #56b6c2; } /* booleans — teal */
+	:global(.hl-null)   { color: #56b6c2; } /* null — teal */
+	:global(.hl-kw)     { color: #ff7b72; } /* keywords — red */
+	:global(.hl-fn)     { color: #d2a8ff; } /* function names — purple */
+	:global(.hl-flag)   { color: #56b6c2; } /* CLI flags — teal */
+	:global(.hl-method) { color: #7ee787; } /* HTTP method — green */
 </style>
