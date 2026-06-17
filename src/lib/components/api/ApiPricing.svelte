@@ -1,61 +1,86 @@
 <script lang="ts">
+	let billing: 'monthly' | 'yearly' = 'monthly';
+
 	const plans = [
 		{
 			label: 'START FREE',
+			labelAccent: true,
 			name: 'Free – PAYG',
-			tagline: 'Only pay when you act',
-			price: '$0',
-			period: 'no monthly fee',
+			tagline: 'Only pay when you act.',
+			description:
+				"Full dashboard access for free. You're only charged when you make API calls, download data, or execute trades.",
+			monthlyPrice: '$0',
+			yearlyPrice: '$0',
+			monthlyPeriod: 'no monthly fee',
+			yearlyPeriod: 'no monthly fee',
 			cta: 'Get Started Free',
 			ctaHref: 'https://account.monierate.com/auth/signup',
 			highlighted: false,
 			note: 'Deduct from wallet',
-			features: [
+			platformAccess: [
 				{ label: 'Market Insight', value: 'View only', accent: false },
 				{ label: 'Analytics Dashboard', value: 'View only', accent: false },
-				{ label: 'Historical data exports', value: '$1 / yr', accent: false },
+				{ label: 'Historical data download / exports', value: '$1/yr', accent: false },
 				{ label: 'Offramp payments', value: '$0.08 fee', accent: false },
-				{ label: 'Currency rates API', value: '$0.01 / req', accent: false },
-				{ label: 'API requests / month', value: 'Unlimited', accent: true }
-			]
+				{ label: 'Currency rates API', value: '$0.01/request', accent: false }
+			],
+			apiLimits: {
+				lines: ['Unlimited requests / month / min'],
+				note: 'No limits applies to currency rates and FX data requests only on the pay-as-you-go plan.'
+			}
 		},
 		{
 			label: 'PROFESSIONAL',
+			labelAccent: false,
 			name: 'Pro',
 			tagline: 'Unlimited access. Predictable cost.',
-			price: '$47',
-			period: '/ month',
+			description: 'Unlimited API access and data exports. 0% discount on offramp fees vs PAYG.',
+			monthlyPrice: '$47',
+			yearlyPrice: '$39',
+			monthlyPeriod: '/ month',
+			yearlyPeriod: '/ month, billed yearly',
 			cta: 'Start Pro',
 			ctaHref: 'https://account.monierate.com/auth/signup',
 			highlighted: true,
 			note: 'Deduct from wallet',
-			features: [
+			platformAccess: [
 				{ label: 'Market Insight', value: 'Full Access', accent: true },
 				{ label: 'Analytics Dashboard', value: 'Full Access', accent: true },
-				{ label: 'Historical data exports', value: 'Unlimited', accent: true },
+				{ label: 'Historical data download / exports', value: 'Unlimited', accent: true },
 				{ label: 'Offramp payments', value: '$0.05 fee', accent: false },
-				{ label: 'Currency rates API', value: '10,000 req / mo', accent: false },
-				{ label: 'Rate limit', value: '10 req / min', accent: false }
-			]
+				{ label: 'Currency rates API', value: '10,000 req/mo', accent: false }
+			],
+			apiLimits: {
+				lines: ['10,000 requests / month', '10 requests / minute'],
+				note: 'Limits apply to currency rates and FX data requests only.'
+			}
 		},
 		{
 			label: 'ENTERPRISE',
+			labelAccent: false,
 			name: 'Max',
 			tagline: 'Pro, but 20× the scale.',
-			price: '$147',
-			period: '/ month',
+			description:
+				'Same unlimited platform access as Pro with 50x more API requests and 5x higher throughput for production workloads.',
+			monthlyPrice: '$147',
+			yearlyPrice: '$122',
+			monthlyPeriod: '/ month',
+			yearlyPeriod: '/ month, billed yearly',
 			cta: 'Start Max',
 			ctaHref: 'https://account.monierate.com/auth/signup',
 			highlighted: false,
 			note: null,
-			features: [
+			platformAccess: [
 				{ label: 'Market Insight', value: 'Full Access', accent: true },
 				{ label: 'Analytics Dashboard', value: 'Full Access', accent: true },
-				{ label: 'Historical data exports', value: 'Unlimited', accent: true },
+				{ label: 'Historical data download / exports', value: 'Unlimited', accent: true },
 				{ label: 'Offramp payments', value: '$0.01 fee', accent: false },
-				{ label: 'Currency rates API', value: '100,000 req / mo', accent: false },
-				{ label: 'Rate limit', value: '50 req / min', accent: false }
-			]
+				{ label: 'Currency rates API', value: '100,000 req/mo', accent: false }
+			],
+			apiLimits: {
+				lines: ['100,000 requests / month', '50 requests / minute'],
+				note: 'Limits apply to currency rates and FX data requests only.'
+			}
 		}
 	];
 </script>
@@ -70,51 +95,87 @@
 			</p>
 		</div>
 
+		<!-- Billing toggle -->
+		<div class="flex items-center justify-center mb-8">
+			<div
+				class="relative flex items-center gap-1 p-1 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+			>
+				<button
+					on:click={() => (billing = 'monthly')}
+					class="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
+					class:bg-white={billing === 'monthly'}
+					class:dark:bg-gray-700={billing === 'monthly'}
+					class:shadow-sm={billing === 'monthly'}
+					class:text-gray-900={billing === 'monthly'}
+					class:dark:text-white={billing === 'monthly'}
+					class:text-gray-500={billing !== 'monthly'}
+					class:dark:text-gray-400={billing !== 'monthly'}
+				>
+					Monthly
+				</button>
+				<button
+					on:click={() => (billing = 'yearly')}
+					class="px-4 py-1.5 rounded-full text-sm font-medium transition-all flex items-center gap-2"
+					class:bg-white={billing === 'yearly'}
+					class:dark:bg-gray-700={billing === 'yearly'}
+					class:shadow-sm={billing === 'yearly'}
+					class:text-gray-900={billing === 'yearly'}
+					class:dark:text-white={billing === 'yearly'}
+					class:text-gray-500={billing !== 'yearly'}
+					class:dark:text-gray-400={billing !== 'yearly'}
+				>
+					Yearly
+					<span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500 text-white"
+						>Save 17%</span
+					>
+				</button>
+			</div>
+		</div>
+
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-4xl mx-auto">
 			{#each plans as plan}
 				<div
 					class="rounded-xl border flex flex-col overflow-hidden bg-white dark:bg-gray-800"
-					style="border-color: {plan.highlighted ? '#3662ff' : ''}; border-width: {plan.highlighted ? '1.5px' : '1px'};"
+					style="border-color: {plan.highlighted
+						? '#3662ff'
+						: ''}; border-width: {plan.highlighted ? '1.5px' : '1px'};"
 					class:border-gray-200={!plan.highlighted}
 					class:dark:border-gray-700={!plan.highlighted}
 				>
-					{#if plan.highlighted}
-						<div class="text-center text-[10px] font-bold py-1.5 tracking-widest text-white bg-blue-600">
-							POPULAR
-						</div>
-					{/if}
-
 					<div class="p-5 flex flex-col flex-1">
+						<!-- Label badge -->
+						<div class="flex items-center gap-1.5 mb-3">
+							<span
+								class="text-[10px] font-bold tracking-widest px-2 py-0.5 rounded-full"
+								class:bg-emerald-500={plan.labelAccent}
+								class:text-white={plan.labelAccent}
+								class:bg-gray-100={!plan.labelAccent}
+								class:dark:bg-gray-700={!plan.labelAccent}
+								class:text-gray-500={!plan.labelAccent}
+								class:dark:text-gray-400={!plan.labelAccent}
+							>{plan.label}</span>
+						</div>
+
+						<!-- Plan name & tagline -->
+						<div class="text-[17px] font-bold text-gray-900 dark:text-gray-100">{plan.name}</div>
+						<div class="text-[12px] font-medium text-blue-500 mb-2">{plan.tagline}</div>
+
+						<!-- Description -->
+						<p class="text-[11px] text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
+							{plan.description}
+						</p>
+
+						<!-- Price -->
 						<div class="mb-4">
-							<div class="text-[11px] font-semibold tracking-widest text-gray-400 dark:text-gray-500 mb-1">{plan.label}</div>
-							<div class="text-[17px] font-bold text-gray-900 dark:text-gray-100 mb-0.5">{plan.name}</div>
-							<div class="text-[12px] font-medium text-blue-500">{plan.tagline}</div>
+							<span class="price-num text-[30px] font-bold text-gray-900 dark:text-gray-100">
+								{billing === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice}
+							</span>
+							<span class="text-[12px] text-gray-400 ml-1">
+								{billing === 'yearly' ? plan.yearlyPeriod : plan.monthlyPeriod}
+							</span>
 						</div>
 
-						<div class="mb-5">
-							<span class="price-num text-[30px] font-bold text-gray-900 dark:text-gray-100">{plan.price}</span>
-							<span class="text-[12px] text-gray-400 ml-1">{plan.period}</span>
-						</div>
-
-						<ul class="flex flex-col gap-2.5 mb-5 flex-1">
-							{#each plan.features as f}
-								<li class="flex items-center justify-between gap-2">
-									<span class="text-[12px] text-gray-500 dark:text-gray-400">{f.label}</span>
-									<span
-										class="text-[11px] font-medium px-2 py-0.5 rounded-full shrink-0"
-										class:text-blue-600={f.accent}
-										class:dark:text-blue-400={f.accent}
-										class:bg-blue-500={f.accent}
-										class:bg-opacity-10={f.accent}
-										class:text-gray-500={!f.accent}
-										class:dark:text-gray-400={!f.accent}
-										class:bg-gray-100={!f.accent}
-										class:dark:bg-gray-700={!f.accent}
-									>{f.value}</span>
-								</li>
-							{/each}
-						</ul>
-
+						<!-- CTA -->
 						<a
 							href={plan.ctaHref}
 							target="_blank"
@@ -133,10 +194,55 @@
 						>
 							{plan.cta}
 						</a>
+						<div class="text-[11px] text-center text-gray-400 dark:text-gray-500 mt-1 mb-4 min-h-[1rem]">
+							{#if plan.note}{plan.note}{/if}
+						</div>
 
-						{#if plan.note}
-							<div class="text-[11px] text-center text-gray-400 dark:text-gray-500 mt-2">{plan.note}</div>
-						{/if}
+						<!-- Divider -->
+						<div class="border-t border-gray-100 dark:border-gray-700 mb-3"></div>
+
+						<!-- Platform Access -->
+						<div
+							class="text-[10px] font-bold tracking-widest text-gray-400 dark:text-gray-500 mb-2 uppercase"
+						>
+							Platform Access
+						</div>
+						<ul class="flex flex-col gap-2 mb-4">
+							{#each plan.platformAccess as f}
+								<li class="flex items-center justify-between gap-2">
+									<span class="text-[12px] text-gray-500 dark:text-gray-400">{f.label}</span>
+									<span
+										class="text-[11px] font-medium px-2 py-0.5 rounded-full shrink-0"
+										class:text-blue-600={f.accent}
+										class:dark:text-blue-400={f.accent}
+										class:bg-blue-500={f.accent}
+										class:bg-opacity-10={f.accent}
+										class:text-gray-500={!f.accent}
+										class:dark:text-gray-400={!f.accent}
+										class:bg-gray-100={!f.accent}
+										class:dark:bg-gray-700={!f.accent}
+									>{f.value}</span>
+								</li>
+							{/each}
+						</ul>
+
+						<!-- Divider -->
+						<div class="border-t border-gray-100 dark:border-gray-700 mb-3"></div>
+
+						<!-- Currency Rates API Limits -->
+						<div
+							class="text-[10px] font-bold tracking-widest text-gray-400 dark:text-gray-500 mb-2 uppercase"
+						>
+							Currency Rates API Limits
+						</div>
+						<div class="flex flex-col gap-1 mb-2">
+							{#each plan.apiLimits.lines as line}
+								<div class="text-[12px] font-medium text-gray-700 dark:text-gray-300">{line}</div>
+							{/each}
+						</div>
+						<p class="text-[11px] text-gray-400 dark:text-gray-500 leading-relaxed">
+							{plan.apiLimits.note}
+						</p>
 					</div>
 				</div>
 			{/each}
@@ -144,7 +250,12 @@
 
 		<p class="text-center text-[12px] text-gray-400 dark:text-gray-500 mt-6">
 			Need higher volume, WebSockets, or custom data feeds?
-			<a href="https://cal.com/monierate/activation-call" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">Talk to us</a>.
+			<a
+				href="https://cal.com/monierate/activation-call"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-blue-500 hover:underline">Talk to us</a
+			>.
 			Full comparison at <a href="/pricing" class="text-blue-500 hover:underline">/pricing</a>.
 		</p>
 	</div>
