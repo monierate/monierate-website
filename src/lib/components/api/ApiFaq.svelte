@@ -33,7 +33,7 @@
 	}
 </script>
 
-<div class="border-t border-gray-100 dark:border-gray-700">
+<div>
 	<div class="container py-14">
 		<h2 class="text-2xl font-bold text-center mb-8">Frequently asked questions</h2>
 

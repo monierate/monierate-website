@@ -85,7 +85,7 @@
 	];
 </script>
 
-<div class="border-t border-gray-100 dark:border-gray-700" id="pricing">
+<div id="pricing">
 	<div class="container py-14">
 		<div class="text-center mb-8">
 			<h2 class="text-2xl font-bold mb-2">Simple, transparent pricing</h2>
