@@ -168,6 +168,7 @@ const data = await res.json();`;
 		background: #0d1117;
 		display: flex;
 		flex-direction: column;
+		height: 270px;
 	}
 
 	.panel-bar {
@@ -255,11 +256,12 @@ const data = await res.json();`;
 		background: #0d1117;
 		color: #c9d1d9;
 		flex: 1;
+		overflow-y: auto;
 		scrollbar-width: thin;
 		scrollbar-color: #30363d transparent;
 	}
 
-	.code-pre::-webkit-scrollbar { height: 4px; }
+	.code-pre::-webkit-scrollbar { height: 4px; width: 4px; }
 	.code-pre::-webkit-scrollbar-track { background: transparent; }
 	.code-pre::-webkit-scrollbar-thumb {
 		background: #30363d;
