@@ -1,4 +1,4 @@
-<div>
+<div class="bg-gray-900/70">
 	<div class="container py-14 text-center">
 		<h2 class="text-2xl font-bold mb-3">Ready to integrate?</h2>
 		<p class="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-7 leading-relaxed">
