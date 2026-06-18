@@ -15,7 +15,7 @@
 				Create Free Account
 			</a>
 			<a
-				href="https://monierate.apidog.io"
+				href="https://docs.monierate.com"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="button bg-transparent border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold px-6 py-2.5 text-sm"

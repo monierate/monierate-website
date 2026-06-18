@@ -140,7 +140,7 @@ const data = await res.json();`;
 
 	<div class="text-center mt-5">
 		<a
-			href="https://monierate.apidog.io"
+			href="https://docs.monierate.com"
 			target="_blank"
 			rel="noopener noreferrer"
 			class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
