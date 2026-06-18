@@ -41,7 +41,7 @@
 			yearlyPeriod: '/ month, billed yearly',
 			cta: 'Start Pro',
 			ctaHref: 'https://account.monierate.com/auth/signup',
-			highlighted: true,
+			highlighted: false,
 			note: 'Deduct from wallet',
 			platformAccess: [
 				{ label: 'Market Insight', value: 'Full Access', accent: true },
