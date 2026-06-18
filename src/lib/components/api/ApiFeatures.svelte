@@ -44,7 +44,7 @@
 
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-w-5xl mx-auto">
 			{#each features as f}
-				<div class="rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-5">
+				<div class="rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 p-5">
 					<div class="w-8 h-8 rounded-lg flex items-center justify-center mb-3 bg-blue-500/10">
 						<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3662ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d={f.icon} />
