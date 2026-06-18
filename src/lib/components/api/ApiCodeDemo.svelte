@@ -167,14 +167,6 @@ const data = await res.json();`;
 		position: relative;
 	}
 
-	.demo-section::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(88, 130, 255, 0.05) 0%, transparent 70%);
-		pointer-events: none;
-	}
-
 	.section-desc {
 		font-size: 0.875rem;
 		color: #6b7280;
@@ -215,8 +207,8 @@ const data = await res.json();`;
 	.demo-panel {
 		border-radius: 12px;
 		overflow: hidden;
-		border: 1px solid #30363d;
-		background: #0d1117;
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		background: #111827;
 		display: flex;
 		flex-direction: column;
 		height: 270px;
@@ -224,21 +216,21 @@ const data = await res.json();`;
 	}
 
 	.panel-request {
-		box-shadow: 0 0 0 1px #30363d, 0 8px 32px rgba(121, 192, 255, 0.07), 0 2px 8px rgba(0,0,0,0.4);
+		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 	}
 
 	.panel-request:hover {
-		border-color: #3d4a5c;
-		box-shadow: 0 0 0 1px #3d4a5c, 0 8px 40px rgba(121, 192, 255, 0.14), 0 2px 8px rgba(0,0,0,0.4);
+		border-color: rgba(96, 165, 250, 0.2);
+		box-shadow: 0 4px 32px rgba(96, 165, 250, 0.08), 0 2px 8px rgba(0,0,0,0.3);
 	}
 
 	.panel-response {
-		box-shadow: 0 0 0 1px #30363d, 0 8px 32px rgba(74, 222, 128, 0.07), 0 2px 8px rgba(0,0,0,0.4);
+		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 	}
 
 	.panel-response:hover {
-		border-color: #2d4a3a;
-		box-shadow: 0 0 0 1px #2d4a3a, 0 8px 40px rgba(74, 222, 128, 0.14), 0 2px 8px rgba(0,0,0,0.4);
+		border-color: rgba(74, 222, 128, 0.2);
+		box-shadow: 0 4px 32px rgba(74, 222, 128, 0.08), 0 2px 8px rgba(0,0,0,0.3);
 	}
 
 	.panel-bar {
@@ -247,8 +239,8 @@ const data = await res.json();`;
 		justify-content: space-between;
 		padding: 0 14px;
 		height: 40px;
-		background: #161b22;
-		border-bottom: 1px solid #30363d;
+		background: #0f172a;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 		flex-shrink: 0;
 	}
 
@@ -344,8 +336,8 @@ const data = await res.json();`;
 		margin: 0;
 		overflow-x: auto;
 		white-space: pre;
-		background: #0d1117;
-		color: #c9d1d9;
+		background: #111827;
+		color: #d1d5db;
 		flex: 1;
 		overflow-y: auto;
 		scrollbar-width: thin;
