@@ -208,10 +208,10 @@
 						</div>
 						<ul class="flex flex-col gap-2 mb-4">
 							{#each plan.platformAccess as f}
-								<li class="flex items-center justify-between gap-2">
-									<span class="text-[12px] text-gray-500 dark:text-gray-400">{f.label}</span>
+								<li class="text-[12px] text-gray-500 dark:text-gray-400 leading-snug">
+									{f.label}
 									<span
-										class="text-[11px] font-medium px-2 py-0.5 rounded-full shrink-0 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+										class="inline-block align-middle ml-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
 									>{f.value}</span>
 								</li>
 							{/each}
