@@ -83,74 +83,125 @@ const data = await res.json();`;
 	}
 </script>
 
-<div class="container mb-16">
-	<div class="text-center mb-8">
-		<h2 class="text-2xl font-bold mb-2">See it in action</h2>
-		<p class="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-			One request returns live rates across every provider we track.
-		</p>
-	</div>
+<div class="demo-section">
+	<div class="container mb-16">
+		<div class="text-center mb-8">
+			<h2 class="text-2xl font-bold mb-2">See it in action</h2>
+			<p class="section-desc">
+				One request returns <span class="live-tag">live</span> rates across every provider we track.
+			</p>
+		</div>
 
-	<div class="demo-grid max-w-5xl mx-auto">
-		<!-- Request panel -->
-		<div class="demo-panel">
-			<div class="panel-bar">
-				<div class="tabs">
-					<button
-						on:click={() => (activeTab = 'curl')}
-						class="tab"
-						class:tab-active={activeTab === 'curl'}
-					>cURL</button>
-					<button
-						on:click={() => (activeTab = 'js')}
-						class="tab"
-						class:tab-active={activeTab === 'js'}
-					>JavaScript</button>
+		<div class="demo-grid max-w-5xl mx-auto">
+			<!-- Request panel -->
+			<div class="demo-panel panel-request">
+				<div class="panel-bar">
+					<div class="window-chrome">
+						<span class="chrome-dot" style="background:#ff5f57"></span>
+						<span class="chrome-dot" style="background:#febc2e"></span>
+						<span class="chrome-dot" style="background:#28c840"></span>
+					</div>
+					<div class="tabs">
+						<button
+							on:click={() => (activeTab = 'curl')}
+							class="tab"
+							class:tab-active={activeTab === 'curl'}
+						>cURL</button>
+						<button
+							on:click={() => (activeTab = 'js')}
+							class="tab"
+							class:tab-active={activeTab === 'js'}
+						>JavaScript</button>
+					</div>
+					<button on:click={copyCode} class="copy-btn">
+						{#if copied}
+							<svg width="13" height="13" viewBox="0 0 12 12" fill="none">
+								<path d="M1.5 6l3 3 6-6" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+							</svg>
+							<span class="copy-ok">Copied</span>
+						{:else}
+							<svg width="13" height="13" viewBox="0 0 12 12" fill="none">
+								<rect x="1" y="3.5" width="7.5" height="7.5" rx="1.2" stroke="currentColor" stroke-width="1.2" />
+								<path d="M3.5 1h6.5a1 1 0 011 1v6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+							</svg>
+							Copy
+						{/if}
+					</button>
 				</div>
-				<button on:click={copyCode} class="copy-btn">
-					{#if copied}
-						<svg width="13" height="13" viewBox="0 0 12 12" fill="none">
-							<path d="M1.5 6l3 3 6-6" stroke="#4ade80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						<span class="copy-ok">Copied</span>
-					{:else}
-						<svg width="13" height="13" viewBox="0 0 12 12" fill="none">
-							<rect x="1" y="3.5" width="7.5" height="7.5" rx="1.2" stroke="currentColor" stroke-width="1.2" />
-							<path d="M3.5 1h6.5a1 1 0 011 1v6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-						</svg>
-						Copy
-					{/if}
-				</button>
+				<pre class="code-pre"><code>{@html highlightedCode}</code></pre>
 			</div>
-			<pre class="code-pre"><code>{@html highlightedCode}</code></pre>
+
+			<!-- Response panel -->
+			<div class="demo-panel panel-response">
+				<div class="panel-bar">
+					<div class="window-chrome">
+						<span class="chrome-dot" style="background:#ff5f57"></span>
+						<span class="chrome-dot" style="background:#febc2e"></span>
+						<span class="chrome-dot" style="background:#28c840"></span>
+					</div>
+					<span class="status-badge">
+						<span class="status-dot"></span>
+						200 OK
+					</span>
+					<span class="content-type">application/json</span>
+				</div>
+				<pre class="code-pre"><code>{@html highlightedJson}</code></pre>
+			</div>
 		</div>
 
-		<!-- Response panel -->
-		<div class="demo-panel">
-			<div class="panel-bar">
-				<span class="status-badge">
-					<span class="status-dot"></span>
-					200 OK
-				</span>
-				<span class="content-type">application/json</span>
-			</div>
-			<pre class="code-pre"><code>{@html highlightedJson}</code></pre>
+		<div class="text-center mt-5">
+			<a
+				href="https://docs.monierate.com"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="docs-link"
+			>
+				View full API documentation →
+			</a>
 		</div>
-	</div>
-
-	<div class="text-center mt-5">
-		<a
-			href="https://docs.monierate.com"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
-		>
-			View full API documentation →
-		</a>
 	</div>
 </div>
 
 <style>
+	.demo-section {
+		position: relative;
+	}
+
+	.demo-section::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(88, 130, 255, 0.05) 0%, transparent 70%);
+		pointer-events: none;
+	}
+
+	.section-desc {
+		font-size: 0.875rem;
+		color: #6b7280;
+	}
+
+	:global(.dark) .section-desc {
+		color: #9ca3af;
+	}
+
+	.live-tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		color: #4ade80;
+		font-weight: 600;
+	}
+
+	.live-tag::before {
+		content: '';
+		display: inline-block;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: #4ade80;
+		animation: pulse-dot 2s ease-in-out infinite;
+	}
+
 	.demo-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -162,24 +213,57 @@ const data = await res.json();`;
 	}
 
 	.demo-panel {
-		border-radius: 10px;
+		border-radius: 12px;
 		overflow: hidden;
 		border: 1px solid #30363d;
 		background: #0d1117;
 		display: flex;
 		flex-direction: column;
 		height: 270px;
+		transition: box-shadow 0.2s ease, border-color 0.2s ease;
+	}
+
+	.panel-request {
+		box-shadow: 0 0 0 1px #30363d, 0 8px 32px rgba(121, 192, 255, 0.07), 0 2px 8px rgba(0,0,0,0.4);
+	}
+
+	.panel-request:hover {
+		border-color: #3d4a5c;
+		box-shadow: 0 0 0 1px #3d4a5c, 0 8px 40px rgba(121, 192, 255, 0.14), 0 2px 8px rgba(0,0,0,0.4);
+	}
+
+	.panel-response {
+		box-shadow: 0 0 0 1px #30363d, 0 8px 32px rgba(74, 222, 128, 0.07), 0 2px 8px rgba(0,0,0,0.4);
+	}
+
+	.panel-response:hover {
+		border-color: #2d4a3a;
+		box-shadow: 0 0 0 1px #2d4a3a, 0 8px 40px rgba(74, 222, 128, 0.14), 0 2px 8px rgba(0,0,0,0.4);
 	}
 
 	.panel-bar {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 0 16px;
+		padding: 0 14px;
 		height: 40px;
 		background: #161b22;
 		border-bottom: 1px solid #30363d;
 		flex-shrink: 0;
+	}
+
+	.window-chrome {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		flex-shrink: 0;
+	}
+
+	.chrome-dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		opacity: 0.85;
 	}
 
 	.tabs {
@@ -204,6 +288,7 @@ const data = await res.json();`;
 	.tab-active {
 		background: #21262d;
 		color: #e6edf3;
+		box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 	}
 
 	.copy-btn {
@@ -233,11 +318,17 @@ const data = await res.json();`;
 	}
 
 	.status-dot {
-		width: 6px;
-		height: 6px;
+		width: 7px;
+		height: 7px;
 		border-radius: 50%;
 		background: #4ade80;
-		display: inline-block;
+		box-shadow: 0 0 6px #4ade80;
+		animation: pulse-dot 2s ease-in-out infinite;
+	}
+
+	@keyframes pulse-dot {
+		0%, 100% { opacity: 1; transform: scale(1); }
+		50%       { opacity: 0.55; transform: scale(0.85); }
 	}
 
 	.content-type {
@@ -268,14 +359,27 @@ const data = await res.json();`;
 		border-radius: 2px;
 	}
 
+	.docs-link {
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: #60a5fa;
+		text-decoration: none;
+		transition: color 0.15s, text-decoration 0.15s;
+	}
+
+	.docs-link:hover {
+		color: #93c5fd;
+		text-decoration: underline;
+	}
+
 	/* One Dark–inspired syntax colors */
-	:global(.hl-key)    { color: #79c0ff; } /* JSON keys — blue */
-	:global(.hl-str)    { color: #a5d6ff; } /* strings — light blue */
-	:global(.hl-num)    { color: #d19a66; } /* numbers — orange */
-	:global(.hl-bool)   { color: #56b6c2; } /* booleans — teal */
-	:global(.hl-null)   { color: #56b6c2; } /* null — teal */
-	:global(.hl-kw)     { color: #ff7b72; } /* keywords — red */
-	:global(.hl-fn)     { color: #d2a8ff; } /* function names — purple */
-	:global(.hl-flag)   { color: #56b6c2; } /* CLI flags — teal */
-	:global(.hl-method) { color: #7ee787; } /* HTTP method — green */
+	:global(.hl-key)    { color: #79c0ff; }
+	:global(.hl-str)    { color: #a5d6ff; }
+	:global(.hl-num)    { color: #d19a66; }
+	:global(.hl-bool)   { color: #56b6c2; }
+	:global(.hl-null)   { color: #56b6c2; }
+	:global(.hl-kw)     { color: #ff7b72; }
+	:global(.hl-fn)     { color: #d2a8ff; }
+	:global(.hl-flag)   { color: #56b6c2; }
+	:global(.hl-method) { color: #7ee787; }
 </style>
