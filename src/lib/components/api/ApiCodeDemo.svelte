@@ -91,7 +91,7 @@ const data = await res.json();`;
 		</p>
 	</div>
 
-	<div class="demo-grid max-w-4xl mx-auto">
+	<div class="demo-grid max-w-5xl mx-auto">
 		<!-- Request panel -->
 		<div class="demo-panel">
 			<div class="panel-bar">

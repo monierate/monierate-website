@@ -135,7 +135,7 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-4xl mx-auto">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
 			{#each plans as plan}
 				<div
 					class="rounded-xl border flex flex-col overflow-hidden bg-gray-100 dark:bg-gray-900/70"

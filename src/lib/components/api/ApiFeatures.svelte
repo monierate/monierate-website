@@ -42,7 +42,7 @@
 			</p>
 		</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-w-4xl mx-auto">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-w-5xl mx-auto">
 			{#each features as f}
 				<div class="rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-5">
 					<div class="w-8 h-8 rounded-lg flex items-center justify-center mb-3 bg-blue-500/10">
