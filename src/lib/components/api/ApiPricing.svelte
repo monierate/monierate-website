@@ -117,12 +117,18 @@
 				item.value === null ? { ...item, value: currencyApiValue } : item
 			);
 
+			const yearlySavings =
+				apiPlan.billing_model === 'flat' && apiPlan.prices_by_cycle?.yearly?.usd
+					? apiPlan.price_usd * 12 - apiPlan.prices_by_cycle.yearly.usd
+					: 0;
+
 			return {
 				...config,
 				code: apiPlan.code,
 				name: apiPlan.name,
 				monthlyPrice: getMonthlyPrice(apiPlan),
 				yearlyPrice: getYearlyPrice(apiPlan),
+				yearlySavings,
 				platformAccess,
 				apiLimitLines: getApiLimitLines(apiPlan)
 			};
@@ -217,6 +223,13 @@
 							<span class="text-[12px] text-gray-400 ml-1">
 								{billing === 'yearly' ? plan.yearlyPeriod : plan.monthlyPeriod}
 							</span>
+							{#if billing === 'yearly' && plan.yearlySavings > 0}
+								<div class="mt-1.5">
+									<span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background-color: #10b981; color: white;">
+										Save ${plan.yearlySavings} yearly
+									</span>
+								</div>
+							{/if}
 						</div>
 
 						<!-- CTA -->
