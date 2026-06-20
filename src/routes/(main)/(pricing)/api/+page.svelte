@@ -28,6 +28,6 @@
 <ApiHero />
 <ApiCodeDemo />
 <ApiFeatures />
-<ApiPricing />
+<ApiPricing pageData={data} />
 <ApiFaq />
 <ApiCta />

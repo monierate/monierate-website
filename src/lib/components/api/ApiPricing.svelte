@@ -1,22 +1,22 @@
 <script lang="ts">
+	import { formatNumber } from '$lib/functions';
+
+	export let pageData: any = {};
+
 	let billing: 'monthly' | 'yearly' = 'monthly';
 
-	const plans = [
-		{
+	const designConfig: Record<string, any> = {
+		free: {
 			label: 'START FREE',
-			labelAccent: false,
-			name: 'Free – PAYG',
 			tagline: 'Only pay when you act.',
 			description:
 				"Full dashboard access for free. You're only charged when you make API calls, download data, or execute trades.",
-			monthlyPrice: '$0',
-			yearlyPrice: '$0',
-			monthlyPeriod: 'no monthly fee',
-			yearlyPeriod: 'no monthly fee',
 			cta: 'Get Started Free',
 			ctaHref: 'https://account.monierate.com/auth/signup',
 			highlighted: false,
 			note: 'Deduct from wallet',
+			monthlyPeriod: 'no monthly fee',
+			yearlyPeriod: 'no monthly fee',
 			platformAccess: [
 				{ label: 'Market Insight', value: 'View only', accent: false },
 				{ label: 'Analytics Dashboard', value: 'View only', accent: false },
@@ -24,65 +24,139 @@
 				{ label: 'Offramp payments', value: '$0.08 fee', accent: false },
 				{ label: 'Currency rates API', value: '$0.01/request', accent: false }
 			],
-			apiLimits: {
-				lines: ['Unlimited requests / month / min'],
-				note: 'No limits applies to currency rates and FX data requests only on the pay-as-you-go plan.'
-			}
+			apiLimitsNote:
+				'No limits applies to currency rates and FX data requests only on the pay-as-you-go plan.'
 		},
-		{
+		pro: {
 			label: 'PROFESSIONAL',
-			labelAccent: false,
-			name: 'Pro',
 			tagline: 'Unlimited access. Predictable cost.',
 			description: 'Unlimited API access and data exports. 0% discount on offramp fees vs PAYG.',
-			monthlyPrice: '$47',
-			yearlyPrice: '$39',
-			monthlyPeriod: '/ month',
-			yearlyPeriod: '/ month, billed yearly',
 			cta: 'Start Pro',
 			ctaHref: 'https://account.monierate.com/auth/signup',
 			highlighted: false,
 			note: 'Deduct from wallet',
+			monthlyPeriod: '/ month',
+			yearlyPeriod: '/ month, billed yearly',
 			platformAccess: [
 				{ label: 'Market Insight', value: 'Full Access', accent: true },
 				{ label: 'Analytics Dashboard', value: 'Full Access', accent: true },
 				{ label: 'Historical data download / exports', value: 'Unlimited', accent: true },
 				{ label: 'Offramp payments', value: '$0.05 fee', accent: false },
-				{ label: 'Currency rates API', value: '10,000 req/mo', accent: false }
+				{ label: 'Currency rates API', value: null, accent: false }
 			],
-			apiLimits: {
-				lines: ['10,000 requests / month', '10 requests / minute'],
-				note: 'Limits apply to currency rates and FX data requests only.'
-			}
+			apiLimitsNote: 'Limits apply to currency rates and FX data requests only.'
 		},
-		{
+		max: {
 			label: 'ENTERPRISE',
-			labelAccent: false,
-			name: 'Max',
 			tagline: 'Pro, but 20× the scale.',
 			description:
 				'Same unlimited platform access as Pro with 50x more API requests and 5x higher throughput for production workloads.',
-			monthlyPrice: '$147',
-			yearlyPrice: '$122',
-			monthlyPeriod: '/ month',
-			yearlyPeriod: '/ month, billed yearly',
 			cta: 'Start Max',
 			ctaHref: 'https://account.monierate.com/auth/signup',
 			highlighted: false,
 			note: null,
+			monthlyPeriod: '/ month',
+			yearlyPeriod: '/ month, billed yearly',
 			platformAccess: [
 				{ label: 'Market Insight', value: 'Full Access', accent: true },
 				{ label: 'Analytics Dashboard', value: 'Full Access', accent: true },
 				{ label: 'Historical data download / exports', value: 'Unlimited', accent: true },
 				{ label: 'Offramp payments', value: '$0.01 fee', accent: false },
-				{ label: 'Currency rates API', value: '100,000 req/mo', accent: false }
+				{ label: 'Currency rates API', value: null, accent: false }
 			],
-			apiLimits: {
-				lines: ['100,000 requests / month', '50 requests / minute'],
-				note: 'Limits apply to currency rates and FX data requests only.'
-			}
+			apiLimitsNote: 'Limits apply to currency rates and FX data requests only.'
 		}
-	];
+	};
+
+	function getMonthlyPrice(plan: any): string {
+		if (!plan || plan.billing_model === 'usage') return '$0';
+		return `$${plan.price_usd}`;
+	}
+
+	function getYearlyPrice(plan: any): string {
+		if (!plan || plan.billing_model === 'usage') return '$0';
+		if (plan.prices_by_cycle?.yearly?.usd) {
+			return `$${Math.round(plan.prices_by_cycle.yearly.usd / 12)}`;
+		}
+		return `$${plan.price_usd}`;
+	}
+
+	function getApiLimitLines(plan: any): string[] {
+		if (!plan || plan.billing_model === 'usage') {
+			return ['Unlimited requests / month / min'];
+		}
+		return [
+			`${formatNumber(plan.requests_limit_per_month)} requests / month`,
+			`${plan.requests_limit_per_minute} requests / minute`
+		];
+	}
+
+	function getCurrencyApiValue(plan: any): string {
+		if (!plan || plan.billing_model === 'usage') return '$0.01/request';
+		return `${formatNumber(plan.requests_limit_per_month)} req/mo`;
+	}
+
+	$: apiPlans = ((pageData?.subscriptionPlans as any[]) || [])
+		.filter((p) => ['free', 'pro', 'max'].includes(p.code))
+		.sort((a, b) => a.price_usd - b.price_usd);
+
+	$: savePct = (() => {
+		const paidPlan = apiPlans.find((p) => p.billing_model === 'flat');
+		if (!paidPlan?.prices_by_cycle?.yearly?.usd) return 17;
+		const monthly = paidPlan.price_usd;
+		const yearlyMonthly = paidPlan.prices_by_cycle.yearly.usd / 12;
+		return Math.round(((monthly - yearlyMonthly) / monthly) * 100);
+	})();
+
+	$: plans = (() => {
+		if (apiPlans.length === 0) {
+			return [
+				{
+					...designConfig.free,
+					code: 'free',
+					name: 'Free – PAYG',
+					monthlyPrice: '$0',
+					yearlyPrice: '$0',
+					apiLimitLines: ['Unlimited requests / month / min']
+				},
+				{
+					...designConfig.pro,
+					code: 'pro',
+					name: 'Pro',
+					monthlyPrice: '$47',
+					yearlyPrice: '$39',
+					apiLimitLines: ['10,000 requests / month', '10 requests / minute']
+				},
+				{
+					...designConfig.max,
+					code: 'max',
+					name: 'Max',
+					monthlyPrice: '$147',
+					yearlyPrice: '$122',
+					apiLimitLines: ['100,000 requests / month', '50 requests / minute']
+				}
+			];
+		}
+
+		return apiPlans.map((apiPlan) => {
+			const config = designConfig[apiPlan.code] || {};
+			const currencyApiValue = getCurrencyApiValue(apiPlan);
+
+			const platformAccess = (config.platformAccess || []).map((item: any) =>
+				item.value === null ? { ...item, value: currencyApiValue } : item
+			);
+
+			return {
+				...config,
+				code: apiPlan.code,
+				name: apiPlan.name,
+				monthlyPrice: getMonthlyPrice(apiPlan),
+				yearlyPrice: getYearlyPrice(apiPlan),
+				platformAccess,
+				apiLimitLines: getApiLimitLines(apiPlan)
+			};
+		});
+	})();
 </script>
 
 <div id="pricing">
@@ -117,7 +191,7 @@
 					<span
 						class="absolute -top-4 left-1/2 -translate-x-1/2 text-[9px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap z-10"
 						style="background-color: #10b981; color: white;"
-					>Save 17%</span>
+					>Save {savePct}%</span>
 					<button
 						on:click={() => (billing = 'yearly')}
 						class="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
@@ -227,12 +301,12 @@
 							Currency Rates API Limits
 						</div>
 						<div class="flex flex-col gap-1 mb-2">
-							{#each plan.apiLimits.lines as line}
+							{#each plan.apiLimitLines as line}
 								<div class="text-[12px] font-medium text-gray-700 dark:text-gray-300">{line}</div>
 							{/each}
 						</div>
 						<p class="text-[11px] text-gray-400 dark:text-gray-500 leading-relaxed">
-							{plan.apiLimits.note}
+							{plan.apiLimitsNote}
 						</p>
 					</div>
 				</div>
