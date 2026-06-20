@@ -109,35 +109,6 @@
 	})();
 
 	$: plans = (() => {
-		if (apiPlans.length === 0) {
-			return [
-				{
-					...designConfig.free,
-					code: 'free',
-					name: 'Free – PAYG',
-					monthlyPrice: '$0',
-					yearlyPrice: '$0',
-					apiLimitLines: ['Unlimited requests / month / min']
-				},
-				{
-					...designConfig.pro,
-					code: 'pro',
-					name: 'Pro',
-					monthlyPrice: '$47',
-					yearlyPrice: '$39',
-					apiLimitLines: ['10,000 requests / month', '10 requests / minute']
-				},
-				{
-					...designConfig.max,
-					code: 'max',
-					name: 'Max',
-					monthlyPrice: '$147',
-					yearlyPrice: '$122',
-					apiLimitLines: ['100,000 requests / month', '50 requests / minute']
-				}
-			];
-		}
-
 		return apiPlans.map((apiPlan) => {
 			const config = designConfig[apiPlan.code] || {};
 			const currencyApiValue = getCurrencyApiValue(apiPlan);
