@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { ACCOUNT_URL } from '$lib/config';
+</script>
+
 <div class="bg-gray-50 dark:bg-gray-900/70">
 	<div class="container py-14 text-center">
 		<h2 class="text-2xl font-bold mb-3">Ready to integrate?</h2>
@@ -7,7 +11,7 @@
 
 		<div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
 			<a
-				href="https://account.monierate.com/auth/signup"
+				href="{ACCOUNT_URL}/auth/signup"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="button bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 text-sm"

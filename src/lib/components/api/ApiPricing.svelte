@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatNumber } from '$lib/functions';
+	import { ACCOUNT_URL } from '$lib/config';
 
 	export let pageData: any = {};
 
@@ -12,7 +13,7 @@
 			description:
 				"Full dashboard access for free. You're only charged when you make API calls, download data, or execute trades.",
 			cta: 'Get Started Free',
-			ctaHref: 'https://account.monierate.com/auth/signup',
+			ctaHref: `${ACCOUNT_URL}/auth/signup`,
 			highlighted: false,
 			note: 'Deduct from wallet',
 			monthlyPeriod: 'no monthly fee',
@@ -32,7 +33,7 @@
 			tagline: 'Unlimited access. Predictable cost.',
 			description: 'Unlimited API access and data exports. 0% discount on offramp fees vs PAYG.',
 			cta: 'Start Pro',
-			ctaHref: 'https://account.monierate.com/auth/signup',
+			ctaHref: `${ACCOUNT_URL}/auth/signup`,
 			highlighted: false,
 			note: 'Deduct from wallet',
 			monthlyPeriod: '/ month',
@@ -52,7 +53,7 @@
 			description:
 				'Same unlimited platform access as Pro with 50x more API requests and 5x higher throughput for production workloads.',
 			cta: 'Start Max',
-			ctaHref: 'https://account.monierate.com/auth/signup',
+			ctaHref: `${ACCOUNT_URL}/auth/signup`,
 			highlighted: false,
 			note: null,
 			monthlyPeriod: '/ month',
