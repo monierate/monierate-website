@@ -1,6 +1,7 @@
 <script lang="ts">
 	import FAQ from '$lib/components/FAQ.svelte';
 	import Pricing from '$lib/components/Pricing.svelte';
+	import { ACCOUNT_URL } from '$lib/config';
 
 	export let data: any;
 
@@ -51,7 +52,7 @@
 		},
 		{
 			key: 'account',
-			url: 'https://account.monierate.com'
+			url: ACCOUNT_URL
 		},
 		{
 			key: 'contact',
@@ -114,7 +115,7 @@
 			<p class="text-gray-700 dark:text-gray-300">
 				Start for free with our
 				<a
-					href="https://account.monierate.com/auth/signup"
+					href="{ACCOUNT_URL}/auth/signup"
 					class="text-blue-600 dark:text-blue-400 font-medium hover:underline"
 				>
 					free plan
