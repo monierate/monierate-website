@@ -12,6 +12,7 @@
 	import Breadcrumb from '$lib/components/layout/Breadcrumb.svelte';
 	// import PromotionBar from '$lib/components/layout/PromotionBar.svelte';
 	import MarketInsightBanner from '$lib/components/layout/MarketInsightBanner.svelte';
+	import { ACCOUNT_URL } from '$lib/config';
 	import Notification from '$lib/components/layout/Notification.svelte';
 	import { getUserCountryClient } from '$lib/utils/userCountry';
 
@@ -65,6 +66,6 @@
 
 <Footer />
 <!-- <PromotionBar marketAvgRate={data.market_avg_rate} /> -->
-<MarketInsightBanner variant="sticky" link="https://account.monierate.com/auth/signup" />
+<MarketInsightBanner variant="sticky" link="{ACCOUNT_URL}/auth/signup" />
 <Notification />
 

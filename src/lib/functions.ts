@@ -2,6 +2,7 @@ import { browser } from '$app/environment';
 import { invalidate, invalidateAll } from '$app/navigation';
 import date from 'date-and-time';
 import { Timezone } from './stores/timezone';
+import { ACCOUNT_URL } from './config';
 
 export const timezone = Timezone('UTC');
 
@@ -303,7 +304,7 @@ export function formatNumber(
 
 export function login_uri(callbackPath: string | null = null) {
 	if (browser) {
-		let login_url = 'https://account.monierate.com/auth/login';
+		let login_url = `${ACCOUNT_URL}/auth/login`;
 		let current_origin = window.location.origin;
 		let callback_url = callbackPath ? `${current_origin}${callbackPath}` : window.location.href;
 
