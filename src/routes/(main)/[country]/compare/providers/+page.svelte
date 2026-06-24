@@ -1,6 +1,8 @@
 <script>
 	/** @type {import('./$types').PageServerData} */
 
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
+
 	export let data;
 	const providers = data.changers;
 </script>
@@ -44,9 +46,10 @@
 							class="inline-block w-[100%] md:w-[22%] shadow-md rounded-lg border border-gray-100 dark:border-gray-700 text-black dark:text-white mr-8 last-child:mr-0 p-4 mb-4"
 						>
 							<span class="flex items-center">
-								<span
-									class="inline-block w-[32px] h-[32px] rounded-full bg-no-repeat bg-cover border border-black bg-black-200 mr-4"
-									style="background-image: url('/icons/{provider.icon}');"
+								<ProviderIcon
+									icon={provider.icon}
+									alt={provider.name}
+									class="inline-block w-[32px] h-[32px] rounded-full object-cover border border-black mr-4"
 								/>
 								<span class="">{provider.name}</span>
 							</span>

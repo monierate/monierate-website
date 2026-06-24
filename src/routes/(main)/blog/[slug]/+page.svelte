@@ -22,51 +22,63 @@
 			headings = articleElement?.querySelectorAll('h3');
 		}
 
-		const advertArray = Array.isArray(adverts) ? adverts : [adverts];
-		const numberOfHeadings = headings?.length || 0;
+		const advertArray = (Array.isArray(adverts) ? adverts : [adverts]).filter(Boolean) as {
+			label: string;
+			image: string;
+			url: string;
+			width?: string;
+			height?: string;
+		}[];
 		const numberOfAdverts = advertArray.length;
 
+		if (numberOfAdverts === 0) return;
+
+		// Insert 1 ad every 3 headings (scales naturally with content length)
+		const HEADINGS_PER_AD = 3;
+
+		function insertAd(advert: typeof advertArray[0], anchor: Element) {
+			const img = document.createElement('img');
+			img.src = advert.image;
+			img.alt = advert.label || 'Banner';
+			img.className = 'block mx-auto max-w-full';
+			if (advert.width) img.style.width = advert.width;
+			if (advert.height) img.style.height = advert.height;
+
+			const link = document.createElement('a');
+			link.href = advert.url;
+			link.target = '_blank';
+			link.rel = 'noopener noreferrer';
+			link.className =
+				'flex justify-center text-black dark:text-white hover:text-black dark:hover:text-white my-4';
+
+			const container = document.createElement('div');
+			container.className =
+				'relative inline-block text-center bg-gray-50 dark:bg-gray-900/20 p-2 px-8 rounded-md';
+			container.appendChild(img);
+
+			const partnerText = document.createElement('div');
+			partnerText.textContent = 'Partner Display';
+			partnerText.className =
+				'absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-50 dark:bg-gray-900/10 px-2 py-1 font-semibold text-xs rounded';
+			container.appendChild(partnerText);
+
+			link.appendChild(container);
+			anchor.parentNode?.insertBefore(link, anchor);
+		}
+
+		let adIndex = 0;
+		let adsInserted = 0;
 		headings?.forEach((heading, index) => {
-			if (numberOfAdverts > 0) {
-				// Loop adverts if there are fewer adverts than headings
-				const advert = advertArray[index % numberOfAdverts] as {
-					label: string;
-					image: string;
-					url: string;
-					width?: string;
-					height?: string;
-				};
-
-				const img = document.createElement('img');
-				img.src = advert.image;
-				img.alt = advert.label || 'Banner';
-				img.className = 'block mx-auto max-w-full';
-				if (advert.width) img.style.width = advert.width;
-				if (advert.height) img.style.height = advert.height;
-
-				const link = document.createElement('a');
-				link.href = advert.url;
-				link.target = '_blank';
-				link.rel = 'noopener noreferrer';
-				link.className =
-					'flex justify-center text-black dark:text-white hover:text-black dark:hover:text-white my-4';
-
-				const container = document.createElement('div');
-				container.className =
-					'relative inline-block text-center bg-gray-50 dark:bg-gray-900/20 p-2 px-8 rounded-md';
-				container.appendChild(img);
-
-				const partnerText = document.createElement('div');
-				partnerText.textContent = 'Partner Display';
-				partnerText.className =
-					'absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-50 dark:bg-gray-900/10 px-2 py-1 font-semibold text-xs rounded';
-				container.appendChild(partnerText);
-
-				link.appendChild(container);
-
-				heading.parentNode?.insertBefore(link, heading);
+			if ((index + 1) % HEADINGS_PER_AD === 0) {
+				insertAd(advertArray[adIndex++ % numberOfAdverts], heading);
+				adsInserted++;
 			}
 		});
+
+		// Guarantee at least one ad — insert before the first heading if none were placed
+		if (adsInserted === 0 && headings && headings.length > 0) {
+			insertAd(advertArray[0], headings[0]);
+		}
 	});
 </script>
 

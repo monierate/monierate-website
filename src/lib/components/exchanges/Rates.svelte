@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatNumber, friendlyDate } from '$lib/functions';
+	import { useImageOrDefault } from '$lib/utils/loadImageOrDefault';
 
 	type PairMap = Record<string, Record<string, any>>;
 
@@ -19,6 +20,7 @@
 	$: pairs = (extractPairs(data.pairs || {}) || []) as any[];
 	$: currency = 'ngn';
 	$: currencySymbols = data.currencySymbols || {};
+
 </script>
 
 <div class="container p-0 w-full m-0 md:max-w-[1200px] md:m-auto">
@@ -48,23 +50,33 @@
 									''
 								)}&To=ngn"
 							>
-									<img
-										src={`/icons/currencies/${pair.pair_code.replace(/ngn|kes/g, '')}.png`}
-									class="w-5 h-5 rounded-full object-fit"
-									alt={pair.pair_code}
-								/>
+									{#await useImageOrDefault(`/icons/pair/${pair.pair_code.toLowerCase()}.png`, { returnBoolean: true })}
+									<span class="w-10 h-5 rounded bg-gray-200 dark:bg-gray-700 animate-pulse inline-block"></span>
+								{:then loaded}
+									{#if loaded}
+										<img
+											src={`/icons/pair/${pair.pair_code.toLowerCase()}.png`}
+											class="w-10 h-5 rounded-full object-fit"
+											alt={pair.pair_code}
+										/>
+									{:else}
+										<span class="w-10 h-5 rounded bg-gray-100 dark:bg-gray-800 text-xs font-bold text-gray-500 dark:text-gray-400 flex items-center justify-center uppercase">
+											{pair.pair_code.replace('ngn', '').slice(0, 3)}
+										</span>
+									{/if}
+								{/await}
 								<span class="font-medium text-gray-900 dark:text-gray-100">
 									{pair.pair_code.toUpperCase()}
 								</span>
 							</a>
 						</td>
 
-						<!-- Buy Price -->
+						<!-- Buying Price -->
 						<td class="px-6 py-4 text-left">
-							{#if pair.price_buy > 0}
+							{#if pair.price_sell > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
-										{formatNumber(pair.price_buy)}
+										{formatNumber(pair.price_sell)}
 									</div>
 									<!-- {#if pair.price_change_percent_1hr >= 0}
 										<div
@@ -111,12 +123,12 @@
 							{/if}
 						</td>
 
-						<!-- Sell Price -->
+						<!-- Selling Price -->
 						<td class="px-6 py-4 text-left">
-							{#if pair.price_sell > 0}
+							{#if pair.price_buy > 0}
 								<div class="space-y-0.5 inline-flex items-center">
 									<div class="font-medium text-gray-900 dark:text-gray-100 text-base">
-										{formatNumber(pair.price_sell)}
+										{formatNumber(pair.price_buy)}
 									</div>
 									<!-- {#if pair.price_change_percent_1hr >= 0}
 										<div

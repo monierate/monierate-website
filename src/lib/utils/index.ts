@@ -1,3 +1,9 @@
+export function getIconPath(icon: string | undefined): string {
+	if (!icon) return '/icons/png/default.png';
+	if (icon.endsWith('.svg')) return `/icons/svg/${icon}`;
+	return `/icons/png/${icon}`;
+}
+
 export const getDeviceName = (request: any) => {
     const headers = request.headers;
     const userAgent = headers.get('user-agent') || '';
@@ -21,6 +27,10 @@ export const mapProvidersByCode = (providers: any[], pairs: string[]): Record<st
 
 	for (const provider of providers) {
 		if (provider.changer_tags?.includes('bank')) {
+			continue;
+		}
+
+		if (provider.is_public === false) {
 			continue;
 		}
 

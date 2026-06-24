@@ -10,7 +10,9 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import MarketTicker from '$lib/components/layout/MarketTicker.svelte';
 	import Breadcrumb from '$lib/components/layout/Breadcrumb.svelte';
-	import PromotionBar from '$lib/components/layout/PromotionBar.svelte';
+	// import PromotionBar from '$lib/components/layout/PromotionBar.svelte';
+	import MarketInsightBanner from '$lib/components/layout/MarketInsightBanner.svelte';
+	import { ACCOUNT_URL } from '$lib/config';
 	import Notification from '$lib/components/layout/Notification.svelte';
 	import { getUserCountryClient } from '$lib/utils/userCountry';
 
@@ -48,7 +50,7 @@
 
 <LoadingIndicator />
 <TopBanner />
-<Header bind:defaultCurrency={defaultCurrency} />
+<Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
 <MarketTicker top_pairs={top_pairs} />
 <Breadcrumb />
 
@@ -63,6 +65,7 @@
 </div>
 
 <Footer />
-<PromotionBar marketAvgRate={data.market_avg_rate} />
+<!-- <PromotionBar marketAvgRate={data.market_avg_rate} /> -->
+<MarketInsightBanner variant="sticky" link="{ACCOUNT_URL}/auth/signup" />
 <Notification />
 

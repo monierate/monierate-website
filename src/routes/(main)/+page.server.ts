@@ -79,7 +79,7 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		const providersByCode = mapProvidersByCode(providers, [pairCode]);
 
 		const rates = pair?.changers ?? [];
-		const filteredRates = rates.filter((rate: any) => !!providersByCode[rate.changer_code]);
+		const filteredRates = rates.filter((rate: any) => rate.is_public === true && !!providersByCode[rate.changer_code]);
 
 		/* -----------------------------
 		 * Currency maps

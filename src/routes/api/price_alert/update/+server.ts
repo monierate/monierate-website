@@ -1,9 +1,9 @@
-import { json } from '@sveltejs/kit';
+﻿import { json } from '@sveltejs/kit';
 import { userAccountRequest } from '$lib/api/userAccountApi';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ cookies, request }) {
-	const userToken = cookies.get('auth_token');
+	const userToken = cookies.get('user_token');
 
 	if (!userToken) {
 		return json(

@@ -5,8 +5,11 @@ import { error } from '@sveltejs/kit';
 import { getChanger, getSimilarChangers } from '$lib/services/changer.service';
 import { getAllPairs } from '$lib/services/pair.service';
 
-export const load: PageServerLoad = async ({ params, fetch }) => {
+export const load: PageServerLoad = async ({ params, fetch, request }) => {
 	const { changer } = params;
+	const ua = request.headers.get('user-agent') ?? '';
+	const isAndroid = /android/i.test(ua);
+	const isIOS = /iphone|ipad|ipod/i.test(ua);
 
 	if (!changer) {
 		throw error(400, 'Missing changer parameter');
@@ -34,7 +37,9 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 		currencies: allCurrencies,
 		currencySymbols,
 		relatedChangers: relatedChangers?.data ?? [],
-		pairs: availablePairs
+		pairs: availablePairs,
+		isAndroid,
+		isIOS
 	};
 };
 

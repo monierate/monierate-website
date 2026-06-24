@@ -1,5 +1,6 @@
 <script lang="ts">
 	import TipView from '../TipView.svelte';
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 	import { capitalizeFirstLetter, friendlyDate, getNextTriggerTime } from '$lib/functions';
 	import AlertActions from './AlertActions.svelte';
 	import type { Alert } from '$lib/types/alert.type';
@@ -82,7 +83,7 @@
 					<span
 						class="bg-gray-100 dark:bg-gray-800 text-sm px-2 py-1 rounded-full inline-flex items-center mb-2 border border-gray-300 dark:border-gray-700"
 					>
-						<img src="/icons/{getProvider(exchange).icon}" alt="icon" class="w-4 h-4 mr-2" />
+						<ProviderIcon icon={getProvider(exchange).icon} alt="icon" class="w-4 h-4 mr-2" />
 						{getProvider(exchange).name}
 					</span>
 				{/if}

@@ -4,11 +4,11 @@
 	import { page, navigating } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
+	import { login_uri } from '$lib/functions';
+	import { ACCOUNT_URL } from '$lib/config';
 
 	export let defaultCurrency: string;
-	// export let user: {
-	//     isLoggedIn: boolean;
-	// } | null;
+	export let auth: { isLoggedIn: boolean; user: any } | null = null;
 
 	// get the current page path
 	$: paths = $page.url.pathname.split('/');
@@ -54,24 +54,46 @@
 		class="bg-white w-full z-20 top-0 left-0 border-b border-gray-200 dark:bg-gray-900 dark:border-none"
 	>
 		<div class="w-[95%] md:max-w-[1500px] flex flex-wrap items-center justify-between mx-auto p-4">
-			<a href="/" class="flex items-center">
+			<div class="flex items-center">
+				<a href="/" class="flex items-center">
+				<!-- Mobile: favicon (light mode) -->
 				<img
-					src="/monierate-1.png"
-					width="142px"
-					height="24px"
-					class="block dark:hidden h-auto w-[142px] mr-3"
+					src="/favicon-blue-1.png"
+					width="32px"
+					height="32px"
+					class="block dark:hidden md:hidden h-10 w-10 mr-3"
 					alt="Monierate Logo"
 					loading="lazy"
 				/>
+				<!-- Mobile: favicon (dark mode) -->
+				<img
+					src="/favicon-white-1.png"
+					width="32px"
+					height="32px"
+					class="hidden dark:block md:dark:hidden h-10 w-10 mr-3"
+					alt="Monierate Logo"
+					loading="lazy"
+				/>
+				<!-- Desktop: full logo (light mode) -->
+				<img
+					src="/monierate-blue-black-1.png"
+					width="142px"
+					height="24px"
+					class="hidden md:block dark:md:hidden h-auto w-[142px] mr-3"
+					alt="Monierate Logo"
+					loading="lazy"
+				/>
+				<!-- Desktop: full logo (dark mode) -->
 				<img
 					alt="Monierate Logo"
 					width="142px"
 					height="24px"
-					class="hidden dark:block h-auto w-[142px] mr-3"
+					class="hidden md:dark:block h-auto w-[142px] mr-3"
 					src="/monierate-logo-white-1.png"
 					loading="lazy"
 				/>
-			</a>
+				</a>
+			</div>
 			<div class="flex items-center md:order-2">
 				<!-- {#if !auth.isLoggedIn}
 					<a
@@ -109,7 +131,7 @@
 								aria-labelledby="profile-menu-button"
 							>
 								<a
-									href="https://account.monierate.com"
+									href="https://pro.monierate.com"
 									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
 									role="menuitem"
 								>
@@ -119,7 +141,7 @@
  Account
 								</a>
 								<a
-									href="https://account.monierate.com/logout"
+									href="https://pro.monierate.com/logout"
 									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
 									role="menuitem"
 								>
@@ -130,32 +152,53 @@
 					</div>
 				{/if} -->
 
-				<span>
+				<span class="hidden md:inline-block">
 					<CurrencySelector
 						onSelect={(currency: any) => defaultCurrencyStore.set(currency)}
 						bind:selected={defaultCurrency}
 					/>
 				</span>
 
-				<a
-					href="https://account.monierate.com/signup?callback_url=https://account.monierate.com/subscription"
-					type="button"
-					class="button px-3 bg-gray-900 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 hidden md:inline-block"
-				>
-					Get API
-				</a>
+				{#if auth?.isLoggedIn}
+					<a
+						href="https://pro.monierate.com/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="button px-3 bg-blue-600 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 md:inline-block"
+					>
+						Pro Access
+					</a>
+				{:else}
+					<a
+						href={login_uri()}
+						target="_blank"
+						rel="noopener noreferrer"
+						type="button"
+						class="button px-3 bg-transparent border border-blue-600 dark:border-gray-200 font-semibold text-blue-600 dark:text-gray-200 hidden md:inline-block md:mr-4"
+					>
+						Login
+					</a><a
+						href="{ACCOUNT_URL}/auth/signup"
+						target="_blank"
+						rel="noopener noreferrer"
+						type="button"
+						class="button px-3 bg-blue-600 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 md:inline-block"
+					>
+						Sign Up
+					</a>
+				{/if}
 
 				<button
 					id="nav-collapse-trigger"
 					data-collapse-toggle="navbar-sticky"
 					type="button"
-					class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+					class="inline-flex items-center ml-3 justify-center text-sm text-blue-500 md:hidden focus:outline-none"
 					aria-controls="navbar-sticky"
 					aria-expanded="false"
 				>
 					<span class="sr-only">Open main menu</span>
 					<svg
-						class="w-5 h-5"
+						class="w-6 h-6"
 						aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -166,7 +209,7 @@
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							stroke-width="2"
-							d="M1 1h15M1 7h15M1 13h15"
+							d="M1 4h15M1 10h15"
 						/>
 					</svg>
 				</button>
@@ -196,15 +239,15 @@
 					<li>
 						<a href="/api" class={path == 'api' ? 'active' : ''}> API </a>
 					</li>
-					<!-- {#if !auth.isLoggedIn}
+					{#if auth?.isLoggedIn}
 						<li class="md:hidden">
-							<a href={login_uri()}> Login </a>
+							<a href="https://pro.monierate.com/" target="_blank" rel="noopener noreferrer">Pro Access</a>
 						</li>
-                        {:else}
+					{:else}
 						<li class="md:hidden">
-							<a href="https://account.monierate.com/"> Dashboard </a>
+							<a href={login_uri()} target="_blank" rel="noopener noreferrer"> Login </a>
 						</li>
-					{/if} -->
+					{/if}
 				</ul>
 			</div>
 		</div>

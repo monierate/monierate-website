@@ -2,6 +2,7 @@
     /** @type {import('./$types').PageServerData} */
     import Money from "$lib/money";
     import { format, friendlyDate, sortRates } from "$lib/functions";
+    import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
     export let data;
 
@@ -74,7 +75,7 @@
                                 <td>
                                     <a href="/converter/{pair_changer.changer_code}?Amount=1&From=USD&To=NGN" class="flex items-center">
                                         <span class="provider-icon">
-                                            <img width="22px" height="22px" src="/icons/{changers[pair_changer.changer_code].icon}" class="rounded-full" alt="{changers[pair_changer.changer_code].name} icon">
+                                            <ProviderIcon icon={changers[pair_changer.changer_code].icon} width="22px" height="22px" class="rounded-full" alt="{changers[pair_changer.changer_code].name} icon" />
                                         </span>
                                         <span class="provider-title">{changers[pair_changer.changer_code].name}</span>
                                     </a>

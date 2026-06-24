@@ -1,17 +1,17 @@
 <script lang="ts">
 	import Rates from '$lib/components/exchanges/Rates.svelte';
 	// import AdBanner from '$lib/components/AdBanner.svelte';
-	import ViewMoreText from '$lib/components/ViewMoreText.svelte';
 	import FeaturedPublications from '$lib/components/exchanges/FeaturedPublications.svelte';
 	import AboutCard from '$lib/components/exchanges/AboutCard.svelte';
-	import RelatedExchanges from '$lib/components/exchanges/RelatedExchanges.svelte';
-	import SocialLinks from '$lib/components/exchanges/SocialLinks.svelte';
+	import ChangerSidebar from '$lib/components/exchanges/ChangerSidebar.svelte';
 
 	export let data;
-	const currencies = data.currencies;
 	$: changer = data.changer;
-	$: relatedChangers = data.relatedChangers;
 	$: pairs = data.pairs;
+
+	$: filteredPublications = changer.featured_publications?.filter(
+		(p: any) => !p.url?.includes('apps.apple.com') && !p.url?.includes('play.google.com')
+	) ?? [];
 </script>
 
 <svelte:head>
@@ -35,50 +35,14 @@
 <!-- <AdBanner name="footer" /> -->
 
 <div class="flex flex-col md:flex-row md:justify-between md:container">
-	<div class="md:w-1/3">
-		<div
-			class="container space-y-6 md:px-6 md:py-8 md:mx-0 md:mr-10 md:sticky md:top-[80px] md:border md:border-gray-200/80 md:dark:border-gray-700/60 md:rounded-xl"
-		>
-			<div class="flex flex-col md:flex-row justify-between items-center gap-4">
-				<div class="w-full md:w-auto">
-					<h2 class="text-xl md:text-2xl font-bold flex items-center gap-1">
-						<img
-							src="/icons/{changer.icon}"
-							alt="{changer.name} Logo"
-							class="w-10 h-10 rounded-full object-contain"
-						/>
-						<span>{changer.name}</span>
-					</h2>
-				</div>
-				<div class="w-full md:w-auto">
-					<a
-						href={changer.link}
-						target="_blank"
-						class="w-full block md:inline-block md:w-auto text-center border border-geay-200/80 dark:border-gray-700/60 rounded-full px-4 py-3 text-sm font-semibold text-gray-700 dark:text-gray-100 transition-colors hover:bg-gray-100/10 dark:hover:bg-gray-700/60"
-						>Visit website</a
-					>
-				</div>
-			</div>
+	<ChangerSidebar {changer} isAndroid={data.isAndroid} isIOS={data.isIOS} />
 
-			<div class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-				<ViewMoreText text={changer.bio} />
-			</div>
-
-			{#if changer.media_handles && changer.media_handles.length > 0}
-				<SocialLinks links={changer.media_handles} />
-			{/if}
-		</div>
-	</div>
 	<div class="md:w-2/3 space-y-16">
 		<div class="space-y-6 container px-0 mx-0 w-full md:px-6 md:mx-auto">
 			<div class="px-4 md:px-0">
-				<div class="space-y-5">
-					<div class="">
-						<h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
-							{changer.name} Exchange Rates
-						</h2>
-					</div>
-				</div>
+				<h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+					{changer.name} Exchange Rates
+				</h2>
 			</div>
 			{#if pairs && pairs.length > 0}
 				<Rates
@@ -104,20 +68,14 @@
 				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
 					Featured Publications
 				</h3>
-				{#if changer.featured_publications && changer.featured_publications.length > 0}
-					<FeaturedPublications posts={changer.featured_publications} />
+				{#if filteredPublications.length > 0}
+					<FeaturedPublications posts={filteredPublications} />
 				{:else}
 					<div class="text-center p-16 bg-white dark:bg-gray-900 rounded-lg shadow-sm">
 						There's no featured publications for {changer.name}
 					</div>
 				{/if}
 			</div>
-
-			<!-- {#if relatedChangers}
-				<div class="md:px-6 space-y-5">
-					<RelatedExchanges exchanges={relatedChangers} />
-				</div>
-			{/if} -->
 
 			<div class="md:px-6 space-y-3">
 				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Disclaimer</h3>
