@@ -5,6 +5,7 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { login_uri } from '$lib/functions';
+	import { ACCOUNT_URL } from '$lib/config';
 
 	export let defaultCurrency: string;
 	// export let user: {
@@ -132,7 +133,7 @@
 								aria-labelledby="profile-menu-button"
 							>
 								<a
-									href="https://account.monierate.com"
+									href="https://pro.monierate.com"
 									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
 									role="menuitem"
 								>
@@ -142,7 +143,7 @@
  Account
 								</a>
 								<a
-									href="https://account.monierate.com/logout"
+									href="https://pro.monierate.com/logout"
 									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
 									role="menuitem"
 								>
@@ -169,7 +170,7 @@
 				>
 					Login
 				</a><a
-					href="https://account.monierate.com/auth/signup"
+					href="{ACCOUNT_URL}/auth/signup"
 					target="_blank"
 					rel="noopener noreferrer"
 					type="button"

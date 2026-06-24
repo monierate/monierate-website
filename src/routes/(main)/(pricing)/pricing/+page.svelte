@@ -1,6 +1,7 @@
 <script lang="ts">
 	import FAQ from '$lib/components/FAQ.svelte';
 	import Pricing from '$lib/components/AllPricing.svelte';
+	import { ACCOUNT_URL } from '$lib/config';
 
 	export let data: any;
 
@@ -51,7 +52,7 @@
 		},
 		{
 			key: 'account',
-			url: 'https://account.monierate.com'
+			url: ACCOUNT_URL
 		},
 		{
 			key: 'contact',
@@ -94,7 +95,7 @@
 <div class="container mt-8">
 	<div class="mb-16 text-center">
 		<h2 class="text-3xl font-bold mb-6">Pricing</h2>
-		<p class="mb-6">Our popular <a href="https://account.monierate.com/auth/signup">Free Plan</a> provides up to 100 API requests/month and 10-minute exchange rates update.</p>
+		<p class="mb-6">Our popular <a href="{ACCOUNT_URL}/auth/signup">Free Plan</a> provides up to 100 API requests/month and 10-minute exchange rates update.</p>
 		<div>
 			For enquiry or custom pricing, please <a
 				href="https://cal.com/monierate/activation-call"
@@ -119,7 +120,7 @@
 			<p class="text-gray-700 dark:text-gray-300">
 				Start for free with our
 				<a
-					href="https://account.monierate.com/auth/signup"
+					href="{ACCOUNT_URL}/auth/signup"
 					class="text-blue-600 dark:text-blue-400 font-medium hover:underline"
 				>
 					free plan

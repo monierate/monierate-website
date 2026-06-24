@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatNumber, capitalizeAndJoin } from '$lib/functions';
+	import { ACCOUNT_URL } from '$lib/config';
 
 	export let data: any;
 	let currencySymbols: any = data.currencySymbols;
@@ -232,7 +233,7 @@
 				</ul>
 				<div class="mt-6">
 					<a
-						href="https://account.monierate.com/subscription/{plan._id}"
+						href="{ACCOUNT_URL}/subscription/{plan._id}"
 						class="w-full button block text-center {i === 1
 							? 'bg-blue-500 hover:bg-blue-600 text-white'
 							: 'bg-transparent hover:bg-blue-500/5 border border-blue-500 text-blue-500'} font-medium py-3 px-4 rounded"

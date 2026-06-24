@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { getCookie, setCookie } from '$lib/functions';
+	import { ACCOUNT_URL } from '$lib/config';
 
 	// 'sticky' = fixed to the bottom of the viewport; 'top' = inline, above the fold
 	export let variant: 'sticky' | 'top' = 'sticky';
 	export let title = 'Use Market Insight';
 	export let subtitle = 'Get a pro and comprehensive experience';
 	export let cta = 'Open';
-	export let link = 'https://account.monierate.com/auth/signup';
+	export let link = `${ACCOUNT_URL}/auth/signup`;
 	export let icon = '/favicon-blue-1.png';
 	// cookie used to remember dismissal; days controls how long it stays hidden
 	export let cookieKey = 'market_insight_banner';
