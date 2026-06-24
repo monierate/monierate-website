@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+﻿import { json } from '@sveltejs/kit';
 import { serverApiRequest } from '$lib/api/server.js';
 
 /** @type {import('./$types').RequestHandler} */
@@ -19,11 +19,11 @@ export async function PUT({ request, fetch }) {
 /** @type {import('./$types').RequestHandler} */
 export async function DELETE({ request, fetch, cookies }) {
 	const { id } = await request.json();
-	const auth_token: string = cookies.get('auth') || '';
+	const user_token: string = cookies.get('auth') || '';
 	const result = serverApiRequest(`/auth/alerting?id=${id}`, {
 		method: 'DELETE',
 		body: {
-			auth_token
+			user_token
 		}
 	});
 	console.log(result);

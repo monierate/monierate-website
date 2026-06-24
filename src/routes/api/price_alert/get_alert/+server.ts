@@ -1,10 +1,10 @@
-import { json } from '@sveltejs/kit';
+﻿import { json } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
 import { userAccountRequest } from '$lib/api/userAccountApi';
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ cookies, url }: RequestEvent) {
-	const userToken = cookies.get('auth_token');
+	const userToken = cookies.get('user_token');
 	const alertId = url.searchParams.get('alert_id');
 
 	if (!userToken) {
