@@ -1,10 +1,10 @@
-import { basicAuth  } from "$lib/helper";
+﻿import { basicAuth  } from "$lib/helper";
 import type { PageServerLoad } from './$types'
 import { bearer } from '$lib/functions';
 
 export const load: PageServerLoad = async ({ url, cookies }) => {
     const params = url.searchParams
-    const auth_token = params.get('auth') || cookies.get('auth') || ''
+    const user_token = params.get('auth') || cookies.get('auth') || ''
     const confirm_token = params.get('confirm') || ''
 
     let auth: any = null
@@ -19,8 +19,8 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
         auth = { status: "success" }
         alerts = await getAlerts(savedToken)
     }
-    else if (auth_token != '') {
-        const result: any = await getAuth(auth_token)
+    else if (user_token != '') {
+        const result: any = await getAuth(user_token)
         console.log(result)
     
         auth = result
