@@ -48,7 +48,7 @@
 	let faqLinks = [
 		{
 			key: 'docs',
-			url: 'https://monierate.apidog.io'
+			url: 'https://docs.monierate.com'
 		},
 		{
 			key: 'account',
@@ -159,7 +159,7 @@
 		</div>
 		<div>
 			<a
-				href="https://monierate.apidog.io"
+				href="https://docs.monierate.com"
 				target="_blank"
 				class="button bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded"
 				>Get API Documentation</a
