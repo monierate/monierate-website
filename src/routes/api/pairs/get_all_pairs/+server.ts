@@ -9,8 +9,7 @@ export async function GET({ url }) {
 	const page = urlParams.get('page') || '1';
 	const limit = urlParams.get('limit') || '100';
 	const quote = urlParams.get('quote') || undefined;
-
-	console.log(quote)
+	const changer = urlParams.get('changer') || undefined;
 
 	const response = await serverApiRequest('/pairs/get_all_pairs', {
 		method: 'GET',
@@ -18,7 +17,8 @@ export async function GET({ url }) {
 			code: pair_code || undefined,
 			page: page,
 			limit: limit,
-			quote: quote || undefined
+			quote: quote || undefined,
+			changer: changer || undefined
 		}
 	});
 

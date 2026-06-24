@@ -23,12 +23,30 @@ export const getAllChangers = async (
 		return null;
 	}
 
-	return response.result;
+	return (response.result as any[])?.filter((c: any) => c.is_active) ?? response.result;
 };
 
 export const getChanger = async (fetch: typeof globalThis.fetch, code: string) => {
 	const result = await clientApiFetch<Record<string, any>>(
 		'/changers/get_changer',
+		{
+			params: {
+				code
+			}
+		},
+		fetch
+	);
+
+	if (!result) {
+		return null;
+	}
+
+	return result;
+};
+
+export const getSimilarChangers = async (fetch: typeof globalThis.fetch, code: string) => {
+	const result = await clientApiFetch<Record<string, any>>(
+		'/changers/get_similar_changers',
 		{
 			params: {
 				code

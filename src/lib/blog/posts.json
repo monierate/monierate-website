@@ -1,6 +1,54 @@
 [
   {
     "layout": "blog",
+    "title": "Best 7 Apps To Send Naira in Kenya",
+    "description": "In this article, I break down the 7 best apps for sending naira to Kenya. They are fast, easy to use, and don’t charge like banks. If you want to send naira to Kenya before reading this article.",
+    "createdAt": "2026-03-03T08:42:00.000Z",
+    "updatedAt": "2026-03-03T08:42:00.000Z",
+    "tag": "guide",
+    "image": "https://ik.imagekit.io/monierate/Blog/Listicles/best_apps_to_send_naira_in_kenya.webp",
+    "published": true,
+    "author": "Tim Bolarinwa",
+    "slug": "best-7-apps-to-send-naira-in-kenya"
+  },
+  {
+    "layout": "blog",
+    "title": "Top 7 Apps to Receive Stablecoins in Nigeria",
+    "description": "I've carefully selected the seven best platforms you can use to receive stablecoins in Nigeria. These apps are ranked based on speed, security, fees, and ease of use, using real-world testing.",
+    "createdAt": "2026-02-27T14:00:00.000Z",
+    "updatedAt": "2026-02-27T15:39:00.000Z",
+    "tag": "guide",
+    "image": "https://ik.imagekit.io/monierate/Blog/Listicles/man_with_stablecoin.webp?updatedAt=1770933124343",
+    "published": true,
+    "author": "Tim Bolarinwa",
+    "slug": "top-7-apps-to-receive-stablecoins-in-nigeria"
+  },
+  {
+    "layout": "blog",
+    "title": "Best 7 Apps to Receive Dollars from Abroad in Nigeria",
+    "description": "In this article, I break down the 7 best apps you can use to receive dollars from anywhere in the world, ranked by ease of use, fees, speed of conversion to naira, and overall reliability. Are you trying to receive dollars from abroad without dealing with the stress of traditional banks?",
+    "createdAt": "2026-02-19T09:05:00.000Z",
+    "updatedAt": "2026-02-19T10:05:00.000Z",
+    "tag": "guide",
+    "image": "https://ik.imagekit.io/monierate/Blog/Listicles/dollar_sent_to_africa_leaderboard.webp?updatedAt=1770933124315",
+    "published": true,
+    "author": "Tim Bolarinwa",
+    "slug": "best-7-apps-to-receive-dollars-from-abroad-in-nigeria"
+  },
+  {
+    "layout": "blog",
+    "title": "Best 5 Apps To Send Naira in South Africa",
+    "description": "Are you a Nigerian travelling to South Africa and looking to pay for things or send money instantly when you get there? Unlike like PayPal that don't accept naira, here are five apps that you can use to send naira in South Africa.",
+    "createdAt": "2026-02-12T07:30:00.000Z",
+    "updatedAt": "2026-02-12T07:30:00.000Z",
+    "tag": "guide",
+    "image": "https://ik.imagekit.io/monierate/Blog/Listicles/best_apps_to_send_naira_in_south_africa.webp",
+    "published": true,
+    "author": "Tim Bolarinwa",
+    "slug": "best-5-apps-to-send-naira-in-south-africa"
+  },
+  {
+    "layout": "blog",
     "title": "Best 7 Apps to Sell Bitcoin in Nigeria, by Payment Speed",
     "description": "In crypto transactions, speed is everything because prices change rapidly. This is why choosing the right platform to sell Bitcoin in Nigeria is extremely important. But with so many Bitcoin to Naira apps available in 2026, how do you know which one is truly fast without using them yourself?",
     "createdAt": "2026-02-02T16:30:00.000Z",

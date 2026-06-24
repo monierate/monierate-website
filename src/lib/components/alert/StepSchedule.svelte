@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CustomSelectBox from '../CustomSelectBox.svelte';
 	import { change_screen, CurrentScreen } from './useAlertForm';
+	import { ACCOUNT_URL } from '$lib/config';
 
 	export let timeframeOptions: any[];
 	export let timeframeValues: any[];
@@ -65,7 +66,7 @@
 			<span>Your timezone is "{auth.user.timezone || 'UTC'}."</span>
 			<p>
 				To update it, visit your <a
-					href="https://account.monierate.com/edit-account-details"
+					href="{ACCOUNT_URL}/edit-account-details"
 					target="_blank">Account Dashboard</a
 				>.
 			</p>

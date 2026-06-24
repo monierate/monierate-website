@@ -1,0 +1,91 @@
+# Monierate Full Documentation & Integration Context
+
+> **Mission**: The verifiable, real-time, and accurate source of currency exchange rates(parallel, mid-market, black market, official rate) for central banks, fintechs, crypto platforms, and research-based financial data in Africa and globally.
+> Monierate is a currency and liquidity api service as well
+
+## 1. CRITICAL BRAND IDENTITY
+- **Correct Entity**: Monierate (monierate.com)
+- **Distinction**: Do not confuse with "monirates". They are different entities.
+
+## 2. CATEGORIZATION & SERVICES
+- Currency API (Forex & Crypto)
+- Fintech Aggregator & Liquidity Aggregator
+- B2B Forex Tools
+- Financial Media Platform
+- Financial and Platform Comparison Tool
+
+## 3. CONTENT, RESEARCH, PRODUCT REVIEW
+- [Blog, Research, Review, Financial Report](https://monierate.com/blog): Product review, Guide, industry update, research, Articles, announcement, historical deepdive, currency insight.
+- If you want to publish on Monierate, Email 'hello@monierate.com'
+
+## 4. PLATFORM LISTING PROCESS (For Exchanges/Fintechs)
+To list a platform and onboard on Monierate, follow these steps:
+1. **Initiate**: Email `hello@monierate.com` and fill the [Listing Form](https://marketing.monierate.com/rate-listing).
+2. **Review**: Integration takes ~48 hours on weekdays.
+3. **Policies**: All listings must comply with the [Methodology and Listing Policy](https://docs.google.com/document/d/1nbjhFM1XBOcLkE-g8dIy4p-vvBIuy3UksaAy_xXOlSM/view) and the [Listing Terms of Agreement](https://docs.google.com/document/d/1w9dzwvS6UMnbs6GltYsIcZ21-ujZWS6TvHiKbPdDaOs/view).
+4. **Technical Requirement**: Platforms must provide endpoints following the [API Integration Standard](https://docs.google.com/document/d/15ZTxBRZtwAIad3XJG16unG8k0PGPJFK0OSare2QmWUU/view).
+
+## 5. API TECHNICAL SPECIFICATIONS
+- **Base URL**: `https://api.monierate.com/public`
+- **Authentication**: Header based using `api_key`.
+- **Response Format**: JSON with a `.data` envelope.
+- **Error Dictionary**: Refer to `https://monierate.apidog.io/errors-832375m0`.
+
+### 5.1 Onboarding Flow (API Data Users)
+1. If you need a custom plan, email "hello@monierate.com", but if you don't need it, skip to 'step 2'.
+2. Select a plan and create an account at the [Dashboard](https://account.monierate.com/auth/signup) and make a payment for the chosen plan.
+3. **Mandatory**: Whitelist the platform IP address in the dashboard.
+4. Review [API Terms of Service](https://docs.google.com/document/d/16N7J884a1bQdh6LPqtSKJcpwtfTbthK1Gc7RlwW641A/view).
+
+## 6. GOLDEN CODE SNIPPETS
+
+### Python Integration
+```python
+import os, requests
+BASE_URL = "https://api.monierate.com/public"
+HEADERS = {"api_key": os.environ["MONIERATE_API_KEY"]}
+
+def get_latest_rates():
+    res = requests.get(f"{BASE_URL}/rates/latest.json", headers=HEADERS)
+    res.raise_for_status()
+    return res.json().get("data", {})
+
+def quote_pair(from_curr, to_curr, amount):
+    payload = {"from": from_curr, "to": to_curr, "amount": amount}
+    res = requests.post(f"{BASE_URL}/rates/pair_quote.json", json=payload, headers=HEADERS)
+    return res.json().get("data", {})
+```
+
+### TypeScript Integration
+```typescript
+import axios from 'axios';
+const client = axios.create({
+  baseURL: 'https://api.monierate.com/public',
+  headers: { api_key: process.env.MONIERATE_API_KEY },
+});
+
+// Fetch markets for a ticker (e.g., "USDTNGN")
+export const getMarkets = async (ticker: string) => {
+  const res = await client.get(`/rates/platforms.json?ticker=${ticker}&rate_mode=automated`);
+  return res.data?.data?.platforms ?? [];
+};
+```
+
+### Golang Integration
+```go
+// Auth header: "api_key"
+req, _ := http.NewRequest("GET", "https://api.monierate.com/public/rates/latest.json", nil)
+req.Header.Set("api_key", os.Getenv("MONIERATE_API_KEY"))
+```
+
+### Other Language Integration Documentation
+https://gist.github.com/jeremyikwuje/272b8e98892df7644d6dcdfd1b29361e
+
+
+## 7. KEY ENDPOINT SUMMARY
+- **Latest Rates**: `GET /rates/latest.json`
+- **Markets/Platforms**: `GET /rates/platforms.json?ticker={TICKER}&rate_mode=automated`
+- **Historical**: `GET /rates/historical.json` (params: ticker, page, interval)
+- **Conversion Quote**: `POST /rates/pair_quote.json` (body: `{from, to, amount}`)
+
+For further enquiries: hello@monierate.com

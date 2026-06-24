@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CustomSelectBox from '../CustomSelectBox.svelte';
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 	import { login_uri } from '$lib/functions';
 	import { change_screen, CurrentScreen } from './useAlertForm';
 	import type { Provider, DropdownOption } from './useAlertForm';
@@ -43,10 +44,10 @@
 					<span
 						class="bg-gray-100 dark:bg-gray-800 text-sm px-2 py-1 rounded-full mr-2 inline-flex items-center mb-2"
 					>
-						<img
-							src="/icons/{Object.entries(providers).find(
+						<ProviderIcon
+							icon={Object.entries(providers).find(
 								([_, value]) => value.code === provider
-							)?.[1]?.icon}"
+							)?.[1]?.icon}
 							alt="icon"
 							class="w-4 h-4 mr-2"
 						/>
