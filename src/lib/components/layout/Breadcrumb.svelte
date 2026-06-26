@@ -21,7 +21,7 @@
 
 {#if path != ''}
 	<div style="background: var(--page-bg); border-bottom: 1px solid var(--card-border);">
-		<div class="container">
+		<div class="w-[95%] md:max-w-[1200px] mx-auto px-4 py-2.5">
 			<span class="text-sm">
 				<a href="/" class="mr-2 underline">Home</a>
 				{#each paths as path, index}

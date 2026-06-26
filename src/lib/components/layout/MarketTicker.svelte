@@ -13,6 +13,7 @@
 	>;
 </script>
 
+{#if top_pairs && Object.keys(top_pairs).length}
 <div
 	class="w-full py-2.5 whitespace-nowrap overflow-x-auto no-scrollbar"
 	style="background: var(--page-bg); border-bottom: 1px solid var(--card-border);"
@@ -65,3 +66,4 @@
 		{/each}
 	</div>
 </div>
+{/if}

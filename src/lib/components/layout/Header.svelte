@@ -54,7 +54,7 @@
 <header class="mb-0 mt-16">
 	<nav
 		class="w-full z-20 top-0 left-0"
-		style="background: var(--card-bg); border-bottom: 1px solid var(--card-border);"
+		style="background: var(--page-bg); border-bottom: 1px solid var(--card-border);"
 	>
 		<div class="w-[95%] md:max-w-[1500px] flex flex-wrap items-center justify-between mx-auto p-4">
 			<div class="flex items-center">
