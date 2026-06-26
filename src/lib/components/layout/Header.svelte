@@ -8,9 +8,7 @@
 	import { ACCOUNT_URL } from '$lib/config';
 
 	export let defaultCurrency: string;
-	// export let user: {
-	//     isLoggedIn: boolean;
-	// } | null;
+	export let auth: { isLoggedIn: boolean; user: any } | null = null;
 
 	// get the current page path
 	$: paths = $page.url.pathname.split('/');
@@ -162,24 +160,35 @@
 					/>
 				</span>
 
-				<a
-					href={login_uri()}
-					target="_blank"
-					rel="noopener noreferrer"
-					type="button"
-					class="px-4 py-2.5 rounded-xl font-head font-semibold text-sm hidden md:inline-block md:mr-3"
-					style="background: transparent; border: 1px solid var(--card-border); color: var(--text-primary);"
-				>
-					Login
-				</a><a
-					href="{ACCOUNT_URL}/auth/signup"
-					target="_blank"
-					rel="noopener noreferrer"
-					type="button"
-					class="button px-4 md:inline-block"
-				>
-					Sign Up
-				</a>
+				{#if auth?.isLoggedIn}
+					<a
+						href="https://pro.monierate.com/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="button px-4 md:inline-block"
+					>
+						Pro Access
+					</a>
+				{:else}
+					<a
+						href={login_uri()}
+						target="_blank"
+						rel="noopener noreferrer"
+						type="button"
+						class="px-4 py-2.5 rounded-xl font-head font-semibold text-sm hidden md:inline-block md:mr-3"
+						style="background: transparent; border: 1px solid var(--card-border); color: var(--text-primary);"
+					>
+						Login
+					</a><a
+						href="{ACCOUNT_URL}/auth/signup"
+						target="_blank"
+						rel="noopener noreferrer"
+						type="button"
+						class="button px-4 md:inline-block"
+					>
+						Sign Up
+					</a>
+				{/if}
 
 				<button
 					id="nav-collapse-trigger"
@@ -232,9 +241,15 @@
 					<li>
 						<a href="/api" class={path == 'api' ? 'active' : ''}> API </a>
 					</li>
-					<li class="md:hidden">
-						<a href={login_uri()} target="_blank" rel="noopener noreferrer"> Login </a>
-					</li>
+					{#if auth?.isLoggedIn}
+						<li class="md:hidden">
+							<a href="https://pro.monierate.com/" target="_blank" rel="noopener noreferrer">Pro Access</a>
+						</li>
+					{:else}
+						<li class="md:hidden">
+							<a href={login_uri()} target="_blank" rel="noopener noreferrer"> Login </a>
+						</li>
+					{/if}
 				</ul>
 			</div>
 		</div>

@@ -5,8 +5,9 @@
 	import { changeParam } from '$lib/functions';
 	import ChangerRates from '$lib/components/ChangerRates.svelte';
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { browser } from '$app/environment';
 
 	interface Currency {
 		code: string;
@@ -160,7 +161,6 @@
 			}
 			currentViewButton?.classList.add('active');
 			currentView = currentViewData;
-			await setUserLocation();
 		}
 	}
 
@@ -191,24 +191,23 @@
 		convertNow();
 	}
 
-	async function getUserCountry() {
-		try {
-			const res = await fetch('https://ipapi.co/json/');
-			if (res.ok) {
-				const data = await res.json();
-				if (data.country) return data.country.toUpperCase();
+	function findCountryCodeByCurrency(currency: string) {
+		for (const [currencyKey, countries] of Object.entries(countryCodeByCurrency)) {
+			if (
+				currencyKey === currency ||
+				(Array.isArray(countries) && countries.includes(currency.toUpperCase()))
+			) {
+				return Array.isArray(countries) ? countries[0] : countries; // Return the first country code associated with the currency
 			}
-		} catch (error) {
-			console.error('Error fetching country:', error);
 		}
-		return false;
+		return null;
 	}
 
 	function findCurrencyByCountryCode(countryCode: string) {
 		for (const [currency, countries] of Object.entries(countryCodeByCurrency)) {
 			if (
-				countries === countryCode ||
-				(Array.isArray(countries) && countries.includes(countryCode))
+				countryCode === currency ||
+				(Array.isArray(countries) && countries.includes(countryCode.toUpperCase()))
 			) {
 				return currency;
 			}
@@ -216,21 +215,25 @@
 		return null;
 	}
 
-	async function setUserLocation() {
-		userCountry = await getUserCountry();
-		if (userCountry) {
-			if (currentView === CurrentView.SEND) {
-				convertTo = userCountry ?? convertTo;
-			} else {
-				let countryCurrency = findCurrencyByCountryCode(userCountry.toUpperCase());
-				convertTo = countryCurrency ?? convertTo;
-			}
-			convertNow();
+	$: if (currentView === CurrentView.SEND) {
+		const countryCode = findCountryCodeByCurrency(convertTo);
+		if (countryCode) {
+			convertTo = countryCode.toUpperCase() || 'NG';
 		}
 	}
 
-	onMount(async () => {
-		await setUserLocation();
+	defaultCurrencyStore.subscribe((defaultCurrency) => {
+		if (browser) {
+			if (defaultCurrency && defaultCurrency !== convertTo && currentView !== CurrentView.SEND) {
+				changeTo(convertTo);
+			} else if (
+				currentView === CurrentView.SEND &&
+				defaultCurrency &&
+				defaultCurrency !== convertTo
+			) {
+				changeTo(defaultCurrency.toUpperCase());
+			}
+		}
 	});
 
 	$: if (data.pair || data.rateInverse) convertNow();
@@ -241,6 +244,17 @@
 		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
 	};
 	const changeTo = (currency: string) => {
+		if (currentView === CurrentView.SEND) {
+			const foundCurrency = findCurrencyByCountryCode(currency);
+			console.log(`Found currency ${foundCurrency} for country code ${currency}`);
+			if (foundCurrency) {
+				currency = foundCurrency.toUpperCase() || 'NGN';
+			} else {
+				console.warn(`No currency found for country code ${currency}`);
+				currency = $defaultCurrencyStore || 'NGN';
+			}
+		}
+
 		let url = new URL(window.location.href);
 		url.searchParams.set('To', currency);
 		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });

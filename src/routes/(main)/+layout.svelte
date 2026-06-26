@@ -50,7 +50,7 @@
 
 <LoadingIndicator />
 <TopBanner />
-<Header bind:defaultCurrency={defaultCurrency} />
+<Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
 <MarketTicker top_pairs={top_pairs} />
 <Breadcrumb />
 
