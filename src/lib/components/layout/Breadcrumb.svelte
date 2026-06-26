@@ -20,7 +20,7 @@
 </script>
 
 {#if path != ''}
-	<div class="bg-white dark:bg-gray-800 dark:border-gray-600 shadow-b-md">
+	<div style="background: var(--page-bg); border-bottom: 1px solid var(--card-border);">
 		<div class="container">
 			<span class="text-sm">
 				<a href="/" class="mr-2 underline">Home</a>

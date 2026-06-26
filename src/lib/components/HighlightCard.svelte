@@ -28,16 +28,16 @@
 
 {#if highlightData && highlightData.length}
 	<div
-		class="bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-4 {mobileOnly
+		class="card shadow-lg p-4 {mobileOnly
 			? 'md:hidden'
 			: ''}"
 	>
 		<div class="flex justify-between items-center mb-4">
-			<span class="block text-[0.8em] md:text-[1em] font-semibold text-gray-800 dark:text-white">
+			<span class="font-head block text-[0.8em] md:text-[1em] font-semibold" style="color: var(--text-primary);">
 				{title}
 			</span>
 			{#if link && link !== ''}
-				<a href="/buy/usd-with-ngn-best-buying-rate" class="text-sm">See more</a>
+				<a href="/buy/usd-with-ngn-best-buying-rate" class="text-sm font-medium" style="color: var(--accent);">See more</a>
 			{/if}
 		</div>
 
@@ -65,7 +65,7 @@
 						<span class="text-gray-500 dark:text-gray-300 text-sm ml-2">{changer.name}</span>
 					</a>
 					<div class="text-right flex items-center gap-1">
-						<span class="text-sm">
+						<span class="text-sm font-mono" style="color: var(--text-primary);">
 							{#if highlightType === 'buy'}
 								{#if Math.round(rate.price_buy) !== 0}
 									{quote} {formatNumber(Math.round(rate.price_buy))}
@@ -96,6 +96,7 @@
 
 <style>
 	.changer-icon-sm {
-		@apply bg-transparent border border-black rounded-full w-[16px] h-[16px] mr-2;
+		@apply bg-transparent rounded-full w-[16px] h-[16px] mr-2;
+		border: 1px solid var(--card-border);
 	}
 </style>

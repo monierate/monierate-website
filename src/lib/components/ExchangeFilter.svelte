@@ -126,7 +126,7 @@
 				class="absolute -left-1 top-1/2 -translate-y-1/2 h-full pl-2 pr-4 bg-gradient-to-r from-white to-white/10 dark:from-gray-800 dark:to-gray-800/10 z-2"
 			>
 				<button
-					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
+					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-[var(--card-border)] rounded-full bg-[var(--card-bg)]"
 					on:click={() => currencyTabScrollByLeft()}
 					aria-label="Scroll left"
 				>
@@ -136,7 +136,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="size-6 text-gray-700 dark:text-gray-200"
+						class="size-6 text-[var(--text-secondary)]"
 					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 					</svg>
@@ -145,13 +145,13 @@
 		{/if}
 
 		<div bind:this={currencyTabContainer} class="overflow-x-auto no-scrollbar scroll-smooth">
-			<div class="flex flex-nowrap gap-2 bg-gray-100 dark:bg-gray-900 rounded-md p-1 min-w-max">
+			<div class="flex flex-nowrap gap-1 bg-[var(--table-header-bg)] border border-[var(--card-border)] rounded-full p-1 min-w-max">
 				{#each currencies as currency}
 					<button
-						class={`px-3 py-1 rounded text-sm whitespace-nowrap ${
+						class={`font-head px-3.5 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
 							selectedCurrency === currency
-								? 'bg-white dark:bg-gray-700 shadow font-medium'
-								: 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'
+								? 'bg-[var(--card-bg)] text-[var(--text-primary)] shadow font-semibold'
+								: 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
 						}`}
 						on:click={async () => {
 							selectedCurrency = currency;
@@ -170,7 +170,7 @@
 				class="absolute -right-1 top-1/2 -translate-y-1/2 h-full pl-4 pr-2 bg-gradient-to-l from-white to-white/10 dark:from-gray-800 dark:to-gray-800/10 z-2"
 			>
 				<button
-					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
+					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-[var(--card-border)] rounded-full bg-[var(--card-bg)]"
 					on:click={() => currencyTabScrollByRight()}
 					aria-label="Scroll right"
 				>
@@ -180,7 +180,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="size-6 text-gray-700 dark:text-gray-200"
+						class="size-6 text-[var(--text-secondary)]"
 					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 					</svg>
@@ -192,7 +192,7 @@
 	{#if !disableSearch}
 		<!-- Search (desktop only) -->
 		<div
-			class="hidden md:flex relative items-center rounded-md shadow-sm bg-white dark:bg-gray-900 border dark:border-gray-700 px-3 py-2 w-full md:w-72"
+			class="hidden md:flex relative items-center rounded-xl bg-[var(--input-bg)] border border-[var(--input-border)] px-3 py-2 w-full md:w-72"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +211,7 @@
 
 			<input
 				type="text"
-				class="flex-1 outline-none text-sm text-gray-700 dark:text-gray-200 bg-transparent"
+				class="flex-1 outline-none text-sm text-[var(--text-primary)] bg-transparent"
 				placeholder="Search providers..."
 				on:input={onSearch}
 				bind:value={search}
@@ -229,7 +229,7 @@
 				class="absolute -left-1 top-1/2 -translate-y-1/2 h-full pl-2 pr-4 bg-gradient-to-r from-white to-white/10 dark:from-gray-800 dark:to-gray-800/10 z-2"
 			>
 				<button
-					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
+					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-[var(--card-border)] rounded-full bg-[var(--card-bg)]"
 					on:click={() => categoryTabScrollByLeft()}
 					aria-label="Scroll left"
 				>
@@ -239,7 +239,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="size-6 text-gray-700 dark:text-gray-200"
+						class="size-6 text-[var(--text-secondary)]"
 					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 					</svg>
@@ -248,7 +248,7 @@
 		{/if}
 
 		<div
-			class="overflow-x-auto no-scrollbar mt-4 border-b border-gray-200 dark:border-gray-700 pb-2"
+			class="overflow-x-auto no-scrollbar mt-4 border-b border-[var(--card-border)] pb-2"
 			bind:this={categoryTabContainer}
 		>
 			<div class="flex flex-nowrap gap-4 min-w-max px-1">
@@ -426,7 +426,7 @@
 				class="absolute -right-1 top-1/2 -translate-y-1/2 h-full pl-4 pr-2 bg-gradient-to-l from-white to-white/10 dark:from-gray-800 dark:to-gray-800/10 z-2"
 			>
 				<button
-					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
+					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-[var(--card-border)] rounded-full bg-[var(--card-bg)]"
 					on:click={() => categoryTabScrollByRight()}
 					aria-label="Scroll right"
 				>
@@ -436,7 +436,7 @@
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="size-6 text-gray-700 dark:text-gray-200"
+						class="size-6 text-[var(--text-secondary)]"
 					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 					</svg>
@@ -450,7 +450,7 @@
 	<!-- Search (mobile only) -->
 	<div class="md:hidden mt-4">
 		<div
-			class="relative flex items-center rounded-md shadow-sm bg-white dark:bg-gray-900 border dark:border-gray-700 px-3 py-2 w-full"
+			class="relative flex items-center rounded-xl bg-[var(--input-bg)] border border-[var(--input-border)] px-3 py-2 w-full"
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -487,12 +487,17 @@
 		scrollbar-width: none;
 	}
 	.category-link {
-		@apply flex items-center gap-2 px-3 py-1 text-sm rounded whitespace-nowrap font-bold;
+		@apply flex items-center gap-2 px-3 py-1.5 text-sm rounded-full whitespace-nowrap font-semibold;
+		font-family: var(--font-head);
 	}
 	.category-link.active {
-		@apply bg-blue-50 text-primary font-semibold;
+		background: var(--accent-light);
+		color: var(--accent);
 	}
 	.category-link.normal {
-		@apply text-gray-500 dark:text-gray-300 hover:text-primary;
+		color: var(--text-secondary);
+	}
+	.category-link.normal:hover {
+		color: var(--accent);
 	}
 </style>

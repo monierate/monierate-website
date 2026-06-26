@@ -3,7 +3,7 @@
     export let data;
 </script>
 
-<div class="bg-white dark:bg-gray-800">
+<div style="background: var(--page-bg);">
     <div class="container">
        <AdBanner name="blog_home" isMobile={data.isMobile}/>
     </div>

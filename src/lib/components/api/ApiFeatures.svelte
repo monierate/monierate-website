@@ -37,21 +37,21 @@
 	<div class="container py-14">
 		<div class="text-center mb-8">
 			<h2 class="text-2xl font-bold mb-2">What you get</h2>
-			<p class="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+			<p class="text-sm max-w-md mx-auto" style="color: var(--text-secondary);">
 				Everything you need to build FX-aware apps on Nigerian markets.
 			</p>
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-w-5xl mx-auto">
 			{#each features as f}
-				<div class="rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/60 p-5">
-					<div class="w-8 h-8 rounded-lg flex items-center justify-center mb-3 bg-blue-500/10">
-						<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3662ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<div class="card p-5">
+					<div class="w-8 h-8 rounded-lg flex items-center justify-center mb-3" style="background: var(--accent-light);">
+						<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 							<path d={f.icon} />
 						</svg>
 					</div>
-					<div class="text-[13px] font-semibold text-gray-900 dark:text-gray-100 mb-1">{f.title}</div>
-					<div class="text-[12px] text-gray-500 dark:text-gray-400 leading-relaxed">{f.body}</div>
+					<div class="font-head text-[13px] font-semibold mb-1" style="color: var(--text-primary);">{f.title}</div>
+					<div class="text-[12px] leading-relaxed" style="color: var(--text-secondary);">{f.body}</div>
 				</div>
 			{/each}
 		</div>

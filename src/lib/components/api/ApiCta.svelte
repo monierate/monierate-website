@@ -2,10 +2,10 @@
 	import { ACCOUNT_URL } from '$lib/config';
 </script>
 
-<div class="bg-gray-50 dark:bg-gray-900/70">
+<div style="background: var(--table-header-bg); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);">
 	<div class="container py-14 text-center">
 		<h2 class="text-2xl font-bold mb-3">Ready to integrate?</h2>
-		<p class="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-7 leading-relaxed">
+		<p class="text-sm max-w-md mx-auto mb-7 leading-relaxed" style="color: var(--text-secondary);">
 			Create a free account and get your API key in minutes. $10 credit included, no card required.
 		</p>
 
@@ -14,7 +14,7 @@
 				href="{ACCOUNT_URL}/auth/signup"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="button bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 text-sm"
+				class="button font-semibold px-6 py-2.5 text-sm"
 			>
 				Create Free Account
 			</a>
@@ -22,7 +22,8 @@
 				href="https://docs.monierate.com"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="button bg-transparent border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold px-6 py-2.5 text-sm"
+				class="font-head inline-flex items-center justify-center rounded-xl font-semibold px-6 py-2.5 text-sm"
+				style="background: transparent; border: 1px solid var(--card-border); color: var(--text-primary);"
 			>
 				Read the Docs
 			</a>
@@ -33,7 +34,7 @@
 				href="https://cal.com/monierate/activation-call"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+				class="inline-flex items-center gap-1.5 text-xs hover:opacity-70 transition-opacity" style="color: var(--text-muted);"
 			>
 				<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
 					<rect x="3" y="4" width="18" height="18" rx="2" />
@@ -46,7 +47,7 @@
 			<span class="text-gray-200 dark:text-gray-700">|</span>
 			<a
 				href="mailto:sales@monierate.com"
-				class="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+				class="inline-flex items-center gap-1.5 text-xs hover:opacity-70 transition-opacity" style="color: var(--text-muted);"
 			>
 				<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />

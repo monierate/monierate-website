@@ -53,7 +53,8 @@
 
 <header class="mb-0 mt-16">
 	<nav
-		class="bg-white w-full z-20 top-0 left-0 border-b border-gray-200 dark:bg-gray-900 dark:border-none"
+		class="w-full z-20 top-0 left-0"
+		style="background: var(--card-bg); border-bottom: 1px solid var(--card-border);"
 	>
 		<div class="w-[95%] md:max-w-[1500px] flex flex-wrap items-center justify-between mx-auto p-4">
 			<div class="flex items-center">
@@ -166,7 +167,8 @@
 					target="_blank"
 					rel="noopener noreferrer"
 					type="button"
-					class="button px-3 bg-transparent border border-blue-600 dark:border-gray-200 font-semibold text-blue-600 dark:text-gray-200 hidden md:inline-block md:mr-4"
+					class="px-4 py-2.5 rounded-xl font-head font-semibold text-sm hidden md:inline-block md:mr-3"
+					style="background: transparent; border: 1px solid var(--card-border); color: var(--text-primary);"
 				>
 					Login
 				</a><a
@@ -174,7 +176,7 @@
 					target="_blank"
 					rel="noopener noreferrer"
 					type="button"
-					class="button px-3 bg-blue-600 dark:bg-gray-200 font-semibold text-white dark:text-gray-900 md:inline-block"
+					class="button px-4 md:inline-block"
 				>
 					Sign Up
 				</a>
@@ -244,7 +246,13 @@
 		@apply flex flex-col p-4 md:p-0 mt-4 md:flex-row md:space-x-8 md:mt-0;
 	}
 	.nav-link a {
-		@apply font-bold block py-2 pl-3 pr-4 text-gray-500 md:hover:text-primary md:p-0 md:dark:hover:text-primary dark:text-white dark:hover:text-white dark:border-gray-700;
+		@apply font-semibold block py-2 pl-3 pr-4 md:p-0;
+		font-family: var(--font-head);
+		color: var(--text-secondary);
+		transition: color 0.15s ease;
+	}
+	.nav-link a:hover {
+		color: var(--accent);
 	}
 	.nav-link a:first-child {
 		@apply mr-4 md:mr-6;
@@ -253,6 +261,6 @@
 		@apply mr-0;
 	}
 	.nav-link a.active {
-		@apply text-black dark:text-primary;
+		color: var(--accent);
 	}
 </style>

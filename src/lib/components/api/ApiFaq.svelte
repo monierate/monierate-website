@@ -39,22 +39,22 @@
 
 		<div class="max-w-2xl mx-auto">
 			{#each items as item, i}
-				<div class="border-b border-gray-100 dark:border-gray-700">
+				<div style="border-bottom: 1px solid var(--card-border);">
 					<button
 						on:click={() => toggle(i)}
 						class="w-full flex items-center justify-between gap-3 py-4 text-left bg-transparent border-none cursor-pointer"
 					>
-						<span class="text-sm font-medium text-gray-800 dark:text-gray-200">{item.q}</span>
+						<span class="font-head text-sm font-medium" style="color: var(--text-primary);">{item.q}</span>
 						<svg
 							width="15" height="15" viewBox="0 0 15 15" fill="none"
-							class="shrink-0 text-gray-400 dark:text-gray-500 transition-transform duration-200"
-							style="transform: rotate({open === i ? 180 : 0}deg);"
+							class="shrink-0 transition-transform duration-200"
+							style="transform: rotate({open === i ? 180 : 0}deg); color: var(--text-muted);"
 						>
 							<path d="M3 5l4.5 4.5L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</button>
 					{#if open === i}
-						<p class="pb-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{item.a}</p>
+						<p class="pb-4 text-sm leading-relaxed" style="color: var(--text-secondary);">{item.a}</p>
 					{/if}
 				</div>
 			{/each}

@@ -58,7 +58,7 @@
 
 <div class="w-full h-1 mt-16 dark:border-gray-900"></div>
 
-<div class="bg-white dark:bg-gray-800">
+<div style="background: var(--page-bg);">
 	<div class="top-landscape mb-8">
 		<AdBanner name="footer" isMobile={data.isMobile} />
 	</div>
