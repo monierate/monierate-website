@@ -13,21 +13,24 @@
 	>;
 </script>
 
+{#if top_pairs && Object.keys(top_pairs).length}
 <div
-	class="bg-white w-full py-2 whitespace-nowrap overflow-x-auto no-scrollbar dark:bg-gray-800 dark:border-gray-600 border-b border-gray-100"
+	class="w-full py-2.5 whitespace-nowrap overflow-x-auto no-scrollbar"
+	style="background: var(--page-bg); border-bottom: 1px solid var(--card-border);"
 >
 	<div class="w-[95%] md:max-w-[1500px] mx-auto px-4">
 		{#each Object.entries(top_pairs) as [code, value], i}
 			<a
 				data-sveltekit-reload
 				href="/converter/?From={value.from}&To={value.to}&Amount=1"
-				class="text-gray-900 dark:text-gray-300 mr-6 text-[90%] md:text-base"
+				class="mr-6 text-[90%] md:text-sm"
+				style="color: var(--text-primary);"
 			>
-				<span class="font-medium mr-[2px]">{value.name}</span>
-				<span class="font-thin mr-[2px]">{Money.format(value.price, 2)}</span>
+				<span class="font-medium mr-1">{value.name}</span>
+				<span class="font-mono font-normal mr-1" style="color: var(--text-secondary);">{Money.format(value.price, 2)}</span>
 				<!-- display 24hr price change in green or red -->
 				{#if value.price_change_percent_24hr > 0}
-					<span class="inline-block text-green-500 font-thin">
+					<span class="inline-block font-mono text-sm" style="color: var(--positive);">
 						<svg
 							viewBox="0 0 320 512"
 							width="16"
@@ -43,7 +46,7 @@
 						{Money.format(value.price_change_percent_24hr, 2)}%
 					</span>
 				{:else}
-					<span class="inline-block text-red-500 font-thin">
+					<span class="inline-block font-mono text-sm" style="color: var(--negative);">
 						<svg
 							viewBox="0 0 320 512"
 							width="16"
@@ -63,3 +66,4 @@
 		{/each}
 	</div>
 </div>
+{/if}

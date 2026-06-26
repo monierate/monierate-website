@@ -99,17 +99,19 @@
 		<div class="tags text-left">
 			<a
 				href="/blog?tag={metadata.tag}"
-				class="inline-block text-gray-600 dark:text-green-500 font-semibold text-xs mb-4 leading-none mr-2 last:mr-0"
+				class="font-head inline-block font-semibold text-xs mb-4 leading-none mr-2 last:mr-0 tracking-wide"
+				style="color: var(--accent);"
 				>&num;{metadata.tag.toUpperCase()}</a
 			>
 		</div>
 		<!-- Title -->
 		<h1
-			class="mb-2 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-2 lg:text-5xl dark:text-gray-300 dark:font-semibold leading-10 md:leading-10"
+			class="mb-2 text-3xl font-extrabold leading-tight lg:mb-2 lg:text-5xl leading-10 md:leading-10"
+			style="color: var(--text-primary);"
 		>
 			{metadata.title}
 		</h1>
-		<p class="text-gray-600 dark:text-gray-300 mt-4 text-sm">
+		<p class="mt-4 text-sm" style="color: var(--text-secondary);">
 			{#if metadata.author}
 				<span class="mr-4">By <strong>{metadata.author}</strong></span>
 			{/if}

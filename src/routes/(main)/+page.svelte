@@ -90,7 +90,7 @@
 </svelte:head>
 
 <!-- Partner banner -->
-<div class="bg-white dark:bg-gray-800">
+<div style="background: var(--page-bg);">
 	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile} />
 </div>
 

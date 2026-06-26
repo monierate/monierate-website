@@ -131,10 +131,10 @@
 </script>
 
 <div class="container p-0 w-full m-0 md:md:max-w-[1200px] md:m-auto" bind:this={content}>
-	<div class="overflow-x-auto bg-inherit dark:bg-gray-900/60">
-		<table class="text-sm text-gray-800 min-w-full table-auto">
+	<div class="overflow-x-auto rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)]">
+		<table class="text-sm text-[var(--text-primary)] min-w-full table-auto">
 			<thead
-				class="bg-gray-50 dark:bg-gray-900 text-xs text-gray-900 dark:text-gray-200 font-semibold whitespace-nowrap"
+				class="bg-[var(--table-header-bg)] text-xs uppercase tracking-wide text-[var(--text-muted)] font-semibold whitespace-nowrap"
 			>
 				<tr>
 					<th class="px-4 py-6 md:text-[15px] w-10 hidden md:table-cell text-left">#</th>
@@ -218,7 +218,7 @@
 			</thead>
 			<tbody>
 				{#each paginatedRows as rate, i}
-					<tr class="border-t dark:border-gray-700 whitespace-nowrap">
+					<tr class="border-t border-[var(--card-border)] hover:bg-[var(--table-hover)] whitespace-nowrap">
 						<!-- Index -->
 						<td class="px-4 py-3 w-10 hidden md:table-cell text-left dark:text-gray-200">{i + 1}</td
 						>
@@ -243,7 +243,7 @@
 						</td>
 
 						<!-- Buy Rate -->
-						<td class="px-4 py-3 text-right dark:text-gray-200 font-bold md:text-[17px]">
+						<td class="px-4 py-3 text-right text-[var(--text-primary)] font-bold font-mono md:text-[17px]">
 							{#if rate.price_buy > 0}
 								<div class="space-y-1">
 									<div class="font-semibold">
@@ -261,7 +261,7 @@
 						</td>
 
 						<!-- Sell Rate -->
-						<td class="px-4 py-3 text-right dark:text-gray-200 font-bold md:text-[17px]">
+						<td class="px-4 py-3 text-right text-[var(--text-primary)] font-bold font-mono md:text-[17px]">
 							{#if rate.price_sell > 0}
 								<div class="space-y-1">
 									<div class="font-semibold">
@@ -291,7 +291,7 @@
 	<!-- PAGINATION -->
 	{#if pagination}
 		<div
-			class="flex flex-wrap justify-center md:justify-between items-center px-4 py-3 pt-8 md:pt-10 border-t dark:border-gray-700 text-sm text-gray-600 bg-inherit dark:bg-gray-900/60"
+			class="flex flex-wrap justify-center md:justify-between items-center px-4 py-3 pt-8 md:pt-10 mt-4 rounded-2xl border border-[var(--card-border)] text-sm text-[var(--text-secondary)] bg-[var(--card-bg)]"
 		>
 			<!-- Count -->
 			<div class="hidden md:block">
@@ -305,7 +305,7 @@
 				<div class="flex items-center gap-1">
 					<!-- Prev -->
 					<button
-						class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-900/60 hover:bg-gray-200 border-gray-200 dark:border-gray-700 border text-[11px]"
+						class="px-3 py-1 rounded-lg bg-[var(--table-header-bg)] hover:bg-[var(--table-hover)] border border-[var(--card-border)] text-[11px] text-[var(--text-secondary)]"
 						on:click={() => (gotoPage(Math.max(1, currentPage - 1)), scrollToContent())}
 						disabled={currentPage === 1}
 						aria-label="Previous page"
@@ -329,10 +329,10 @@
 							<span class="px-2 py-1 text-gray-400">…</span>
 						{:else}
 							<button
-								class={`px-3 py-1 rounded ${
+								class={`px-3 py-1 rounded-lg font-mono ${
 									page === currentPage
-										? 'bg-blue-600 text-white border-blue-700'
-										: 'bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 border-gray-400 dark:border-gray-700'
+										? 'bg-[var(--accent)] text-white border-[var(--accent)]'
+										: 'bg-[var(--table-header-bg)] text-[var(--text-secondary)] hover:bg-[var(--table-hover)] border-[var(--card-border)]'
 								} border`}
 								on:click={() => (gotoPage(page), scrollToContent())}
 								aria-label="Page ${page}"
@@ -344,7 +344,7 @@
 
 					<!-- Next -->
 					<button
-						class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-900/60 hover:bg-gray-200 border-gray-200 dark:border-gray-700 border text-[11px]"
+						class="px-3 py-1 rounded-lg bg-[var(--table-header-bg)] hover:bg-[var(--table-hover)] border border-[var(--card-border)] text-[11px] text-[var(--text-secondary)]"
 						on:click={() => (gotoPage(Math.min(totalPages, currentPage + 1)), scrollToContent())}
 						disabled={currentPage === totalPages}
 						aria-label="Next page"
@@ -369,7 +369,7 @@
 			<div class="flex items-center gap-2 hidden md:block">
 				<span>Row</span>
 				<select
-					class="border rounded px-2 py-1 text-sm dark:bg-gray-900/60 border-gray-200 dark:border-gray-700 dark:text-gray-200"
+					class="border rounded-lg px-2 py-1 text-sm bg-[var(--input-bg)] border-[var(--input-border)] text-[var(--text-primary)]"
 					bind:value={rowsPerPage}
 					on:change={() => (gotoPage(1), scrollToContent())}
 					id="rowsPerPage"
