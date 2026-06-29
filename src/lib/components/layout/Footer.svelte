@@ -58,7 +58,7 @@
 			<h3 class="font-bold">Tools</h3>
 			<ul class="py-4 converter-list">
 				<li><a href="/api">Currency API</a></li>
-				<li><a href="/alerts">Price Alerts</a></li>
+				<!-- <li><a href="/alerts">Price Alerts</a></li> -->
 				<li><a href="/converter">Currency Converter</a></li>
 				<li><a href="/ng/ussd-codes">Bank USSD Codes</a></li>
 				<li><a href="/ng/swift-codes">SWIFT Codes</a></li>
