@@ -229,6 +229,26 @@
 							>Converter</a
 						>
 					</li>
+					<li>
+						<a
+							href="/markets/parallel"
+							class={$page.url.pathname.startsWith('/markets/parallel') ? 'active' : ''}
+							>Black Market</a
+						>
+					</li>
+					<li>
+						<a
+							href="/markets/official"
+							class={$page.url.pathname.startsWith('/markets/official') ? 'active' : ''}>CBN</a
+						>
+					</li>
+					<li>
+						<a
+							href="/markets/global"
+							class={$page.url.pathname.startsWith('/markets/global') ? 'active' : ''}
+							>Global Market</a
+						>
+					</li>
 					<!-- <li>
 						<a href="/ng/compare" class={path == 'ng' ? 'active' : ''}>Compare</a>
 					</li> -->
