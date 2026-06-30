@@ -82,7 +82,13 @@
 	</div>
 
 	{#if shown.length === 0}
-		<div class="empty">No currencies match “{query}”.</div>
+		<div class="empty">
+			{#if query.trim()}
+				No currencies match “{query}”.
+			{:else}
+				No rates available yet. Check back soon.
+			{/if}
+		</div>
 	{/if}
 
 	{#each shown as r (r.code)}
