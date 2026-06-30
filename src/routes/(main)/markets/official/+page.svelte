@@ -5,11 +5,4 @@
 	export let data: PageData;
 </script>
 
-<svelte:head>
-	<title>CBN Official Exchange Rates Today | Monierate</title>
-	<meta name="description" content={data.meta.description} />
-	<meta property="og:title" content="CBN Official Exchange Rates Today | Monierate" />
-	<meta property="og:description" content={data.meta.description} />
-</svelte:head>
-
 <MarketView meta={data.meta} rates={data.rates} />
