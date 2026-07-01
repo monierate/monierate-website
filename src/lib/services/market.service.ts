@@ -99,7 +99,8 @@ export const getMarketRates = async (
 			code,
 			name: NAMES[code] ?? code,
 			countryCode: countryCodeFor(code),
-			change: Number(pair.price_change_percent_24hr) || 0
+			change: Number(pair.price_change_percent_24hr) || 0,
+			updatedAt: changer.updated_at ?? undefined
 		};
 
 		if (cfg.rateMode === 'single') {

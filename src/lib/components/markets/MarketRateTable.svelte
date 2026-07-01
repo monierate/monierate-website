@@ -40,6 +40,24 @@
 	const flagSrc = (cc: string, size: 'w40' | 'w80') =>
 		`https://flagcdn.com/${size}/${cc.toLowerCase()}.png`;
 
+	const relativeTime = (iso: string | undefined): string => {
+		if (!iso) return '—';
+		const then = new Date(iso).getTime();
+		if (Number.isNaN(then)) return '—';
+		const diff = Date.now() - then;
+		const min = Math.round(diff / 60000);
+		if (min < 1) return 'just now';
+		if (min < 60) return `${min}m ago`;
+		const hr = Math.round(min / 60);
+		if (hr < 24) return `${hr}h ago`;
+		const day = Math.round(hr / 24);
+		if (day < 30) return `${day}d ago`;
+		return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+	};
+
+	const fullTime = (iso: string | undefined): string =>
+		iso ? new Date(iso).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '';
+
 	const showMore = () => (visible += PAGE_SIZE);
 </script>
 
@@ -78,7 +96,7 @@
 			<div class="col-rate">Buy ({base})</div>
 			<div class="col-rate">Sell ({base})</div>
 		{/if}
-		<div class="col-change">24h</div>
+		<div class="col-change">Updated</div>
 	</div>
 
 	{#if shown.length === 0}
@@ -117,14 +135,7 @@
 			{/if}
 
 			<div class="col-change">
-				{#if r.change !== undefined && r.change !== 0}
-					<span class="badge" class:up={r.change > 0} class:down={r.change < 0}>
-						{r.change > 0 ? '▲' : '▼'}
-						{Math.abs(r.change).toFixed(2)}%
-					</span>
-				{:else}
-					<span class="badge flat">0.00%</span>
-				{/if}
+				<span class="updated-at" title={fullTime(r.updatedAt)}>{relativeTime(r.updatedAt)}</span>
 			</div>
 		</div>
 	{/each}
@@ -269,27 +280,10 @@
 		font-variant-numeric: tabular-nums;
 	}
 
-	.badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.2rem;
-		font-size: 0.74rem;
-		font-weight: 600;
-		font-variant-numeric: tabular-nums;
-		padding: 0.15rem 0.45rem;
-		border-radius: 0.5rem;
-	}
-	.badge.up {
-		color: var(--positive);
-		background: var(--badge-positive-bg);
-	}
-	.badge.down {
-		color: var(--negative);
-		background: var(--badge-negative-bg);
-	}
-	.badge.flat {
+	.updated-at {
+		font-size: 0.78rem;
 		color: var(--text-muted);
-		background: var(--badge-neutral-bg);
+		white-space: nowrap;
 	}
 
 	.empty {

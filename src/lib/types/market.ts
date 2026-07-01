@@ -15,8 +15,10 @@ export interface MarketCurrencyRate {
 	buy?: number;
 	sell?: number;
 	rate?: number;
-	/** 24h change in percent, used for the up/down badge. */
+	/** 24h change in percent. */
 	change?: number;
+	/** ISO timestamp of when this provider's rate was last updated. */
+	updatedAt?: string;
 }
 
 export interface MarketMeta {
