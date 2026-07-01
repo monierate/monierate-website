@@ -1,3 +1,24 @@
+# Monierate robots.txt
+
+User-agent: *
+Allow: /
+# Interactive rate-comparison pages (thin / not for organic discovery)
+Disallow: /*/compare
+Disallow: /buy/
+Disallow: /sell/
+Disallow: /send/
+Disallow: /card/
+# Price-alert pages
+Disallow: /alerts
+Disallow: /alerts-old
+# API/data endpoints (not the /api landing page)
+Disallow: /api/
+# Parameterised URLs — canonical pages have clean paths
+Disallow: /*?
+
+Sitemap: https://monierate.com/sitemap.xml
+
+# Blocked crawlers
 User-agent: facebookexternalhit
 Disallow: /
 

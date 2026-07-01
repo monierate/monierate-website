@@ -242,12 +242,6 @@
 							class={$page.url.pathname.startsWith('/fx/official') ? 'active' : ''}>CBN</a
 						>
 					</li>
-					<!-- <li>
-						<a href="/ng/compare" class={path == 'ng' ? 'active' : ''}>Compare</a>
-					</li> -->
-					<!-- <li>
-						<a href="/alerts" class={path == 'alerts' ? 'active' : ''}>Price Alerts</a>
-					</li> -->
 					<li>
 						<a data-sveltekit-reload href="/blog" class={path == 'blog' ? 'active' : ''}>Blog</a>
 					</li>
