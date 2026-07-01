@@ -231,21 +231,21 @@
 					</li>
 					<li>
 						<a
-							href="/markets/parallel"
-							class={$page.url.pathname.startsWith('/markets/parallel') ? 'active' : ''}
+							href="/fx/parallel"
+							class={$page.url.pathname.startsWith('/fx/parallel') ? 'active' : ''}
 							>Black Market</a
 						>
 					</li>
 					<li>
 						<a
-							href="/markets/official"
-							class={$page.url.pathname.startsWith('/markets/official') ? 'active' : ''}>CBN</a
+							href="/fx/official"
+							class={$page.url.pathname.startsWith('/fx/official') ? 'active' : ''}>CBN</a
 						>
 					</li>
 					<li>
 						<a
-							href="/markets/global"
-							class={$page.url.pathname.startsWith('/markets/global') ? 'active' : ''}
+							href="/fx/global"
+							class={$page.url.pathname.startsWith('/fx/global') ? 'active' : ''}
 							>Global Market</a
 						>
 					</li>

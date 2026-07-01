@@ -2,9 +2,9 @@
 	import { page } from '$app/stores';
 
 	const tabs = [
-		{ label: 'Black Market', href: '/markets/parallel' },
-		{ label: 'CBN', href: '/markets/official' },
-		{ label: 'Global Market', href: '/markets/global' }
+		{ label: 'Black Market', href: '/fx/parallel' },
+		{ label: 'CBN', href: '/fx/official' },
+		{ label: 'Global Market', href: '/fx/global' }
 	];
 
 	$: pathname = $page.url.pathname;

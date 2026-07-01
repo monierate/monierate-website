@@ -48,7 +48,7 @@ export const MARKET_SEO: Record<MarketKey, MarketSeo> = {
 					'Black market (Aboki FX) rates on Monierate are updated up to three times every day to reflect changes in the parallel market.'
 			}
 		],
-		faqLinks: [{ key: 'cbn', url: '/markets/official' }]
+		faqLinks: [{ key: 'cbn', url: '/fx/official' }]
 	},
 	cbn: {
 		title: 'CBN Official Dollar to Naira (USD to NGN) Exchange Rate Today – {date} | Monierate',
@@ -78,7 +78,7 @@ export const MARKET_SEO: Record<MarketKey, MarketSeo> = {
 					"The CBN rate is sourced directly from the Central Bank of Nigeria's published official exchange rates."
 			}
 		],
-		faqLinks: [{ key: 'parallel', url: '/markets/parallel' }]
+		faqLinks: [{ key: 'parallel', url: '/fx/parallel' }]
 	},
 	'global-market': {
 		title: 'Global (Mid-Market) Exchange Rates to Naira Today – {date} | Monierate',
@@ -103,6 +103,6 @@ export const MARKET_SEO: Record<MarketKey, MarketSeo> = {
 					'The mid-market rate is the global interbank rate, while the {link: {parallel: black market rate}} is the local parallel-market rate set by dealers in Nigeria, which usually carries a premium.'
 			}
 		],
-		faqLinks: [{ key: 'parallel', url: '/markets/parallel' }]
+		faqLinks: [{ key: 'parallel', url: '/fx/parallel' }]
 	}
 };
