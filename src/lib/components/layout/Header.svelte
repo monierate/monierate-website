@@ -242,13 +242,6 @@
 							class={$page.url.pathname.startsWith('/fx/official') ? 'active' : ''}>CBN</a
 						>
 					</li>
-					<li>
-						<a
-							href="/fx/global"
-							class={$page.url.pathname.startsWith('/fx/global') ? 'active' : ''}
-							>Global Market</a
-						>
-					</li>
 					<!-- <li>
 						<a href="/ng/compare" class={path == 'ng' ? 'active' : ''}>Compare</a>
 					</li> -->

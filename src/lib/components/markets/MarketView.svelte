@@ -42,8 +42,12 @@
 			name: f.question,
 			acceptedAnswer: {
 				'@type': 'Answer',
-				// strip the {link:{...}} placeholders for the plain-text schema answer
-				text: f.answer.replace(/\{_?link:\s*\{\s*\w+\s*:\s*([^}]+)\s*\}\}/gi, '$1')
+				// plain-text answer for schema: drop {link:{...}} placeholders and any HTML
+				text: f.answer
+					.replace(/\{_?link:\s*\{\s*\w+\s*:\s*([^}]+)\s*\}\}/gi, '$1')
+					.replace(/<[^>]+>/g, ' ')
+					.replace(/\s+/g, ' ')
+					.trim()
 			}
 		}))
 	});
@@ -100,12 +104,14 @@
 	<!-- SEO content -->
 	<div class="seo-content">
 		<h2>About the {meta.title} rate</h2>
-		{#each intro as paragraph}
-			<p>{paragraph}</p>
-		{/each}
+		<div class="prose-cols">
+			{#each intro as paragraph}
+				<p>{paragraph}</p>
+			{/each}
+		</div>
 	</div>
 
-	<FAQ faqItems={seo.faqItems} links={seo.faqLinks} coverPage={false} useContainer={false} />
+	<FAQ faqItems={seo.faqItems} links={seo.faqLinks} coverPage={true} useContainer={false} />
 </section>
 
 <style>
@@ -175,7 +181,6 @@
 	}
 
 	.seo-content {
-		max-width: 46rem;
 		margin: 3rem 0 1rem;
 	}
 	.seo-content h2 {
@@ -185,10 +190,21 @@
 		color: var(--text-primary);
 		margin-bottom: 0.75rem;
 	}
-	.seo-content p {
+	.prose-cols p {
 		color: var(--text-secondary);
 		font-size: 0.95rem;
 		line-height: 1.65;
 		margin-bottom: 1rem;
+	}
+	/* Full-width like the table, but keep readable line length via columns. */
+	@media (min-width: 768px) {
+		.prose-cols {
+			column-count: 2;
+			column-gap: 3rem;
+		}
+		.prose-cols p {
+			break-inside: avoid;
+			margin-bottom: 0;
+		}
 	}
 </style>

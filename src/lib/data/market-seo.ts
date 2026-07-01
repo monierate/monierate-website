@@ -28,9 +28,9 @@ export const MARKET_SEO: Record<MarketKey, MarketSeo> = {
 		],
 		faqItems: [
 			{
-				question: 'What is the black market dollar to naira rate today?',
+				question: 'What is the black market dollar to naira rate?',
 				answer:
-					'The black market (aboki) dollar to naira rate is the price at which the US dollar is bought and sold by parallel market dealers in Nigeria. You can see the live USD to NGN black market rate in the table above, updated daily.'
+					'The black market dollar to naira rate is the price at which the US dollar is bought and sold outside official channels — by Bureau de Change (BDC) operators and independent currency dealers, popularly called “aboki”. It is the rate most Nigerians actually pay when buying dollars for travel, school fees, or online purchases, and it is usually higher than the official CBN rate. You can see today’s live black market buy and sell rate for USD to NGN in the table above.'
 			},
 			{
 				question: 'What is the aboki rate?',
@@ -40,12 +40,32 @@ export const MARKET_SEO: Record<MarketKey, MarketSeo> = {
 			{
 				question: 'Why is the black market rate higher than the CBN rate?',
 				answer:
-					'The black market rate reflects real-time demand for foreign currency outside official channels. Because access to dollars at the official rate is limited, the parallel market rate is usually higher than the {link: {cbn: CBN official rate}}.'
+					'Demand for dollars in Nigeria far outstrips the supply available through official channels. Because many buyers cannot access dollars at the {link: {cbn: official CBN rate}}, they turn to the parallel market, where prices are set purely by supply and demand. This scarcity premium is why the black market rate is almost always higher than the CBN rate.'
+			},
+			{
+				question: 'What factors affect the dollar to naira black market exchange rate?',
+				answer:
+					"Several factors move the parallel market rate, including:<br><br>• Nigeria's crude oil earnings and foreign reserves<br>• CBN monetary policy and FX interventions<br>• Inflation and the naira's purchasing power<br>• Seasonal demand (school fees, pilgrimage, festive travel)<br>• Speculation and market sentiment<br>• Remittance inflows from Nigerians abroad<br><br>When dollar supply tightens or confidence in the naira falls, the black market rate rises."
+			},
+			{
+				question: 'Which black market rates can I track on Monierate?',
+				answer:
+					'On Monierate you can track the parallel (aboki) buy and sell rates for the US dollar (USD) and other major currencies — including the British pound (GBP), euro (EUR), Canadian dollar (CAD) and more — against the naira. You can also compare them with the {link: {cbn: official CBN rates}} to see the full picture before you trade.'
 			},
 			{
 				question: 'How often is the black market rate updated?',
 				answer:
 					'Black market (Aboki FX) rates on Monierate are updated up to three times every day to reflect changes in the parallel market.'
+			},
+			{
+				question: 'How do I find a reputable dollar black market exchange dealer?',
+				answer:
+					'Look for established Bureau de Change (BDC) operators with a track record, and ask for referrals from people you trust. These days many black market trades happen digitally — over WhatsApp, Telegram and other social media apps — as well as in person. Because most parallel-market exchanges require the client to send money to the dealer before being credited, dealing with a trusted, verified dealer matters more than anything else. A few pointers:<br><br>• Only exchange dollars (USD) with reputable dealers, whether in person or online.<br>• Ask for a written receipt or transaction record for the exchange.<br>• Be aware of the current dollar to naira black market rate (see the table above) before you exchange your currency.<br>• Do not exchange large amounts of dollars at once on your first transaction with a dealer.<br>• Trade large amounts with licensed dealers.'
+			},
+			{
+				question: 'What are some tips for exchanging dollars for naira on the black market?',
+				answer:
+					'Check the current rate first so you can negotiate confidently. For in-person trades, meet in a safe, public location, count and inspect cash carefully to avoid counterfeit notes, and avoid carrying large amounts alone. A lot of trades now happen digitally over WhatsApp, Telegram and social media apps — for these, only deal with trusted, verified dealers, keep a record of the chat and payment, and confirm each transfer before releasing funds. Whether in person or online, split large or recurring exchanges into smaller amounts and consider a licensed exchange to reduce risk.'
 			}
 		],
 		faqLinks: [{ key: 'cbn', url: '/fx/official' }]
