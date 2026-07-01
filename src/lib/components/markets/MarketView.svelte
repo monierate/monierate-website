@@ -3,8 +3,10 @@
 	import { page } from '$app/stores';
 	import MarketTabs from './MarketTabs.svelte';
 	import MarketRateTable from './MarketRateTable.svelte';
+	import MarketRecap from './MarketRecap.svelte';
 	import FAQ from '$lib/components/FAQ.svelte';
 	import { MARKET_SEO } from '$lib/data/market-seo';
+	import { buildMarketRecap } from '$lib/services/recap';
 
 	export let meta: MarketMeta;
 	export let rates: MarketCurrencyRate[] = [];
@@ -51,6 +53,33 @@
 			}
 		}))
 	});
+
+	// Daily recap structured data (schema.org NewsArticle) for rich results.
+	$: recap = buildMarketRecap(meta, rates);
+	$: newsJsonLd = recap
+		? JSON.stringify({
+				'@context': 'https://schema.org',
+				'@type': 'NewsArticle',
+				headline: `${meta.title} Exchange Rates Today — ${dateLong}`,
+				description: seo.description,
+				articleBody: recap.paragraphs.join(' '),
+				speakable: {
+					'@type': 'SpeakableSpecification',
+					cssSelector: ['.recap-title', '.recap p']
+				},
+				datePublished: meta.updatedAt,
+				dateModified: meta.updatedAt,
+				image: seo.ogImage,
+				mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+				author: { '@type': 'Organization', name: 'Monierate', url: SITE },
+				publisher: {
+					'@type': 'Organization',
+					name: 'Monierate',
+					url: SITE,
+					logo: { '@type': 'ImageObject', url: `${SITE}/monierate-blue-black-1.png` }
+				}
+			})
+		: null;
 </script>
 
 <svelte:head>
@@ -71,6 +100,9 @@
 	<meta name="twitter:image" content={seo.ogImage} />
 
 	{@html `<script type="application/ld+json">${faqJsonLd}<\/script>`}
+	{#if newsJsonLd}
+		{@html `<script type="application/ld+json">${newsJsonLd}<\/script>`}
+	{/if}
 </svelte:head>
 
 <section class="market-view">
@@ -93,6 +125,9 @@
 			</div>
 		{/if}
 	</div>
+
+	<!-- Auto daily recap (Phase 1) -->
+	<MarketRecap {meta} {rates} />
 
 	<div class="controls">
 		<MarketTabs />

@@ -156,8 +156,7 @@
 <style>
 	.market-table {
 		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		border-radius: 1rem;
+		border: 1px solid color-mix(in srgb, var(--card-border) 20%, transparent);
 		overflow: hidden;
 	}
 
