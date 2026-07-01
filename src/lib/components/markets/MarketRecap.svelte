@@ -6,19 +6,33 @@
 	export let rates: MarketCurrencyRate[] = [];
 
 	$: recap = buildMarketRecap(meta, rates);
+
+	// Collapsed on mobile by default; the answer-first paragraph stays visible.
+	let expanded = false;
 </script>
 
 {#if recap}
-	<section class="recap" aria-label="Market recap">
+	<section class="recap" class:expanded aria-label="Market recap">
 		<div class="recap-head">
 			<span class="eyebrow">Market recap</span>
 			<span class="date">{recap.date}</span>
 		</div>
 		<h2 class="recap-title">What is the {meta.title} rate today?</h2>
-		{#each recap.paragraphs as paragraph}
-			<p>{paragraph}</p>
+		{#each recap.paragraphs as paragraph, i}
+			<p class:extra={i > 0}>{paragraph}</p>
 		{/each}
-		<p class="note">Auto-generated from Monierate rate data.</p>
+		<p class="note extra">Auto-generated from Monierate rate data.</p>
+
+		{#if recap.paragraphs.length > 1}
+			<button
+				type="button"
+				class="toggle"
+				aria-expanded={expanded}
+				on:click={() => (expanded = !expanded)}
+			>
+				{expanded ? 'Show less' : 'Read more'}
+			</button>
+		{/if}
 	</section>
 {/if}
 
@@ -68,5 +82,35 @@
 		font-size: 0.78rem !important;
 		color: var(--text-muted) !important;
 		font-style: italic;
+	}
+
+	.toggle {
+		margin-top: 0.5rem;
+		padding: 0;
+		font-family: var(--font-head);
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--accent);
+		background: none;
+		border: none;
+		cursor: pointer;
+	}
+
+	/* Mobile: collapse everything past the answer-first paragraph. */
+	.extra {
+		display: none;
+	}
+	.recap.expanded .extra {
+		display: block;
+	}
+
+	/* Desktop: always fully expanded, no toggle. */
+	@media (min-width: 768px) {
+		.extra {
+			display: block;
+		}
+		.toggle {
+			display: none;
+		}
 	}
 </style>

@@ -15,6 +15,14 @@
 
 	$: seo = MARKET_SEO[meta.key];
 
+	// Short market-type label for the eyebrow (matches the URL slug wording).
+	const MARKET_TYPE = {
+		'black-market': 'Parallel',
+		cbn: 'Official',
+		'global-market': 'Global'
+	} as const;
+	$: marketType = MARKET_TYPE[meta.key];
+
 	$: today = new Date(meta.updatedAt);
 	$: dateLong = today.toLocaleDateString('en-GB', {
 		day: 'numeric',
@@ -107,7 +115,7 @@
 
 <section class="market-view">
 	<div class="head-row">
-		<span class="eyebrow">Markets · {meta.base}</span>
+		<span class="eyebrow">{marketType} · {meta.base}</span>
 		<h1>{meta.title} Exchange Rates Today</h1>
 		<p class="sub">{seo.description}</p>
 
