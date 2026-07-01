@@ -42,17 +42,21 @@
 
 	const relativeTime = (iso: string | undefined): string => {
 		if (!iso) return '—';
-		const then = new Date(iso).getTime();
-		if (Number.isNaN(then)) return '—';
-		const diff = Date.now() - then;
-		const min = Math.round(diff / 60000);
-		if (min < 1) return 'just now';
-		if (min < 60) return `${min}m ago`;
-		const hr = Math.round(min / 60);
-		if (hr < 24) return `${hr}h ago`;
-		const day = Math.round(hr / 24);
-		if (day < 30) return `${day}d ago`;
-		return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+		const date = new Date(iso);
+		if (Number.isNaN(date.getTime())) return '—';
+
+		const now = new Date();
+		const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+		const startOfDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+		const days = Math.round((startOfToday.getTime() - startOfDate.getTime()) / 86400000);
+
+		if (days <= 0) {
+			const time = date
+				.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })
+				.replace(/\s/g, '');
+			return `Today, ${time}`;
+		}
+		return `${days} day${days === 1 ? '' : 's'} ago`;
 	};
 
 	const fullTime = (iso: string | undefined): string =>
