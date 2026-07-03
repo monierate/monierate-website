@@ -51,7 +51,6 @@
 	var currencyTo: any = {};
 	var updated_at = '';
 	let currentView: string = CurrentView.CONVERT;
-	let userCountry: string = '';
 
 	let moreConversions: Conversions = {
 		from: [],
@@ -648,7 +647,6 @@
 				from={currencyFrom}
 				to={currencyTo}
 				amount={convertAmount}
-				{userCountry}
 			/>
 		</div>
 	{/if}

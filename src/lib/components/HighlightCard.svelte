@@ -21,7 +21,6 @@
 	export let base: string;
 	export let quote: string;
 	export let title: string = 'Highlight';
-	export let link: string = '';
 	export let mobileOnly: boolean = false;
 	export let currencyCode: string = 'usd';
 </script>
@@ -36,9 +35,6 @@
 			<span class="font-head block text-[0.8em] md:text-[1em] font-semibold" style="color: var(--text-primary);">
 				{title}
 			</span>
-			{#if link && link !== ''}
-				<a href="/buy/usd-with-ngn-best-buying-rate" class="text-sm font-medium" style="color: var(--accent);">See more</a>
-			{/if}
 		</div>
 
 		<ul>

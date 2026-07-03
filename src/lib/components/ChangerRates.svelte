@@ -28,7 +28,6 @@
 	export let from: any;
 	export let to: any;
 	export let amount: any;
-	export let userCountry: string;
 
 	let isLoading = true;
 	let hasResults = false;
@@ -209,14 +208,6 @@
 							</tbody>
 						</table>
 					{/if}
-					<div class="border-t text-center" style="border-color: var(--card-border);">
-						<a
-							href="/send/{from.code}-to-{userCountry ? userCountry.toLowerCase() : 'ng'}-best-rate"
-							class="w-full mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							See More
-						</a>
-					</div>
 				</div>
 			</div>
 		{/if}
@@ -280,14 +271,6 @@
 							</tbody>
 						</table>
 					{/if}
-					<div class="border-t text-center" style="border-color: var(--card-border);">
-						<a
-							href="/buy/{from.code}-with-{to.code}-best-buying-rate"
-							class="w-full mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							See More
-						</a>
-					</div>
 				</div>
 			</div>
 		{/if}
@@ -351,14 +334,6 @@
 							</tbody>
 						</table>
 					{/if}
-					<div class="border-t text-center" style="border-color: var(--card-border);">
-						<a
-							href="/sell/{from.code}-get-{to.code}-best-selling-rate"
-							class="w-full mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							See More
-						</a>
-					</div>
 				</div>
 			</div>
 		{/if}
@@ -422,14 +397,6 @@
 							</tbody>
 						</table>
 					{/if}
-					<div class="border-t text-center" style="border-color: var(--card-border);">
-						<a
-							href="/card/{from.code}-{to.code}-best-funding-rate"
-							class="w-full mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							See More
-						</a>
-					</div>
 				</div>
 			</div>
 		{/if}

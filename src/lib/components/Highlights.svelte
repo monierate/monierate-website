@@ -94,7 +94,6 @@
 				highlightData={buyingResult}
 				highlightType="buy"
 				title="🔥 Best Buy Rate"
-				link="/buy/usd-with-ngn-best-buying-rate"
 				base={base.symbol || base.code}
 				quote={quote.symbol || quote.code}
 			/>
@@ -106,7 +105,6 @@
 				highlightData={sellingResult}
 				highlightType="sell"
 				title="🔥 Best Sell Rate"
-				link="/sell/usd-get-ngn-best-selling-rate"
 				base={base.symbol || base.code}
 				quote={quote.symbol || quote.code}
 			/>
@@ -118,7 +116,6 @@
 				highlightData={sendingResult}
 				highlightType="sell"
 				title="🔥 Best Sending Rate"
-				link="/send/usd-to-ng-best-rate"
 				base={base.symbol || base.code}
 				quote={quote.symbol || quote.code}
 			/>
@@ -130,7 +127,6 @@
 				highlightData={fundingResult}
 				highlightType="buy"
 				title="🔥 Best Card Rate"
-				link="/card/usd-ngn-best-funding-rate"
 				mobileOnly={true}
 				base={base.symbol || base.code}
 				quote={quote.symbol || quote.code}
