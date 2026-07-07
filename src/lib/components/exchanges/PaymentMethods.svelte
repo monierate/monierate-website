@@ -27,7 +27,7 @@
 		<div class="flex flex-wrap gap-2">
 			{#each methods as method}
 				<span
-					class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-gray-700/60 bg-white dark:bg-gray-900 px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200"
+					class="inline-flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-gray-700/60 px-3 py-1.5 text-sm text-gray-700 dark:text-gray-200"
 				>
 					{toLabel(method)}
 				</span>

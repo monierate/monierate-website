@@ -13,7 +13,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 			{#if pros.length > 0}
 				<div
-					class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700/60 rounded-xl p-5 space-y-3"
+					class="border border-gray-200 dark:border-gray-700/60 rounded-xl p-5 space-y-3"
 				>
 					<p class="text-sm font-semibold text-gray-800 dark:text-gray-100">Pros</p>
 					<ul class="space-y-2">
@@ -40,7 +40,7 @@
 
 			{#if cons.length > 0}
 				<div
-					class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700/60 rounded-xl p-5 space-y-3"
+					class="border border-gray-200 dark:border-gray-700/60 rounded-xl p-5 space-y-3"
 				>
 					<p class="text-sm font-semibold text-gray-800 dark:text-gray-100">Cons</p>
 					<ul class="space-y-2">

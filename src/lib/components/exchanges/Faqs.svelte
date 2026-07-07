@@ -15,7 +15,7 @@
 		</h3>
 
 		<div
-			class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700/60 rounded-xl divide-y divide-gray-200 dark:divide-gray-700/60"
+			class="border border-gray-200 dark:border-gray-700/60 rounded-xl divide-y divide-gray-200 dark:divide-gray-700/60"
 		>
 			{#each faqs as faq}
 				<details class="group">

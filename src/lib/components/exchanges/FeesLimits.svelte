@@ -12,7 +12,7 @@
 		<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Fees & Limits</h3>
 
 		<div
-			class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700/60 rounded-xl divide-y divide-gray-200 dark:divide-gray-700/60"
+			class="border border-gray-200 dark:border-gray-700/60 rounded-xl divide-y divide-gray-200 dark:divide-gray-700/60"
 		>
 			{#if changer.fees_note}
 				<div class="p-4 flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6">
