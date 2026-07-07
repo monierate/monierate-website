@@ -156,12 +156,6 @@
 				</div>
 			{/if}
 
-			{#if lastReviewed}
-				<p class="md:px-6 text-xs text-gray-400 dark:text-gray-500">
-					Last updated {lastReviewed}
-				</p>
-			{/if}
-
 			<div class="md:px-6 space-y-5">
 				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
 					Featured Publications
@@ -192,6 +186,26 @@
 					financial data, or third-party content.
 				</p>
 			</div>
+
+			{#if lastReviewed}
+				<p class="md:px-6 flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						class="w-4 h-4 shrink-0"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+						/>
+					</svg>
+					<span>Last updated {lastReviewed}</span>
+				</p>
+			{/if}
 		</div>
 	</div>
 </div>
