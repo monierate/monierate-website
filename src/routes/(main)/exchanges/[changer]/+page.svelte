@@ -169,7 +169,7 @@
 				{#if filteredPublications.length > 0}
 					<FeaturedPublications posts={filteredPublications} />
 				{:else}
-					<div class="text-center p-16 bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+					<div class="text-center p-16 border border-gray-200 dark:border-gray-700/60 rounded-xl">
 						There's no featured publications for {changer.name}
 					</div>
 				{/if}
