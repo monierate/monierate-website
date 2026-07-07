@@ -25,11 +25,11 @@
 
 <div class="container p-0 w-full m-0 md:max-w-[1200px] md:m-auto">
 	<div
-		class="overflow-x-auto bg-white dark:bg-gray-900 rounded-lg border border-gray-200/80 dark:border-gray-700/80"
+		class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700/60"
 	>
 		<table class="text-sm text-gray-800 min-w-full table-auto">
 			<thead
-				class="bg-gray-50 dark:bg-gray-800/50 text-xs text-black dark:text-gray-400 tracking-wider"
+				class="bg-gray-50 dark:bg-gray-800/40 text-xs text-black dark:text-gray-400 tracking-wider"
 			>
 				<tr>
 					<th class="px-6 py-4 text-left font-bold">Name</th>
@@ -38,7 +38,7 @@
 					<th class="px-6 py-4 text-left font-bold whitespace-nowrap">Last Updated</th>
 				</tr>
 			</thead>
-			<tbody class="divide-y divide-gray-100 dark:divide-gray-800 text-nowrap">
+			<tbody class="divide-y divide-gray-200/70 dark:divide-gray-700/40 text-nowrap">
 				{#each pairs as pair}
 					<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
 						<!-- Currency Pair -->
