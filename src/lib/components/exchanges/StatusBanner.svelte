@@ -16,7 +16,7 @@
 	<div
 		class="flex items-start gap-3 rounded-xl border p-4 text-sm {isClosed
 			? 'border-red-300 bg-red-50 text-red-800 dark:border-red-800/60 dark:bg-red-950/40 dark:text-red-200'
-			: 'border-amber-300 bg-amber-50 text-amber-800 dark:border-amber-700/60 dark:bg-amber-950/40 dark:text-amber-200'}"
+			: 'border-yellow-300 bg-yellow-50 text-yellow-800 dark:border-yellow-700/60 dark:bg-yellow-950/40 dark:text-yellow-200'}"
 		role="alert"
 	>
 		<svg
