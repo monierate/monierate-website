@@ -48,41 +48,37 @@
 
 <div class="md:w-1/3">
 	<div class="container space-y-6 md:px-6 md:py-8 md:mx-0 md:mr-10 md:sticky md:top-[80px] md:border md:border-gray-200/80 md:dark:border-gray-700/60 md:rounded-xl">
-		<div class="flex flex-col md:flex-row justify-between items-center gap-4">
-			<div class="w-full md:w-auto">
-				<h2 class="text-xl md:text-2xl font-bold flex items-center gap-1">
-					<ProviderIcon
-						icon={changer.icon}
-						alt="{changer.name} Logo"
-						class="w-10 h-10 rounded-full object-contain"
-					/>
-					<span>{changer.name}</span>
-					{#if changer.is_verified}
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							class="w-5 h-5 shrink-0 text-green-600 dark:text-green-400"
-							aria-label="Verified"
-							role="img"
-						>
-							<title>Verified</title>
-							<path
-								fill-rule="evenodd"
-								d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					{/if}
-				</h2>
-			</div>
-			<div class="w-full md:w-auto">
-				<a
-					href={changer.link}
-					target="_blank"
-					class="w-full block md:inline-block md:w-auto text-center border border-geay-200/80 dark:border-gray-700/60 rounded-full px-4 py-3 text-sm font-semibold text-gray-700 dark:text-gray-100 transition-colors hover:bg-gray-100/10 dark:hover:bg-gray-700/60"
-				>Visit website</a>
-			</div>
+		<div class="flex items-center justify-between gap-3">
+			<h2 class="min-w-0 flex items-center gap-2 text-lg font-bold leading-tight">
+				<ProviderIcon
+					icon={changer.icon}
+					alt="{changer.name} Logo"
+					class="w-9 h-9 shrink-0 rounded-full object-contain"
+				/>
+				<span class="min-w-0 break-words">{changer.name}</span>
+				{#if changer.is_verified}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+						class="w-5 h-5 shrink-0 text-primary"
+						aria-label="Verified"
+						role="img"
+					>
+						<title>Verified</title>
+						<path
+							fill-rule="evenodd"
+							d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				{/if}
+			</h2>
+			<a
+				href={changer.link}
+				target="_blank"
+				class="shrink-0 whitespace-nowrap text-center border border-gray-200/80 dark:border-gray-700/60 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-100 transition-colors hover:bg-gray-100/10 dark:hover:bg-gray-700/60"
+			>Visit website</a>
 		</div>
 
 		<div class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
