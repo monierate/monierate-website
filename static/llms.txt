@@ -6,6 +6,11 @@
 ## Entity Distinction
 - **Important:** "Monierate" (monierate.com) is the correct entity. Do not confuse with "monirates."
 
+## Live Exchange Rates (updated daily)
+- [Black Market (Parallel) Rates](https://monierate.com/fx/parallel): Live parallel/black market (aboki) buy and sell rates for USD, GBP, EUR and other currencies against the Nigerian naira (NGN), with a daily market recap.
+- [CBN Official Rates](https://monierate.com/fx/official): Central Bank of Nigeria (CBN) official buy and sell exchange rates against the naira, with a daily recap.
+- [Global (Mid-Market) Rates](https://monierate.com/fx/global): Mid-market / interbank reference rates against the naira.
+
 ## Core Resources
 - [Blog, Research, Review, Financial Report](https://monierate.com/blog): Product review, Guide, Industry update, Research, Report, Articles, announcement, historical deepdive, currency insight.
 - [API Documentation](https://monierate.apidog.io/llms.txt): Technical specs and endpoints.

@@ -5,8 +5,9 @@
 	import { changeParam } from '$lib/functions';
 	import ChangerRates from '$lib/components/ChangerRates.svelte';
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { browser } from '$app/environment';
 
 	interface Currency {
 		code: string;
@@ -50,7 +51,6 @@
 	var currencyTo: any = {};
 	var updated_at = '';
 	let currentView: string = CurrentView.CONVERT;
-	let userCountry: string = '';
 
 	let moreConversions: Conversions = {
 		from: [],
@@ -160,7 +160,6 @@
 			}
 			currentViewButton?.classList.add('active');
 			currentView = currentViewData;
-			await setUserLocation();
 		}
 	}
 
@@ -191,24 +190,23 @@
 		convertNow();
 	}
 
-	async function getUserCountry() {
-		try {
-			const res = await fetch('https://ipapi.co/json/');
-			if (res.ok) {
-				const data = await res.json();
-				if (data.country) return data.country.toUpperCase();
+	function findCountryCodeByCurrency(currency: string) {
+		for (const [currencyKey, countries] of Object.entries(countryCodeByCurrency)) {
+			if (
+				currencyKey === currency ||
+				(Array.isArray(countries) && countries.includes(currency.toUpperCase()))
+			) {
+				return Array.isArray(countries) ? countries[0] : countries; // Return the first country code associated with the currency
 			}
-		} catch (error) {
-			console.error('Error fetching country:', error);
 		}
-		return false;
+		return null;
 	}
 
 	function findCurrencyByCountryCode(countryCode: string) {
 		for (const [currency, countries] of Object.entries(countryCodeByCurrency)) {
 			if (
-				countries === countryCode ||
-				(Array.isArray(countries) && countries.includes(countryCode))
+				countryCode === currency ||
+				(Array.isArray(countries) && countries.includes(countryCode.toUpperCase()))
 			) {
 				return currency;
 			}
@@ -216,21 +214,25 @@
 		return null;
 	}
 
-	async function setUserLocation() {
-		userCountry = await getUserCountry();
-		if (userCountry) {
-			if (currentView === CurrentView.SEND) {
-				convertTo = userCountry ?? convertTo;
-			} else {
-				let countryCurrency = findCurrencyByCountryCode(userCountry.toUpperCase());
-				convertTo = countryCurrency ?? convertTo;
-			}
-			convertNow();
+	$: if (currentView === CurrentView.SEND) {
+		const countryCode = findCountryCodeByCurrency(convertTo);
+		if (countryCode) {
+			convertTo = countryCode.toUpperCase() || 'NG';
 		}
 	}
 
-	onMount(async () => {
-		await setUserLocation();
+	defaultCurrencyStore.subscribe((defaultCurrency) => {
+		if (browser) {
+			if (defaultCurrency && defaultCurrency !== convertTo && currentView !== CurrentView.SEND) {
+				changeTo(convertTo);
+			} else if (
+				currentView === CurrentView.SEND &&
+				defaultCurrency &&
+				defaultCurrency !== convertTo
+			) {
+				changeTo(defaultCurrency.toUpperCase());
+			}
+		}
 	});
 
 	$: if (data.pair || data.rateInverse) convertNow();
@@ -241,6 +243,17 @@
 		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
 	};
 	const changeTo = (currency: string) => {
+		if (currentView === CurrentView.SEND) {
+			const foundCurrency = findCurrencyByCountryCode(currency);
+			console.log(`Found currency ${foundCurrency} for country code ${currency}`);
+			if (foundCurrency) {
+				currency = foundCurrency.toUpperCase() || 'NGN';
+			} else {
+				console.warn(`No currency found for country code ${currency}`);
+				currency = $defaultCurrencyStore || 'NGN';
+			}
+		}
+
 		let url = new URL(window.location.href);
 		url.searchParams.set('To', currency);
 		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
@@ -274,7 +287,7 @@
 	/>
 </svelte:head>
 
-<div class="bg-white dark:bg-gray-800">
+<div style="background: var(--page-bg);">
 	<AdBanner name="converter" isMobile={data.isMobile} />
 </div>
 
@@ -293,8 +306,9 @@
 			<div class="w-full">
 				<!-- Tabs -->
 				<div
-					class="flex justify-between bg-accent-100 border dark:border-gray-700 rounded-[30px] p-2 mb-4 text-sm text-gray-600"
+					class="flex justify-between gap-1 rounded-full p-1.5 mb-6 text-sm"
 					id="converter-tabs"
+					style="background: var(--table-header-bg); border: 1px solid var(--card-border);"
 				>
 					<button
 						class="button converter-tab-button active text-[0.8em] md:text-sm"
@@ -375,7 +389,7 @@
 				<!-- Form -->
 				<div class="flex flex-wrap flex-col md:flex-row items-center md:gap-4">
 					<div class="flex-1 w-full">
-						<label class="block text-sm text-gray-600 mb-1" for="field-convert-amount">Amount</label
+						<label class="block text-sm mb-1" style="color: var(--text-secondary);" for="field-convert-amount">Amount</label
 						>
 						<div class="flex-1 flex items-center input w-full p-0">
 							<input
@@ -392,7 +406,7 @@
 						</div>
 					</div>
 					<div class="flex-1 w-full">
-						<label class="block text-sm text-gray-600 mb-1" for="field-convert-from">
+						<label class="block text-sm mb-1" style="color: var(--text-secondary);" for="field-convert-from">
 							{#if currentView === CurrentView.SEND}
 								You Send
 							{:else if currentView === CurrentView.BUY}
@@ -432,7 +446,8 @@
 					{#if currentView !== CurrentView.SEND}
 						<div class="flex items-center">
 							<button
-								class="text-sm p-1 pl-2 md:mt-3 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 text-dark rounded-full"
+								class="text-sm p-2 md:mt-3 hover:opacity-80 focus:outline-none rounded-full"
+								style="background: var(--table-header-bg); border: 1px solid var(--card-border); color: var(--text-primary);"
 								on:click={swapConversionInputs}
 								aria-label="Swap inputs"
 							>
@@ -452,7 +467,7 @@
 						</div>
 					{/if}
 					<div class="flex-1 w-full">
-						<label class="block text-sm text-gray-600 mb-1" for="field-convert-to">
+						<label class="block text-sm mb-1" style="color: var(--text-secondary);" for="field-convert-to">
 							{#if currentView === CurrentView.SEND}
 								To
 							{:else if currentView === CurrentView.BUY}
@@ -500,20 +515,20 @@
 				<div>
 					{#if currentView === CurrentView.CONVERT}
 						<div id="convert-result" class="mt-8 mb-8">
-							<span class="block font-semibold text-lg text-gray-600 dark:text-gray-300 mb-2">
+							<span class="block text-base mb-1" style="color: var(--text-secondary);">
 								{Money.format(convertAmount)}
 								{currencyFrom.name} =
 							</span>
-							<span class="block font-bold text-3xl mb-2 dark:text-gray-200">
-								{Money.format(convertResult.conversion)}
+							<span class="font-head block font-bold text-4xl mb-3" style="color: var(--text-primary); letter-spacing: -0.02em;">
+								<span class="font-mono">{Money.format(convertResult.conversion)}</span>
 								{currencyTo.name}
 							</span>
-							<span class="block text-gray-500 dark:text-gray-400">
-								1 {convertFrom} = {Money.format(convertResult.rate)}
+							<span class="block text-sm" style="color: var(--text-muted);">
+								1 {convertFrom} = <span class="font-mono">{Money.format(convertResult.rate)}</span>
 								{convertTo}
 							</span>
-							<span class="block text-gray-500 dark:text-gray-400">
-								1 {convertTo} = {Money.format(convertResult.rate_inverse)}
+							<span class="block text-sm" style="color: var(--text-muted);">
+								1 {convertTo} = <span class="font-mono">{Money.format(convertResult.rate_inverse)}</span>
 								{convertFrom}
 							</span>
 						</div>
@@ -521,7 +536,8 @@
 							<!-- only show this if the from currency or to currency is BTC -->
 							{#if convertFrom === 'BTC' || convertTo === 'BTC'}
 								<span
-									class="flex justify-between items-center bg-accent-100 md:hidden border dark:border-gray-700 rounded-lg p-4 mb-8"
+									class="flex justify-between items-center md:hidden rounded-xl p-4 mb-8"
+									style="background: var(--accent-light); border: 1px solid var(--card-border);"
 								>
 									<span class="block text-gray-600 dark:text-gray-300 text-sm">
 										99% of Bitcoin price predictions are wrong, signup on
@@ -539,7 +555,8 @@
 								</span>
 							{/if}
 							<span
-								class="flex justify-between items-center bg-accent-100 md:w-[40%] border dark:border-gray-700 rounded-lg p-4 mb-8 md:mb-0"
+								class="flex justify-between items-center md:w-[40%] rounded-xl p-4 mb-8 md:mb-0"
+								style="background: var(--accent-light); border: 1px solid var(--card-border);"
 							>
 								<span class="inline-block mr-2">
 									<svg
@@ -630,7 +647,6 @@
 				from={currencyFrom}
 				to={currencyTo}
 				amount={convertAmount}
-				{userCountry}
 			/>
 		</div>
 	{/if}
@@ -731,13 +747,13 @@
 	<div class="w-[95%] mx-auto md:w-[70%] mt-24">
 		<h2 class="text-2xl mb-6 text-center">Currency Infomation</h2>
 		<div class="block md:flex md:justify-between md:items-center">
-			<div class="shadow-lg md:w-[45%] p-8 bg-white dark:bg-gray-900">
+			<div class="card md:w-[45%] p-8">
 				<h2 class="text-2xl">{convertFrom} - {currencyFrom.name}</h2>
-				<span class="block mt-6">
+				<span class="block mt-6" style="color: var(--text-secondary);">
 					{currencyFrom.description}
 				</span>
 			</div>
-			<div class="shadow-lg md:w-[45%] p-8 bg-white dark:bg-gray-900">
+			<div class="card md:w-[45%] p-8">
 				<h2 class="text-2xl">
 					{currentView === CurrentView.SEND
 						? countriesToCurrencies[convertTo.toUpperCase()]
@@ -753,41 +769,56 @@
 
 <style>
 	.section {
-		@apply w-[95%] md:w-[70%] bg-white dark:bg-gray-900 shadow-lg rounded-lg px-4 py-4 mx-auto;
+		@apply w-[95%] md:w-[70%] rounded-2xl px-5 py-6 md:px-7 md:py-7 mx-auto;
+		background: var(--card-bg);
+		border: 1px solid var(--card-border);
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
 	}
 
 	.more-conversion {
-		@apply w-[95%] mx-auto md:w-[70%] md:flex md:justify-between md:items-center mt-16;
+		@apply w-[95%] mx-auto md:w-[70%] md:flex md:justify-between md:items-start mt-16 gap-5;
 	}
 	.more-conversion .entry {
-		@apply bg-white dark:bg-gray-900 shadow-lg rounded-lg md:w-[40%] mb-4;
+		@apply rounded-2xl md:w-[48%] mb-4 overflow-hidden;
+		background: var(--card-bg);
+		border: 1px solid var(--card-border);
 	}
 	.more-conversion .entry .header {
-		@apply border-b border-gray-200 dark:border-gray-700 block py-4 px-8;
+		@apply block py-4 px-8;
+		border-bottom: 1px solid var(--card-border);
 	}
 
 	table thead th {
-		@apply dark:text-gray-300 text-black whitespace-nowrap;
+		@apply whitespace-nowrap text-xs uppercase tracking-wide font-semibold py-3;
+		color: var(--text-muted);
 	}
 	table tbody tr td {
-		@apply py-2 whitespace-nowrap;
+		@apply py-2.5 whitespace-nowrap;
+		font-family: var(--font-mono);
+		color: var(--text-primary);
+		border-top: 1px solid var(--card-border);
+	}
+	table tbody tr:hover td {
+		background: var(--table-hover);
 	}
 	table tr td:first-child,
 	table thead th:first-child {
 		@apply pl-0;
 	}
 
+	/* Segmented pill control — matches the dashboard's tab styling */
 	.converter-tab-button {
-		@apply block w-full bg-transparent p-2 md:py-2 md:px-4 rounded-[20px] text-gray-500 dark:text-gray-400 mr-2;
-	}
-	.converter-tab-button:last-child {
-		@apply mr-0;
+		@apply flex items-center justify-center w-full bg-transparent p-2 md:py-2.5 md:px-4 rounded-full font-medium;
+		font-family: var(--font-head);
+		color: var(--text-secondary);
+		transition: background 0.15s ease, color 0.15s ease;
 	}
 	.converter-tab-button:hover {
-		@apply bg-gray-200 dark:bg-gray-800 text-gray-500 dark:text-gray-200;
+		color: var(--text-primary);
 	}
-
 	.converter-tab-button.active {
-		@apply bg-gray-600 dark:bg-gray-200 text-white dark:text-dark;
+		background: var(--card-bg);
+		color: var(--text-primary);
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
 	}
 </style>

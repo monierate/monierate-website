@@ -16,12 +16,13 @@ interface CountryCodeByCurrencyMap {
 	[currencyCode: string]: string | string[];
 }
 
-export const load: PageServerLoad = async ({ fetch, url, depends }) => {
+export const load: PageServerLoad = async ({ fetch, url, depends, parent }) => {
 	const search = url.searchParams;
+	const { defaultCurrency } = await parent();
 
 	const convert = {
 		From: search.get('From') ?? 'usd',
-		To: search.get('To') ?? 'ngn',
+		To: search.get('To') ?? (defaultCurrency || 'ngn'),
 		Amount: Number(search.get('Amount')) || 1
 	};
 
@@ -49,6 +50,12 @@ export const load: PageServerLoad = async ({ fetch, url, depends }) => {
 		}
 
 		if (!currencies.length) throw error(500, 'Currencies data failed');
+		if (
+			!currencies.find((c: any) => c.code.toUpperCase() === convert.From.toUpperCase()) ||
+			!currencies.find((c: any) => c.code.toUpperCase() === convert.To.toUpperCase())
+		) {
+			throw error(500, 'Currency not supported');
+		}
 
 		return {
 			convert,

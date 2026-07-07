@@ -33,17 +33,16 @@
 	</div>
 	
 	<!-- Posts -->
-	<div class="container bg-white px-4 shadow-md dark:bg-gray-900">
+	<div class="w-[95%] md:max-w-[1000px] mx-auto px-4 md:px-8 py-2 rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] shadow-md">
 		<section id="entries" class="min-h-[100vh]">
 			<ul class="posts">
 				{#each posts as post}
-					<li class="flex flex-col md:flex-row justify-between item-left md:items-center mb-4 py-6 border-b-2 border-dotted border-gray-300 dark:border-gray-700 last:border-none">
+					<li class="flex flex-col md:flex-row justify-between item-left md:items-center py-6 last:border-none" style="border-bottom: 1px solid var(--card-border);">
 						<span class="block">
-							<a data-sveltekit-reload href="/blog?tag={post.tag}" class="inline-block text-gray-600 dark:text-green-500 font-semibold text-xs mb-1 leading-none mb-4">{post.tag.toUpperCase()}</a>
-							<p></p>
-							<a href="/blog/{post.slug}" class="text-lg md:text-2xl text-gray-900 hover:underline dark:text-gray-300">{post.title}</a>
+							<a data-sveltekit-reload href="/blog?tag={post.tag}" class="font-head inline-block font-semibold text-xs mb-3 leading-none tracking-wide" style="color: var(--accent);">{post.tag.toUpperCase()}</a>
+							<a href="/blog/{post.slug}" class="font-head block text-lg md:text-2xl hover:underline" style="color: var(--text-primary);">{post.title}</a>
 						</span>
-						<p class="text-sm md:text-lg text-gray-500 dark:text-gray-300">{formatDate(post.createdAt)}</p>
+						<p class="font-mono text-sm md:text-base mt-2 md:mt-0" style="color: var(--text-muted);">{formatDate(post.createdAt)}</p>
 					</li>
 				{/each}
 			</ul>

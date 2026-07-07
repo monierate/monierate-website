@@ -36,7 +36,8 @@
 				: 'mx-auto w-[95%] md:max-w-[1500px] px-4'}
 		>
 			<div
-				class="flex items-center gap-2 sm:gap-3 rounded-xl border border-gray-100 bg-white p-2 sm:p-3 shadow-lg dark:border-gray-700 dark:bg-gray-800"
+				class="flex items-center gap-2 sm:gap-3 rounded-xl p-2 sm:p-3 shadow-lg"
+				style="background: var(--card-bg); border: 1px solid var(--card-border);"
 			>
 				<button
 					on:click={dismiss}

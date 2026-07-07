@@ -141,7 +141,7 @@
 	<div class="container py-14">
 		<div class="text-center mb-8">
 			<h2 class="text-2xl font-bold mb-2">Simple, transparent pricing</h2>
-			<p class="text-sm text-gray-500 dark:text-gray-400 max-w-lg mx-auto">
+			<p class="text-sm max-w-lg mx-auto" style="color: var(--text-secondary);">
 				Dashboard is free for everyone. Only pay when you make API calls, export data, or execute
 				trades. Pro and Max remove all per-action fees.
 			</p>
@@ -150,36 +150,25 @@
 		<!-- Billing toggle -->
 		<div class="flex items-center justify-center mb-8">
 			<div
-				class="relative flex items-center gap-1 p-1 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+				class="relative flex items-center gap-1 p-1 rounded-full"
+				style="background: var(--table-header-bg); border: 1px solid var(--card-border);"
 			>
 				<button
 					on:click={() => (billing = 'monthly')}
-					class="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
-					class:bg-white={billing === 'monthly'}
-					class:dark:bg-gray-700={billing === 'monthly'}
-					class:shadow-sm={billing === 'monthly'}
-					class:text-gray-900={billing === 'monthly'}
-					class:dark:text-white={billing === 'monthly'}
-					class:text-gray-500={billing !== 'monthly'}
-					class:dark:text-gray-400={billing !== 'monthly'}
+					class="font-head px-4 py-1.5 rounded-full text-sm font-medium transition-all {billing === 'monthly' ? 'shadow-sm' : ''}"
+					style="background: {billing === 'monthly' ? 'var(--card-bg)' : 'transparent'}; color: {billing === 'monthly' ? 'var(--text-primary)' : 'var(--text-secondary)'};"
 				>
 					Monthly
 				</button>
 				<div class="relative">
 					<span
 						class="absolute -top-4 left-1/2 -translate-x-1/2 text-[9px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap z-10"
-						style="background-color: #10b981; color: white;"
+						style="background-color: var(--positive); color: white;"
 					>Save {savePct}%</span>
 					<button
 						on:click={() => (billing = 'yearly')}
-						class="px-4 py-1.5 rounded-full text-sm font-medium transition-all"
-						class:bg-white={billing === 'yearly'}
-						class:dark:bg-gray-700={billing === 'yearly'}
-						class:shadow-sm={billing === 'yearly'}
-						class:text-gray-900={billing === 'yearly'}
-						class:dark:text-white={billing === 'yearly'}
-						class:text-gray-500={billing !== 'yearly'}
-						class:dark:text-gray-400={billing !== 'yearly'}
+						class="font-head px-4 py-1.5 rounded-full text-sm font-medium transition-all {billing === 'yearly' ? 'shadow-sm' : ''}"
+						style="background: {billing === 'yearly' ? 'var(--card-bg)' : 'transparent'}; color: {billing === 'yearly' ? 'var(--text-primary)' : 'var(--text-secondary)'};"
 					>
 						Yearly
 					</button>
@@ -190,12 +179,10 @@
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
 			{#each plans as plan}
 				<div
-					class="rounded-xl border flex flex-col overflow-hidden bg-gray-50 dark:bg-gray-900/70"
-					style="border-color: {plan.highlighted
-						? '#3662ff'
-						: ''}; border-width: {plan.highlighted ? '1.5px' : '1px'};"
-					class:border-gray-200={!plan.highlighted}
-					class:dark:border-gray-700={!plan.highlighted}
+					class="rounded-2xl border flex flex-col overflow-hidden"
+					style="background: var(--card-bg); border-color: {plan.highlighted
+						? 'var(--accent)'
+						: 'var(--card-border)'}; border-width: {plan.highlighted ? '1.5px' : '1px'};"
 				>
 					<div class="p-5 flex flex-col flex-1">
 						<!-- Label badge -->
@@ -203,25 +190,25 @@
 							<span
 								class="{plan.labelAccent
 									? 'bg-emerald-500 text-white'
-									: 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'} text-[10px] font-bold tracking-widest px-2 py-0.5 rounded-full"
+									: 'bg-[var(--badge-neutral-bg)] text-[var(--text-secondary)]'} text-[10px] font-bold tracking-widest px-2 py-0.5 rounded-full"
 							>{plan.label}</span>
 						</div>
 
 						<!-- Plan name & tagline -->
-						<div class="text-[17px] font-bold text-gray-900 dark:text-gray-100">{plan.name}</div>
-						<div class="text-[12px] font-medium text-blue-500 mb-2">{plan.tagline}</div>
+						<div class="font-head text-[17px] font-bold" style="color: var(--text-primary);">{plan.name}</div>
+						<div class="text-[12px] font-medium mb-2" style="color: var(--accent);">{plan.tagline}</div>
 
 						<!-- Description -->
-						<p class="text-[11px] text-gray-500 dark:text-gray-400 mb-4 leading-relaxed min-h-[3.5rem]">
+						<p class="text-[11px] mb-4 leading-relaxed min-h-[3.5rem]" style="color: var(--text-secondary);">
 							{plan.description}
 						</p>
 
 						<!-- Price -->
 						<div class="mb-4">
-							<span class="price-num text-[30px] font-bold text-gray-900 dark:text-gray-100">
+							<span class="price-num font-mono text-[30px] font-bold" style="color: var(--text-primary);">
 								{billing === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice}
 							</span>
-							<span class="text-[12px] text-gray-400 ml-1">
+							<span class="text-[12px] ml-1" style="color: var(--text-muted);">
 								{billing === 'yearly' ? plan.yearlyPeriod : plan.monthlyPeriod}
 							</span>
 							{#if billing === 'yearly' && plan.yearlySavings > 0}
@@ -238,59 +225,52 @@
 							href={plan.ctaHref}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="block w-full text-center py-2 rounded-lg text-[12px] font-semibold transition-all"
-							class:bg-blue-600={plan.highlighted}
-							class:hover:bg-blue-700={plan.highlighted}
-							class:text-white={plan.highlighted}
-							class:border={!plan.highlighted}
-							class:border-gray-200={!plan.highlighted}
-							class:dark:border-gray-600={!plan.highlighted}
-							class:text-gray-700={!plan.highlighted}
-							class:dark:text-gray-300={!plan.highlighted}
-							class:hover:border-blue-500={!plan.highlighted}
-							class:hover:text-blue-600={!plan.highlighted}
+							class="font-head block w-full text-center py-2 rounded-lg text-[12px] font-semibold transition-all {plan.highlighted ? '' : 'border'}"
+							style="{plan.highlighted
+								? 'background: var(--accent); color: #fff;'
+								: 'border-color: var(--card-border); color: var(--text-primary);'}"
 						>
 							{plan.cta}
 						</a>
-						<div class="text-[11px] text-center text-gray-400 dark:text-gray-500 mt-1 mb-4 min-h-[1rem]">
+						<div class="text-[11px] text-center mt-1 mb-4 min-h-[1rem]" style="color: var(--text-muted);">
 							{#if plan.note}{plan.note}{/if}
 						</div>
 
 						<!-- Divider -->
-						<div class="border-t border-gray-100 dark:border-gray-700 mb-3"></div>
+						<div class="mb-3" style="border-top: 1px solid var(--card-border);"></div>
 
 						<!-- Platform Access -->
 						<div
-							class="text-[10px] font-bold tracking-widest text-gray-400 dark:text-gray-500 mb-2 uppercase"
+							class="font-head text-[10px] font-bold tracking-widest mb-2 uppercase" style="color: var(--text-muted);"
 						>
 							Platform Access
 						</div>
 						<ul class="flex flex-col gap-2 mb-4">
 							{#each plan.platformAccess as f}
-								<li class="text-[12px] text-gray-500 dark:text-gray-400 leading-snug">
+								<li class="text-[12px] leading-snug" style="color: var(--text-secondary);">
 									{f.label}
 									<span
-										class="inline-block align-middle ml-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+										class="inline-block align-middle ml-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-[var(--badge-neutral-bg)] text-[var(--text-secondary)]"
 									>{f.value}</span>
 								</li>
 							{/each}
 						</ul>
 
 						<!-- Divider -->
-						<div class="border-t border-gray-100 dark:border-gray-700 mb-3"></div>
+						<div class="mb-3" style="border-top: 1px solid var(--card-border);"></div>
 
 						<!-- Currency Rates API Limits -->
 						<div
-							class="text-[10px] font-bold tracking-widest text-gray-400 dark:text-gray-500 mb-2 uppercase"
+							class="font-head text-[10px] font-bold tracking-widest mb-2 uppercase" style="color: var(--text-muted);"
 						>
 							Currency Rates API Limits
 						</div>
 						<div class="flex flex-col gap-1 mb-2">
 							{#each plan.apiLimitLines as line}
-								<div class="text-[12px] font-medium text-gray-700 dark:text-gray-300">{line}</div>
+								<div class="text-[12px] font-medium" style="color: var(--text-primary);">{line}</div>
 							{/each}
 						</div>
-						<p class="text-[11px] text-gray-400 dark:text-gray-500 leading-relaxed">
+						<p class="text-[11px] leading-relaxed" style="color: var(--text-muted);">
 							{plan.apiLimitsNote}
 						</p>
 					</div>
@@ -298,15 +278,15 @@
 			{/each}
 		</div>
 
-		<p class="text-center text-[12px] text-gray-400 dark:text-gray-500 mt-6">
+		<p class="text-center text-[12px] mt-6" style="color: var(--text-muted);">
 			Need higher volume, WebSockets, or custom data feeds?
 			<a
 				href="https://cal.com/monierate/activation-call"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="text-blue-500 hover:underline">Talk to us</a
+				style="color: var(--accent);" class="hover:underline">Talk to us</a
 			>.
-			Full comparison at <a href="/pricing" class="text-blue-500 hover:underline">/pricing</a>.
+			Full comparison at <a href="/pricing" style="color: var(--accent);" class="hover:underline">/pricing</a>.
 		</p>
 	</div>
 </div>

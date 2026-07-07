@@ -28,7 +28,6 @@
 	export let from: any;
 	export let to: any;
 	export let amount: any;
-	export let userCountry: string;
 
 	let isLoading = true;
 	let hasResults = false;
@@ -153,10 +152,11 @@
 		<!-- Sending Rates Section -->
 		{#if sendingResult.length > 0}
 			<div
-				class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
+				class="card shadow-lg overflow-hidden"
 			>
 				<h2
-					class="text-xl font-semibold p-4 border-b bg-gray-50 dark:bg-gray-900 dark:border-gray-700"
+					class="font-head text-xl font-semibold p-4"
+					style="border-bottom: 1px solid var(--card-border);"
 				>
 					Send {from.code.toUpperCase()}
 				</h2>
@@ -167,7 +167,7 @@
 						<table class="table-auto w-full text-sm text-left">
 							<tbody class="changers">
 								{#each sendingResult as { rate, changer }}
-									<tr class="py-32 mb-4 border-b border-gray-150 dark:border-gray-800">
+									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
 												href="/converter/{rate.changer_code}?Amount={amount}&From={from.code.toUpperCase()}&To={to.code.toUpperCase()}"
@@ -208,14 +208,6 @@
 							</tbody>
 						</table>
 					{/if}
-					<div class="dark:border-gray-700 border-t text-center">
-						<a
-							href="/send/{from.code}-to-{userCountry ? userCountry.toLowerCase() : 'ng'}-best-rate"
-							class="w-full mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							See More
-						</a>
-					</div>
 				</div>
 			</div>
 		{/if}
@@ -223,10 +215,11 @@
 		<!-- Buying Rates Section -->
 		{#if buyingResult.length > 0}
 			<div
-				class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
+				class="card shadow-lg overflow-hidden"
 			>
 				<h2
-					class="text-xl font-semibold p-4 border-b bg-gray-50 dark:bg-gray-900 dark:border-gray-700"
+					class="font-head text-xl font-semibold p-4"
+					style="border-bottom: 1px solid var(--card-border);"
 				>
 					Buy {from.code.toUpperCase()}
 				</h2>
@@ -237,7 +230,7 @@
 						<table class="table-auto w-full text-sm text-left">
 							<tbody class="changers">
 								{#each buyingResult as { rate, changer }}
-									<tr class="py-32 mb-4 border-b border-gray-150 dark:border-gray-800">
+									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
 												href="/converter/{rate.changer_code}?Amount={amount}&From={from.code.toUpperCase()}&To={to.code.toUpperCase()}"
@@ -278,14 +271,6 @@
 							</tbody>
 						</table>
 					{/if}
-					<div class="dark:border-gray-700 border-t text-center">
-						<a
-							href="/buy/{from.code}-with-{to.code}-best-buying-rate"
-							class="w-full mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							See More
-						</a>
-					</div>
 				</div>
 			</div>
 		{/if}
@@ -293,10 +278,11 @@
 		<!-- Selling Rates Section -->
 		{#if sellingResult.length > 0}
 			<div
-				class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
+				class="card shadow-lg overflow-hidden"
 			>
 				<h2
-					class="text-xl font-semibold p-4 border-b bg-gray-50 dark:bg-gray-900 dark:border-gray-700"
+					class="font-head text-xl font-semibold p-4"
+					style="border-bottom: 1px solid var(--card-border);"
 				>
 					Sell {from.code.toUpperCase()}
 				</h2>
@@ -307,7 +293,7 @@
 						<table class="table-auto w-full text-sm text-left">
 							<tbody class="changers">
 								{#each sellingResult as { rate, changer }}
-									<tr class="py-32 mb-4 border-b border-gray-150 dark:border-gray-800">
+									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
 												href="/converter/{rate.changer_code}?Amount={amount}&From={from.code.toUpperCase()}&To={to.code.toUpperCase()}"
@@ -348,14 +334,6 @@
 							</tbody>
 						</table>
 					{/if}
-					<div class="dark:border-gray-700 border-t text-center">
-						<a
-							href="/sell/{from.code}-get-{to.code}-best-selling-rate"
-							class="w-full mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							See More
-						</a>
-					</div>
 				</div>
 			</div>
 		{/if}
@@ -363,10 +341,11 @@
 		<!-- Funding Rates Section -->
 		{#if fundingResult.length > 0}
 			<div
-				class="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700"
+				class="card shadow-lg overflow-hidden"
 			>
 				<h2
-					class="text-xl font-semibold p-4 border-b bg-gray-50 dark:bg-gray-900 dark:border-gray-700"
+					class="font-head text-xl font-semibold p-4"
+					style="border-bottom: 1px solid var(--card-border);"
 				>
 					Fund {from.code.toUpperCase()} card
 				</h2>
@@ -377,7 +356,7 @@
 						<table class="table-auto w-full text-sm text-left">
 							<tbody class="changers">
 								{#each fundingResult as { rate, changer }}
-									<tr class="py-32 mb-4 border-b border-gray-150 dark:border-gray-800">
+									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
 												href="/converter/{rate.changer_code}?Amount={amount}&From={from.code.toUpperCase()}&To={to.code.toUpperCase()}"
@@ -418,14 +397,6 @@
 							</tbody>
 						</table>
 					{/if}
-					<div class="dark:border-gray-700 border-t text-center">
-						<a
-							href="/card/{from.code}-{to.code}-best-funding-rate"
-							class="w-full mt-4 inline-block text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-						>
-							See More
-						</a>
-					</div>
 				</div>
 			</div>
 		{/if}

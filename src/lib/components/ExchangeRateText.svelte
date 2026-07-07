@@ -23,16 +23,17 @@
 </script>
 
 <div>
-	<h1 class="text-2xl md:text-4xl mb-2 dark:text-gray-100 {readMore ? 'mb-4' : ''}">
+	<h1 class="text-2xl md:text-4xl mb-2 {readMore ? 'mb-4' : ''}">
 		{title}
 	</h1>
-	<div class="text-gray-600 font-normal dark:text-gray-300 space-y-2">
+	<div class="font-normal space-y-2" style="color: var(--text-secondary);">
 		<p>
 			The average rate for {data.base.symbol}1 is {data.quote.symbol}{formatNumber(data.rate.now)},
 			compared to {data.quote.symbol}{formatNumber(data.rate.last)} a month ago.
 			{#if !readMore}
 				<button
-					class="text-gray-400 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 mt-2 cursor-pointer"
+					class="mt-2 cursor-pointer font-medium hover:underline"
+					style="color: var(--accent);"
 					on:click={() => (readMore = true)}>Read More</button
 				>
 			{/if}

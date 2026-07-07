@@ -2,9 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ──────────────────────────────────────────────────────────────────────────
+   Design system tokens — ported from the Monierate Pro dashboard.
+   The dashboard toggles light/dark via an explicit html class; the website
+   follows the OS preference, so we expose the same semantic tokens but switch
+   them with prefers-color-scheme. These are engine-agnostic CSS variables, so
+   the look is identical whether we're on Tailwind v3 (today) or v4 (later).
+   ────────────────────────────────────────────────────────────────────────── */
+:root {
+    --accent: #3861fb;
+    --accent-hover: #2a4fd4;
+    --accent-light: #eff3fe;
+    --positive: #22c55e;
+    --negative: #ef4444;
+    --warning: #f59e0b;
+
+    --font-head: 'Onest', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Instrument Sans', sans-serif;
+
+    /* light theme (default) */
+    --page-bg: #fafaf9;
+    --card-bg: #ffffff;
+    --card-border: #e5e7eb;
+    --text-primary: #080808;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --table-header-bg: #f3f3f2;
+    --table-hover: #f3f4f6;
+    --input-bg: #ffffff;
+    --input-border: #e5e7eb;
+    --badge-positive-bg: #f0fdf4;
+    --badge-negative-bg: #fef2f2;
+    --badge-neutral-bg: #f3f4f6;
+    --scrollbar-thumb: #d1d5db;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --accent-light: #172554;
+        --page-bg: #080808;
+        --card-bg: #161616;
+        --card-border: #222222;
+        --text-primary: #f1f5f9;
+        --text-secondary: #9ca3af;
+        --text-muted: #6b7280;
+        --table-header-bg: #0f0f0f;
+        --table-hover: #161616;
+        --input-bg: #0f0f0f;
+        --input-border: #333333;
+        --badge-positive-bg: #052e16;
+        --badge-negative-bg: #450a0a;
+        --badge-neutral-bg: #222222;
+        --scrollbar-thumb: #333333;
+    }
+}
+
+.font-head { font-family: var(--font-head); }
+.font-mono { font-family: var(--font-mono); }
+
 @layer base {
     body, html {
-        @apply font-worksans font-normal bg-white dark:bg-gray-800 dark:text-gray-300;
+        font-family: var(--font-body);
+        background: var(--page-bg);
+        color: var(--text-primary);
+        font-weight: 400;
         padding: 0;
         margin: 0;
     }
@@ -14,15 +76,27 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-        @apply font-bitter font-semibold text-black dark:text-gray-200;
+        font-family: var(--font-head);
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
     }
 
     a, button, input, textbox, p, span, div {
-        @apply font-worksans
+        font-family: var(--font-body);
     }
 
     a {
         @apply text-blue-900 dark:text-blue-400;
+    }
+
+    /* Scrollbars — match dashboard */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+
+    /* Prevent iOS Safari auto-zoom on input focus */
+    @supports (-webkit-touch-callout: none) {
+        input, textarea, select { font-size: 16px; }
     }
 }
 
@@ -37,45 +111,63 @@
     }
 
     .input, .select {
-        @apply block border border-gray-400 text-black bg-white dark:bg-gray-800 dark:text-gray-300 dark:border-gray-900 dark:font-semibold py-3.5 px-4 mb-4 w-full rounded-lg;
+        @apply block w-full py-3.5 px-4 mb-4 rounded-xl;
+        background: var(--input-bg);
+        color: var(--text-primary);
+        border: 1px solid var(--input-border);
         box-shadow: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
     .select {
-        @apply appearance-none h-[54px];
+        @apply appearance-none h-[54px] py-4;
     }
-    .input:focus, .input:hover {
-        @apply border-gray-900 dark:border-dark;
-        box-shadow: none;
+    .input:focus, .input:hover,
+    .select:focus, .select:hover {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-light);
         outline: 0;
     }
 
     .button {
-        @apply text-gray-100 bg-gray-800 hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-100 dark:text-gray-900 dark:focus:ring-gray-700;
+        @apply inline-flex items-center justify-center font-semibold rounded-xl text-sm px-5 py-2.5;
+        font-family: var(--font-head);
+        background: var(--accent);
+        color: #ffffff;
         cursor: pointer;
+        transition: background 0.15s ease, opacity 0.15s ease;
+    }
+    .button:hover {
+        background: var(--accent-hover);
+    }
+    .button:focus {
+        outline: 0;
+        box-shadow: 0 0 0 3px var(--accent-light);
     }
 
     .button.buy,
     .button.action {
-        @apply text-white bg-green-600 hover:bg-green-700 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:text-gray-900 dark:focus:ring-green-700;
-        cursor: pointer;
+        background: var(--positive);
+        color: #ffffff;
+    }
+    .button.buy:hover,
+    .button.action:hover {
+        background: #16a34a;
     }
 
     .button[disabled] {
         @apply opacity-50 cursor-not-allowed;
     }
 
-    .select {
-        @apply py-4;
-    }
-
-    .select:focus, .select:hover {
-        @apply border-gray-900 dark:border-dark;
-        box-shadow: none;
-        outline: 0;
-    }
-
     .label {
-        @apply block mb-2 font-medium text-gray-900 dark:text-white
+        @apply block mb-2 text-sm font-medium;
+        color: var(--text-secondary);
+    }
+
+    /* Token-driven surfaces reused across the redesign */
+    .card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        @apply rounded-2xl;
     }
 
     .btn {
