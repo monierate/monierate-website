@@ -120,7 +120,7 @@
 
 		{#if hasQuickFacts}
 			<div
-				class="rounded-xl border border-gray-200 dark:border-gray-700/60 divide-y divide-gray-200 dark:divide-gray-700/60 text-sm"
+				class="rounded-xl bg-gray-50 dark:bg-gray-800/40 divide-y divide-gray-200/70 dark:divide-gray-700/40 text-sm"
 			>
 				{#if changer.year_launched}
 					<div class="flex items-center justify-between gap-4 px-4 py-3">
@@ -158,7 +158,7 @@
 									href={license.url || undefined}
 									target={license.url ? '_blank' : undefined}
 									rel={license.url ? 'noopener noreferrer' : undefined}
-									class="inline-flex items-center gap-1 rounded-full border border-gray-200 dark:border-gray-700/60 px-3 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 {license.url ? 'hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors' : ''}"
+									class="inline-flex items-center gap-1 rounded-full bg-white dark:bg-gray-900 px-3 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 shadow-sm {license.url ? 'hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors' : ''}"
 								>
 									Licensed by {license.authority}
 									{#if license.license_type}
