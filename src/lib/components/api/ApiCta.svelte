@@ -31,7 +31,7 @@
 
 		<div class="flex flex-wrap items-center justify-center gap-4">
 			<a
-				href="https://cal.com/monierate/activation-call"
+				href="https://calendar.app.google/RMRzzUG7AprXMNwg6"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="inline-flex items-center gap-1.5 text-xs hover:opacity-70 transition-opacity" style="color: var(--text-muted);"
