@@ -123,6 +123,11 @@
 					? apiPlan.price_usd * 12 - apiPlan.prices_by_cycle.yearly.usd
 					: 0;
 
+			const yearlyTotal =
+				apiPlan.billing_model === 'flat' && apiPlan.prices_by_cycle?.yearly?.usd
+					? apiPlan.prices_by_cycle.yearly.usd
+					: 0;
+
 			return {
 				...config,
 				code: apiPlan.code,
@@ -130,6 +135,7 @@
 				monthlyPrice: getMonthlyPrice(apiPlan),
 				yearlyPrice: getYearlyPrice(apiPlan),
 				yearlySavings,
+				yearlyTotal,
 				platformAccess,
 				apiLimitLines: getApiLimitLines(apiPlan)
 			};
@@ -209,7 +215,8 @@
 								{billing === 'yearly' ? plan.yearlyPrice : plan.monthlyPrice}
 							</span>
 							<span class="text-[12px] ml-1" style="color: var(--text-muted);">
-								{billing === 'yearly' ? plan.yearlyPeriod : plan.monthlyPeriod}
+								{billing === 'yearly' ? plan.yearlyPeriod : plan.monthlyPeriod}{#if billing === 'yearly' && plan.yearlyTotal > 0}
+									(${plan.yearlyTotal.toLocaleString()}/yr){/if}
 							</span>
 							{#if billing === 'yearly' && plan.yearlySavings > 0}
 								<div class="mt-1.5">
