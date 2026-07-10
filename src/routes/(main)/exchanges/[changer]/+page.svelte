@@ -4,6 +4,12 @@
 	import FeaturedPublications from '$lib/components/exchanges/FeaturedPublications.svelte';
 	import AboutCard from '$lib/components/exchanges/AboutCard.svelte';
 	import ChangerSidebar from '$lib/components/exchanges/ChangerSidebar.svelte';
+	import StatusBanner from '$lib/components/exchanges/StatusBanner.svelte';
+	import FeesLimits from '$lib/components/exchanges/FeesLimits.svelte';
+	import PaymentMethods from '$lib/components/exchanges/PaymentMethods.svelte';
+	import ProsCons from '$lib/components/exchanges/ProsCons.svelte';
+	import Faqs from '$lib/components/exchanges/Faqs.svelte';
+	import { getIconPath } from '$lib/utils';
 
 	export let data;
 	$: changer = data.changer;
@@ -12,6 +18,58 @@
 	$: filteredPublications = changer.featured_publications?.filter(
 		(p: any) => !p.url?.includes('apps.apple.com') && !p.url?.includes('play.google.com')
 	) ?? [];
+
+	$: lastReviewed = changer.last_reviewed_at
+		? new Date(changer.last_reviewed_at).toLocaleDateString('en-GB', {
+				day: 'numeric',
+				month: 'long',
+				year: 'numeric'
+			})
+		: null;
+
+	// FAQ structured data (schema.org FAQPage) for rich results.
+	$: faqJsonLd =
+		changer.faqs && changer.faqs.length > 0
+			? JSON.stringify({
+					'@context': 'https://schema.org',
+					'@type': 'FAQPage',
+					mainEntity: changer.faqs.map((f: any) => ({
+						'@type': 'Question',
+						name: f.question,
+						acceptedAnswer: {
+							'@type': 'Answer',
+							text: f.answer
+						}
+					}))
+				}).replace(/</g, '\\u003c')
+			: null;
+
+	const mediaBaseUrls: Record<string, string> = {
+		x: 'https://x.com',
+		twitter: 'https://x.com',
+		instagram: 'https://instagram.com',
+		linkedin: 'https://linkedin.com/in',
+		facebook: 'https://facebook.com'
+	};
+
+	$: sameAs = (changer.media_handles ?? [])
+		.map((h: any) => {
+			const base = mediaBaseUrls[h.media?.toLowerCase()];
+			return base && h.handle ? `${base}/${h.handle}` : null;
+		})
+		.filter(Boolean);
+
+	// Organization structured data (schema.org) for the exchange profile.
+	$: orgJsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: changer.name,
+		...(changer.legal_name ? { legalName: changer.legal_name } : {}),
+		...(changer.link ? { url: changer.link } : {}),
+		logo: `https://monierate.com${getIconPath(changer.icon)}`,
+		...(sameAs.length > 0 ? { sameAs } : {}),
+		...(changer.year_launched ? { foundingDate: String(changer.year_launched) } : {})
+	}).replace(/</g, '\\u003c');
 </script>
 
 <svelte:head>
@@ -30,6 +88,11 @@
 	/>
 	<meta property="og:url" content={`https://monierate.com/exchanges/${changer.slug}`} />
 	<meta property="og:image" content="https://ik.imagekit.io/monierate/thumbnails/{changer.code}-og.png" />
+
+	{@html `<script type="application/ld+json">${orgJsonLd}<\/script>`}
+	{#if faqJsonLd}
+		{@html `<script type="application/ld+json">${faqJsonLd}<\/script>`}
+	{/if}
 </svelte:head>
 
 <!-- <AdBanner name="footer" /> -->
@@ -39,6 +102,11 @@
 
 	<div class="md:w-2/3 space-y-16">
 		<div class="space-y-6 container px-0 mx-0 w-full md:px-6 md:mx-auto">
+			{#if ['suspended', 'closed', 'flagged'].includes(changer.operating_status)}
+				<div class="px-4 md:px-0">
+					<StatusBanner name={changer.name} status={changer.operating_status} />
+				</div>
+			{/if}
 			<div class="px-4 md:px-0">
 				<h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
 					{changer.name} Exchange Rates
@@ -64,6 +132,30 @@
 				</div>
 			{/if}
 
+			{#if changer.fees_note || changer.limits?.min || changer.limits?.max || changer.limits?.note || changer.settlement_time || changer.min_ticket_size}
+				<div class="md:px-6">
+					<FeesLimits {changer} />
+				</div>
+			{/if}
+
+			{#if changer.payment_methods?.length}
+				<div class="md:px-6">
+					<PaymentMethods methods={changer.payment_methods} />
+				</div>
+			{/if}
+
+			{#if changer.pros?.length || changer.cons?.length}
+				<div class="md:px-6">
+					<ProsCons name={changer.name} pros={changer.pros ?? []} cons={changer.cons ?? []} />
+				</div>
+			{/if}
+
+			{#if changer.faqs?.length}
+				<div class="md:px-6">
+					<Faqs name={changer.name} faqs={changer.faqs} />
+				</div>
+			{/if}
+
 			<div class="md:px-6 space-y-5">
 				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
 					Featured Publications
@@ -71,7 +163,7 @@
 				{#if filteredPublications.length > 0}
 					<FeaturedPublications posts={filteredPublications} />
 				{:else}
-					<div class="text-center p-16 bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+					<div class="text-center p-16 border border-gray-200 dark:border-gray-700/60 rounded-xl">
 						There's no featured publications for {changer.name}
 					</div>
 				{/if}
@@ -94,6 +186,26 @@
 					financial data, or third-party content.
 				</p>
 			</div>
+
+			{#if lastReviewed}
+				<p class="md:px-6 flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						class="w-4 h-4 shrink-0"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+						/>
+					</svg>
+					<span>Last updated {lastReviewed}</span>
+				</p>
+			{/if}
 		</div>
 	</div>
 </div>

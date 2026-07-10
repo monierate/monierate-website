@@ -35,7 +35,7 @@
 				Get API Key Free
 			</a>
 			<a
-				href="https://cal.com/monierate/activation-call"
+				href="https://calendar.app.google/RMRzzUG7AprXMNwg6"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="font-head inline-flex items-center justify-center rounded-xl font-semibold px-6 py-2.5 text-sm"
