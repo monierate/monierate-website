@@ -281,7 +281,7 @@
 		<p class="text-center text-[12px] mt-6" style="color: var(--text-muted);">
 			Need higher volume, WebSockets, or custom data feeds?
 			<a
-				href="https://cal.com/monierate/activation-call"
+				href="https://calendar.app.google/RMRzzUG7AprXMNwg6"
 				target="_blank"
 				rel="noopener noreferrer"
 				style="color: var(--accent);" class="hover:underline">Talk to us</a
