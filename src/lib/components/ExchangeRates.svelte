@@ -34,6 +34,17 @@
 	let sortColumn: string | null = null;
 	let originalRows: any = null;
 
+	// originalRows caches the pre-sort order of the current dataset/page;
+	// drop it when any of those change so "default" never restores rows
+	// from a previous currency pair or page
+	$: rates, currentPage, rowsPerPage, resetSort();
+
+	function resetSort() {
+		originalRows = null;
+		sortColumn = null;
+		sortDirection = 'asc';
+	}
+
 	const sortTable = (column: string) => {
 		if (!originalRows) originalRows = [...paginatedRows];
 

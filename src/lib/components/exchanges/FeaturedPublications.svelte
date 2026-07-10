@@ -10,12 +10,12 @@
 	export let posts: BlogPost[] = [];
 </script>
 
-<div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+<div class="border border-gray-200 dark:border-gray-700/60 rounded-xl">
 	<!-- List -->
-	<ul class="divide-y divide-gray-100 dark:divide-gray-800">
+	<ul class="divide-y divide-gray-200 dark:divide-gray-700/60">
 		{#each posts as post}
 			<li
-				class="px-6 py-4 bg-gray-50/70 dark:bg-gray-800/20 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition"
+				class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition first:rounded-t-xl last:rounded-b-xl"
 			>
 				<div class="flex items-start gap-4">
 					<!-- Cover / Icon -->
