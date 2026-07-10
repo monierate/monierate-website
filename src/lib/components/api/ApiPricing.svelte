@@ -286,7 +286,6 @@
 				rel="noopener noreferrer"
 				style="color: var(--accent);" class="hover:underline">Talk to us</a
 			>.
-			Full comparison at <a href="/pricing" style="color: var(--accent);" class="hover:underline">/pricing</a>.
 		</p>
 	</div>
 </div>
