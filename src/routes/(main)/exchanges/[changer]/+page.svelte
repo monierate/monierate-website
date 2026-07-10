@@ -102,9 +102,9 @@
 
 	<div class="md:w-2/3 space-y-16">
 		<div class="space-y-6 container px-0 mx-0 w-full md:px-6 md:mx-auto">
-			{#if ['suspended', 'closed', 'flagged'].includes(changer.status)}
+			{#if ['suspended', 'closed', 'flagged'].includes(changer.operating_status)}
 				<div class="px-4 md:px-0">
-					<StatusBanner name={changer.name} status={changer.status} />
+					<StatusBanner name={changer.name} status={changer.operating_status} />
 				</div>
 			{/if}
 			<div class="px-4 md:px-0">
