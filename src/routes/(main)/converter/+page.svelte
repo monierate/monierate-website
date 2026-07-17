@@ -304,7 +304,7 @@
 	<div id="changer-rate-wrapper" class="section">
 		<div class="flex justify-center items-center">
 			<div class="w-full">
-				<!-- Tabs -->
+				<!-- Tabs hidden for now: the Buy/Sell/Send pages have been deleted
 				<div
 					class="flex justify-between gap-1 rounded-full p-1.5 mb-6 text-sm"
 					id="converter-tabs"
@@ -385,6 +385,7 @@
 						Send
 					</button>
 				</div>
+				-->
 
 				<!-- Form -->
 				<div class="flex flex-wrap flex-col md:flex-row items-center md:gap-4">
