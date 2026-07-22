@@ -20,5 +20,11 @@ export async function GET({ url }) {
 		json({ message: 'Failed to get pair changers' }, { status: 500 });
 	}
 
-	return json({ data: changers.data });
+	const data = changers.data as any;
+
+	if (data?.result) {
+		data.result = data.result.filter((changer: any) => changer.is_public === true);
+	}
+
+	return json({ data });
 }
