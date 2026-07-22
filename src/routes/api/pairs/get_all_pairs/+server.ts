@@ -26,5 +26,14 @@ export async function GET({ url }) {
 		return json({ message: response.error }, { status: 500 });
 	}
 
-	return json({ data: response.data });
+	const data = response.data as any;
+
+	if (data?.result) {
+		data.result = data.result.map((pair: any) => ({
+			...pair,
+			changers: (pair.changers ?? []).filter((changer: any) => changer.is_public === true)
+		}));
+	}
+
+	return json({ data });
 }

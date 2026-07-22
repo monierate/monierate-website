@@ -22,5 +22,11 @@ export async function GET({ url }) {
 		return json({ message: response.error }, { status: 500 });
 	}
 
-	return json({data: response.data});
+	const data = response.data as any;
+
+	if (data?.changers) {
+		data.changers = data.changers.filter((changer: any) => changer.is_public === true);
+	}
+
+	return json({data});
 }
