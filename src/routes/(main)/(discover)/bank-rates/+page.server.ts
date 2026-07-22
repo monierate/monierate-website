@@ -10,7 +10,7 @@ import { getHighlights } from '$lib/services/highlight.service';
 import { normalizeCurrency } from '$lib/functions';
 
 type CurrencyMap = Record<string, string>;
-type Provider = Awaited<ReturnType<typeof getAllChangers>>[number];
+type Provider = NonNullable<Awaited<ReturnType<typeof getAllChangers>>>[number];
 
 const DEFAULT_BASE = 'USD';
 const DEFAULT_QUOTE = 'NGN';
