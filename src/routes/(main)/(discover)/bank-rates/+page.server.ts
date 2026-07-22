@@ -10,7 +10,7 @@ import { getHighlights } from '$lib/services/highlight.service';
 import { normalizeCurrency } from '$lib/functions';
 
 type CurrencyMap = Record<string, string>;
-type Provider = Awaited<ReturnType<typeof getAllChangers>>[number];
+type Provider = NonNullable<Awaited<ReturnType<typeof getAllChangers>>>[number];
 
 const DEFAULT_BASE = 'USD';
 const DEFAULT_QUOTE = 'NGN';
@@ -62,10 +62,21 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 
 		const availablePairs: any[] = [];
 
+		// Codes of changers that have a public rate for the currently selected pair
+		const publicChangerCodes = new Set(
+			(pair?.changers ?? [])
+				.filter((changer: any) => changer.is_public === true)
+				.map((changer: any) => changer.changer_code)
+		);
+
 		// Transform providers into key-value pair for easy lookup
 		const providers: Record<string, (typeof rawProviders)[0]> = {};
 		for (const provider of rawProviders) {
-			if (provider.changer_tags && provider.changer_tags.includes('bank')) {
+			if (
+				provider.changer_tags &&
+				provider.changer_tags.includes('bank') &&
+				publicChangerCodes.has(provider.code)
+			) {
 				providers[provider.code] = provider;
 				try {
 					if (provider.pairs) {
