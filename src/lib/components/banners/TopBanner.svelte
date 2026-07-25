@@ -6,11 +6,11 @@
 
 	const sponsored_partners = [
 		{
-			image: 'https://vban.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
-			text: 'Get Paid Globally with Dollar',
-			link: 'https://vban.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
-			brand: 'Vban',
-			cta: 'Download'
+			image: 'https://pro.monierate.com/',
+			text: 'Unlock premium tools for smarter money moves',
+			link: 'https://pro.monierate.com/',
+			brand: 'Monierate Pro',
+			cta: 'Get Pro'
 		}
 	];
 	const selected_partner_top = selectTopPartnerBanner(sponsored_partners);

@@ -590,6 +590,7 @@
 				</div>
 
 				<span class="block mt-12 mb-4">
+					<!--
 					<a
 						href="https://tinyurl.com/mavapay-monierate-link"
 						class="block button buy font-bold w-full md:inline-block md:w-auto"
@@ -610,6 +611,7 @@
 							/>
 						</svg>
 					</a>
+					-->
 
 					{#if currentView === CurrentView.CONVERT}
 						<!-- <button class="button w-full md:max-w-[250px]" on:click={convertNow}> Convert </button> -->

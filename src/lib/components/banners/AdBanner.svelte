@@ -127,7 +127,5 @@
 		{/key}
 	{:else if notFound}
 		<div class="text-center text-red-600 text-sm italic">Advert "{name}" not found.</div>
-	{:else}
-		<div class="text-center text-yellow-500 text-sm italic">No valid adverts for "{name}".</div>
 	{/if}
 </div>
