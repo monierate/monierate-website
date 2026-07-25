@@ -5,7 +5,7 @@
 	import { timezone } from '$lib/functions';
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import LoadingIndicator from '$lib/components/LoadingIndicator.svelte';
-	import TopBanner from '$lib/components/banners/TopBanner.svelte';
+	// import TopBanner from '$lib/components/banners/TopBanner.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import MarketTicker from '$lib/components/layout/MarketTicker.svelte';
@@ -49,7 +49,7 @@
 </script>
 
 <LoadingIndicator />
-<TopBanner />
+<!-- <TopBanner /> -->
 <Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
 <MarketTicker top_pairs={top_pairs} />
 <Breadcrumb />
