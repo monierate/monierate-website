@@ -8,6 +8,7 @@
 		{
 			image: 'https://pro.monierate.com/',
 			text: 'Unlock premium tools for smarter money moves',
+			shortText: 'Unlock premium money tools',
 			link: 'https://pro.monierate.com/',
 			brand: 'Monierate Pro',
 			cta: 'Get Pro'
@@ -31,7 +32,7 @@
 				class="mx-2 hidden md:inline h-0.5 w-0.5 fill-current"
 				aria-hidden="true"><circle cx="1" cy="1" r="1" /></svg
 			>
-			{selected_partner_top.text}
+			<span class="hidden md:inline">{selected_partner_top.text}</span>
 
 			<svg
 				viewBox="0 0 2 2"
@@ -48,7 +49,7 @@
 				href={selected_partner_top.link}
 				class="inline-block md:hidden break-word text-sm font-semibold text-sm text-gray-100 dark:text-gray-100 hover:underline text-wrap"
 			>
-				{selected_partner_top.brand}
+				{selected_partner_top.brand}: {selected_partner_top.shortText}
 				<svg
 					class="inline-block md:hidden w-3 h-3 ms-2 rtl:rotate-180"
 					aria-hidden="true"
