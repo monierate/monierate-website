@@ -20,7 +20,7 @@ export const load: PageLoad = async ({ params }) => {
 			slug: params.slug,
 			metadata: post.metadata,  // Full frontmatter (or use postMeta if you want to avoid re-parsing)
 			content: post.default,    // Rendered MD as Svelte component (mdsvex magic)
-			adverts: Adverts.blog
+			adverts: Adverts.blog.filter((ad) => !ad.disabled)
 		};
 	} catch (e) {
 		console.error(`Blog load failed for slug: ${params.slug}`, e);
