@@ -4,17 +4,39 @@
 		return sponsored_partners[random_index];
 	};
 
+	// Copy variants for the selected partner. Rotated per hour rather than picked
+	// at random so the server and client render the same text (a random pick here
+	// runs twice — once on SSR, once on hydration — and the two disagree).
+	const messages = [
+		{
+			text: 'Premium currency APIs & historical rates',
+			shortText: 'Currency APIs & historical data'
+		},
+		{
+			text: 'Build with clean stablecoin FX data — 20+ years of history',
+			shortText: 'Stablecoin price & history API'
+		},
+		{
+			text: 'Real-time rates, historical data, one API key',
+			shortText: 'Real-time & historical rates'
+		}
+	];
+
+	const selectMessage = (list: typeof messages) =>
+		list[Math.floor(Date.now() / 3_600_000) % list.length];
+
 	const sponsored_partners = [
 		{
 			image: 'https://pro.monierate.com/',
-			text: 'Unlock premium tools for smarter money moves',
-			shortText: 'Unlock premium money tools',
 			link: 'https://pro.monierate.com/',
 			brand: 'Monierate Pro',
 			cta: 'Get Pro'
 		}
 	];
-	const selected_partner_top = selectTopPartnerBanner(sponsored_partners);
+	const selected_partner_top = {
+		...selectTopPartnerBanner(sponsored_partners),
+		...selectMessage(messages)
+	};
 </script>
 
 <!-- <div id="top-banner" tabindex="-1" class="fixed top-0 mb-8 start-0 z-50 flex justify-between w-full p-4"> -->
@@ -47,7 +69,7 @@
 			</a>
 			<a
 				href={selected_partner_top.link}
-				class="inline-block md:hidden break-word text-sm font-semibold text-sm text-gray-100 dark:text-gray-100 hover:underline text-wrap"
+				class="inline-block md:hidden break-word font-semibold text-sm text-gray-100 dark:text-gray-100 hover:underline text-wrap"
 			>
 				{selected_partner_top.brand}: {selected_partner_top.shortText}
 				<svg
