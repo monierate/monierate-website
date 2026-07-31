@@ -1,15 +1,8 @@
 <script lang="ts">
 	import { useImageOrDefault } from '$lib/utils/loadImageOrDefault';
+	import { getIconPath } from '$lib/utils';
 
 	let { logo, name, size = 32 }: { logo: string; name: string; size?: number } = $props();
-
-	const BASE = 'https://monierate.com/icons';
-
-	function toUrl(filename: string): string {
-		const ext = filename.split('.').pop()?.toLowerCase();
-		const folder = ext === 'png' ? 'png' : 'svg';
-		return `${BASE}/${folder}/${filename}`;
-	}
 
 	const initials = $derived(
 		name
@@ -20,7 +13,7 @@
 			.toUpperCase()
 	);
 
-	const imageUrl = $derived(logo ? useImageOrDefault(toUrl(logo), '') : Promise.resolve(''));
+	const imageUrl = $derived(logo ? useImageOrDefault(getIconPath(logo), '') : Promise.resolve(''));
 </script>
 
 {#await imageUrl then src}

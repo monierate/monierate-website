@@ -12,6 +12,7 @@
 	import OhlcTable from '$lib/components/provider-profile/OhlcTable.svelte';
 	import PairsEmptyGhost from '$lib/components/provider-profile/PairsEmptyGhost.svelte';
 	import ProGateCta from '$lib/components/ProGateCta.svelte';
+	import { getIconPath } from '$lib/utils';
 
 	let { data } = $props();
 
@@ -36,13 +37,7 @@
 		}
 	});
 
-	const ICON_BASE = 'https://monierate.com/icons';
-	function iconUrl(icon: string): string {
-		const ext = icon.split('.').pop()?.toLowerCase();
-		return `${ICON_BASE}/${ext === 'png' ? 'png' : 'svg'}/${icon}`;
-	}
-
-	const providerIconUrl = $derived(data.provider.icon ? iconUrl(data.provider.icon) : null);
+	const providerIconUrl = $derived(data.provider.icon ? getIconPath(data.provider.icon) : null);
 	const tags = $derived((data.provider.changer_tags as string[] | undefined) ?? []);
 
 	let activeQuote = $state(data.initialQuote);
