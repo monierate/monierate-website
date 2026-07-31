@@ -124,3 +124,25 @@ export function buildPairOverviewSeo(input: PairOverviewSeoInput): PairOverviewS
 
 	return { title, description, canonical, ogImage: OG_IMAGE, webPageJsonLd };
 }
+
+/**
+ * Static SEO for the Stablecoin Spread Index (MSI) page — a single hub page
+ * (USDT/NGN only, per the backend MSI_PAIR), not programmatic per-pair.
+ */
+export function buildSpreadSeo(): PairOverviewSeo {
+	const title = 'Stablecoin Spread Index (MSI) — USDT/NGN Premium | Monierate';
+	const description =
+		'Track the Monierate Stablecoin Spread Index: the live USDT/NGN market premium over the CBN official rate, with history, per-source breakdown and channel signals.';
+	const canonical = `${SITE}/markets/spread`;
+
+	const webPageJsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'WebPage',
+		name: title,
+		description,
+		url: canonical,
+		about: 'USDT/NGN stablecoin premium over the CBN official rate'
+	}).replace(/</g, '\\u003c');
+
+	return { title, description, canonical, ogImage: OG_IMAGE, webPageJsonLd };
+}

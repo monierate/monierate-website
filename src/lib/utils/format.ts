@@ -3,6 +3,7 @@ export const fmt = (n: number | null | undefined, decimals = 2): string => {
 	return n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 };
 
+export const fmtNGN = (n: number): string => `₦${fmt(n)}`;
 export const fmtPct = (n: number): string => `${n >= 0 ? '+' : ''}${fmt(n)}%`;
 
 export const timeAgo = (ts: number | null | undefined): string => {
