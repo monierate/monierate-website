@@ -8,37 +8,33 @@
 	} = $props();
 </script>
 
-<div>
-	<div class="flex items-center gap-2 mb-2.5">
-		<h2
-			class="text-[12px] font-semibold uppercase tracking-wider"
-			style="color: var(--text-muted); font-family: var(--font-head);"
-		>Supported Pairs</h2>
-		<span
-			class="text-[11px] px-1.5 py-0.5 rounded-full"
-			style="background: var(--table-header-bg); color: var(--text-muted);"
-		>{pairCodes.length}</span>
-	</div>
-
+<div class="inline-block max-w-full overflow-x-auto no-scrollbar">
 	<div
-		class="inline-flex flex-wrap items-center gap-0.5 p-1 rounded-full"
-		style="background: var(--table-header-bg); border: 1px solid var(--card-border);"
+		class="flex flex-nowrap gap-1 bg-[var(--table-header-bg)] border border-[var(--card-border)] rounded-full p-1 min-w-max"
 	>
 		{#each pairCodes as pairCode}
-			{@const { base, quote } = parsePairCode(pairCode)}
+			{@const { base } = parsePairCode(pairCode)}
 			{@const isActive = selectedPair === pairCode}
 			<button
+				type="button"
 				onclick={() => onSelect(pairCode)}
-				class="flex items-center gap-1 px-3 py-1.5 rounded-full text-[12px] font-semibold cursor-pointer transition-all"
-				style={isActive
-					? 'background: var(--accent); color: #fff;'
-					: 'background: transparent; color: var(--text-secondary);'}
+				class={`font-head px-3.5 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
+					isActive
+						? 'bg-[var(--card-bg)] text-[var(--text-primary)] shadow font-semibold'
+						: 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+				}`}
 			>
-				{#if isActive}
-					<span class="text-[10px]">✓</span>
-				{/if}
-				{base.toUpperCase()}/{quote.toUpperCase()}
+				{base.toUpperCase()}
 			</button>
 		{/each}
 	</div>
 </div>
+
+<style>
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		scrollbar-width: none;
+	}
+</style>
