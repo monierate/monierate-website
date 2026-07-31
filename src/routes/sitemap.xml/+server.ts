@@ -82,7 +82,44 @@ async function fetchChangerCodes(): Promise<{ code: string; lastmod?: string }[]
 	}
 }
 
-function buildEntries(changers: { code: string; lastmod?: string }[]): Entry[] {
+interface PairProviderCombo {
+	pair: string;
+	providerCode: string;
+	lastmod?: string;
+}
+
+/**
+ * Enumerate live pair × provider combinations from the v1 rates API — the
+ * same source /markets/overview/:pair/:provider reads from. Scoped to the
+ * last 30-minute window (the endpoint's own freshness bar) so every listed
+ * URL is guaranteed to resolve rather than 404 on a long-stale pair.
+ */
+async function fetchPairProviderCombos(): Promise<PairProviderCombo[]> {
+	try {
+		const res = await serverApiRequest<{ rates?: any[] }>('/v1/rates/current', {
+			params: { limit: 1000 },
+			timeoutMs: 8000,
+			retries: 1
+		});
+
+		if (!res.success || !res.data?.rates) return [];
+
+		return res.data.rates
+			.filter((r) => typeof r?.pair === 'string' && typeof r?.provider_id === 'string')
+			.map((r) => ({
+				pair: r.pair as string,
+				providerCode: r.provider_id as string,
+				lastmod: r.timestamp ? new Date(r.timestamp).toISOString() : undefined
+			}));
+	} catch {
+		return [];
+	}
+}
+
+function buildEntries(
+	changers: { code: string; lastmod?: string }[],
+	pairProviderCombos: PairProviderCombo[]
+): Entry[] {
 	const now = new Date().toISOString();
 	const entries: Entry[] = [];
 
@@ -139,6 +176,16 @@ function buildEntries(changers: { code: string; lastmod?: string }[]): Entry[] {
 			changefreq: 'hourly',
 			priority: 0.6,
 			lastmod
+		});
+	}
+
+	/* --- Per-pair × per-provider long-tail pages (high cardinality; SSR on demand, not prerendered) --- */
+	for (const { pair, providerCode, lastmod } of pairProviderCombos) {
+		entries.push({
+			path: `/markets/overview/${pair}/${providerCode}`,
+			changefreq: 'hourly',
+			priority: 0.5,
+			lastmod: lastmod ?? now
 		});
 	}
 
@@ -219,8 +266,11 @@ ${urls}
 }
 
 export const GET: RequestHandler = async () => {
-	const changers = await fetchChangerCodes();
-	const xml = renderXml(buildEntries(changers));
+	const [changers, pairProviderCombos] = await Promise.all([
+		fetchChangerCodes(),
+		fetchPairProviderCombos()
+	]);
+	const xml = renderXml(buildEntries(changers, pairProviderCombos));
 
 	return new Response(xml, {
 		headers: {

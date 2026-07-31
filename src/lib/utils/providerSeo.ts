@@ -41,3 +41,42 @@ export function buildProviderSeo(provider: ProviderSeoInput): ProviderSeo {
 
 	return { title, description, canonical, ogImage, orgJsonLd };
 }
+
+export interface PairProviderSeoInput {
+	pairCode: string;
+	base: string;
+	quote: string;
+	providerCode: string;
+	providerName: string;
+	providerIcon?: string;
+	providerLink?: string;
+	rate?: number;
+}
+
+/**
+ * Dynamic SEO for a single pair × provider page, keyed on both the pair code
+ * and the changer code (e.g. "USDT → NGN rate on Bybit"). One of these exists
+ * per supported pair per provider, so this is the long-tail counterpart to
+ * {@link buildProviderSeo}.
+ */
+export function buildPairProviderSeo(input: PairProviderSeoInput): ProviderSeo {
+	const { base, quote, providerName } = input;
+	const title = `${base} to ${quote} Rate on ${providerName} | Monierate`;
+	const rateLine =
+		input.rate !== undefined
+			? ` Current rate: 1 ${base} = ${input.rate.toLocaleString('en-US', { maximumFractionDigits: 4 })} ${quote}.`
+			: '';
+	const description = `Live ${base} → ${quote} exchange rate on ${providerName}, with buy/sell spread and rate history.${rateLine}`;
+	const canonical = `${SITE}/markets/overview/${input.pairCode}/${input.providerCode}`;
+	const ogImage = `https://ik.imagekit.io/monierate/thumbnails/${input.providerCode}-og.png`;
+
+	const orgJsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: providerName,
+		...(input.providerLink ? { url: input.providerLink } : {}),
+		logo: `${SITE}${getIconPath(input.providerIcon)}`
+	}).replace(/</g, '\\u003c');
+
+	return { title, description, canonical, ogImage, orgJsonLd };
+}
