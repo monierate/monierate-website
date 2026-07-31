@@ -134,6 +134,12 @@ function buildEntries(changers: { code: string; lastmod?: string }[]): Entry[] {
 			priority: 0.6,
 			lastmod
 		});
+		entries.push({
+			path: `/markets/providers/${code}`,
+			changefreq: 'hourly',
+			priority: 0.6,
+			lastmod
+		});
 	}
 
 	/* --- Country bank pages: USSD + SWIFT hubs and long-tail per-bank pages --- */
