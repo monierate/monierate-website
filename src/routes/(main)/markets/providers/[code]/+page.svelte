@@ -11,7 +11,6 @@
 	import RateChartSection from '$lib/components/provider-profile/RateChartSection.svelte';
 	import OhlcTable from '$lib/components/provider-profile/OhlcTable.svelte';
 	import PairsEmptyGhost from '$lib/components/provider-profile/PairsEmptyGhost.svelte';
-	import ProGateCta from '$lib/components/ProGateCta.svelte';
 	import { getIconPath } from '$lib/utils';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 
@@ -124,20 +123,4 @@
 			/>
 		{/if}
 	{/if}
-
-	<ProGateCta label="Export rates" description="Download this table as CSV on Monierate Pro." />
-
-	<p class="disclaimer">
-		Exchange rates are supplied by {data.provider.name} and refreshed as new data comes in.
-		Monierate does not guarantee their accuracy — confirm the live rate with the provider before
-		you trade.
-	</p>
 </div>
-
-<style>
-	.disclaimer {
-		font-size: 0.8rem;
-		line-height: 1.5;
-		color: var(--text-muted);
-	}
-</style>
