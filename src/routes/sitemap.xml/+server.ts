@@ -82,6 +82,24 @@ async function fetchChangerCodes(): Promise<{ code: string; lastmod?: string }[]
 	}
 }
 
+async function fetchPairCodes(): Promise<string[]> {
+	try {
+		const res = await serverApiRequest<{ result?: any[] }>('/pairs/get_all_pairs', {
+			params: { page: 1, limit: 200 },
+			timeoutMs: 8000,
+			retries: 1
+		});
+
+		if (!res.success || !res.data?.result) return [];
+
+		return res.data.result
+			.filter((p) => typeof p?.code === 'string')
+			.map((p) => p.code as string);
+	} catch {
+		return [];
+	}
+}
+
 interface PairProviderCombo {
 	pair: string;
 	providerCode: string;
@@ -118,7 +136,8 @@ async function fetchPairProviderCombos(): Promise<PairProviderCombo[]> {
 
 function buildEntries(
 	changers: { code: string; lastmod?: string }[],
-	pairProviderCombos: PairProviderCombo[]
+	pairProviderCombos: PairProviderCombo[],
+	pairCodes: string[]
 ): Entry[] {
 	const now = new Date().toISOString();
 	const entries: Entry[] = [];
@@ -176,6 +195,16 @@ function buildEntries(
 			changefreq: 'hourly',
 			priority: 0.6,
 			lastmod
+		});
+	}
+
+	/* --- Per-pair overview hub pages (one per supported pair) --- */
+	for (const code of pairCodes) {
+		entries.push({
+			path: `/markets/overview/${code}`,
+			changefreq: 'hourly',
+			priority: 0.65,
+			lastmod: now
 		});
 	}
 
@@ -266,11 +295,12 @@ ${urls}
 }
 
 export const GET: RequestHandler = async () => {
-	const [changers, pairProviderCombos] = await Promise.all([
+	const [changers, pairProviderCombos, pairCodes] = await Promise.all([
 		fetchChangerCodes(),
-		fetchPairProviderCombos()
+		fetchPairProviderCombos(),
+		fetchPairCodes()
 	]);
-	const xml = renderXml(buildEntries(changers, pairProviderCombos));
+	const xml = renderXml(buildEntries(changers, pairProviderCombos, pairCodes));
 
 	return new Response(xml, {
 		headers: {

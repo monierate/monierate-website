@@ -32,10 +32,11 @@
 		toggleSwap: () => void;
 	}
 
-	let { provider, currentRate, state }: {
+	let { provider, currentRate, state, onClose }: {
 		provider: any;
 		currentRate: any;
 		state: InsightState;
+		onClose?: () => void;
 	} = $props();
 
 	const providerIconUrl = $derived(provider.icon ? getIconPath(provider.icon) : null);
@@ -81,6 +82,19 @@
 					<path d="M7 7h10v10" />
 				</svg>
 			</a>
+			{#if onClose}
+				<button
+					type="button"
+					onclick={onClose}
+					aria-label="Close"
+					class="p-1.5 rounded-lg border cursor-pointer transition-colors hover:bg-[var(--table-hover)]"
+					style="color: var(--text-muted); border-color: var(--card-border); background: none;"
+				>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+						<line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+					</svg>
+				</button>
+			{/if}
 		</div>
 	</div>
 

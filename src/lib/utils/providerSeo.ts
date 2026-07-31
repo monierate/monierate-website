@@ -80,3 +80,47 @@ export function buildPairProviderSeo(input: PairProviderSeoInput): ProviderSeo {
 
 	return { title, description, canonical, ogImage, orgJsonLd };
 }
+
+export interface PairOverviewSeoInput {
+	pairCode: string;
+	base: string;
+	quote: string;
+	rate?: number;
+}
+
+export interface PairOverviewSeo {
+	title: string;
+	description: string;
+	canonical: string;
+	ogImage: string;
+	webPageJsonLd: string;
+}
+
+const OG_IMAGE = 'https://monierate.com/monierate-og-image.png';
+
+/**
+ * Dynamic SEO for the pair-overview hub page (all providers for one pair),
+ * keyed on the pair code. Programmatic — one of these exists per supported
+ * pair (usdtngn, usdngn, gbpngn, ...).
+ */
+export function buildPairOverviewSeo(input: PairOverviewSeoInput): PairOverviewSeo {
+	const { base, quote } = input;
+	const title = `${base}/${quote} Rate, Chart & Providers | Monierate`;
+	const rateLine =
+		input.rate !== undefined
+			? ` Current index rate: 1 ${base} = ${input.rate.toLocaleString('en-US', { maximumFractionDigits: 4 })} ${quote}.`
+			: '';
+	const description = `Live ${base} to ${quote} composite rate, history chart, and every provider quoting this pair, compared side by side on Monierate.${rateLine}`;
+	const canonical = `${SITE}/markets/overview/${input.pairCode}`;
+
+	const webPageJsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'WebPage',
+		name: title,
+		description,
+		url: canonical,
+		about: `${base} to ${quote} exchange rate`
+	}).replace(/</g, '\\u003c');
+
+	return { title, description, canonical, ogImage: OG_IMAGE, webPageJsonLd };
+}
