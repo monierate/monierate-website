@@ -126,6 +126,29 @@ export function buildPairOverviewSeo(input: PairOverviewSeoInput): PairOverviewS
 }
 
 /**
+ * Static SEO for the market history (daily OHLC index) page — a single hub
+ * page; the base/quote/range shown are a client-adjustable default, not
+ * separate indexable URLs.
+ */
+export function buildHistorySeo(): PairOverviewSeo {
+	const title = 'Exchange Rate History — Daily OHLC Charts | Monierate';
+	const description =
+		'Explore daily open/high/low/close history for Monierate’s composite exchange rate index, across currency pairs and time ranges, with exportable data tables.';
+	const canonical = `${SITE}/markets/history`;
+
+	const webPageJsonLd = JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'WebPage',
+		name: title,
+		description,
+		url: canonical,
+		about: 'Historical exchange rate index data'
+	}).replace(/</g, '\\u003c');
+
+	return { title, description, canonical, ogImage: OG_IMAGE, webPageJsonLd };
+}
+
+/**
  * Static SEO for the Stablecoin Spread Index (MSI) page — a single hub page
  * (USDT/NGN only, per the backend MSI_PAIR), not programmatic per-pair.
  */

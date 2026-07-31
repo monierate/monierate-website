@@ -167,6 +167,9 @@ function buildEntries(
 	/* --- Stablecoin Spread Index (single hub page, USDT/NGN only) --- */
 	entries.push({ path: '/markets/spread', changefreq: 'hourly', priority: 0.8, lastmod: now });
 
+	/* --- Exchange rate history (single hub page, default pair/range) --- */
+	entries.push({ path: '/markets/history', changefreq: 'daily', priority: 0.75, lastmod: now });
+
 	/* --- Discover rate pages --- */
 	for (const seg of [
 		'bank-rates',
