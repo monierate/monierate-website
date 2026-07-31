@@ -82,8 +82,6 @@ export const load: PageServerLoad = async ({ params, fetch, cookies, url }) => {
 		provider,
 		supportedPairCodes,
 		providerCurrentRates,
-		quotes,
-		initialQuote,
 		initialPairCode,
 		initialHistory,
 		seo

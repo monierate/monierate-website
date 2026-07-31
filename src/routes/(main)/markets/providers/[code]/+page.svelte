@@ -13,6 +13,7 @@
 	import PairsEmptyGhost from '$lib/components/provider-profile/PairsEmptyGhost.svelte';
 	import ProGateCta from '$lib/components/ProGateCta.svelte';
 	import { getIconPath } from '$lib/utils';
+	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 
 	let { data } = $props();
 
@@ -40,13 +41,15 @@
 	const providerIconUrl = $derived(data.provider.icon ? getIconPath(data.provider.icon) : null);
 	const tags = $derived((data.provider.changer_tags as string[] | undefined) ?? []);
 
-	let activeQuote = $state(data.initialQuote);
+	// Quote currency comes from the header's global currency selector, not a
+	// second picker on this page.
+	const activeQuote = $derived($defaultCurrencyStore.toUpperCase());
 
 	const filteredPairCodes = $derived(
 		actions.supportedPairCodes.filter((p: string) => parsePairCode(p).quote.toUpperCase() === activeQuote)
 	);
 
-	// When the quote tab changes, reselect the first valid pair if needed.
+	// When the header's currency changes, reselect the first valid pair if needed.
 	$effect(() => {
 		const quote = activeQuote;
 		if (actions.selectedPair && parsePairCode(actions.selectedPair).quote.toUpperCase() !== quote) {
@@ -82,23 +85,6 @@
 	<ProviderHero provider={data.provider} code={data.code} {tags} />
 
 	<ProviderAbout provider={data.provider} />
-
-	{#if data.quotes.length > 1}
-		<div class="quote-tabs" role="tablist">
-			{#each data.quotes as q}
-				<button
-					type="button"
-					class="quote-tab"
-					class:active={q === activeQuote}
-					role="tab"
-					aria-selected={q === activeQuote}
-					onclick={() => (activeQuote = q)}
-				>
-					{q}
-				</button>
-			{/each}
-		</div>
-	{/if}
 
 	{#if filteredPairCodes.length === 0}
 		<PairsEmptyGhost quoteCurrency={activeQuote} hasAnyPairs={actions.supportedPairCodes.length > 0} />
@@ -149,34 +135,6 @@
 </div>
 
 <style>
-	.quote-tabs {
-		display: inline-flex;
-		gap: 0.25rem;
-		padding: 0.25rem;
-		border-radius: 0.875rem;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-	}
-	.quote-tab {
-		font-family: var(--font-head);
-		font-weight: 600;
-		font-size: 0.85rem;
-		padding: 0.45rem 0.9rem;
-		border-radius: 0.625rem;
-		color: var(--text-secondary);
-		white-space: nowrap;
-		transition:
-			color 0.15s ease,
-			background 0.15s ease;
-	}
-	.quote-tab:hover {
-		color: var(--text-primary);
-	}
-	.quote-tab.active {
-		background: var(--accent);
-		color: #ffffff;
-	}
-
 	.disclaimer {
 		font-size: 0.8rem;
 		line-height: 1.5;
