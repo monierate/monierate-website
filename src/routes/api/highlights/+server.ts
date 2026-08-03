@@ -7,6 +7,7 @@ interface Changer {
 	name: string;
 	link: string;
 	pairs: Record<string, unknown>;
+	changer_tags?: string[];
 }
 
 interface PairChanger {
@@ -100,6 +101,11 @@ export const GET = async ({ url, fetch }) => {
 
 	const changers = Object.fromEntries(rawChangers.map((p: any) => [p.code, p]));
 	const newest = Object.fromEntries(NEWEST.filter((c) => changers[c]).map((c) => [c, changers[c]]));
+	const virtualCardChangers = Object.fromEntries(
+		rawChangers
+			.filter((p: any) => p.changer_tags?.includes('virtualcard'))
+			.map((p: any) => [p.code, p])
+	);
 
 	const safe = (rates?: PairChanger[]) => Array.isArray(rates) && rates.length;
 
@@ -108,7 +114,7 @@ export const GET = async ({ url, fetch }) => {
 		sendingResult: safe(remittance) ? findSellPlatforms(changers, remittance).slice(0, max) : [],
 		buyingResult: safe(ramp) ? findBuyPlatforms(changers, ramp).slice(0, max) : [],
 		sellingResult: safe(ramp) ? findSellPlatforms(changers, ramp).slice(0, max) : [],
-		fundingResult: safe(card) ? findBuyPlatforms(changers, ramp).slice(0, max) : []
+		fundingResult: safe(card) ? findBuyPlatforms(virtualCardChangers, card).slice(0, max) : []
 	};
 
 	return json(res);
