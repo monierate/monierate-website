@@ -108,7 +108,7 @@ interface PairProviderCombo {
 
 /**
  * Enumerate live pair × provider combinations from the v1 rates API — the
- * same source /markets/overview/:pair/:provider reads from. Scoped to the
+ * same source /markets/:pair/:provider reads from. Scoped to the
  * last 30-minute window (the endpoint's own freshness bar) so every listed
  * URL is guaranteed to resolve rather than 404 on a long-stale pair.
  */
@@ -207,7 +207,7 @@ function buildEntries(
 	/* --- Per-pair overview hub pages (one per supported pair) --- */
 	for (const code of pairCodes) {
 		entries.push({
-			path: `/markets/overview/${code}`,
+			path: `/markets/${code}`,
 			changefreq: 'hourly',
 			priority: 0.65,
 			lastmod: now
@@ -217,7 +217,7 @@ function buildEntries(
 	/* --- Per-pair × per-provider long-tail pages (high cardinality; SSR on demand, not prerendered) --- */
 	for (const { pair, providerCode, lastmod } of pairProviderCombos) {
 		entries.push({
-			path: `/markets/overview/${pair}/${providerCode}`,
+			path: `/markets/${pair}/${providerCode}`,
 			changefreq: 'hourly',
 			priority: 0.5,
 			lastmod: lastmod ?? now

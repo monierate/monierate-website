@@ -8,31 +8,31 @@
 			<h3 class="font-bold">Currency converter</h3>
 			<ul class="py-4 converter-list">
 				<li>
-					<a href="/markets/overview/usdtngn/bybit">Convert USDT on Bybit</a>
+					<a href="/markets/usdtngn/bybit">Convert USDT on Bybit</a>
 				</li>
 				<li>
-					<a href="/markets/overview/usdtngn/bitnob">Convert USDT on Bitnob</a>
+					<a href="/markets/usdtngn/bitnob">Convert USDT on Bitnob</a>
 				</li>
 				<li>
-					<a href="/markets/overview/usdngn/chippercash">Convert USD on Chipper Cash</a>
+					<a href="/markets/usdngn/chippercash">Convert USD on Chipper Cash</a>
 				</li>
 				<li>
-					<a href="/markets/overview/usdngn/eversend">Convert USD on Eversend</a>
+					<a href="/markets/usdngn/eversend">Convert USD on Eversend</a>
 				</li>
 				<li>
-					<a href="/markets/overview/usdtngn/boundlesspay">Convert USDT on Boundlesspay</a>
+					<a href="/markets/usdtngn/boundlesspay">Convert USDT on Boundlesspay</a>
 				</li>
 				<li>
-					<a href="/markets/overview/usdtngn/noones">Convert USDT on Noones</a>
+					<a href="/markets/usdtngn/noones">Convert USDT on Noones</a>
 				</li>
 				<li>
-					<a href="/markets/overview/usdtngn/quidax">Convert USDT on Quidax</a>
+					<a href="/markets/usdtngn/quidax">Convert USDT on Quidax</a>
 				</li>
 				<li>
-					<a href="/markets/overview/usdcngn/luno">Convert USDC on Luno</a>
+					<a href="/markets/usdcngn/luno">Convert USDC on Luno</a>
 				</li>
 				<li>
-					<a href="/markets/overview/usdtngn/gate">Convert USDT on Gate.com</a>
+					<a href="/markets/usdtngn/gate">Convert USDT on Gate.com</a>
 				</li>
 			</ul>
 		</div>

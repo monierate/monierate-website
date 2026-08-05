@@ -67,7 +67,7 @@ export function buildPairProviderSeo(input: PairProviderSeoInput): ProviderSeo {
 			? ` Current rate: 1 ${base} = ${input.rate.toLocaleString('en-US', { maximumFractionDigits: 4 })} ${quote}.`
 			: '';
 	const description = `Live ${base} → ${quote} exchange rate on ${providerName}, with buy/sell spread and rate history.${rateLine}`;
-	const canonical = `${SITE}/markets/overview/${input.pairCode}/${input.providerCode}`;
+	const canonical = `${SITE}/markets/${input.pairCode}/${input.providerCode}`;
 	const ogImage = `https://ik.imagekit.io/monierate/thumbnails/${input.providerCode}-og.png`;
 
 	const orgJsonLd = JSON.stringify({
@@ -111,7 +111,7 @@ export function buildPairOverviewSeo(input: PairOverviewSeoInput): PairOverviewS
 			? ` Current index rate: 1 ${base} = ${input.rate.toLocaleString('en-US', { maximumFractionDigits: 4 })} ${quote}.`
 			: '';
 	const description = `Live ${base} to ${quote} composite rate, history chart, and every provider quoting this pair, compared side by side on Monierate.${rateLine}`;
-	const canonical = `${SITE}/markets/overview/${input.pairCode}`;
+	const canonical = `${SITE}/markets/${input.pairCode}`;
 
 	const webPageJsonLd = JSON.stringify({
 		'@context': 'https://schema.org',

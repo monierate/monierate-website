@@ -9,7 +9,7 @@
 	type Range = '7d' | '30d' | '60d' | '90d';
 	const RANGES: readonly Range[] = ['7d', '30d', '60d', '90d'];
 
-	// Structural shape of ProviderPairInsightActions — avoids a lib→routes import.
+	// Structural shape of ProviderPairInsightActions â€” avoids a libâ†’routes import.
 	interface InsightState {
 		pairCode: string;
 		providerCode: string;
@@ -53,11 +53,11 @@
 			{#if showBreadcrumb}
 				<nav class="flex items-center gap-1.5 text-[12px] mb-2" style="color: var(--text-muted);" aria-label="Breadcrumb">
 					<a
-						href="/markets/overview/{state.pairCode}"
+						href="/markets/{state.pairCode}"
 						class="hover:underline tabular-nums"
 						style="color: var(--text-secondary); font-family: var(--font-mono);"
 					>{pairDisplay}</a>
-					<span aria-hidden="true">›</span>
+					<span aria-hidden="true">â€º</span>
 					<span class="truncate" style="color: var(--text-secondary);">{provider.name}</span>
 				</nav>
 			{/if}
@@ -129,7 +129,7 @@
 						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="animate-spin">
 							<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="31.4 31.4" stroke-linecap="round" />
 						</svg>
-						<span class="text-[12px]">Loading chart data…</span>
+						<span class="text-[12px]">Loading chart dataâ€¦</span>
 					</div>
 				</div>
 			{:else}

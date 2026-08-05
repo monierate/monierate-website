@@ -41,7 +41,7 @@
 			{#each highlightData as { rate, changer }}
 				<li class="flex justify-between text-sm text-gray-800 dark:text-gray-200 mb-2 text-nowrap">
 					<a
-						href={`/markets/overview/${currencyCode.toLowerCase()}ngn/${rate.changer_code}`}
+						href={`/markets/${currencyCode.toLowerCase()}ngn/${rate.changer_code}`}
 						class="flex items-center"
 						title={`${changer.name} dollar to naira rate.`}
 					>

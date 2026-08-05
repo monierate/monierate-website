@@ -31,7 +31,7 @@
 
   // The provider breakdown (changers + currentRates) is streamed from the loader so the
   // hero/chart paint first. Resolve those promises and hydrate the instance they belong to
-  // — capturing `s` guards against a late resolution landing on a stale instance after nav.
+  // â€” capturing `s` guards against a late resolution landing on a stale instance after nav.
   $effect(() => {
     const inst = s;
     Promise.all([Promise.resolve(data.changers), Promise.resolve(data.currentRates)])
@@ -75,7 +75,7 @@
       if (!insightLoading) return; // user dismissed while loading
       if (result.type === 'loaded' && result.status === 200) {
         // Preserve any open "View all" overlay underneath so the insight stacks
-        // on top of it — back/dismiss then returns to that list, not the page.
+        // on top of it â€” back/dismiss then returns to that list, not the page.
         pushState(href, { highlights: $page.state.highlights, insight: result.data });
       } else {
         goto(href);
@@ -147,12 +147,12 @@
   onMount(() => {
     const stopBaseWatch = activeBase.subscribe((base) => {
       if (base !== s.pair.base) {
-        goto(`/markets/overview/${base.toLowerCase()}${s.pair.quote.toLowerCase()}`);
+        goto(`/markets/${base.toLowerCase()}${s.pair.quote.toLowerCase()}`);
       }
     });
     const stopQuoteWatch = activeQuote.subscribe((quote) => {
       if (quote !== s.pair.quote) {
-        goto(`/markets/overview/${s.pair.base.toLowerCase()}${quote.toLowerCase()}`);
+        goto(`/markets/${s.pair.base.toLowerCase()}${quote.toLowerCase()}`);
       }
     });
     return () => {
@@ -288,7 +288,7 @@
 
 </div>
 
-<!-- "View all" highlights overlay (desktop) — sits underneath the insight overlay -->
+<!-- "View all" highlights overlay (desktop) â€” sits underneath the insight overlay -->
 <OverlayModal
   open={highlightsOpen}
   label="{highlights?.title ?? 'Market highlight'} list"
@@ -314,7 +314,7 @@
   {/if}
 </OverlayModal>
 
-<!-- Provider insight overlay (desktop) — rendered last so it stacks on top -->
+<!-- Provider insight overlay (desktop) â€” rendered last so it stacks on top -->
 <OverlayModal
   open={insightOpen}
   label="{insight?.provider?.name ?? 'Provider'} pair insight"

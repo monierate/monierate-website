@@ -39,8 +39,8 @@
   <div class="flex items-start justify-between gap-3">
     <div class="min-w-0">
       <nav class="flex items-center gap-1.5 text-[12px] mb-2" style="color: var(--text-muted);" aria-label="Breadcrumb">
-        <a href="/markets/overview/{pairCode}" class="hover:underline tabular-nums" style="color: var(--text-secondary); font-family: var(--font-mono);">{pairDisplay}</a>
-        <span aria-hidden="true">›</span>
+        <a href="/markets/{pairCode}" class="hover:underline tabular-nums" style="color: var(--text-secondary); font-family: var(--font-mono);">{pairDisplay}</a>
+        <span aria-hidden="true">â€º</span>
         <span class="truncate" style="color: var(--text-secondary);">{title}</span>
       </nav>
       <h1 class="text-[18px] font-bold leading-tight" style="font-family: var(--font-head); color: var(--text-primary);">{title}</h1>
@@ -82,7 +82,7 @@
           {symbol}
           isIndexContributor={idxSet.has(p.id)}
           divider={i > 0}
-          href={`/markets/overview/${pairCode}/${p.id}`}
+          href={`/markets/${pairCode}/${p.id}`}
           onClick={onProviderClick}
         />
       {/each}

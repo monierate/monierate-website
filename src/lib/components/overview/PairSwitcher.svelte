@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { PairTab } from '../../../routes/(main)/markets/overview/[code]/actions.svelte';
+  import type { PairTab } from '../../../routes/(main)/markets/[code]/actions.svelte';
   import { fmt } from '$lib/utils/format';
   import { useImageOrDefault } from '$lib/utils/loadImageOrDefault';
 

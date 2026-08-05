@@ -174,7 +174,7 @@
 									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
-												href="/markets/overview/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
+												href="/markets/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
 												class="flex items-center"
 												title="{changer.name} dollar to naira rate."
 											>
@@ -237,7 +237,7 @@
 									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
-												href="/markets/overview/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
+												href="/markets/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
 												class="flex items-center"
 												title="{changer.name} dollar to naira rate."
 											>
@@ -300,7 +300,7 @@
 									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
-												href="/markets/overview/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
+												href="/markets/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
 												class="flex items-center"
 												title="{changer.name} dollar to naira rate."
 											>
@@ -363,7 +363,7 @@
 									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
-												href="/markets/overview/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
+												href="/markets/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
 												class="flex items-center"
 												title="{changer.name} dollar to naira rate."
 											>

@@ -22,11 +22,11 @@
 
   // Pair-scoped insight when a pairCode is supplied, else the full provider profile.
   function providerHref(id: string): string {
-    return pairCode ? `/markets/overview/${pairCode}/${id}` : `/markets/providers/${id}`;
+    return pairCode ? `/markets/${pairCode}/${id}` : `/markets/providers/${id}`;
   }
 
   function viewAllHref(slug: string): string {
-    return `/markets/overview/${pairCode}/highlights/${slug}`;
+    return `/markets/${pairCode}/highlights/${slug}`;
   }
 
   const idxSet = $derived(new Set(indexContributorIds));
