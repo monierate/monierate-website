@@ -75,17 +75,19 @@
 		</div>
 
 		<div class="flex items-center gap-2 flex-shrink-0">
-			<a
-				href="/markets/providers/{state.providerCode}?pair={state.pairCode}"
-				class="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 rounded-lg border transition-colors whitespace-nowrap hover:bg-[var(--table-hover)]"
-				style="color: var(--text-secondary); border-color: var(--card-border);"
-			>
-				View Profile
-				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-					<path d="M7 17 17 7" />
-					<path d="M7 7h10v10" />
-				</svg>
-			</a>
+			{#if showProfileLink}
+				<a
+					href="/markets/providers/{state.providerCode}?pair={state.pairCode}"
+					class="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 rounded-lg border transition-colors whitespace-nowrap hover:bg-[var(--table-hover)]"
+					style="color: var(--text-secondary); border-color: var(--card-border);"
+				>
+					View Profile
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M7 17 17 7" />
+						<path d="M7 7h10v10" />
+					</svg>
+				</a>
+			{/if}
 			{#if onClose}
 				<button
 					type="button"

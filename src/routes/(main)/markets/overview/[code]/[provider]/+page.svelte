@@ -45,5 +45,6 @@
 		currentRate={data.currentRate}
 		state={insight}
 		showBreadcrumb={false}
+		showProfileLink={false}
 	/>
 </div>
