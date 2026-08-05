@@ -13,7 +13,7 @@
 			shortText: 'Currency APIs & historical data'
 		},
 		{
-			text: 'Build with clean stablecoin FX data — 20+ years of history',
+			text: 'Build with clean stablecoin FX data — 3+ years of history',
 			shortText: 'Stablecoin price & history API'
 		},
 		{
