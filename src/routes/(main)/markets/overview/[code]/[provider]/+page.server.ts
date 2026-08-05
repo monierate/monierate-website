@@ -5,9 +5,18 @@ import { getRateHistory, type DailySnapshot } from '$lib/services/rates.service'
 import { parsePairCode } from '$lib/utils/pairs';
 import { buildPairProviderSeo } from '$lib/utils/providerSeo';
 
-export const load: PageServerLoad = async ({ fetch, params }) => {
+// `?amount=` seeds the quick converter's send field. Sanitized the same way the
+// converter's own input handler does, so a junk query can't poison the state.
+function parseAmountParam(raw: string | null): string {
+	if (!raw) return '1';
+	const cleaned = raw.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+	return parseFloat(cleaned) > 0 ? cleaned : '1';
+}
+
+export const load: PageServerLoad = async ({ fetch, params, url }) => {
 	const pairCode = params.code.toLowerCase();
 	const providerCode = params.provider.toLowerCase();
+	const amount = parseAmountParam(url.searchParams.get('amount'));
 
 	const result = await getProviderV1(fetch, providerCode);
 
@@ -55,6 +64,7 @@ export const load: PageServerLoad = async ({ fetch, params }) => {
 		provider,
 		currentRate,
 		initialHistory,
+		amount,
 		seo
 	};
 };

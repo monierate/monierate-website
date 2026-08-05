@@ -45,10 +45,7 @@
 						<td class="px-6 py-4">
 							<a
 								class="flex items-center gap-2"
-								href="/converter/{data.changer}?Amount=1&From={pair.pair_code.replace(
-									'ngn',
-									''
-								)}&To=ngn"
+								href="/markets/overview/{pair.pair_code.toLowerCase()}/{data.changer}"
 							>
 									{#await useImageOrDefault(`/icons/pair/${pair.pair_code.toLowerCase()}.png`, { returnBoolean: true })}
 									<span class="w-10 h-5 rounded bg-gray-200 dark:bg-gray-700 animate-pulse inline-block"></span>

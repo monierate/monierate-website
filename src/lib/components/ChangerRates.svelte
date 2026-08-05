@@ -29,6 +29,10 @@
 	export let to: any;
 	export let amount: any;
 
+	// Carried to the provider pair page so its quick converter opens on the same amount.
+	// Omitted for the default of 1, which keeps the common URL clean.
+	$: amountQuery = Number(amount) > 0 && Number(amount) !== 1 ? `?amount=${amount}` : '';
+
 	let isLoading = true;
 	let hasResults = false;
 	let resultsLoaded = false;
@@ -170,7 +174,7 @@
 									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
-												href="/converter/{rate.changer_code}?Amount={amount}&From={from.code.toUpperCase()}&To={to.code.toUpperCase()}"
+												href="/markets/overview/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
 												class="flex items-center"
 												title="{changer.name} dollar to naira rate."
 											>
@@ -233,7 +237,7 @@
 									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
-												href="/converter/{rate.changer_code}?Amount={amount}&From={from.code.toUpperCase()}&To={to.code.toUpperCase()}"
+												href="/markets/overview/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
 												class="flex items-center"
 												title="{changer.name} dollar to naira rate."
 											>
@@ -296,7 +300,7 @@
 									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
-												href="/converter/{rate.changer_code}?Amount={amount}&From={from.code.toUpperCase()}&To={to.code.toUpperCase()}"
+												href="/markets/overview/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
 												class="flex items-center"
 												title="{changer.name} dollar to naira rate."
 											>
@@ -359,7 +363,7 @@
 									<tr class="py-32 mb-4 border-b" style="border-color: var(--card-border);">
 										<td>
 											<a
-												href="/converter/{rate.changer_code}?Amount={amount}&From={from.code.toUpperCase()}&To={to.code.toUpperCase()}"
+												href="/markets/overview/{from.code.toLowerCase()}{to.code.toLowerCase()}/{rate.changer_code}{amountQuery}"
 												class="flex items-center"
 												title="{changer.name} dollar to naira rate."
 											>

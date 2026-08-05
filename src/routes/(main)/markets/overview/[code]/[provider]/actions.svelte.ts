@@ -13,6 +13,8 @@ export interface InsightInitData {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	currentRate: any | null;
 	initialHistory: DailySnapshot[];
+	/** Seeds the quick converter's send field; defaults to '1'. */
+	amount?: string;
 }
 
 export class ProviderPairInsightActions {
@@ -36,6 +38,7 @@ export class ProviderPairInsightActions {
 		this.providerCode = data.providerCode;
 		this.currentRate = data.currentRate;
 		this.history = data.initialHistory ?? [];
+		this.convertSend = data.amount || '1';
 	}
 
 	get parsedPair(): { base: string; quote: string; symbol: string } {

@@ -13,7 +13,8 @@
 				pairCode: data.pairCode,
 				providerCode: data.providerCode,
 				currentRate: data.currentRate,
-				initialHistory: data.initialHistory
+				initialHistory: data.initialHistory,
+				amount: data.amount
 			})
 	);
 
