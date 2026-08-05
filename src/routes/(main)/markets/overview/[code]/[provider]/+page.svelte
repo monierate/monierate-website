@@ -40,7 +40,8 @@
 	{@html `<script type="application/ld+json">${seo.orgJsonLd}<\/script>`}
 </svelte:head>
 
-<div class="max-w-5xl mx-auto px-4 py-8">
+<!-- Container mirrors Breadcrumb.svelte so the page gutter lines up with the breadcrumb bar. -->
+<div class="w-[95%] md:max-w-[1200px] mx-auto px-4 py-8">
 	<ProviderPairInsight
 		provider={data.provider}
 		currentRate={data.currentRate}
