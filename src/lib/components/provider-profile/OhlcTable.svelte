@@ -73,7 +73,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each history as row}
+					{#each visibleRows as row}
 						{@const up = row.close >= row.open}
 						<tr class="border-t transition-colors hover:bg-[var(--table-hover)]" style="border-color: var(--card-border);">
 							<td class="px-4 py-2.5 whitespace-nowrap" style="color: var(--text-secondary);">
