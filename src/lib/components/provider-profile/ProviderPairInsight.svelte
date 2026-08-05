@@ -32,11 +32,13 @@
 		toggleSwap: () => void;
 	}
 
-	let { provider, currentRate, state, onClose }: {
+	let { provider, currentRate, state, onClose, showBreadcrumb = true, showProfileLink = true }: {
 		provider: any;
 		currentRate: any;
 		state: InsightState;
 		onClose?: () => void;
+		showBreadcrumb?: boolean;
+		showProfileLink?: boolean;
 	} = $props();
 
 	const providerIconUrl = $derived(provider.icon ? getIconPath(provider.icon) : null);
@@ -48,15 +50,17 @@
 	<!-- Header -->
 	<div class="flex items-start justify-between gap-3">
 		<div class="min-w-0">
-			<nav class="flex items-center gap-1.5 text-[12px] mb-2" style="color: var(--text-muted);" aria-label="Breadcrumb">
-				<a
-					href="/markets/overview/{state.pairCode}"
-					class="hover:underline tabular-nums"
-					style="color: var(--text-secondary); font-family: var(--font-mono);"
-				>{pairDisplay}</a>
-				<span aria-hidden="true">›</span>
-				<span class="truncate" style="color: var(--text-secondary);">{provider.name}</span>
-			</nav>
+			{#if showBreadcrumb}
+				<nav class="flex items-center gap-1.5 text-[12px] mb-2" style="color: var(--text-muted);" aria-label="Breadcrumb">
+					<a
+						href="/markets/overview/{state.pairCode}"
+						class="hover:underline tabular-nums"
+						style="color: var(--text-secondary); font-family: var(--font-mono);"
+					>{pairDisplay}</a>
+					<span aria-hidden="true">›</span>
+					<span class="truncate" style="color: var(--text-secondary);">{provider.name}</span>
+				</nav>
+			{/if}
 
 			<div class="flex items-center gap-3">
 				<ProviderLogo logo={provider.icon ?? ''} name={provider.name} size={40} />
