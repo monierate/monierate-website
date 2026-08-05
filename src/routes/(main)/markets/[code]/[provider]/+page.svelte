@@ -62,6 +62,7 @@
 			selectedRange={insight.selectedRange}
 			providerName={data.provider.name}
 			{providerIconUrl}
+			previewRows={7}
 		/>
 	</div>
 </div>
