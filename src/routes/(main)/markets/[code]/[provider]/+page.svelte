@@ -2,6 +2,8 @@
 	import { untrack } from 'svelte';
 	import { ProviderPairInsightActions } from './actions.svelte';
 	import ProviderPairInsight from '$lib/components/provider-profile/ProviderPairInsight.svelte';
+	import OhlcTable from '$lib/components/provider-profile/OhlcTable.svelte';
+	import { getIconPath } from '$lib/utils';
 
 	let { data } = $props();
 
@@ -19,6 +21,7 @@
 	);
 
 	const seo = data.seo;
+	const providerIconUrl = data.provider.icon ? getIconPath(data.provider.icon) : null;
 </script>
 
 <svelte:head>
@@ -48,4 +51,17 @@
 		state={insight}
 		showBreadcrumb={false}
 	/>
+
+	<!-- Mirrors the OHLC table on /markets/providers/[code]; shares the same range
+	     selection, so switching 7d/30d/60d/90d above refreshes both. -->
+	<div class="mt-5">
+		<OhlcTable
+			history={insight.history}
+			historyLoading={insight.historyLoading}
+			symbol={insight.parsedPair.symbol}
+			selectedRange={insight.selectedRange}
+			providerName={data.provider.name}
+			{providerIconUrl}
+		/>
+	</div>
 </div>
