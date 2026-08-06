@@ -15,7 +15,7 @@
 		/** Uppercase currency codes, e.g. USDT / NGN. */
 		base: string;
 		quote: string;
-		/** Quote symbol, e.g. ₦. */
+		/** Quote symbol, e.g. â‚¦. */
 		symbol: string;
 		currentRate: CurrentRate | null;
 		/** Close from the oldest loaded snapshot; 0 when there is no history. */
@@ -31,24 +31,24 @@
 	const buy = $derived(currentRate?.rate_buy ?? 0);
 	const sell = $derived(currentRate?.rate_sell ?? 0);
 	const mid = $derived(currentRate?.rate_mid || buy || sell);
-	// Absolute gap — the API reports the signed difference, which goes negative when
+	// Absolute gap â€” the API reports the signed difference, which goes negative when
 	// a provider's sell quote sits above its buy quote.
 	const spread = $derived(Math.abs(currentRate?.spread ?? (buy > 0 && sell > 0 ? buy - sell : 0)));
 
 	const changePct = $derived(rateMonthAgo > 0 ? ((mid - rateMonthAgo) / rateMonthAgo) * 100 : 0);
 	const moved = $derived(changePct >= 0 ? 'up' : 'down');
 
-	// Round 100 units of base — more tangible than the unit rate.
+	// Round 100 units of base â€” more tangible than the unit rate.
 	const per100 = $derived(mid * 100);
 
 	let readMore = $state(false);
 </script>
 
 {#if mid > 0}
-	<div class="font-normal space-y-2 text-[14px]" style="color: var(--text-secondary);">
+	<div class="font-normal space-y-2 text-[14px]" style="color: var(--text-primary);">
 		<p>
 			{providerName} is quoting {base}/{quote} at about
-			<strong style="color: var(--text-primary);">{symbol}{fmt(mid)}</strong>
+			<strong>{symbol}{fmt(mid)}</strong>
 			per {base}{#if rateMonthAgo > 0}, {moved} {Math.abs(changePct).toFixed(2)}% from {symbol}{fmt(
 					rateMonthAgo
 				)} a month ago{/if}.
@@ -64,11 +64,11 @@
 		{#if readMore}
 			<div class="space-y-2" transition:slide={{ duration: 250 }}>
 				<p>
-					<strong style="color: var(--text-primary);">Buy rate:</strong> what {providerName} charges in
+					<strong>Buy rate:</strong> what {providerName} charges in
 					{quoteName} to give you {baseName}.
 				</p>
 				<p>
-					<strong style="color: var(--text-primary);">Sell rate:</strong> what it pays you in {quoteName}
+					<strong>Sell rate:</strong> what it pays you in {quoteName}
 					for your {baseName}.
 				</p>
 				<p>
@@ -79,7 +79,7 @@
 					At the current mid rate, {base}100 is worth roughly {symbol}{fmt(per100)}.
 				</p>
 				<p>
-					Rates update continuously and are indicative only — the figure you are quoted at checkout
+					Rates update continuously and are indicative only â€” the figure you are quoted at checkout
 					depends on your payment method, limits, and trade size. Use the chart and the daily OHLC
 					table below to see how {providerName} has priced this pair over time, or compare it against
 					every other provider on the {base}/{quote} page.
