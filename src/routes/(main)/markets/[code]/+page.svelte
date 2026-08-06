@@ -1,10 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { goto, preloadData, pushState } from '$app/navigation';
-  import { page } from '$app/stores';
+  import { goto } from '$app/navigation';
   import type { PageData } from './$types';
   import { PairActions } from './actions.svelte';
-  import { ProviderPairInsightActions } from './[provider]/actions.svelte';
   import { activeBase } from '$lib/stores/activeBase';
   import { defaultCurrencyStore as activeQuote } from '$lib/stores/defaultCurrency';
   import PairMetrics from '$lib/components/pair/PairMetrics.svelte';
@@ -13,8 +11,6 @@
   import PairRateChartGhost from '$lib/components/pair/PairRateChartGhost.svelte';
   import MarketHighlights from '$lib/components/overview/MarketHighlights.svelte';
   import OverlayModal from '$lib/components/overview/OverlayModal.svelte';
-  import ProviderPairInsight from '$lib/components/provider-profile/ProviderPairInsight.svelte';
-  import ProviderPairInsightGhost from '$lib/components/provider-profile/ProviderPairInsightGhost.svelte';
   import MarketHighlightFull from '$lib/components/overview/MarketHighlightFull.svelte';
   import MarketHighlightsSkeleton from '$lib/components/overview/skeletons/MarketHighlightsSkeleton.svelte';
   import FxInsightTitle from '$lib/components/overview/FxInsightTitle.svelte';
@@ -37,51 +33,7 @@
       .catch(() => inst.setProviderData([], []));
   });
 
-  // --- Provider insight overlay (shallow routing on desktop, real page on mobile) ---
-  const insight = $derived($page.state.insight);
-  const insightState = $derived(
-    insight
-      ? new ProviderPairInsightActions({
-          pairCode: insight.pairCode,
-          providerCode: insight.providerCode,
-          currentRate: insight.currentRate,
-          initialHistory: insight.initialHistory,
-        })
-      : null
-  );
-
-  const isDesktop = () => window.matchMedia('(min-width: 1024px)').matches;
-
-  // Shown immediately on click so the overlay (with skeleton) appears while
-  // preloadData fetches, instead of the click feeling unresponsive.
-  let insightLoading = $state(false);
-  const insightOpen = $derived(insightLoading || (!!insight && !!insightState));
-
-  function closeInsight() {
-    if (insightLoading) insightLoading = false;
-    if (insight) history.back();
-  }
-
-  async function onProviderClick(_id: string, href: string, e: MouseEvent) {
-    // Honour new-tab / modifier clicks and let mobile navigate to the real page.
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-    if (!isDesktop()) return;
-    e.preventDefault();
-    insightLoading = true;
-    try {
-      const result = await preloadData(href);
-      if (!insightLoading) return; // user dismissed while loading
-      if (result.type === 'loaded' && result.status === 200) {
-        // The "View all" modal is local state, so it stays open underneath on its
-        // own — dismissing the insight returns to that list, not the page.
-        pushState(href, { insight: result.data });
-      } else {
-        goto(href);
-      }
-    } finally {
-      insightLoading = false;
-    }
-  }
+  // Provider rows are plain links to /markets/:pair/:provider — no overlay.
 
   // Index contributors are pinned to the top of every highlight for quality.
   const contributorIds = $derived(new Set(s.indexContributorIds));
@@ -257,7 +209,6 @@
       cards={directionCards}
       indexContributorIds={s.indexContributorIds}
       pairCode={s.pair.code}
-      {onProviderClick}
       {onViewAll}
     />
   {/if}
@@ -272,19 +223,17 @@
       cards={categoryCards}
       indexContributorIds={s.indexContributorIds}
       pairCode={s.pair.code}
-      {onProviderClick}
       {onViewAll}
     />
   {/if}
 
 </div>
 
-<!-- "View all" highlights overlay (desktop) â€” sits underneath the insight overlay -->
+<!-- "View all" highlights modal -->
 <OverlayModal
   open={highlightsOpen}
   label="{highlights?.title ?? 'Market highlight'} list"
   onClose={closeHighlights}
-  escClose={!insightOpen}
 >
   {#if highlights}
     <MarketHighlightFull
@@ -298,25 +247,6 @@
       providers={highlights.providers}
       indexContributorIds={highlights.indexContributorIds}
       onClose={closeHighlights}
-      {onProviderClick}
     />
-  {/if}
-</OverlayModal>
-
-<!-- Provider insight overlay (desktop) â€” rendered last so it stacks on top -->
-<OverlayModal
-  open={insightOpen}
-  label="{insight?.provider?.name ?? 'Provider'} pair insight"
-  onClose={closeInsight}
->
-  {#if insight && insightState}
-    <ProviderPairInsight
-      provider={insight.provider}
-      currentRate={insight.currentRate}
-      state={insightState}
-      onClose={closeInsight}
-    />
-  {:else}
-    <ProviderPairInsightGhost />
   {/if}
 </OverlayModal>
