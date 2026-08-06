@@ -183,12 +183,9 @@
 <div class="max-w-6xl mx-auto space-y-6">
 
   <!-- Page title with country switcher -->
-  <div class="pt-2 mb-10">
+  <div class="pt-2">
     <FxInsightTitle quote={s.pair.quote} />
-  </div>
-
-  <div>
-    <p class="text-[13px]" style="color: var(--text-secondary);">Live index rate, metrics and provider breakdown</p>
+    <p class="text-[13px] mt-1" style="color: var(--text-secondary);">Live index rate, metrics and provider breakdown</p>
   </div>
 
   <!-- Stat cards -->
