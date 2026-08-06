@@ -45,10 +45,9 @@
 </script>
 
 {#if mid > 0}
-	<div class="font-normal space-y-2 text-[14px]" style="color: var(--text-primary);">
+	<div class="font-normal space-y-2 text-[14px]" style="color: var(--text-secondary);">
 		<p>
-			{providerName} is quoting {base}/{quote} at about
-			<strong>{symbol}{fmt(mid)}</strong>
+			{providerName} is quoting {base}/{quote} at about {symbol}{fmt(mid)}
 			per {base}{#if rateMonthAgo > 0}, {moved} {Math.abs(changePct).toFixed(2)}% from {symbol}{fmt(
 					rateMonthAgo
 				)} a month ago{/if}.
