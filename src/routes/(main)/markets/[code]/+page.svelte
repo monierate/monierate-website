@@ -16,7 +16,6 @@
   import ProviderPairInsight from '$lib/components/provider-profile/ProviderPairInsight.svelte';
   import ProviderPairInsightGhost from '$lib/components/provider-profile/ProviderPairInsightGhost.svelte';
   import MarketHighlightFull from '$lib/components/overview/MarketHighlightFull.svelte';
-  import MarketHighlightFullGhost from '$lib/components/overview/MarketHighlightFullGhost.svelte';
   import MarketHighlightsSkeleton from '$lib/components/overview/skeletons/MarketHighlightsSkeleton.svelte';
   import FxInsightTitle from '$lib/components/overview/FxInsightTitle.svelte';
   import MarketReadPanel from '$lib/components/spread-index/MarketReadPanel.svelte';
@@ -73,9 +72,9 @@
       const result = await preloadData(href);
       if (!insightLoading) return; // user dismissed while loading
       if (result.type === 'loaded' && result.status === 200) {
-        // Preserve any open "View all" overlay underneath so the insight stacks
-        // on top of it â€” back/dismiss then returns to that list, not the page.
-        pushState(href, { highlights: $page.state.highlights, insight: result.data });
+        // The "View all" modal is local state, so it stays open underneath on its
+        // own — dismissing the insight returns to that list, not the page.
+        pushState(href, { insight: result.data });
       } else {
         goto(href);
       }
@@ -110,32 +109,36 @@
     CATEGORY_SLUGS.map(toCard).filter((c) => !c.cryptoOnly || isCryptoBase(s.pair.base))
   );
 
-  // --- "View all" highlights overlay (shallow routing on desktop, page on mobile) ---
-  const highlights = $derived($page.state.highlights);
-  let highlightsLoading = $state(false);
-  const highlightsOpen = $derived(highlightsLoading || !!highlights);
+  // --- "View all" highlights modal ---
+  // Built from the providers already loaded on this page (the cards themselves are
+  // just a `slice` of the same computation), so opening it needs no fetch and no route.
+  let viewAllSlug = $state<string | null>(null);
+
+  const highlights = $derived.by(() => {
+    if (!viewAllSlug) return null;
+    const def = HIGHLIGHT_DEFS[viewAllSlug];
+    if (!def) return null;
+    return {
+      pairCode: s.pair.code,
+      title: def.title,
+      sublabel: def.sublabel,
+      mode: def.mode,
+      base: s.pair.base,
+      quote: s.pair.quote,
+      symbol: s.pair.symbol,
+      providers: def.compute(s.providers, { contributorIds }),
+      indexContributorIds: s.indexContributorIds,
+    };
+  });
+
+  const highlightsOpen = $derived(!!highlights);
 
   function closeHighlights() {
-    if (highlightsLoading) highlightsLoading = false;
-    if (highlights) history.back();
+    viewAllSlug = null;
   }
 
-  async function onViewAll(_slug: string, href: string, e: MouseEvent) {
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-    if (!isDesktop()) return;
-    e.preventDefault();
-    highlightsLoading = true;
-    try {
-      const result = await preloadData(href);
-      if (!highlightsLoading) return;
-      if (result.type === 'loaded' && result.status === 200) {
-        pushState(href, { highlights: result.data });
-      } else {
-        goto(href);
-      }
-    } finally {
-      highlightsLoading = false;
-    }
+  function onViewAll(slug: string) {
+    viewAllSlug = slug;
   }
 
   $effect(() => {
@@ -297,8 +300,6 @@
       onClose={closeHighlights}
       {onProviderClick}
     />
-  {:else}
-    <MarketHighlightFullGhost />
   {/if}
 </OverlayModal>
 

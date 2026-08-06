@@ -17,16 +17,12 @@
     indexContributorIds?: string[];
     pairCode?: string;
     onProviderClick?: (id: string, href: string, e: MouseEvent) => void;
-    onViewAll?: (slug: string, href: string, e: MouseEvent) => void;
+    onViewAll?: (slug: string) => void;
   } = $props();
 
   // Pair-scoped insight when a pairCode is supplied, else the full provider profile.
   function providerHref(id: string): string {
     return pairCode ? `/markets/${pairCode}/${id}` : `/markets/providers/${id}`;
-  }
-
-  function viewAllHref(slug: string): string {
-    return `/markets/${pairCode}/highlights/${slug}`;
   }
 
   const idxSet = $derived(new Set(indexContributorIds));
@@ -67,18 +63,20 @@
         {/each}
       </div>
 
-      {#if pairCode}
-        <a
-          href={viewAllHref(c.slug)}
-          onclick={(e) => onViewAll?.(c.slug, viewAllHref(c.slug), e)}
-          class="flex items-center justify-center gap-1 px-4 sm:px-5 py-3 border-t text-[13px] font-semibold transition-colors hover:bg-[var(--table-hover)]"
-          style="border-color: var(--card-border); color: var(--accent);"
+      {#if pairCode && onViewAll}
+        <!-- A button, not a link: the full list opens in a modal built from data
+             already on this page, so there is no URL to navigate to. -->
+        <button
+          type="button"
+          onclick={() => onViewAll(c.slug)}
+          class="w-full flex items-center justify-center gap-1 px-4 sm:px-5 py-3 border-t text-[13px] font-semibold transition-colors cursor-pointer hover:bg-[var(--table-hover)]"
+          style="border-color: var(--card-border); color: var(--accent); background: none;"
         >
           View all{total > c.providers.length ? ` ${total}` : ''}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6" />
           </svg>
-        </a>
+        </button>
       {/if}
     {/if}
   </div>
