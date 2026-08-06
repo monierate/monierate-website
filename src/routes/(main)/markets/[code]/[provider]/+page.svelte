@@ -55,16 +55,20 @@
 	</ProviderPairInsight>
 
 	<!-- Mirrors the OHLC table on /markets/providers/[code]; shares the same range
-	     selection, so switching 7d/30d/60d/90d above refreshes both. -->
-	<div class="mt-5">
-		<OhlcTable
-			history={insight.history}
-			historyLoading={insight.historyLoading}
-			symbol={insight.parsedPair.symbol}
-			selectedRange={insight.selectedRange}
-			providerName={data.provider.name}
-			{providerIconUrl}
-			previewRows={10}
-		/>
-	</div>
+	     selection, so switching 7d/30d/60d/90d above refreshes both. Hidden outright
+	     when the provider has neither a live quote nor any recorded history — an
+	     empty table under an empty state is just noise. -->
+	{#if insight.history.length > 0 || insight.historyLoading}
+		<div class="mt-5">
+			<OhlcTable
+				history={insight.history}
+				historyLoading={insight.historyLoading}
+				symbol={insight.parsedPair.symbol}
+				selectedRange={insight.selectedRange}
+				providerName={data.provider.name}
+				{providerIconUrl}
+				previewRows={10}
+			/>
+		</div>
+	{/if}
 </div>

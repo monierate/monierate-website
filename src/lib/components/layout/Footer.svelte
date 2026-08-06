@@ -14,10 +14,10 @@
 					<a href="/markets/usdtngn/bitnob">Convert USDT on Bitnob</a>
 				</li>
 				<li>
-					<a href="/markets/usdngn/chippercash">Convert USD on Chipper Cash</a>
+					<a href="/markets/usdngn/grey">Convert USD on Grey</a>
 				</li>
 				<li>
-					<a href="/markets/usdngn/eversend">Convert USD on Eversend</a>
+					<a href="/markets/usdngn/cardtonic">Convert USD on Cardtonic</a>
 				</li>
 				<li>
 					<a href="/markets/usdtngn/boundlesspay">Convert USDT on Boundlesspay</a>
@@ -29,7 +29,7 @@
 					<a href="/markets/usdtngn/quidax">Convert USDT on Quidax</a>
 				</li>
 				<li>
-					<a href="/markets/usdcngn/luno">Convert USDC on Luno</a>
+					<a href="/markets/usdcngn/busha">Convert USDC on Busha</a>
 				</li>
 				<li>
 					<a href="/markets/usdtngn/gate">Convert USDT on Gate.com</a>

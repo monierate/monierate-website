@@ -11,7 +11,8 @@
 		high: number;
 		low: number;
 		close: number;
-		availability_pct: number;
+		/** Null on manually-updated providers, which report no fetch attempts. */
+		availability_pct: number | null;
 	}
 
 	let { history, historyLoading, symbol, selectedRange, providerName, providerIconUrl, previewRows = null, proSource = 'markets-pair-provider' }: {
@@ -113,7 +114,9 @@
 								class="text-right px-4 py-2.5 font-mono font-semibold"
 								style="color: {up ? 'var(--positive)' : 'var(--negative)'};"
 							>{symbol}{fmt(row.close)}</td>
-							<td class="text-right px-4 py-2.5" style="color: var(--text-muted);">{row.availability_pct.toFixed(0)}%</td>
+							<td class="text-right px-4 py-2.5" style="color: var(--text-muted);">
+							{row.availability_pct == null ? '—' : `${row.availability_pct.toFixed(0)}%`}
+						</td>
 						</tr>
 					{/each}
 				</tbody>

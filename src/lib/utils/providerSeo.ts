@@ -74,15 +74,19 @@ export interface PairProviderSeoInput {
 /**
  * Pair × provider page — /markets/:pair/:provider. The long-tail counterpart to
  * {@link buildProviderSeo}: one per supported pair per provider.
+ *
+ * The page still renders when the provider has no live quote for the pair (see
+ * the loader), so the copy and robots directive both flex on `rate`: without one
+ * there is nothing to index, and promising a "live rate" in the SERP would be a
+ * lie. `noindex, follow` keeps the crawler moving through to the pair hub.
  */
 export function buildPairProviderSeo(input: PairProviderSeoInput): SeoMeta {
 	const { base, quote, providerName, pairCode, providerCode } = input;
+	const hasRate = input.rate !== undefined && input.rate > 0;
 	const title = `${base} to ${quote} Rate on ${providerName} | Monierate`;
-	const rateLine =
-		input.rate !== undefined
-			? ` Current rate: 1 ${base} = ${input.rate.toLocaleString('en-US', { maximumFractionDigits: 4 })} ${quote}.`
-			: '';
-	const description = `Live ${base} → ${quote} exchange rate on ${providerName}, with buy/sell spread and rate history.${rateLine}`;
+	const description = hasRate
+		? `Live ${base} → ${quote} exchange rate on ${providerName}, with buy/sell spread and rate history. Current rate: 1 ${base} = ${input.rate!.toLocaleString('en-US', { maximumFractionDigits: 4 })} ${quote}.`
+		: `Monierate is not currently tracking a ${base} → ${quote} rate from ${providerName}. Compare live ${base}/${quote} rates from every provider we track.`;
 	const path = `/markets/${pairCode}/${providerCode}`;
 	const canonical = `${SITE}${path}`;
 
@@ -90,6 +94,7 @@ export function buildPairProviderSeo(input: PairProviderSeoInput): SeoMeta {
 		title,
 		description,
 		canonical,
+		...(hasRate ? {} : { robots: 'noindex, follow' }),
 		ogImage: providerOgImage(providerCode),
 		jsonLd: [
 			organizationJsonLd({
@@ -97,8 +102,8 @@ export function buildPairProviderSeo(input: PairProviderSeoInput): SeoMeta {
 				url: input.providerLink,
 				logo: `${SITE}${getIconPath(input.providerIcon)}`
 			}),
-			...(input.rate !== undefined
-				? [exchangeRateJsonLd({ base, quote, rate: input.rate, providerName })]
+			...(hasRate
+				? [exchangeRateJsonLd({ base, quote, rate: input.rate!, providerName })]
 				: []),
 			datasetJsonLd({
 				name: `${base}/${quote} daily rate history on ${providerName}`,
