@@ -89,12 +89,12 @@
       ? {
           label: 'Volatility (7d)',
           value: `${fmt(volScore ?? 0)}%`,
-          sub: `${VOL_REGIME_LABEL[volRegime as VolRegime] ?? ''} regime →`,
+          sub: `${VOL_REGIME_LABEL[volRegime as VolRegime] ?? ''} regime`,
           subColor: 'var(--text-muted)',
           icon: ICONS.activity,
           accent: volTone,
           valueColor: volTone,
-          href: '/markets/volatility',
+          href: undefined as string | undefined,
         }
       : {
           label: `${timeRange.toUpperCase()} Volatility`,
@@ -110,12 +110,12 @@
       ? {
           label: 'Spread Index (MSI)',
           value: `${fmt(msiScore)}%`,
-          sub: msiLevel ? `${MSI_LEVEL_LABEL[msiLevel as PremiumLevel] ?? ''} premium →` : 'premium over CBN →',
+          sub: msiLevel ? `${MSI_LEVEL_LABEL[msiLevel as PremiumLevel] ?? ''} premium` : 'premium over CBN',
           subColor: 'var(--text-muted)',
           icon: ICONS.zap,
           accent: msiTone,
           valueColor: msiTone,
-          href: '/markets/spread',
+          href: undefined as string | undefined,
         }
       : {
           label: `${timeRange.toUpperCase()} Spread`,
