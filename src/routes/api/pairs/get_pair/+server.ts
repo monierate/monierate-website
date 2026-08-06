@@ -5,7 +5,7 @@ import { serverApiRequest } from '$lib/api/server';
 export async function GET({ url }) {
 	let urlParams = url.searchParams;
 
-	const pair_code = urlParams.get('pair_code');
+	const pair_code = urlParams.get('pair_code') || urlParams.get('code');
 
 	if (!pair_code) {
 		return json({ message: 'pair_code parameter is required' }, { status: 400 });

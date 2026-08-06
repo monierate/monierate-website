@@ -8,49 +8,31 @@
 			<h3 class="font-bold">Currency converter</h3>
 			<ul class="py-4 converter-list">
 				<li>
-					<a data-sveltekit-reload href="/converter/bybit?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Bybit</a
-					>
+					<a href="/markets/usdtngn/bybit">Convert USDT on Bybit</a>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/bitnob?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Bitnob</a
-					>
+					<a href="/markets/usdtngn/bitnob">Convert USDT on Bitnob</a>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/chippercash?Amount=1&From=USD&To=NGN"
-						>Convert USD on Chipper Cash</a
-					>
+					<a href="/markets/usdngn/chippercash">Convert USD on Chipper Cash</a>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/eversend?Amount=1&From=USD&To=NGN"
-						>Convert USD on Eversend</a
-					>
+					<a href="/markets/usdngn/eversend">Convert USD on Eversend</a>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/boundlesspay?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Boundlesspay</a
-					>
+					<a href="/markets/usdtngn/boundlesspay">Convert USDT on Boundlesspay</a>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/noones?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Noones</a
-					>
+					<a href="/markets/usdtngn/noones">Convert USDT on Noones</a>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/quidax?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Quidax</a
-					>
+					<a href="/markets/usdtngn/quidax">Convert USDT on Quidax</a>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/luno?Amount=1&From=USDC&To=NGN"
-						>Convert USDC on Luno</a
-					>
+					<a href="/markets/usdcngn/luno">Convert USDC on Luno</a>
 				</li>
 				<li>
-					<a data-sveltekit-reload href="/converter/gate?Amount=1&From=USDT&To=NGN"
-						>Convert USDT on Gate.com</a
-					>
+					<a href="/markets/usdtngn/gate">Convert USDT on Gate.com</a>
 				</li>
 			</ul>
 		</div>
