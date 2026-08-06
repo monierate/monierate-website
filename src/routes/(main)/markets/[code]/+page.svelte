@@ -18,7 +18,6 @@
   import MarketHighlightFull from '$lib/components/overview/MarketHighlightFull.svelte';
   import MarketHighlightFullGhost from '$lib/components/overview/MarketHighlightFullGhost.svelte';
   import MarketHighlightsSkeleton from '$lib/components/overview/skeletons/MarketHighlightsSkeleton.svelte';
-  import PairSwitcher from '$lib/components/overview/PairSwitcher.svelte';
   import FxInsightTitle from '$lib/components/overview/FxInsightTitle.svelte';
   import MarketReadPanel from '$lib/components/spread-index/MarketReadPanel.svelte';
   import type { HighlightCard } from '$lib/components/overview/highlights';
@@ -188,16 +187,8 @@
     <FxInsightTitle quote={s.pair.quote} />
   </div>
 
-  <!-- Header: pair tabs -->
   <div>
-    <PairSwitcher
-      tabs={s.pairTabs}
-      activeBase={s.pair.base}
-      quote={s.pair.quote}
-      symbol={s.pair.symbol}
-      onSelect={(base) => activeBase.set(base)}
-    />
-    <p class="text-[13px] mt-2" style="color: var(--text-secondary);">Live index rate, metrics and provider breakdown</p>
+    <p class="text-[13px]" style="color: var(--text-secondary);">Live index rate, metrics and provider breakdown</p>
   </div>
 
   <!-- Stat cards -->
