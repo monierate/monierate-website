@@ -22,6 +22,7 @@
     highProvider,
     lowProvider,
     timeRange = '24h',
+    pairCode = '',
   }: {
     symbol: string;
     currentRate: number;
@@ -40,7 +41,13 @@
     highProvider: { code: string; name: string; icon: string } | null;
     lowProvider: { code: string; name: string; icon: string } | null;
     timeRange?: string;
+    /** Pair the strip belongs to — links the high/low providers to their pair page. */
+    pairCode?: string;
   } = $props();
+
+  // Pair-scoped provider page when we know the pair, else the standalone profile.
+  const providerHref = (code: string) =>
+    pairCode ? `/markets/${pairCode}/${code}` : `/markets/providers/${code}`;
 
   const msiTone = $derived(msiLevel ? TONE_COLOR[classifyTone(msiLevel as PremiumLevel)] : '#a855f7');
   const volTone = $derived(volRegime ? volRegimeColor(volRegime as VolRegime) : '#f59e0b');
@@ -149,7 +156,7 @@
 
   {#if highProvider}
     <a
-      href="/markets/providers/{highProvider.code}"
+      href={providerHref(highProvider.code)}
       class="flex items-center gap-1.5 flex-shrink-0 hover:opacity-75 transition-opacity"
       style="text-decoration:none;"
     >
@@ -167,7 +174,7 @@
 
   {#if lowProvider}
     <a
-      href="/markets/providers/{lowProvider.code}"
+      href={providerHref(lowProvider.code)}
       class="flex items-center gap-1.5 flex-shrink-0 hover:opacity-75 transition-opacity"
       style="text-decoration:none;"
     >

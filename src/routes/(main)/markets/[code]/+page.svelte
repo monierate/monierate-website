@@ -163,6 +163,7 @@
       highProvider={s.highProviderData}
       lowProvider={s.lowProviderData}
       timeRange={s.timeRange}
+      pairCode={s.pair.code}
     />
   {/if}
 
