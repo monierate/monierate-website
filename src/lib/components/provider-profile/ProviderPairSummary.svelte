@@ -64,13 +64,17 @@
 		{#if readMore}
 			<div class="space-y-2" transition:slide={{ duration: 250 }}>
 				<p>
-					<strong style="color: var(--text-primary);">Buy rate</strong> is what {providerName} charges
-					in {quoteName} to give you {baseName}.
-					<strong style="color: var(--text-primary);">Sell rate</strong> is what it pays you in {quoteName}
+					<strong style="color: var(--text-primary);">Buy rate:</strong> what {providerName} charges in
+					{quoteName} to give you {baseName}.
+				</p>
+				<p>
+					<strong style="color: var(--text-primary);">Sell rate:</strong> what it pays you in {quoteName}
 					for your {baseName}.
+				</p>
+				<p>
 					{#if spread > 0}
-						The {symbol}{fmt(spread)} gap between them is what a round trip costs you, before any fees
-						{providerName} charges separately.
+						The {symbol}{fmt(spread)} gap between the two is what a round trip costs you, before any
+						fees {providerName} charges separately.
 					{/if}
 					At the current mid rate, {base}100 is worth roughly {symbol}{fmt(per100)}.
 				</p>
