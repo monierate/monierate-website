@@ -18,6 +18,20 @@ import blogPosts from '$lib/blog/posts.json';
 
 const SITE = 'https://monierate.com';
 
+/**
+ * Held back on request: the provider profile, spread, and history pages stay out
+ * of the sitemap until their public clones ship, so only /markets/:pair and
+ * /markets/:pair/:provider are submitted. Flip to true to include them — the
+ * pages themselves are indexable either way (no noindex tag).
+ */
+const SUBMIT_SECONDARY_MARKETS_PAGES = false;
+
+/**
+ * Sitemaps must stay under 50,000 URLs. We emit a few hundred (see docs/seo.md),
+ * so a single file is correct; this guard surfaces the day that stops being true.
+ */
+const MAX_URLS_PER_SITEMAP = 50_000;
+
 type ChangeFreq =
 	| 'always'
 	| 'hourly'
@@ -82,7 +96,63 @@ async function fetchChangerCodes(): Promise<{ code: string; lastmod?: string }[]
 	}
 }
 
-function buildEntries(changers: { code: string; lastmod?: string }[]): Entry[] {
+async function fetchPairCodes(): Promise<string[]> {
+	try {
+		const res = await serverApiRequest<{ result?: any[] }>('/pairs/get_all_pairs', {
+			params: { page: 1, limit: 200 },
+			timeoutMs: 8000,
+			retries: 1
+		});
+
+		if (!res.success || !res.data?.result) return [];
+
+		return res.data.result
+			.filter((p) => typeof p?.code === 'string')
+			.map((p) => p.code as string);
+	} catch {
+		return [];
+	}
+}
+
+interface PairProviderCombo {
+	pair: string;
+	providerCode: string;
+	lastmod?: string;
+}
+
+/**
+ * Enumerate live pair × provider combinations from the v1 rates API — the
+ * same source /markets/:pair/:provider reads from. Scoped to the
+ * last 30-minute window (the endpoint's own freshness bar) so every listed
+ * URL is guaranteed to resolve rather than 404 on a long-stale pair.
+ */
+async function fetchPairProviderCombos(): Promise<PairProviderCombo[]> {
+	try {
+		const res = await serverApiRequest<{ rates?: any[] }>('/v1/rates/current', {
+			params: { limit: 1000 },
+			timeoutMs: 8000,
+			retries: 1
+		});
+
+		if (!res.success || !res.data?.rates) return [];
+
+		return res.data.rates
+			.filter((r) => typeof r?.pair === 'string' && typeof r?.provider_id === 'string')
+			.map((r) => ({
+				pair: r.pair as string,
+				providerCode: r.provider_id as string,
+				lastmod: r.timestamp ? new Date(r.timestamp).toISOString() : undefined
+			}));
+	} catch {
+		return [];
+	}
+}
+
+function buildEntries(
+	changers: { code: string; lastmod?: string }[],
+	pairProviderCombos: PairProviderCombo[],
+	pairCodes: string[]
+): Entry[] {
 	const now = new Date().toISOString();
 	const entries: Entry[] = [];
 
@@ -106,6 +176,12 @@ function buildEntries(changers: { code: string; lastmod?: string }[]): Entry[] {
 			priority: 0.9,
 			lastmod: now
 		});
+	}
+
+	/* --- Stablecoin Spread Index + exchange rate history hubs --- */
+	if (SUBMIT_SECONDARY_MARKETS_PAGES) {
+		entries.push({ path: '/markets/spread', changefreq: 'hourly', priority: 0.8, lastmod: now });
+		entries.push({ path: '/markets/history', changefreq: 'daily', priority: 0.75, lastmod: now });
 	}
 
 	/* --- Discover rate pages --- */
@@ -133,6 +209,34 @@ function buildEntries(changers: { code: string; lastmod?: string }[]): Entry[] {
 			changefreq: 'weekly',
 			priority: 0.6,
 			lastmod
+		});
+		if (SUBMIT_SECONDARY_MARKETS_PAGES) {
+			entries.push({
+				path: `/markets/providers/${code}`,
+				changefreq: 'hourly',
+				priority: 0.6,
+				lastmod
+			});
+		}
+	}
+
+	/* --- Per-pair overview hub pages (one per supported pair) --- */
+	for (const code of pairCodes) {
+		entries.push({
+			path: `/markets/${code}`,
+			changefreq: 'hourly',
+			priority: 0.65,
+			lastmod: now
+		});
+	}
+
+	/* --- Per-pair × per-provider long-tail pages (high cardinality; SSR on demand, not prerendered) --- */
+	for (const { pair, providerCode, lastmod } of pairProviderCombos) {
+		entries.push({
+			path: `/markets/${pair}/${providerCode}`,
+			changefreq: 'hourly',
+			priority: 0.5,
+			lastmod: lastmod ?? now
 		});
 	}
 
@@ -213,8 +317,22 @@ ${urls}
 }
 
 export const GET: RequestHandler = async () => {
-	const changers = await fetchChangerCodes();
-	const xml = renderXml(buildEntries(changers));
+	const [changers, pairProviderCombos, pairCodes] = await Promise.all([
+		fetchChangerCodes(),
+		fetchPairProviderCombos(),
+		fetchPairCodes()
+	]);
+	const entries = buildEntries(changers, pairProviderCombos, pairCodes);
+
+	if (entries.length > MAX_URLS_PER_SITEMAP) {
+		// Split into a sitemap index before shipping past this; a truncated sitemap
+		// silently drops URLs, so make the cause loud rather than lose coverage.
+		console.error(
+			`sitemap.xml: ${entries.length} URLs exceeds the ${MAX_URLS_PER_SITEMAP} limit — split into a sitemap index.`
+		);
+	}
+
+	const xml = renderXml(entries);
 
 	return new Response(xml, {
 		headers: {

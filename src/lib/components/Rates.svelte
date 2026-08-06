@@ -78,12 +78,12 @@
 				if (rateType === 'sell') {
 					if (a.price_sell === 0 && b.price_sell !== 0) return 1;
 					if (a.price_sell !== 0 && b.price_sell === 0) return -1;
-					// both > 0 → sort ascending
+					// both > 0 â†’ sort ascending
 					return b.price_sell - a.price_sell;
 				} else {
 					if (a.price_buy === 0 && b.price_buy !== 0) return 1;
 					if (a.price_buy !== 0 && b.price_buy === 0) return -1;
-					// both > 0 → sort ascending
+					// both > 0 â†’ sort ascending
 					return b.price_buy - a.price_buy;
 				}
 			}
@@ -206,7 +206,7 @@
 						<!-- Name with icon and link -->
 						<td class="px-4 py-3 text-left dark:text-gray-200 font-bold md:text-[17px]">
 							<a
-								href={`/converter/${rate.changer_code}?Amount=1&From=${base.toLowerCase()}&To=${quote.toLowerCase()}`}
+								href={`/markets/${base.toLowerCase()}${quote.toLowerCase()}/${rate.changer_code}`}
 								class="flex items-center gap-2 text-gray-700 dark:text-gray-200"
 							>
 								<picture class="h-6 w-6 rounded-full overflow-hidden">
@@ -299,7 +299,7 @@
 
 					{#each getPageButtons() as page}
 						{#if typeof page === 'string'}
-							<span class="px-2 py-1 text-gray-400">…</span>
+							<span class="px-2 py-1 text-gray-400">â€¦</span>
 						{:else}
 							<button
 								class={`px-3 py-1 rounded ${
