@@ -7,27 +7,11 @@
   import IndexHistoryGhost from '$lib/components/history/IndexHistoryGhost.svelte';
   import BaseSelector from '$lib/components/ui/BaseSelector.svelte';
   import EmptyState from '$lib/components/ui/EmptyState.svelte';
-  import ProUpgradeModal from '$lib/components/ui/ProUpgradeModal.svelte';
   import { activeBase } from '$lib/stores/activeBase';
   import { defaultCurrencyStore as activeQuote } from '$lib/stores/defaultCurrency';
   import { CURRENCY_SYMBOLS, defaultBaseForQuote } from '$lib/constants/currency';
 
   let { data }: { data: PageData } = $props();
-
-  // No auth/account system on the public site, so exports are always gated —
-  // clicking Export shows the Pro upgrade prompt instead of a real download.
-  let upgradeOpen = $state(false);
-
-  const proFeatures = [
-    { label: 'Unlimited CSV & PDF exports' },
-    { label: 'Export any custom date range' },
-    { label: 'Full historical index data access' },
-    { label: 'Priority, ad-free data access' }
-  ];
-
-  function handleExport() {
-    upgradeOpen = true;
-  }
 
   $effect.pre(() => {
     activeBase.set(data.base);
@@ -125,7 +109,7 @@
         symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''}
       />
 
-      <IndexOhlcTable rows={state.tableRows} symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''} onExport={handleExport} />
+      <IndexOhlcTable rows={state.tableRows} symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''} proSource="markets-history" />
     {/if}
   {:catch}
     <div
@@ -139,11 +123,3 @@
     </div>
   {/await}
 </div>
-
-<ProUpgradeModal
-  open={upgradeOpen}
-  onClose={() => (upgradeOpen = false)}
-  title="Upgrade to Pro for unlimited historical data exports."
-  features={proFeatures}
-  ctaHref="/pricing"
-/>

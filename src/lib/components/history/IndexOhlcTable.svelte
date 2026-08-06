@@ -2,15 +2,17 @@
   import { fmt } from '$lib/utils/format';
   import type { IndexDailyHistoryEntry } from '$lib/services/currency/v1/index';
   import EmptyState from '$lib/components/ui/EmptyState.svelte';
+  import ProGate from '$lib/components/pro/ProGate.svelte';
 
   let {
     rows,
     symbol = '',
-    onExport,
+    proSource,
   }: {
     rows: IndexDailyHistoryEntry[];
     symbol?: string;
-    onExport?: () => void;
+    /** Page this table sits on; omit to hide the gated Export affordance. */
+    proSource?: string;
   } = $props();
 
   const PAGE_SIZES = [7, 14, 30];
@@ -131,16 +133,22 @@
         style="color: var(--accent);"
       >Reset</button>
     {/if}
-    {#if onExport}
-      <button
-        type="button"
-        onclick={onExport}
-        class="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold cursor-pointer transition-all"
-        style="background: var(--accent); color: #fff; border: none;"
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-        Export
-      </button>
+    {#if proSource}
+      <div class="ml-auto">
+        <ProGate
+          variant="button"
+          size="sm"
+          feature="export-index-history"
+          source={proSource}
+          title="Upgrade to Pro for unlimited historical data exports."
+          features={[
+            'Unlimited CSV & PDF exports',
+            'Export any custom date range',
+            'Full historical index data access',
+            'Priority, ad-free data access'
+          ]}
+        />
+      </div>
     {/if}
   </div>
 

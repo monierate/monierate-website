@@ -20,26 +20,18 @@
   import MsiHistoryChartSkeleton from '$lib/components/spread-index/skeletons/MsiHistoryChartSkeleton.svelte';
   import MsiChannelBreakdownSkeleton from '$lib/components/spread-index/skeletons/MsiChannelBreakdownSkeleton.svelte';
   import EmptyState from '$lib/components/ui/EmptyState.svelte';
-  import ProUpgradeModal from '$lib/components/ui/ProUpgradeModal.svelte';
+  import ProGate from '$lib/components/pro/ProGate.svelte';
   import type { PageData } from './$types';
 
   const PAIR = 'usdtngn';
 
-  // No auth/account system on the public site, so exports are always gated —
-  // clicking Export shows the Pro upgrade prompt instead of a real download.
-  let upgradeOpen = $state(false);
-
-  const proFeatures = [
-    { label: 'Unlimited CSV & PDF exports' },
-    { label: 'Export any custom date range' },
-    { label: 'Full Stablecoin Spread Index (MSI) history' },
-    { label: 'Per-source premium breakdown' },
-    { label: 'Priority, ad-free data access' }
+  const EXPORT_FEATURES = [
+    'Unlimited CSV & PDF exports',
+    'Export any custom date range',
+    'Full Stablecoin Spread Index (MSI) history',
+    'Per-source premium breakdown',
+    'Priority, ad-free data access'
   ];
-
-  function handleExportClick() {
-    upgradeOpen = true;
-  }
 
   let { data }: { data: PageData } = $props();
 
@@ -177,16 +169,14 @@
         Stablecoin-dollar (USDT/NGN) premium over the CBN official rate.
       </p>
     </div>
-    <button
-      type="button"
-      onclick={handleExportClick}
+    <ProGate
+      variant="button"
+      feature="export-spread-index"
+      source="markets-spread"
+      title="Upgrade to Pro for unlimited Spread and Data exports."
+      features={EXPORT_FEATURES}
       disabled={!history || history.points.length === 0}
-      class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] font-semibold cursor-pointer border transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-      style="background: var(--accent); border-color: var(--accent); color: #fff;"
-    >
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-      Export
-    </button>
+    />
   </div>
 
   {#snippet rangeBar()}
@@ -252,14 +242,6 @@
     <MsiSignals signals={state.signals} />
   {/if}
 </div>
-
-<ProUpgradeModal
-  open={upgradeOpen}
-  onClose={() => (upgradeOpen = false)}
-  title="Upgrade to Pro for unlimited Spread and Data exports."
-  features={proFeatures}
-  ctaHref="/pricing"
-/>
 
 {#if MARKET_READ_ENABLED}
   <WhatThisMeansModal

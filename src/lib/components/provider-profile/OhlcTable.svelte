@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fmt } from '$lib/utils/format';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import { ACCOUNT_URL } from '$lib/config';
+	import ProGate from '$lib/components/pro/ProGate.svelte';
 
 	type Range = '7d' | '30d' | '60d' | '90d';
 
@@ -14,7 +14,7 @@
 		availability_pct: number;
 	}
 
-	let { history, historyLoading, symbol, selectedRange, providerName, providerIconUrl, previewRows = null }: {
+	let { history, historyLoading, symbol, selectedRange, providerName, providerIconUrl, previewRows = null, proSource = 'markets-pair-provider' }: {
 		history: Snapshot[];
 		historyLoading: boolean;
 		symbol: string;
@@ -23,6 +23,8 @@
 		providerIconUrl: string | null;
 		/** Render only the first N rows behind a Pro upsell. Null shows everything. */
 		previewRows?: number | null;
+		/** Page this table sits on — feeds the gate's CTA attribution. */
+		proSource?: string;
 	} = $props();
 
 	let iconError = $state(false);
@@ -122,26 +124,17 @@
 			<!-- Anchored to the card, so the fade begins transparent over the last visible
 			     rows and the table reads as cut off rather than simply ending. -->
 			<div
-				class="absolute inset-x-0 bottom-0 flex flex-col items-center gap-1.5 px-5 pb-6 pt-24 text-center"
+				class="absolute inset-x-0 bottom-0 px-5 pb-6 pt-24"
 				style="background: linear-gradient(to bottom, transparent 0%, var(--page-bg) 55%);"
 			>
-				<p class="text-[13px] font-semibold" style="color: var(--text-primary);">
-					{history.length - visibleRows.length} more days of {providerName} OHLC data
-				</p>
-				<p class="text-[12px] max-w-sm" style="color: var(--text-secondary);">
-					Sign up for Monierate Pro to unlock the full history for this pair.
-				</p>
-				<a
-					href="{ACCOUNT_URL}/auth/signup"
-					class="mt-1.5 inline-flex items-center gap-1.5 text-[12px] font-semibold px-4 py-2 rounded-lg transition-opacity hover:opacity-90"
-					style="background: var(--text-primary); color: var(--page-bg);"
-				>
-					Sign up to Monierate Pro
-					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M7 17 17 7" />
-						<path d="M7 7h10v10" />
-					</svg>
-				</a>
+				<ProGate
+					variant="inline"
+					compact
+					feature="ohlc-full-history"
+					source={proSource}
+					title="{history.length - visibleRows.length} more days of {providerName} OHLC data"
+					description="Monierate Pro unlocks the full history for this pair, plus CSV export."
+				/>
 			</div>
 		{/if}
 	{/if}
