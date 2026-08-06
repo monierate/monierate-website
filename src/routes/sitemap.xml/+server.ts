@@ -18,6 +18,20 @@ import blogPosts from '$lib/blog/posts.json';
 
 const SITE = 'https://monierate.com';
 
+/**
+ * Held back on request: the provider profile, spread, and history pages stay out
+ * of the sitemap until their public clones ship, so only /markets/:pair and
+ * /markets/:pair/:provider are submitted. Flip to true to include them — the
+ * pages themselves are indexable either way (no noindex tag).
+ */
+const SUBMIT_SECONDARY_MARKETS_PAGES = false;
+
+/**
+ * Sitemaps must stay under 50,000 URLs. We emit a few hundred (see docs/seo.md),
+ * so a single file is correct; this guard surfaces the day that stops being true.
+ */
+const MAX_URLS_PER_SITEMAP = 50_000;
+
 type ChangeFreq =
 	| 'always'
 	| 'hourly'
@@ -164,11 +178,11 @@ function buildEntries(
 		});
 	}
 
-	/* --- Stablecoin Spread Index and exchange rate history: temporarily out of the
-	   sitemap. Only /markets/:pair and /markets/:pair/:provider are submitted for now.
-	entries.push({ path: '/markets/spread', changefreq: 'hourly', priority: 0.8, lastmod: now });
-	entries.push({ path: '/markets/history', changefreq: 'daily', priority: 0.75, lastmod: now });
-	--- */
+	/* --- Stablecoin Spread Index + exchange rate history hubs --- */
+	if (SUBMIT_SECONDARY_MARKETS_PAGES) {
+		entries.push({ path: '/markets/spread', changefreq: 'hourly', priority: 0.8, lastmod: now });
+		entries.push({ path: '/markets/history', changefreq: 'daily', priority: 0.75, lastmod: now });
+	}
 
 	/* --- Discover rate pages --- */
 	for (const seg of [
@@ -196,14 +210,14 @@ function buildEntries(
 			priority: 0.6,
 			lastmod
 		});
-		/* Provider profile pages are temporarily out of the sitemap.
-		entries.push({
-			path: `/markets/providers/${code}`,
-			changefreq: 'hourly',
-			priority: 0.6,
-			lastmod
-		});
-		*/
+		if (SUBMIT_SECONDARY_MARKETS_PAGES) {
+			entries.push({
+				path: `/markets/providers/${code}`,
+				changefreq: 'hourly',
+				priority: 0.6,
+				lastmod
+			});
+		}
 	}
 
 	/* --- Per-pair overview hub pages (one per supported pair) --- */
@@ -308,7 +322,17 @@ export const GET: RequestHandler = async () => {
 		fetchPairProviderCombos(),
 		fetchPairCodes()
 	]);
-	const xml = renderXml(buildEntries(changers, pairProviderCombos, pairCodes));
+	const entries = buildEntries(changers, pairProviderCombos, pairCodes);
+
+	if (entries.length > MAX_URLS_PER_SITEMAP) {
+		// Split into a sitemap index before shipping past this; a truncated sitemap
+		// silently drops URLs, so make the cause loud rather than lose coverage.
+		console.error(
+			`sitemap.xml: ${entries.length} URLs exceeds the ${MAX_URLS_PER_SITEMAP} limit — split into a sitemap index.`
+		);
+	}
+
+	const xml = renderXml(entries);
 
 	return new Response(xml, {
 		headers: {

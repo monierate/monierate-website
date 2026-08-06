@@ -21,6 +21,7 @@
   import MsiChannelBreakdownSkeleton from '$lib/components/spread-index/skeletons/MsiChannelBreakdownSkeleton.svelte';
   import EmptyState from '$lib/components/ui/EmptyState.svelte';
   import ProGate from '$lib/components/pro/ProGate.svelte';
+  import Seo from '$lib/components/seo/Seo.svelte';
   import type { PageData } from './$types';
 
   const PAIR = 'usdtngn';
@@ -140,24 +141,7 @@
   }
 </script>
 
-<svelte:head>
-  <title>{data.seo.title}</title>
-  <meta name="description" content={data.seo.description} />
-  <link rel="canonical" href={data.seo.canonical} />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content={data.seo.title} />
-  <meta property="og:description" content={data.seo.description} />
-  <meta property="og:url" content={data.seo.canonical} />
-  <meta property="og:image" content={data.seo.ogImage} />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={data.seo.title} />
-  <meta name="twitter:description" content={data.seo.description} />
-  <meta name="twitter:image" content={data.seo.ogImage} />
-
-  {@html `<script type="application/ld+json">${data.seo.webPageJsonLd}<\/script>`}
-</svelte:head>
+<Seo {...data.seo} />
 
 <div class="max-w-6xl mx-auto space-y-6">
   <div class="flex items-start justify-between gap-3 flex-wrap">

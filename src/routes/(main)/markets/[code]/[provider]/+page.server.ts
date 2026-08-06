@@ -55,7 +55,8 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 		providerName: provider.name,
 		providerIcon: provider.icon,
 		providerLink: provider.link,
-		rate: currentRate.rate_buy || currentRate.rate_mid
+		rate: currentRate.rate_buy || currentRate.rate_mid,
+		updatedAt: currentRate.timestamp
 	});
 
 	return {

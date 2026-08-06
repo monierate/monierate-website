@@ -11,6 +11,7 @@
 	import RateChartSection from '$lib/components/provider-profile/RateChartSection.svelte';
 	import OhlcTable from '$lib/components/provider-profile/OhlcTable.svelte';
 	import PairsEmptyGhost from '$lib/components/provider-profile/PairsEmptyGhost.svelte';
+	import Seo from '$lib/components/seo/Seo.svelte';
 	import { getIconPath } from '$lib/utils';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 
@@ -61,24 +62,7 @@
 	const seo = data.seo;
 </script>
 
-<svelte:head>
-	<title>{seo.title}</title>
-	<meta name="description" content={seo.description} />
-	<link rel="canonical" href={seo.canonical} />
-
-	<meta property="og:type" content="website" />
-	<meta property="og:title" content={seo.title} />
-	<meta property="og:description" content={seo.description} />
-	<meta property="og:url" content={seo.canonical} />
-	<meta property="og:image" content={seo.ogImage} />
-
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={seo.title} />
-	<meta name="twitter:description" content={seo.description} />
-	<meta name="twitter:image" content={seo.ogImage} />
-
-	{@html `<script type="application/ld+json">${seo.orgJsonLd}<\/script>`}
-</svelte:head>
+<Seo {...seo} />
 
 <div class="provider-page max-w-6xl mx-auto space-y-5 px-4 py-8">
 	<ProviderHero provider={data.provider} code={data.code} {tags} />

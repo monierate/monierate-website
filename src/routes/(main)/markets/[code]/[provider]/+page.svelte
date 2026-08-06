@@ -4,6 +4,7 @@
 	import ProviderPairInsight from '$lib/components/provider-profile/ProviderPairInsight.svelte';
 	import OhlcTable from '$lib/components/provider-profile/OhlcTable.svelte';
 	import ProviderPairSummary from '$lib/components/provider-profile/ProviderPairSummary.svelte';
+	import Seo from '$lib/components/seo/Seo.svelte';
 	import { getIconPath } from '$lib/utils';
 
 	let { data } = $props();
@@ -31,24 +32,7 @@
 		: 0;
 </script>
 
-<svelte:head>
-	<title>{seo.title}</title>
-	<meta name="description" content={seo.description} />
-	<link rel="canonical" href={seo.canonical} />
-
-	<meta property="og:type" content="website" />
-	<meta property="og:title" content={seo.title} />
-	<meta property="og:description" content={seo.description} />
-	<meta property="og:url" content={seo.canonical} />
-	<meta property="og:image" content={seo.ogImage} />
-
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={seo.title} />
-	<meta name="twitter:description" content={seo.description} />
-	<meta name="twitter:image" content={seo.ogImage} />
-
-	{@html `<script type="application/ld+json">${seo.orgJsonLd}<\/script>`}
-</svelte:head>
+<Seo {...seo} />
 
 <!-- Container mirrors Breadcrumb.svelte so the page gutter lines up with the breadcrumb bar. -->
 <div class="w-[95%] md:max-w-[1200px] mx-auto px-4 py-8">

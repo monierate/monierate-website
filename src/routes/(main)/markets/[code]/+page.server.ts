@@ -77,12 +77,13 @@ export const load: PageServerLoad = async ({ params, fetch, url }) => {
 
 	const { base, quote } = parsePairCode(params.code);
 	// entries are newest-first
-	const latestRate = (indexHistory[0] as { composite_rate?: number } | undefined)?.composite_rate;
+	const latest = indexHistory[0] as { composite_rate?: number; timestamp?: string } | undefined;
 	const seo = buildPairOverviewSeo({
 		pairCode: params.code,
 		base: base.toUpperCase(),
 		quote: quote.toUpperCase(),
-		rate: latestRate
+		rate: latest?.composite_rate,
+		updatedAt: latest?.timestamp
 	});
 
 	return { pairCode: params.code, indexHistory, currentRates, changers, indexContributors, pairs, msi, vol, seo };
