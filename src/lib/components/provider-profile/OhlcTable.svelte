@@ -132,7 +132,7 @@
 					compact
 					feature="ohlc-full-history"
 					source={proSource}
-					title="{history.length - visibleRows.length} more days of {providerName} OHLC data"
+					title="Get more days of {providerName} OHLC data"
 					description="Monierate Pro unlocks the full history for this pair, plus CSV export."
 				/>
 			</div>
