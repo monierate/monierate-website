@@ -52,10 +52,6 @@
 			per {base}{#if rateMonthAgo > 0}, {moved} {Math.abs(changePct).toFixed(2)}% from {symbol}{fmt(
 					rateMonthAgo
 				)} a month ago{/if}.
-			{#if buy > 0 && sell > 0}
-				Buying costs <strong style="color: var(--text-primary);">{symbol}{fmt(buy)}</strong>, selling
-				returns <strong style="color: var(--text-primary);">{symbol}{fmt(sell)}</strong>.
-			{/if}
 			{#if !readMore}
 				<button
 					class="cursor-pointer font-medium hover:underline"
