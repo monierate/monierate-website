@@ -3,6 +3,7 @@
 	import { ProviderPairInsightActions } from './actions.svelte';
 	import ProviderPairInsight from '$lib/components/provider-profile/ProviderPairInsight.svelte';
 	import OhlcTable from '$lib/components/provider-profile/OhlcTable.svelte';
+	import ProviderPairSummary from '$lib/components/provider-profile/ProviderPairSummary.svelte';
 	import { getIconPath } from '$lib/utils';
 
 	let { data } = $props();
@@ -22,6 +23,12 @@
 
 	const seo = data.seo;
 	const providerIconUrl = data.provider.icon ? getIconPath(data.provider.icon) : null;
+
+	// Oldest snapshot in the loaded 30-day window — the "a month ago" comparison
+	// point. Reduced rather than indexed, since the API's ordering isn't guaranteed.
+	const monthAgo = data.initialHistory?.length
+		? data.initialHistory.reduce((a, b) => (a.date <= b.date ? a : b)).close
+		: 0;
 </script>
 
 <svelte:head>
@@ -50,7 +57,18 @@
 		currentRate={data.currentRate}
 		state={insight}
 		showBreadcrumb={false}
-	/>
+	>
+		{#snippet summary()}
+			<ProviderPairSummary
+				providerName={data.provider.name}
+				base={insight.parsedPair.base}
+				quote={insight.parsedPair.quote}
+				symbol={insight.parsedPair.symbol}
+				currentRate={data.currentRate}
+				rateMonthAgo={monthAgo}
+			/>
+		{/snippet}
+	</ProviderPairInsight>
 
 	<!-- Mirrors the OHLC table on /markets/providers/[code]; shares the same range
 	     selection, so switching 7d/30d/60d/90d above refreshes both. -->

@@ -5,6 +5,7 @@
 	import ProviderConverter from './ProviderConverter.svelte';
 	import HistoryChart from '$lib/components/history/HistoryChart.svelte';
 	import { getIconPath } from '$lib/utils';
+	import type { Snippet } from 'svelte';
 
 	type Range = '7d' | '30d' | '60d' | '90d';
 	const RANGES: readonly Range[] = ['7d', '30d', '60d', '90d'];
@@ -32,12 +33,14 @@
 		toggleSwap: () => void;
 	}
 
-	let { provider, currentRate, state, onClose, showBreadcrumb = true }: {
+	let { provider, currentRate, state, onClose, showBreadcrumb = true, summary }: {
 		provider: any;
 		currentRate: any;
 		state: InsightState;
 		onClose?: () => void;
 		showBreadcrumb?: boolean;
+		/** Optional blurb rendered between the header and the stat cards. */
+		summary?: Snippet;
 	} = $props();
 
 	const providerIconUrl = $derived(provider.icon ? getIconPath(provider.icon) : null);
@@ -100,6 +103,8 @@
 			{/if}
 		</div>
 	</div>
+
+	{@render summary?.()}
 
 	<!-- Metrics -->
 	{#if currentRate}
