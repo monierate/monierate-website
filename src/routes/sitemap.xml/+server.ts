@@ -164,11 +164,11 @@ function buildEntries(
 		});
 	}
 
-	/* --- Stablecoin Spread Index (single hub page, USDT/NGN only) --- */
+	/* --- Stablecoin Spread Index and exchange rate history: temporarily out of the
+	   sitemap. Only /markets/:pair and /markets/:pair/:provider are submitted for now.
 	entries.push({ path: '/markets/spread', changefreq: 'hourly', priority: 0.8, lastmod: now });
-
-	/* --- Exchange rate history (single hub page, default pair/range) --- */
 	entries.push({ path: '/markets/history', changefreq: 'daily', priority: 0.75, lastmod: now });
+	--- */
 
 	/* --- Discover rate pages --- */
 	for (const seg of [
@@ -196,12 +196,14 @@ function buildEntries(
 			priority: 0.6,
 			lastmod
 		});
+		/* Provider profile pages are temporarily out of the sitemap.
 		entries.push({
 			path: `/markets/providers/${code}`,
 			changefreq: 'hourly',
 			priority: 0.6,
 			lastmod
 		});
+		*/
 	}
 
 	/* --- Per-pair overview hub pages (one per supported pair) --- */
