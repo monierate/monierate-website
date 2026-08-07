@@ -102,12 +102,12 @@
   onMount(() => {
     const stopBaseWatch = activeBase.subscribe((base) => {
       if (base !== s.pair.base) {
-        goto(`/markets/${base.toLowerCase()}${s.pair.quote.toLowerCase()}`);
+        goto(`/markets/${base.toLowerCase()}${s.pair.quote.toLowerCase()}/insight`);
       }
     });
     const stopQuoteWatch = activeQuote.subscribe((quote) => {
       if (quote !== s.pair.quote) {
-        goto(`/markets/${s.pair.base.toLowerCase()}${quote.toLowerCase()}`);
+        goto(`/markets/${s.pair.base.toLowerCase()}${quote.toLowerCase()}/insight`);
       }
     });
     return () => {
