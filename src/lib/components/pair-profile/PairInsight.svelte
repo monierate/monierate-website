@@ -16,6 +16,7 @@
 		historyLoading: boolean;
 		rangeHigh: number;
 		rangeLow: number;
+		volatility: number;
 		parsedPair: { base: string; quote: string; symbol: string };
 		chartData: { dateLabel: string; open: number; close: number; high: number; low: number }[];
 		chartSeries: { key: string; label: string; color: string; fill: boolean; dashed?: boolean }[];
@@ -97,11 +98,10 @@
 	{#if currentRate}
 		<RateStats
 			{currentRate}
-			{base}
-			{quote}
 			{symbol}
 			high={state.rangeHigh}
 			low={state.rangeLow}
+			volatility={state.volatility}
 			rangeLabel={state.selectedRange}
 		/>
 	{:else}

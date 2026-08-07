@@ -91,6 +91,11 @@ export class PairInsightActions {
 		return lows.length ? Math.min(...lows) : 0;
 	}
 
+	get volatility(): number {
+		if (!this.rangeHigh || !this.rangeLow) return 0;
+		return +(((this.rangeHigh - this.rangeLow) / this.rangeLow) * 100).toFixed(2);
+	}
+
 	// --- Quick converter (against the composite mid rate) ---
 
 	get activeRateValue(): number {

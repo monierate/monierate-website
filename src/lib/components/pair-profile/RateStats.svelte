@@ -6,59 +6,74 @@
 		spread?: number;
 	}
 
-	let { currentRate, base, quote, symbol, high, low, rangeLabel }: {
+	let { currentRate, symbol, high, low, volatility, rangeLabel }: {
 		currentRate: CurrentRate;
-		base: string;
-		quote: string;
 		symbol: string;
-		high?: number;
-		low?: number;
-		rangeLabel?: string;
+		high: number;
+		low: number;
+		volatility: number;
+		rangeLabel: string;
 	} = $props();
+
+	const ICONS = {
+		dollar: `<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>`,
+		trendUp: `<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>`,
+		trendDown: `<polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/>`,
+		activity: `<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>`,
+		zap: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`
+	};
+
+	const rate = $derived(currentRate.rate_mid ? symbol + fmt(currentRate.rate_mid) : '—');
+	const highDisplay = $derived(high ? symbol + fmt(high) : '—');
+	const lowDisplay = $derived(low ? symbol + fmt(low) : '—');
+	const spread = $derived(Math.abs(currentRate.spread ?? 0));
+	const spreadDisplay = $derived(spread ? symbol + fmt(spread) : '—');
 
 	const statCards = $derived([
 		{
 			label: 'Composite Rate',
-			value: currentRate.rate_mid,
+			display: rate,
 			valueColor: 'var(--text-primary)',
-			sub: `${quote} per ${base}`,
+			sub: 'index average',
 			accent: '#3861fb',
-			icon: `<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>`
+			icon: ICONS.dollar
 		},
 		{
-			label: 'Provider Spread',
-			value: Math.abs(currentRate.spread ?? 0),
-			valueColor: 'var(--text-primary)',
-			sub: 'avg. quote dispersion',
-			accent: '#a855f7',
-			icon: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`
+			label: `${rangeLabel.toUpperCase()} High`,
+			display: highDisplay,
+			valueColor: '#22c55e',
+			sub: 'period peak',
+			accent: '#22c55e',
+			icon: ICONS.trendUp
 		},
-		...(high != null && low != null
-			? [
-					{
-						label: `${rangeLabel ?? ''} High`.trim(),
-						value: high,
-						valueColor: 'var(--text-primary)',
-						sub: 'range peak',
-						accent: '#0ea5e9',
-						icon: `<polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/>`
-					},
-					{
-						label: `${rangeLabel ?? ''} Low`.trim(),
-						value: low,
-						valueColor: 'var(--text-primary)',
-						sub: 'range trough',
-						accent: '#f97316',
-						icon: `<polyline points="3 7 9 13 13 9 21 17"/><polyline points="14 17 21 17 21 10"/>`
-					}
-				]
-			: [])
+		{
+			label: `${rangeLabel.toUpperCase()} Low`,
+			display: lowDisplay,
+			valueColor: '#ef4444',
+			sub: 'period floor',
+			accent: '#ef4444',
+			icon: ICONS.trendDown
+		},
+		{
+			label: `${rangeLabel.toUpperCase()} Volatility`,
+			display: `${volatility}%`,
+			valueColor: 'var(--text-primary)',
+			sub: 'high–low range',
+			accent: '#f59e0b',
+			icon: ICONS.activity
+		},
+		{
+			label: `${rangeLabel.toUpperCase()} Spread`,
+			display: spreadDisplay,
+			valueColor: 'var(--text-primary)',
+			sub: 'high vs low provider',
+			accent: '#a855f7',
+			icon: ICONS.zap
+		}
 	]);
 </script>
 
-<div
-	class="grid grid-cols-2 gap-2 sm:gap-3 {high != null && low != null ? 'lg:grid-cols-4' : ''}"
->
+<div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-5 gap-2 sm:gap-3">
 	{#each statCards as stat}
 		<div
 			class="rounded-xl border"
@@ -87,7 +102,7 @@
 				class="text-[15px] sm:text-[18px] font-bold leading-none"
 				style="font-family: var(--font-mono); color: {stat.valueColor};"
 			>
-				{stat.value ? symbol + fmt(stat.value) : '—'}
+				{stat.display}
 			</div>
 			<div class="text-[10px] sm:text-[11px] mt-1" style="color: var(--text-muted);">{stat.sub}</div>
 		</div>
