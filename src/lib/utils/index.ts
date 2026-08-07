@@ -1,5 +1,8 @@
 export function getIconPath(icon: string | undefined): string {
 	if (!icon) return '/icons/png/default.png';
+	// Already a site-relative path (e.g. a currency icon under /icons/currencies) —
+	// pass through unchanged instead of nesting it under /icons/png.
+	if (icon.startsWith('/')) return icon;
 	if (icon.endsWith('.svg')) return `/icons/svg/${icon}`;
 	return `/icons/png/${icon}`;
 }

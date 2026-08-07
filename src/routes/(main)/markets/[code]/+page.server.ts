@@ -80,7 +80,13 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 	return {
 		pairCode,
 		providerCode: '',
-		provider: { name: `${base.toUpperCase()}/${quote.toUpperCase()} Composite Index`, icon: '', link: undefined },
+		provider: {
+			name: `${base.toUpperCase()}/${quote.toUpperCase()} Composite Index`,
+			// Base currency's icon stands in for a provider logo — the static asset
+			// used elsewhere for currency icons (see CurrencySelector.svelte).
+			icon: `/icons/currencies/${base}.png`,
+			link: undefined
+		},
 		currentRate,
 		hasLiveRate,
 		initialHistory,

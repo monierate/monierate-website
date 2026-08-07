@@ -41,6 +41,7 @@
 		currentRate={data.currentRate}
 		state={insight}
 		showBreadcrumb={false}
+		roundLogo={true}
 	>
 		{#snippet summary()}
 			<ProviderPairSummary
