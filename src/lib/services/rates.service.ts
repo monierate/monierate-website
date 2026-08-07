@@ -8,7 +8,7 @@ export interface DailySnapshot {
 	close: number;
 	high: number;
 	low: number;
-	availability_pct: number;
+	availability_pct: number | null;
 }
 
 export interface RateHistoryResponse {

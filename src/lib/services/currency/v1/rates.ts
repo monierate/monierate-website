@@ -30,7 +30,7 @@ export interface DailySnapshot {
 	low: number;
 	total_fetches: number;
 	successful_fetches: number;
-	availability_pct: number;
+	availability_pct: number | null;
 	was_excluded: boolean;
 	exclusion_reason: string | null;
 	createdAt: string;

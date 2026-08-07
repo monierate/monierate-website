@@ -4,6 +4,7 @@
 	import ProviderAbout from './ProviderAbout.svelte';
 	import ProviderConverter from './ProviderConverter.svelte';
 	import HistoryChart from '$lib/components/history/HistoryChart.svelte';
+	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import { getIconPath } from '$lib/utils';
 	import type { Snippet } from 'svelte';
 
@@ -46,6 +47,13 @@
 	const providerIconUrl = $derived(provider.icon ? getIconPath(provider.icon) : null);
 	const { base, quote, symbol } = $derived(state.parsedPair);
 	const pairDisplay = $derived(`${base}/${quote}`);
+
+	// No live quote for this pair. The chart still earns its place if the provider
+	// has history (a recently-stalled feed), but the converter does not — it would
+	// silently multiply by a zero rate.
+	const hasHistory = $derived(state.chartData.length > 0);
+	const showConverter = $derived(!!currentRate);
+	const showChartColumn = $derived(!!currentRate || hasHistory || state.historyLoading);
 </script>
 
 <div class="space-y-5">
@@ -117,10 +125,40 @@
 			low={state.rangeLow}
 			rangeLabel={state.selectedRange}
 		/>
+	{:else}
+		<div
+			class="rounded-xl border"
+			style="background: var(--card-bg); border-color: var(--card-border);"
+		>
+			<EmptyState
+				title="No live {pairDisplay} rate from {provider.name}"
+				description={hasHistory
+					? `We aren't receiving a current quote for this pair. The history below is the last data we recorded.`
+					: `Monierate isn't currently tracking this pair from ${provider.name}.`}
+			/>
+			<div class="px-6 pb-6 flex flex-wrap justify-center gap-2">
+				<a
+					href="/markets/{state.pairCode}"
+					class="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 rounded-lg border transition-colors hover:bg-[var(--table-hover)]"
+					style="color: var(--text-secondary); border-color: var(--card-border);"
+				>
+					Compare live {pairDisplay} rates
+				</a>
+				<a
+					href="/markets/providers/{state.providerCode}"
+					class="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 rounded-lg border transition-colors hover:bg-[var(--table-hover)]"
+					style="color: var(--text-secondary); border-color: var(--card-border);"
+				>
+					Other pairs on {provider.name}
+				</a>
+			</div>
+		</div>
 	{/if}
 
 	<!-- Chart + quick converter (converter drops below the chart on mobile) -->
-	<div class="grid grid-cols-1 lg:grid-cols-[1fr_296px] gap-4">
+	{#if showChartColumn || showConverter}
+	<div class="grid grid-cols-1 gap-4 {showConverter ? 'lg:grid-cols-[1fr_296px]' : ''}">
+		{#if showChartColumn}
 		<div>
 			{#if state.historyLoading}
 				<div
@@ -161,9 +199,13 @@
 				</HistoryChart>
 			{/if}
 		</div>
+		{/if}
 
-		<ProviderConverter {state} {base} {quote} {symbol} {currentRate} />
+		{#if showConverter}
+			<ProviderConverter {state} {base} {quote} {symbol} {currentRate} />
+		{/if}
 	</div>
+	{/if}
 
 	<!-- About blurb -->
 	<ProviderAbout {provider} />

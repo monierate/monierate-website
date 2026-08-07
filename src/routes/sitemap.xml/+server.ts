@@ -20,9 +20,10 @@ const SITE = 'https://monierate.com';
 
 /**
  * Held back on request: the provider profile, spread, and history pages stay out
- * of the sitemap until their public clones ship, so only /markets/:pair and
- * /markets/:pair/:provider are submitted. Flip to true to include them — the
- * pages themselves are indexable either way (no noindex tag).
+ * of the sitemap until their public clones ship, so only /markets/:pair,
+ * /markets/:pair/insight, and /markets/:pair/:provider are submitted. Flip to
+ * true to include them — the pages themselves are indexable either way (no
+ * noindex tag).
  */
 const SUBMIT_SECONDARY_MARKETS_PAGES = false;
 
@@ -220,12 +221,18 @@ function buildEntries(
 		}
 	}
 
-	/* --- Per-pair overview hub pages (one per supported pair) --- */
+	/* --- Per-pair OHLC hub pages (one per supported pair) --- */
 	for (const code of pairCodes) {
 		entries.push({
 			path: `/markets/${code}`,
 			changefreq: 'hourly',
 			priority: 0.65,
+			lastmod: now
+		});
+		entries.push({
+			path: `/markets/${code}/insight`,
+			changefreq: 'hourly',
+			priority: 0.6,
 			lastmod: now
 		});
 	}

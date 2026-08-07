@@ -26,11 +26,14 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 
 	const { provider, latest_rates } = result;
 
+	// `latest_rates` is the live v1 feed, and plenty of providers we still list
+	// aren't in it — either we never scraped them for this pair, or the scraper
+	// has gone quiet. Those pages used to 404, which was wrong: the homepage rate
+	// tables link here from the legacy changer dataset, so a real provider with a
+	// real profile was answering "not found". Render the page without the rate
+	// instead; `hasLiveRate` drives the empty state downstream.
 	const currentRate = (latest_rates ?? []).find((r) => r.pair === pairCode) ?? null;
-
-	if (!currentRate) {
-		throw error(404, `No ${pairCode.toUpperCase()} rate for "${providerCode}"`);
-	}
+	const hasLiveRate = currentRate !== null;
 
 	const end = new Date();
 	const start = new Date(end.getTime() - 30 * 86_400_000);
@@ -55,8 +58,8 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 		providerName: provider.name,
 		providerIcon: provider.icon,
 		providerLink: provider.link,
-		rate: currentRate.rate_buy || currentRate.rate_mid,
-		updatedAt: currentRate.timestamp
+		rate: currentRate?.rate_buy || currentRate?.rate_mid,
+		updatedAt: currentRate?.timestamp
 	});
 
 	return {
@@ -64,6 +67,7 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 		providerCode,
 		provider,
 		currentRate,
+		hasLiveRate,
 		initialHistory,
 		amount,
 		seo
