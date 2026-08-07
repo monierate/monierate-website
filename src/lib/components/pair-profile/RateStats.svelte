@@ -2,8 +2,6 @@
 	import { fmt } from '$lib/utils/format';
 
 	interface CurrentRate {
-		rate_buy?: number;
-		rate_sell?: number;
 		rate_mid?: number;
 		spread?: number;
 	}
@@ -20,23 +18,7 @@
 
 	const statCards = $derived([
 		{
-			label: 'Buy Rate',
-			value: currentRate.rate_buy,
-			valueColor: 'var(--positive)',
-			sub: `${quote} per ${base}`,
-			accent: '#22c55e',
-			icon: `<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>`
-		},
-		{
-			label: 'Sell Rate',
-			value: currentRate.rate_sell,
-			valueColor: 'var(--negative)',
-			sub: `${quote} per ${base}`,
-			accent: '#ef4444',
-			icon: `<polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/>`
-		},
-		{
-			label: 'Mid Rate',
+			label: 'Composite Rate',
 			value: currentRate.rate_mid,
 			valueColor: 'var(--text-primary)',
 			sub: `${quote} per ${base}`,
@@ -44,10 +26,10 @@
 			icon: `<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>`
 		},
 		{
-			label: 'Spread',
+			label: 'Provider Spread',
 			value: Math.abs(currentRate.spread ?? 0),
 			valueColor: 'var(--text-primary)',
-			sub: 'buy vs sell',
+			sub: 'avg. quote dispersion',
 			accent: '#a855f7',
 			icon: `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`
 		},
@@ -75,9 +57,7 @@
 </script>
 
 <div
-	class="grid grid-cols-2 gap-2 sm:gap-3 {high != null && low != null
-		? 'sm:grid-cols-3 lg:grid-cols-6'
-		: 'sm:grid-cols-4'}"
+	class="grid grid-cols-2 gap-2 sm:gap-3 {high != null && low != null ? 'lg:grid-cols-4' : ''}"
 >
 	{#each statCards as stat}
 		<div

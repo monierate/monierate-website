@@ -50,21 +50,19 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 	const entries: IndexDailyHistoryEntry[] = (historyRes as DailyHistoryResponse | null)?.data?.entries ?? [];
 	const initialHistory: DailySnapshot[] = entries.map((e) => toDailySnapshot(pairCode, e));
 
-	// Latest entry stands in for `latest_rates` — the composite rate reflects the
-	// pair as a whole instead of one changer's quote.
+	// Latest entry stands in for `latest_rates` — a single composite rate for the
+	// whole pair, not a changer's buy/sell quote (the index has no bid/ask of its
+	// own, so there's nothing genuine to put in separate buy/sell fields).
 	const latest = [...entries].sort((a, b) => (a.date < b.date ? 1 : -1))[0] ?? null;
 	const currentRate = latest
 		? {
 				pair: pairCode,
 				rate_type: 'index',
-				rate_buy: latest.close,
-				rate_sell: latest.close,
 				rate_mid: latest.close,
 				spread: latest.avg_spread_range,
 				timestamp: latest.date
 			}
 		: null;
-	const hasLiveRate = currentRate !== null;
 
 	const { base, quote } = parsePairCode(pairCode);
 
@@ -79,7 +77,6 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 	return {
 		pairCode,
 		currentRate,
-		hasLiveRate,
 		initialHistory,
 		amount,
 		seo

@@ -45,7 +45,6 @@ export class PairInsightActions {
 	convertSend = $state('1');
 	convertReceive = $state('');
 	lastEdited = $state<'send' | 'receive'>('send');
-	convertDir = $state<'buy' | 'sell'>('buy');
 	convertSwapped = $state(false);
 
 	constructor(data: PairInsightInitData) {
@@ -95,9 +94,7 @@ export class PairInsightActions {
 	// --- Quick converter (against the composite mid rate) ---
 
 	get activeRateValue(): number {
-		const rate = this.currentRate;
-		if (!rate) return 0;
-		return this.convertDir === 'buy' ? rate.rate_buy || rate.rate_mid || 0 : rate.rate_sell || rate.rate_mid || 0;
+		return this.currentRate?.rate_mid ?? 0;
 	}
 
 	private fmtDisplay(raw: string): string {

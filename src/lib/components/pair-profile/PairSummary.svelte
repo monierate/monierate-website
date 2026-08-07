@@ -4,8 +4,6 @@
 	import currencies from '$data/currencies.json';
 
 	interface CurrentRate {
-		rate_buy?: number;
-		rate_sell?: number;
 		rate_mid?: number;
 		spread?: number;
 	}
@@ -27,7 +25,7 @@
 	const baseName = $derived(NAMES[base] ?? base);
 	const quoteName = $derived(NAMES[quote] ?? quote);
 
-	const mid = $derived(currentRate?.rate_mid || currentRate?.rate_buy || currentRate?.rate_sell || 0);
+	const mid = $derived(currentRate?.rate_mid ?? 0);
 	const spreadRange = $derived(Math.abs(currentRate?.spread ?? 0));
 
 	const changePct = $derived(rateMonthAgo > 0 ? ((mid - rateMonthAgo) / rateMonthAgo) * 100 : 0);

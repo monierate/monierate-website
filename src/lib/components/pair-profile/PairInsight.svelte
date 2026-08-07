@@ -21,7 +21,6 @@
 		chartSeries: { key: string; label: string; color: string; fill: boolean; dashed?: boolean }[];
 		selectRange: (r: Range) => void;
 		// Quick converter
-		convertDir: 'buy' | 'sell';
 		convertSwapped: boolean;
 		sendDisplay: string;
 		receiveDisplay: string;

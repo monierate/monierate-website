@@ -3,7 +3,6 @@
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 
 	interface ConverterState {
-		convertDir: 'buy' | 'sell';
 		convertSwapped: boolean;
 		sendDisplay: string;
 		receiveDisplay: string;
@@ -26,27 +25,11 @@
 	class="rounded-xl border flex flex-col overflow-hidden"
 	style="background: var(--page-bg); border-color: var(--card-border);"
 >
-	<div class="flex items-center justify-between px-4 pt-4 pb-3" style="border-bottom: 1px solid var(--card-border);">
+	<div class="px-4 pt-4 pb-3" style="border-bottom: 1px solid var(--card-border);">
 		<span
 			style="font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-secondary);"
 			>Quick Convert</span
 		>
-		{#if currentRate}
-			<div
-				class="inline-flex items-center gap-0.5 p-0.5 rounded-full"
-				style="background: var(--table-header-bg); border: 1px solid var(--card-border);"
-			>
-				{#each [{ dir: 'buy' as const, label: 'Buy' }, { dir: 'sell' as const, label: 'Sell' }] as opt}
-					<button
-						onclick={() => (state.convertDir = opt.dir)}
-						class="px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer transition-all"
-						style={state.convertDir === opt.dir
-							? 'background: var(--accent); color: #fff;'
-							: 'background: transparent; color: var(--text-secondary);'}
-					>{opt.label}</button>
-				{/each}
-			</div>
-		{/if}
 	</div>
 
 	{#if !currentRate}
@@ -120,9 +103,7 @@
 				{:else}
 					1 {base} = {symbol}{fmt(state.activeRateValue)} {quote}
 				{/if}
-				<span class="ml-1" style="color: var(--text-muted);"
-					>({state.convertDir === 'buy' ? 'buy rate' : 'sell rate'})</span
-				>
+				<span class="ml-1" style="color: var(--text-muted);">(composite rate)</span>
 			</div>
 		{/if}
 	{/if}
