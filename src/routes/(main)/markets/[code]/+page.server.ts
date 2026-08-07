@@ -13,10 +13,9 @@ function parseAmountParam(raw: string | null): string {
 	return parseFloat(cleaned) > 0 ? cleaned : '1';
 }
 
-// This route has no single provider (changer) to scope to, so history comes from
-// the composite index's daily OHLC instead of one changer's daily snapshots.
-// Mapped into the same `DailySnapshot` shape the provider-page components already
-// expect, so ProviderPairInsight / OhlcTable / HistoryChart need no changes to render it.
+// This route has no single provider (changer) to scope to — history comes from
+// the composite index's daily OHLC instead of one changer's daily snapshots,
+// reshaped into the `DailySnapshot` fields the pair-profile components use.
 function toDailySnapshot(pairCode: string, e: IndexDailyHistoryEntry): DailySnapshot {
 	return {
 		date: e.date,
@@ -79,14 +78,6 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 
 	return {
 		pairCode,
-		providerCode: '',
-		provider: {
-			name: `${base.toUpperCase()}/${quote.toUpperCase()} Composite Index`,
-			// Base currency's icon stands in for a provider logo — the static asset
-			// used elsewhere for currency icons (see CurrencySelector.svelte).
-			icon: `/icons/currencies/${base}.png`,
-			link: undefined
-		},
 		currentRate,
 		hasLiveRate,
 		initialHistory,

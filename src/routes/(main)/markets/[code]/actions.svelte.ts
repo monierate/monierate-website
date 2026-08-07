@@ -4,8 +4,8 @@ import type { DailySnapshot } from '$lib/services/rates.service';
 import { CURRENCY_SYMBOLS } from '$lib/constants/currency';
 import { parsePairCode } from '$lib/utils/pairs';
 
-// Mirrors the mapping in +page.server.ts — the composite index's daily OHLC,
-// reshaped into the `DailySnapshot` fields this class and its consumers use.
+// The composite index's daily OHLC, reshaped into the fields this class and its
+// consumers use — mirrors the mapping in +page.server.ts.
 function toDailySnapshot(pairCode: string, e: IndexDailyHistoryEntry): DailySnapshot {
 	return {
 		date: e.date,
@@ -24,9 +24,8 @@ export type Range = (typeof RANGES)[number];
 
 const DAYS_MAP: Record<Range, number> = { '7d': 7, '30d': 30, '60d': 60, '90d': 90 };
 
-export interface InsightInitData {
+export interface PairInsightInitData {
 	pairCode: string;
-	providerCode: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	currentRate: any | null;
 	initialHistory: DailySnapshot[];
@@ -34,9 +33,8 @@ export interface InsightInitData {
 	amount?: string;
 }
 
-export class ProviderPairInsightActions {
+export class PairInsightActions {
 	readonly pairCode: string;
-	readonly providerCode: string;
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	currentRate = $state<any | null>(null);
@@ -50,9 +48,8 @@ export class ProviderPairInsightActions {
 	convertDir = $state<'buy' | 'sell'>('buy');
 	convertSwapped = $state(false);
 
-	constructor(data: InsightInitData) {
+	constructor(data: PairInsightInitData) {
 		this.pairCode = data.pairCode;
-		this.providerCode = data.providerCode;
 		this.currentRate = data.currentRate;
 		this.history = data.initialHistory ?? [];
 		this.convertSend = data.amount || '1';
@@ -95,7 +92,7 @@ export class ProviderPairInsightActions {
 		return lows.length ? Math.min(...lows) : 0;
 	}
 
-	// --- Quick converter (pair-agnostic; mirrors the provider-profile converter) ---
+	// --- Quick converter (against the composite mid rate) ---
 
 	get activeRateValue(): number {
 		const rate = this.currentRate;
@@ -165,7 +162,6 @@ export class ProviderPairInsightActions {
 			const start = new Date(end.getTime() - days * 86_400_000);
 			const fmtDate = (d: Date) => d.toISOString().split('T')[0];
 
-			// Composite index history, not one changer's — see the module-level comment.
 			const res = (await index.getDailyHistory({
 				pair: this.pairCode,
 				start_date: fmtDate(start),

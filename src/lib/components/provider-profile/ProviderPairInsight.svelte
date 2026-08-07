@@ -34,14 +34,12 @@
 		toggleSwap: () => void;
 	}
 
-	let { provider, currentRate, state, onClose, showBreadcrumb = true, roundLogo = false, summary }: {
+	let { provider, currentRate, state, onClose, showBreadcrumb = true, summary }: {
 		provider: any;
 		currentRate: any;
 		state: InsightState;
 		onClose?: () => void;
 		showBreadcrumb?: boolean;
-		/** Circular crop for the header logo — a currency icon reads better round than a provider's squarish logo. */
-		roundLogo?: boolean;
 		/** Optional blurb rendered between the header and the stat cards. */
 		summary?: Snippet;
 	} = $props();
@@ -75,7 +73,7 @@
 			{/if}
 
 			<div class="flex items-center gap-3">
-				<ProviderLogo logo={provider.icon ?? ''} name={provider.name} size={40} round={roundLogo} />
+				<ProviderLogo logo={provider.icon ?? ''} name={provider.name} size={40} />
 				<div class="min-w-0">
 					<h1
 						class="text-[18px] font-bold leading-tight tabular-nums"
