@@ -22,7 +22,7 @@
 		{#each Object.entries(top_pairs) as [code, value], i}
 			<a
 				data-sveltekit-reload
-				href="/converter/?From={value.from}&To={value.to}&Amount=1"
+				href="/markets/{code}"
 				class="mr-6 text-[90%] md:text-sm"
 				style="color: var(--text-primary);"
 			>
