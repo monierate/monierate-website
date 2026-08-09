@@ -44,6 +44,19 @@
 				<li><a href="/ng/ussd-codes">Bank USSD Codes</a></li>
 				<li><a href="/ng/swift-codes">SWIFT Codes</a></li>
 			</ul>
+
+			<h3 class="font-bold">Company</h3>
+			<ul class="py-4 converter-list">
+				<li>
+					<a href="https://calendar.app.google/wjSasoMY7uurTppi7" target="_blank" rel="noopener"
+						>Promote</a
+					>
+				</li>
+				<li><a href="/list-your-platform">List your platform</a></li>
+				<li><a href="/policy/terms">Terms of use</a></li>
+				<li><a href="/policy/data">Privacy Policy</a></li>
+				<li><a href="/invest">Investors</a></li>
+			</ul>
 		</div>
 		<div class="w-full md:w-[40%]">
 			<span class="block mb-8">
