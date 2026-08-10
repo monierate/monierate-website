@@ -2,8 +2,11 @@
 	import * as config from '$lib/blog/config'
 
 	export let data
-	let content = data.content
-	const metadata = data.metadata
+	// Reactive so client-side navigation between policy pages (e.g. /policy/data
+	// -> /policy/terms) re-reads the content and title instead of keeping the
+	// first-loaded page.
+	$: content = data.content
+	$: metadata = data.metadata
 </script>
 
 <!-- SEO -->

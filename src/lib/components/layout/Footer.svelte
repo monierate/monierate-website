@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { ACCOUNT_URL } from '$lib/config';
+
 	let year = new Date().getFullYear();
 </script>
 
@@ -139,8 +141,8 @@
 					law and remain fully the property of their respective trademark holders.
 				</p>
 				<p class="text-sm mb-4 text-gray-500 dark:text-gray-300">
-					If you subscribe for our exchange rate <a href="/alert" class="underline">alert</a>, you
-					understand and accept the
+					If you signup on <a href="{ACCOUNT_URL}/auth/signup" class="underline">Monierate Pro</a>,
+					you understand and accept the
 					<a href="/policy/data" class="underline">Monierate data policy</a>.
 				</p>
 			</div>
