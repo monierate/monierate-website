@@ -8,11 +8,14 @@
     rows,
     symbol = '',
     proSource,
+    previewRows = null,
   }: {
     rows: IndexDailyHistoryEntry[];
     symbol?: string;
     /** Page this table sits on; omit to hide the gated Export affordance. */
     proSource?: string;
+    /** Render only the first N rows behind a Pro upsell. Null shows everything. */
+    previewRows?: number | null;
   } = $props();
 
   const PAGE_SIZES = [7, 14, 30];
@@ -62,6 +65,11 @@
   const safePage = $derived(Math.min(currentPage, totalPages));
   const paged = $derived(filtered.slice((safePage - 1) * pageSize, safePage * pageSize));
 
+  // Rows past the limit are never rendered, so the gate holds up against "inspect
+  // element" — filtering and paging only apply once the full history is visible.
+  const locked = $derived(previewRows !== null && rows.length > previewRows);
+  const visible = $derived(locked ? rows.slice(0, previewRows!) : paged);
+
   function fmtDate(iso: string): string {
     try {
       return new Date(iso).toLocaleDateString('en-US', {
@@ -86,14 +94,16 @@
   const hasFilter = $derived(fromDate !== windowStart || toDate !== windowEnd);
 </script>
 
-<div class="rounded-xl border overflow-hidden" style="background: var(--page-bg); border-color: var(--card-border);">
+<div class="relative rounded-xl border overflow-hidden" style="background: var(--page-bg); border-color: var(--card-border);">
   <!-- Header -->
   <div
     class="px-5 py-3 border-b flex items-center justify-between gap-3 flex-wrap"
     style="background: var(--page-bg); border-color: var(--card-border);"
   >
     <h3 class="text-[14px] font-semibold" style="color: var(--text-primary);">Index OHLC Data</h3>
-    <span class="text-[11px]" style="color: var(--text-secondary);">{filtered.length} rows</span>
+    <span class="text-[11px]" style="color: var(--text-secondary);">
+      {#if locked}Showing {visible.length} of {rows.length}{:else}{filtered.length} rows{/if}
+    </span>
   </div>
 
   <!-- Filter row -->
@@ -101,6 +111,11 @@
     class="px-5 py-3 border-b flex items-center gap-2 flex-wrap"
     style="border-color: var(--card-border);"
   >
+    {#if locked}
+      <span class="text-[11px]" style="color: var(--text-muted);">
+        Last {visible.length} days · date filter is a Pro feature
+      </span>
+    {:else}
     <label class="flex items-center gap-1.5 text-[11px]" style="color: var(--text-secondary);">
       From
       <input
@@ -132,6 +147,7 @@
         class="text-[11px] font-semibold px-2.5 py-1 rounded-md cursor-pointer hover:underline"
         style="color: var(--accent);"
       >Reset</button>
+    {/if}
     {/if}
     {#if proSource}
       <div class="ml-auto">
@@ -166,7 +182,7 @@
         </tr>
       </thead>
       <tbody>
-        {#each paged as row}
+        {#each visible as row}
           {@const up = row.close >= row.open}
           {@const pct = changePct(row.open, row.close)}
 
@@ -193,7 +209,23 @@
     </table>
   </div>
 
-  {#if filtered.length === 0}
+  {#if locked}
+    <!-- Anchored to the card, so the fade begins transparent over the last visible
+         rows and the table reads as cut off rather than simply ending. -->
+    <div
+      class="absolute inset-x-0 bottom-0 px-5 pb-6 pt-24"
+      style="background: linear-gradient(to bottom, transparent 0%, var(--page-bg) 55%);"
+    >
+      <ProGate
+        variant="inline"
+        compact
+        feature="ohlc-full-history"
+        source={proSource ?? 'markets-history'}
+        title="Get more days of index OHLC data"
+        description="Monierate Pro unlocks the full history for this pair, plus CSV export."
+      />
+    </div>
+  {:else if filtered.length === 0}
     <EmptyState
       title="No OHLC rows"
       description={hasFilter

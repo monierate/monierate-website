@@ -104,6 +104,8 @@
 				selectedRange={actions.selectedRange}
 				providerName={data.provider.name}
 				{providerIconUrl}
+				previewRows={10}
+				proSource="markets-providers"
 			/>
 		{/if}
 	{/if}
