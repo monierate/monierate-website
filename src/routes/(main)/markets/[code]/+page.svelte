@@ -52,7 +52,8 @@
 				historyLoading={insight.historyLoading}
 				symbol={insight.parsedPair.symbol}
 				selectedRange={insight.selectedRange}
-				previewRows={10}
+				previewRows={data.hasFullAccess ? null : 10}
+				dayPass={data.dayPass}
 			/>
 		</div>
 	{/if}

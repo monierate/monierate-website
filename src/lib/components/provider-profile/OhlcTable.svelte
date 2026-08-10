@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { fmt } from '$lib/utils/format';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import ProGate from '$lib/components/pro/ProGate.svelte';
+	import HistoryUnlockGate from '$lib/components/pro/HistoryUnlockGate.svelte';
+	import type { DayPassStatus } from '$lib/services/billing.service';
 
 	type Range = '7d' | '30d' | '60d' | '90d';
 
@@ -15,7 +16,7 @@
 		availability_pct: number | null;
 	}
 
-	let { history, historyLoading, symbol, selectedRange, providerName, providerIconUrl, previewRows = null, proSource = 'markets-pair-provider' }: {
+	let { history, historyLoading, symbol, selectedRange, providerName, providerIconUrl, previewRows = null, proSource = 'markets-pair-provider', dayPass = null }: {
 		history: Snapshot[];
 		historyLoading: boolean;
 		symbol: string;
@@ -26,6 +27,8 @@
 		previewRows?: number | null;
 		/** Page this table sits on — feeds the gate's CTA attribution. */
 		proSource?: string;
+		/** Resolved server-side by the page's load function. */
+		dayPass?: DayPassStatus | null;
 	} = $props();
 
 	let iconError = $state(false);
@@ -34,10 +37,14 @@
 		providerName.split(' ').slice(0, 2).map((w) => w[0]).join('').toUpperCase()
 	);
 
+	// Lifted once a day-pass purchase succeeds, so the already-loaded rows show
+	// without a refetch.
+	let unlocked = $state(false);
+
 	// Rows past the limit are never rendered, so the gate holds up against "inspect
 	// element" — it isn't a visual mask over data already sitting in the DOM.
-	const visibleRows = $derived(previewRows ? history.slice(0, previewRows) : history);
-	const locked = $derived(previewRows !== null && history.length > previewRows);
+	const visibleRows = $derived(previewRows && !unlocked ? history.slice(0, previewRows) : history);
+	const locked = $derived(!unlocked && previewRows !== null && history.length > previewRows);
 </script>
 
 <div class="relative rounded-xl border overflow-hidden" style="background: var(--page-bg); border-color: var(--card-border);">
@@ -130,13 +137,11 @@
 				class="absolute inset-x-0 bottom-0 px-5 pb-6 pt-24"
 				style="background: linear-gradient(to bottom, transparent 0%, var(--page-bg) 55%);"
 			>
-				<ProGate
-					variant="inline"
-					compact
-					feature="ohlc-full-history"
+				<HistoryUnlockGate
+					label={providerName}
 					source={proSource}
-					title="Get more days of {providerName} OHLC data"
-					description="Monierate Pro unlocks the full history for this pair, plus CSV export."
+					{dayPass}
+					onUnlock={() => (unlocked = true)}
 				/>
 			</div>
 		{/if}

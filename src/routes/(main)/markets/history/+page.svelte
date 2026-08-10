@@ -93,7 +93,7 @@
         symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''}
       />
 
-      <IndexOhlcTable rows={state.tableRows} symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''} proSource="markets-history" />
+      <IndexOhlcTable rows={state.tableRows} symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''} proSource="markets-history" previewRows={data.hasFullAccess ? null : 10} dayPass={data.dayPass} />
     {/if}
   {:catch}
     <div
