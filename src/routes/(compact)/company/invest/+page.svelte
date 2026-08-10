@@ -1,5 +1,6 @@
 <script lang="ts">
-	const BOOKING_URL = 'https://calendar.app.google/wjSasoMY7uurTppi7';
+	import { BOOKING_URL } from '$lib/config';
+
 	const CONTACT_EMAIL = 'hello@monierate.com';
 </script>
 
@@ -15,7 +16,7 @@
 		property="og:description"
 		content="Monierate is building the trusted source of truth for exchange rates across Africa. Learn our story, the problem we're solving, and how to invest."
 	/>
-	<meta property="og:url" content="monierate.com/invest" />
+	<meta property="og:url" content="monierate.com/company/invest" />
 	<meta property="og:image" content="https://monierate.com/monierate-og-image.png" />
 </svelte:head>
 

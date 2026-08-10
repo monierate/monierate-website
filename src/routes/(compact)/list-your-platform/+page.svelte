@@ -2,8 +2,7 @@
 	import { onMount } from 'svelte';
 	import { env } from '$env/dynamic/public';
 	import { toggleButtonLoad, toggleMessage } from '$lib/functions';
-
-	const BOOKING_URL = 'https://calendar.app.google/wjSasoMY7uurTppi7';
+	import { BOOKING_URL } from '$lib/config';
 
 	// Cloudflare Turnstile is enabled only when a public site key is configured.
 	const turnstileSiteKey = env.PUBLIC_TURNSTILE_SITE_KEY;

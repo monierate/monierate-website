@@ -1,8 +1,7 @@
 <script lang="ts">
 	import Footer from '$lib/components/layout/Footer.svelte';
-	import { ACCOUNT_URL } from '$lib/config';
+	import { ACCOUNT_URL, BOOKING_URL } from '$lib/config';
 
-	const BOOKING_URL = 'https://calendar.app.google/wjSasoMY7uurTppi7';
 	const SIGNUP_URL = `${ACCOUNT_URL}/auth/signup`;
 </script>
 
