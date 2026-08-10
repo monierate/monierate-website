@@ -3,6 +3,7 @@
   import type { IndexDailyHistoryEntry } from '$lib/services/currency/v1/index';
   import EmptyState from '$lib/components/ui/EmptyState.svelte';
   import ProGate from '$lib/components/pro/ProGate.svelte';
+  import HistoryUnlockGate from '$lib/components/pro/HistoryUnlockGate.svelte';
 
   let {
     rows,
@@ -67,7 +68,11 @@
 
   // Rows past the limit are never rendered, so the gate holds up against "inspect
   // element" — filtering and paging only apply once the full history is visible.
-  const locked = $derived(previewRows !== null && rows.length > previewRows);
+  // Lifted once a day-pass purchase succeeds, so the already-loaded rows show
+  // without a refetch.
+  let unlocked = $state(false);
+
+  const locked = $derived(!unlocked && previewRows !== null && rows.length > previewRows);
   const visible = $derived(locked ? rows.slice(0, previewRows!) : paged);
 
   function fmtDate(iso: string): string {
@@ -216,13 +221,10 @@
       class="absolute inset-x-0 bottom-0 px-5 pb-6 pt-24"
       style="background: linear-gradient(to bottom, transparent 0%, var(--page-bg) 55%);"
     >
-      <ProGate
-        variant="inline"
-        compact
-        feature="ohlc-full-history"
+      <HistoryUnlockGate
+        label="index"
         source={proSource ?? 'markets-history'}
-        title="Get more days of index OHLC data"
-        description="Monierate Pro unlocks the full history for this pair, plus CSV export."
+        onUnlock={() => (unlocked = true)}
       />
     </div>
   {:else if filtered.length === 0}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fmt } from '$lib/utils/format';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
-	import ProGate from '$lib/components/pro/ProGate.svelte';
+	import HistoryUnlockGate from '$lib/components/pro/HistoryUnlockGate.svelte';
 
 	type Range = '7d' | '30d' | '60d' | '90d';
 
@@ -24,10 +24,14 @@
 		proSource?: string;
 	} = $props();
 
+	// Lifted once a day-pass purchase succeeds, so the already-loaded rows show
+	// without a refetch.
+	let unlocked = $state(false);
+
 	// Rows past the limit are never rendered, so the gate holds up against "inspect
 	// element" — it isn't a visual mask over data already sitting in the DOM.
-	const visibleRows = $derived(previewRows ? history.slice(0, previewRows) : history);
-	const locked = $derived(previewRows !== null && history.length > previewRows);
+	const visibleRows = $derived(previewRows && !unlocked ? history.slice(0, previewRows) : history);
+	const locked = $derived(!unlocked && previewRows !== null && history.length > previewRows);
 </script>
 
 <div class="relative rounded-xl border overflow-hidden" style="background: var(--page-bg); border-color: var(--card-border);">
@@ -99,13 +103,10 @@
 				class="absolute inset-x-0 bottom-0 px-5 pb-6 pt-24"
 				style="background: linear-gradient(to bottom, transparent 0%, var(--page-bg) 55%);"
 			>
-				<ProGate
-					variant="inline"
-					compact
-					feature="ohlc-full-history"
+				<HistoryUnlockGate
+					label="this pair's"
 					source={proSource}
-					title="Get more days of OHLC data"
-					description="Monierate Pro unlocks the full history for this pair, plus CSV export."
+					onUnlock={() => (unlocked = true)}
 				/>
 			</div>
 		{/if}
