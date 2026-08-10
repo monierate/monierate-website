@@ -7,7 +7,7 @@ published: true
 
 ** Data Policy for Monierate Website**
 
-**Effective Date:** 2023-09-10
+**Effective Date:** September 10, 2023
 
 Monierate is committed to protecting the privacy of our users. This data policy explains how we collect, use, and protect your personal information.
 
