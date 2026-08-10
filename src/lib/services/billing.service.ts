@@ -15,22 +15,6 @@ export interface DayPassPurchase {
 	currency: 'NGN' | 'USD';
 }
 
-/**
- * Status of the shared account's day pass — same wallet-billed feature the
- * dashboard's history tables unlock with. Returns null if the request fails
- * for any reason (including "not signed in"); callers fall back to the
- * sign-in/Get Pro prompt in that case.
- */
-export async function getDayPass(fetch: typeof globalThis.fetch = globalThis.fetch): Promise<DayPassStatus | null> {
-	try {
-		const res = await fetch('/api/billing/day-pass');
-		if (!res.ok) return null;
-		return (await res.json()) as DayPassStatus;
-	} catch {
-		return null;
-	}
-}
-
 /** Idempotent — buying twice in one day debits once. Throws with a message
  *  suitable to show the user on failure (e.g. insufficient wallet balance). */
 export async function buyDayPass(fetch: typeof globalThis.fetch = globalThis.fetch): Promise<DayPassPurchase> {

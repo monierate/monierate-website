@@ -3,6 +3,8 @@ import { createIndex } from '$lib/services';
 import { defaultBaseForQuote, QUOTE_SUPPORTED_BASES } from '$lib/constants/currency';
 import { buildHistorySeo } from '$lib/utils/providerSeo';
 import type { IndexDailyHistoryEntry } from '$lib/services/currency/v1/index';
+import { getDayPassStatus } from '$lib/server/billing';
+import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
 
 const RANGES = ['7d', '30d', '60d', '90d'] as const;
 type Range = (typeof RANGES)[number];
@@ -42,5 +44,11 @@ export const load: PageServerLoad = async ({ fetch, url, cookies }) => {
 		.then((res) => (res as DailyHistoryResponse | null)?.data?.entries ?? [])
 		.catch(() => [] as IndexDailyHistoryEntry[]);
 
-	return { base, quote, range, pair, history, seo: buildHistorySeo() };
+	// Only worth resolving if the table will actually gate — skips the extra
+	// round trip on short ranges with too little history to lock anything.
+	const dayPass = history.length > FREE_HISTORY_ROWS
+		? await getDayPassStatus(cookies.get('user_token'))
+		: null;
+
+	return { base, quote, range, pair, history, seo: buildHistorySeo(), dayPass };
 };

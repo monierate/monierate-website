@@ -2,6 +2,7 @@
 	import { fmt } from '$lib/utils/format';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import HistoryUnlockGate from '$lib/components/pro/HistoryUnlockGate.svelte';
+	import type { DayPassStatus } from '$lib/services/billing.service';
 
 	type Range = '7d' | '30d' | '60d' | '90d';
 
@@ -13,7 +14,7 @@
 		close: number;
 	}
 
-	let { history, historyLoading, symbol, selectedRange, previewRows = null, proSource = 'markets-pair' }: {
+	let { history, historyLoading, symbol, selectedRange, previewRows = null, proSource = 'markets-pair', dayPass = null }: {
 		history: Snapshot[];
 		historyLoading: boolean;
 		symbol: string;
@@ -22,6 +23,8 @@
 		previewRows?: number | null;
 		/** Page this table sits on — feeds the gate's CTA attribution. */
 		proSource?: string;
+		/** Resolved server-side by the page's load function. */
+		dayPass?: DayPassStatus | null;
 	} = $props();
 
 	// Lifted once a day-pass purchase succeeds, so the already-loaded rows show
@@ -106,6 +109,7 @@
 				<HistoryUnlockGate
 					label="this pair's"
 					source={proSource}
+					{dayPass}
 					onUnlock={() => (unlocked = true)}
 				/>
 			</div>

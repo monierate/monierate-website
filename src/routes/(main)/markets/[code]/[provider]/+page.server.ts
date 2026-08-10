@@ -4,6 +4,8 @@ import { getProviderV1 } from '$lib/services/providers.service';
 import { getRateHistory, type DailySnapshot } from '$lib/services/rates.service';
 import { parsePairCode } from '$lib/utils/pairs';
 import { buildPairProviderSeo } from '$lib/utils/providerSeo';
+import { getDayPassStatus } from '$lib/server/billing';
+import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
 
 // `?amount=` seeds the quick converter's send field. Sanitized the same way the
 // converter's own input handler does, so a junk query can't poison the state.
@@ -13,7 +15,7 @@ function parseAmountParam(raw: string | null): string {
 	return parseFloat(cleaned) > 0 ? cleaned : '1';
 }
 
-export const load: PageServerLoad = async ({ fetch, params, url }) => {
+export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 	const pairCode = params.code.toLowerCase();
 	const providerCode = params.provider.toLowerCase();
 	const amount = parseAmountParam(url.searchParams.get('amount'));
@@ -62,6 +64,12 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 		updatedAt: currentRate?.timestamp
 	});
 
+	// Only worth resolving if the table will actually gate — skips the extra
+	// round trip on pairs with too little history to lock anything.
+	const dayPass = initialHistory.length > FREE_HISTORY_ROWS
+		? await getDayPassStatus(cookies.get('user_token'))
+		: null;
+
 	return {
 		pairCode,
 		providerCode,
@@ -70,6 +78,7 @@ export const load: PageServerLoad = async ({ fetch, params, url }) => {
 		hasLiveRate,
 		initialHistory,
 		amount,
-		seo
+		seo,
+		dayPass
 	};
 };

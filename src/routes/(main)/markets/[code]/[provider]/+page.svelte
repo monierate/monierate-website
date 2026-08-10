@@ -68,6 +68,7 @@
 				providerName={data.provider.name}
 				{providerIconUrl}
 				previewRows={10}
+				dayPass={data.dayPass}
 			/>
 		</div>
 	{/if}

@@ -4,12 +4,14 @@
   import EmptyState from '$lib/components/ui/EmptyState.svelte';
   import ProGate from '$lib/components/pro/ProGate.svelte';
   import HistoryUnlockGate from '$lib/components/pro/HistoryUnlockGate.svelte';
+  import type { DayPassStatus } from '$lib/services/billing.service';
 
   let {
     rows,
     symbol = '',
     proSource,
     previewRows = null,
+    dayPass = null,
   }: {
     rows: IndexDailyHistoryEntry[];
     symbol?: string;
@@ -17,6 +19,8 @@
     proSource?: string;
     /** Render only the first N rows behind a Pro upsell. Null shows everything. */
     previewRows?: number | null;
+    /** Resolved server-side by the page's load function. */
+    dayPass?: DayPassStatus | null;
   } = $props();
 
   const PAGE_SIZES = [7, 14, 30];
@@ -224,6 +228,7 @@
       <HistoryUnlockGate
         label="index"
         source={proSource ?? 'markets-history'}
+        {dayPass}
         onUnlock={() => (unlocked = true)}
       />
     </div>

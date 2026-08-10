@@ -106,6 +106,7 @@
 				{providerIconUrl}
 				previewRows={10}
 				proSource="markets-providers"
+				dayPass={data.dayPass}
 			/>
 		{/if}
 	{/if}
