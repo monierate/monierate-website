@@ -67,7 +67,7 @@
 				selectedRange={insight.selectedRange}
 				providerName={data.provider.name}
 				{providerIconUrl}
-				previewRows={10}
+				previewRows={data.hasFullAccess ? null : 10}
 				dayPass={data.dayPass}
 			/>
 		</div>

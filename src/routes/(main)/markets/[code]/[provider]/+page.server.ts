@@ -4,7 +4,7 @@ import { getProviderV1 } from '$lib/services/providers.service';
 import { getRateHistory, type DailySnapshot } from '$lib/services/rates.service';
 import { parsePairCode } from '$lib/utils/pairs';
 import { buildPairProviderSeo } from '$lib/utils/providerSeo';
-import { getDayPassStatus } from '$lib/server/billing';
+import { getHistoryAccess } from '$lib/server/billing';
 import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
 
 // `?amount=` seeds the quick converter's send field. Sanitized the same way the
@@ -66,9 +66,9 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 
 	// Only worth resolving if the table will actually gate — skips the extra
 	// round trip on pairs with too little history to lock anything.
-	const dayPass = initialHistory.length > FREE_HISTORY_ROWS
-		? await getDayPassStatus(cookies.get('user_token'))
-		: null;
+	const { hasFullAccess, dayPass } = initialHistory.length > FREE_HISTORY_ROWS
+		? await getHistoryAccess(cookies.get('user_token'))
+		: { hasFullAccess: false, dayPass: null };
 
 	return {
 		pairCode,
@@ -79,6 +79,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 		initialHistory,
 		amount,
 		seo,
-		dayPass
+		dayPass,
+		hasFullAccess
 	};
 };
