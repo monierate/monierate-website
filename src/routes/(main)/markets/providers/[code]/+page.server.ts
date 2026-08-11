@@ -5,6 +5,8 @@ import { getRateHistory, type DailySnapshot } from '$lib/services/rates.service'
 import { parsePairCode } from '$lib/utils/pairs';
 import { buildProviderSeo } from '$lib/utils/providerSeo';
 import { DEFAULT_CURRENCY_COOKIE_NAME } from '$lib/stores/defaultCurrency';
+import { getHistoryAccess } from '$lib/server/billing';
+import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
 
 export interface ProviderCurrentRate {
 	pair: string;
@@ -77,6 +79,12 @@ export const load: PageServerLoad = async ({ params, fetch, cookies, url }) => {
 		link: provider.link
 	});
 
+	// Only worth resolving if the table will actually gate — skips the extra
+	// round trip on providers with too little history to lock anything.
+	const { hasFullAccess, dayPass } = initialHistory.length > FREE_HISTORY_ROWS
+		? await getHistoryAccess(cookies.get('user_token'))
+		: { hasFullAccess: false, dayPass: null };
+
 	return {
 		code,
 		provider,
@@ -84,6 +92,8 @@ export const load: PageServerLoad = async ({ params, fetch, cookies, url }) => {
 		providerCurrentRates,
 		initialPairCode,
 		initialHistory,
-		seo
+		seo,
+		dayPass,
+		hasFullAccess
 	};
 };

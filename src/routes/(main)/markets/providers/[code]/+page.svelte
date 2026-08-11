@@ -104,6 +104,9 @@
 				selectedRange={actions.selectedRange}
 				providerName={data.provider.name}
 				{providerIconUrl}
+				previewRows={data.hasFullAccess ? null : 10}
+				proSource="markets-providers"
+				dayPass={data.dayPass}
 			/>
 		{/if}
 	{/if}
