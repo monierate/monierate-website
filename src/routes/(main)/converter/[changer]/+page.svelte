@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	import Money from '$lib/money';
 	import { round, chain } from 'mathjs';
-	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import AdBanner, { hasActiveAd } from '$lib/components/banners/AdBanner.svelte';
 	import { goto } from '$app/navigation';
 	import { changeParam } from '$lib/functions';
 	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
@@ -186,7 +186,7 @@
 	<AdBanner name="converter" isMobile={data.isMobile} />
 </div>
 
-<div class="mb-24">
+<div class="mb-24 {hasActiveAd('converter') ? '' : 'pt-8'}">
     <div class="w-[100%] md:w-[100%] px-8 pb-4 mx-auto mb-4 text-center">
         <h1 class="text-2xl md:text-4xl">
             <span class="block font-black mb-4 text-xl">{changer.name} Converter:</span> {Money.format(convertAmount)} {convertFrom} to {convertTo} on {changer.name}

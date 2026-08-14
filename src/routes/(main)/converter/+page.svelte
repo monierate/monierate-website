@@ -5,7 +5,7 @@
 	import { changeParam } from '$lib/functions';
 	import ChangerRates from '$lib/components/ChangerRates.svelte';
 	import { goto } from '$app/navigation';
-	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import AdBanner, { hasActiveAd } from '$lib/components/banners/AdBanner.svelte';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 	import { browser } from '$app/environment';
 
@@ -291,7 +291,7 @@
 	<AdBanner name="converter" isMobile={data.isMobile} />
 </div>
 
-<div class="mb-24">
+<div class="mb-24 {hasActiveAd('converter') ? '' : 'pt-8'}">
 	<div class="w-[100%] md:w-[100%] px-8 pb-4 mx-auto mb-4 text-center">
 		<h1 class="text-2xl md:text-4xl">
 			{Money.format(convertAmount)}
