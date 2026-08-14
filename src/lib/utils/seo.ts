@@ -37,16 +37,90 @@ export interface Crumb {
 	path: string;
 }
 
-/** BreadcrumbList for a nested page. Pass the trail excluding the site root. */
-export function breadcrumbJsonLd(crumbs: Crumb[]): string {
+/**
+ * BreadcrumbList for a nested page. Pass the trail excluding the site root.
+ * `root` defaults to the Markets hub, which every original caller sits under;
+ * pass another section (e.g. the exchanges directory) to re-root the trail.
+ */
+export function breadcrumbJsonLd(
+	crumbs: Crumb[],
+	root: Crumb = { name: 'Markets', path: '/markets' }
+): string {
 	return jsonLdBlock({
 		'@context': 'https://schema.org',
 		'@type': 'BreadcrumbList',
-		itemListElement: [{ name: 'Markets', path: '/markets' }, ...crumbs].map((c, i) => ({
+		itemListElement: [root, ...crumbs].map((c, i) => ({
 			'@type': 'ListItem',
 			position: i + 1,
 			name: c.name,
 			item: `${SITE}${c.path}`
+		}))
+	});
+}
+
+export interface ItemListEntry {
+	name: string;
+	/** Absolute URL of the item's own page. */
+	url: string;
+}
+
+/**
+ * ItemList — the ranked directory listing on a collection page. Positions are
+ * 1-based and must match the order actually rendered, or the markup contradicts
+ * the page.
+ */
+export function itemListJsonLd(name: string, items: ItemListEntry[]): string {
+	return jsonLdBlock({
+		'@context': 'https://schema.org',
+		'@type': 'ItemList',
+		name,
+		numberOfItems: items.length,
+		itemListOrder: 'https://schema.org/ItemListOrderDescending',
+		itemListElement: items.map((item, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			name: item.name,
+			url: item.url
+		}))
+	});
+}
+
+export interface CollectionPageInput {
+	name: string;
+	description: string;
+	url: string;
+	/** ISO timestamp of the freshest record in the collection. */
+	modified?: string;
+}
+
+/** CollectionPage — marks the page as a curated listing rather than an article. */
+export function collectionPageJsonLd(input: CollectionPageInput): string {
+	return jsonLdBlock({
+		'@context': 'https://schema.org',
+		'@type': 'CollectionPage',
+		name: input.name,
+		description: input.description,
+		url: input.url,
+		...(input.modified ? { dateModified: input.modified } : {}),
+		isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: SITE },
+		publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE }
+	});
+}
+
+export interface FaqEntry {
+	question: string;
+	answer: string;
+}
+
+/** FAQPage — only emit when the questions are actually rendered on the page. */
+export function faqPageJsonLd(faqs: FaqEntry[]): string {
+	return jsonLdBlock({
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: faqs.map((faq) => ({
+			'@type': 'Question',
+			name: faq.question,
+			acceptedAnswer: { '@type': 'Answer', text: faq.answer }
 		}))
 	});
 }

@@ -2,6 +2,7 @@ import type { RequestHandler } from './$types';
 import { serverApiRequest } from '$lib/api/server';
 import * as CountriesData from '$data/countries.json';
 import blogPosts from '$lib/blog/posts.json';
+import { getPublishedCollections } from '$lib/server/collections';
 
 /**
  * Dynamic, SEO- and AI-SEO-friendly sitemap.
@@ -152,7 +153,8 @@ async function fetchPairProviderCombos(): Promise<PairProviderCombo[]> {
 function buildEntries(
 	changers: { code: string; lastmod?: string }[],
 	pairProviderCombos: PairProviderCombo[],
-	pairCodes: string[]
+	pairCodes: string[],
+	collectionSlugs: string[]
 ): Entry[] {
 	const now = new Date().toISOString();
 	const entries: Entry[] = [];
@@ -195,6 +197,20 @@ function buildEntries(
 		'highlights'
 	]) {
 		entries.push({ path: `/${seg}`, changefreq: 'daily', priority: 0.7, lastmod: now });
+	}
+
+	/* --- Exchange directory: the index and every collection that clears the
+	   thin-page threshold. Combos below it 404 by design, so listing them here
+	   would submit dead URLs. --- */
+	entries.push({ path: '/exchanges', changefreq: 'weekly', priority: 0.7, lastmod: now });
+
+	for (const slug of collectionSlugs) {
+		entries.push({
+			path: `/exchanges/${slug}`,
+			changefreq: 'weekly',
+			priority: 0.7,
+			lastmod: now
+		});
 	}
 
 	/* --- Per-exchange landing pages (canonical, no query params) --- */
@@ -324,12 +340,18 @@ ${urls}
 }
 
 export const GET: RequestHandler = async () => {
-	const [changers, pairProviderCombos, pairCodes] = await Promise.all([
+	const [changers, pairProviderCombos, pairCodes, collections] = await Promise.all([
 		fetchChangerCodes(),
 		fetchPairProviderCombos(),
-		fetchPairCodes()
+		fetchPairCodes(),
+		getPublishedCollections().catch(() => [])
 	]);
-	const entries = buildEntries(changers, pairProviderCombos, pairCodes);
+	const entries = buildEntries(
+		changers,
+		pairProviderCombos,
+		pairCodes,
+		collections.map(({ collection }) => collection.slug)
+	);
 
 	if (entries.length > MAX_URLS_PER_SITEMAP) {
 		// Split into a sitemap index before shipping past this; a truncated sitemap
