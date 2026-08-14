@@ -3,6 +3,9 @@
 Foundation layer for MON-162. Every Markets page builds its metadata server-side
 and renders it through one component, so no page hand-writes head markup.
 
+The `/exchanges` directory reuses the same helper and builders — see
+[Programmatic collection pages](#programmatic-collection-pages) below.
+
 ## The helper
 
 ```svelte
@@ -42,10 +45,21 @@ Adding a tag for every page means editing that one file.
 | `/markets/history` | `buildHistorySeo` | Dataset, BreadcrumbList |
 | `/markets/spread` | `buildSpreadSeo` | Dataset, BreadcrumbList |
 
+`src/lib/utils/collectionSeo.ts` does the same for the exchange directory:
+
+| Page | Builder | JSON-LD |
+| --- | --- | --- |
+| `/exchanges` | `buildExchangesIndexSeo` | CollectionPage, BreadcrumbList |
+| `/exchanges/:collection` | `buildCollectionSeo` | CollectionPage, ItemList, FAQPage, BreadcrumbList |
+
 `src/lib/utils/seo.ts` holds the block builders (`breadcrumbJsonLd`,
-`datasetJsonLd`, `exchangeRateJsonLd`, `organizationJsonLd`, `webPageJsonLd`).
-All serialisation goes through `jsonLdBlock`, which escapes `<` so a value
-containing `</script>` cannot break out of its tag.
+`collectionPageJsonLd`, `datasetJsonLd`, `exchangeRateJsonLd`, `faqPageJsonLd`,
+`itemListJsonLd`, `organizationJsonLd`, `webPageJsonLd`). All serialisation goes
+through `jsonLdBlock`, which escapes `<` so a value containing `</script>` cannot
+break out of its tag.
+
+`breadcrumbJsonLd` roots the trail at the Markets hub by default; pass a second
+argument to re-root it (the exchange pages pass `/exchanges`).
 
 **On type choice:** rate quotes use `ExchangeRateSpecification` rather than a bare
 `FinancialProduct`. It is the FinancialProduct subtype for FX, and its
@@ -84,6 +98,7 @@ It enumerates, from the live API:
 - every pair code → `/markets/:pair`
 - every live pair × provider combination → `/markets/:pair/:provider`
 - every active changer code → `/converter/:code`, `/exchanges/:code`
+- every collection that clears the thin-page threshold → `/exchanges/:collection`
 
 plus the static hubs, discover pages, country bank pages, and blog posts.
 `lastmod` comes from the API's own timestamps where available and falls back to
@@ -102,12 +117,81 @@ index.
 clones ship. The pages remain crawlable and carry no `noindex` — they are simply
 not submitted. Flip the constant to include them.
 
+## Programmatic collection pages
+
+`/exchanges/:collection` is one server-rendered directory page per long-tail
+query — "otc desks in lagos", "licensed crypto exchanges in nigeria" — over the
+`/changers/search_changers` facets.
+
+### The config is curated, not generated
+
+`src/lib/data/exchange-collections.ts` holds one entry per published combo:
+slug, H1, `<title>`, meta description, intro copy, the facets to query, and 2–3
+FAQs. **Do not generate the permutation space.** `{tag} × {city|country} ×
+{licensed}` is mostly empty, and near-empty programmatic pages drag on the whole
+site's rankings, not just their own. Add a combo when you expect it to hold
+changers.
+
+Copy carries `{year}` and `{count}` placeholders, substituted at render time by
+`fillCopy` — the H1 stays "…(2026)" without a yearly edit.
+
+### The thin-page guard
+
+A collection resolving to fewer than `MIN_COLLECTION_SIZE` (3) changers **404s**
+rather than rendering. This is the load-bearing rule of the whole layer, and it
+is enforced in three places that must agree:
+
+| Place | Enforcement |
+| --- | --- |
+| The route load | Throws 404 below the threshold. |
+| `sitemap.xml` | Only lists collections from `getPublishedCollections()`. |
+| Changer profiles | Cross-links filtered through `getPublishedSlugs()`. |
+
+`src/lib/server/collections.ts` is the single source of that answer: one
+`limit=1` count per collection, fanned out in parallel, cached in-isolate for ten
+minutes. Every changer profile asks the same question, so an uncached
+implementation would put a fan-out on the hottest page in the section.
+
+### Routing around the changer codes
+
+`/exchanges/otc-desks-in-lagos` and `/exchanges/busha` share a path segment. The
+param matcher `src/params/collection.ts` checks the slug against the curated
+config, so `[collection=collection]` claims only known collection slugs and
+everything else falls through to `[changer]`. Matching the config rather than a
+slug-shape heuristic means a changer code can never be swallowed by the
+collection route.
+
+### Internal linking
+
+The graph closes in both directions, which is most of why these pages rank at
+all: `/exchanges` links to every published collection, each collection links to
+its profiles and to sibling collections, and each profile links back to the
+collections it belongs to. `collectionsForChanger()` derives that last set
+locally from the changer record, so a profile pays no extra request for it.
+
+### Dependency on the changer backfill
+
+The facets only work if the data is there. As of 2026-08-14, `changer_tags` is
+populated, and `address.city`, `countries`, `categories` and `licenses` are
+empty across all 94 changers — so the six tag-backed collections publish and the
+seven location- and licence-scoped ones 404 by design. They start serving
+themselves the day MON-136's backfill lands, with no code change. Check with:
+
+```
+curl -su changemoney_api:… "$API_URL/changers/search_changers?city=lagos&limit=1"
+```
+
+Multi-value facets are comma-separated (`tags=onramp,offramp`, OR'd). Repeating
+a param is a 400.
+
 ## robots.txt
 
-`static/robots.txt` allows `/markets/` explicitly and points at the sitemap:
+`static/robots.txt` allows `/markets/` and `/exchanges/` explicitly and points at
+the sitemap:
 
 ```
 Allow: /markets/
+Allow: /exchanges/
 Sitemap: https://monierate.com/sitemap.xml
 ```
 

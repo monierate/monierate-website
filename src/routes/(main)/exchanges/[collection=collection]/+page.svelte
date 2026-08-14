@@ -18,15 +18,9 @@
 <Seo {...data.seo} />
 
 <div class="container space-y-12 py-8">
+	<!-- No breadcrumb here: the (main) layout renders one for every page. The
+	     BreadcrumbList JSON-LD still ships in the head via `data.seo`. -->
 	<header class="space-y-4">
-		<nav aria-label="Breadcrumb" class="text-sm text-[var(--text-muted)]">
-			<a href="/exchanges" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
-				Exchanges
-			</a>
-			<span class="mx-1.5" aria-hidden="true">/</span>
-			<span>{data.collection.label}</span>
-		</nav>
-
 		<h1 class="text-2xl md:text-3xl font-semibold">{data.collection.heading}</h1>
 
 		<p class="max-w-4xl text-sm md:text-base leading-relaxed text-[var(--text-secondary)]">
