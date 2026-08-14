@@ -17,25 +17,25 @@
 
 <Seo {...data.seo} />
 
-<div class="container max-w-4xl py-8 space-y-12">
+<div class="container space-y-12 py-8">
 	<header class="space-y-4">
-		<nav aria-label="Breadcrumb" class="text-sm text-gray-500 dark:text-gray-400">
-			<a href="/exchanges" class="hover:text-gray-700 dark:hover:text-gray-200">Exchanges</a>
+		<nav aria-label="Breadcrumb" class="text-sm text-[var(--text-muted)]">
+			<a href="/exchanges" class="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+				Exchanges
+			</a>
 			<span class="mx-1.5" aria-hidden="true">/</span>
-			<span class="text-gray-700 dark:text-gray-300">{data.collection.label}</span>
+			<span>{data.collection.label}</span>
 		</nav>
 
-		<h1 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-gray-100">
-			{data.collection.heading}
-		</h1>
+		<h1 class="text-2xl md:text-3xl font-semibold">{data.collection.heading}</h1>
 
-		<p class="text-sm md:text-base leading-relaxed text-gray-600 dark:text-gray-300">
+		<p class="max-w-4xl text-sm md:text-base leading-relaxed text-[var(--text-secondary)]">
 			{data.collection.intro}
 		</p>
 	</header>
 
 	<section class="space-y-4">
-		<h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+		<h2 class="text-lg font-semibold">
 			{data.changers.length}
 			{data.changers.length === 1 ? 'platform' : 'platforms'}, ranked
 		</h2>
@@ -43,7 +43,7 @@
 		<CollectionList changers={data.changers} />
 
 		{#if data.total > data.changers.length}
-			<p class="text-xs text-gray-500 dark:text-gray-400">
+			<p class="text-xs text-[var(--text-muted)]">
 				Showing the top {data.changers.length} of {data.total} platforms in this category.
 			</p>
 		{/if}
@@ -57,21 +57,18 @@
 
 	{#if data.related.length}
 		<section>
-			<CollectionLinks
-				heading="Explore more collections"
-				collections={data.related}
-			/>
+			<CollectionLinks heading="Explore more collections" collections={data.related} />
 		</section>
 	{/if}
 
-	<footer class="space-y-3 border-t border-gray-200 dark:border-gray-800 pt-6">
-		<p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+	<footer class="space-y-3 border-t border-[var(--card-border)] pt-6">
+		<p class="max-w-4xl text-sm leading-relaxed text-[var(--text-secondary)]">
 			Rankings reflect user ratings and the platform data on file at Monierate. Listings are
 			informational and are not a recommendation or an endorsement — verify a platform’s licence
 			and terms yourself before you trade.
 		</p>
 
-		<p class="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
+		<p class="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 24 24"
