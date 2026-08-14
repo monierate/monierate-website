@@ -9,6 +9,7 @@
 	import PaymentMethods from '$lib/components/exchanges/PaymentMethods.svelte';
 	import ProsCons from '$lib/components/exchanges/ProsCons.svelte';
 	import Faqs from '$lib/components/exchanges/Faqs.svelte';
+	import CollectionLinks from '$lib/components/exchanges/CollectionLinks.svelte';
 	import { getIconPath } from '$lib/utils';
 
 	export let data;
@@ -168,6 +169,15 @@
 					</div>
 				{/if}
 			</div>
+
+			{#if data.collections?.length}
+				<div class="md:px-6">
+					<CollectionLinks
+						heading="{changer.name} appears in"
+						collections={data.collections}
+					/>
+				</div>
+			{/if}
 
 			<div class="md:px-6 space-y-3">
 				<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Disclaimer</h3>

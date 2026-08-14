@@ -23,7 +23,7 @@
 
 <script lang="ts">
 	import { page } from '$app/stores';
-	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import AdBanner, { hasActiveAd } from '$lib/components/banners/AdBanner.svelte';
 	export let data;
 
 	$: currentPath = $page.url.pathname;
@@ -39,9 +39,13 @@
 </script>
 
 <!-- partner -->
-<div class="bg-white dark:bg-gray-800">
-	<AdBanner name="bank_codes" />
-</div>
+{#if hasActiveAd('bank_codes')}
+	<div class="bg-white dark:bg-gray-800">
+		<AdBanner name="bank_codes" />
+	</div>
+{:else}
+	<div class="pt-4"></div>
+{/if}
 
 <slot />
 

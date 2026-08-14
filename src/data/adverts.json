@@ -8,7 +8,7 @@
 		"mobile_only": false,
 		"mobileWidth": "100%",
 		"mobileHeight": "50px",
-		"disabled": false,
+		"disabled": true,
 		"_v": 1
 	},
 	"blog": [
@@ -17,7 +17,7 @@
 			"image": "/media/banners/bitmonie_landscape.avif",
 			"label": "Bitmonie",
 			"width": "400px",
-			"disabled": false
+			"disabled": true
 		}
 	],
 	"home": {
@@ -29,7 +29,7 @@
 		"mobileWidth": "100%",
 		"mobileHeight": "50px",
 		"mobile_only": false,
-		"disabled": false,
+		"disabled": true,
 		"_v": 1
 	},
 	"compare": {
@@ -41,7 +41,7 @@
 		"mobileWidth": "100%",
 		"mobileHeight": "50px",
 		"mobile_only": false,
-		"disabled": false,
+		"disabled": true,
 		"_v": 1
 	},
 	"converter": {
@@ -53,7 +53,7 @@
 		"mobileWidth": "100%",
 		"mobileHeight": "50px",
 		"mobile_only": false,
-		"disabled": false,
+		"disabled": true,
 		"_v": 1
 	},
 	"blog_home": {
@@ -65,7 +65,7 @@
 		"mobileWidth": "100%",
 		"mobileHeight": "50px",
 		"mobile_only": false,
-		"disabled": false,
+		"disabled": true,
 		"_v": 1
 	},
 	"converter_mobile_only": {
@@ -75,7 +75,7 @@
 		"formats": ["avif", "gif"],
 		"label": "Bitmonie",
 		"mobile_only": true,
-		"disabled": false,
+		"disabled": true,
 		"width": "350px",
 		"height": "390px",
 		"_v": 1
@@ -89,7 +89,7 @@
 		"mobileWidth": "100%",
 		"mobileHeight": "50px",
 		"mobile_only": false,
-		"disabled": false,
+		"disabled": true,
 		"_v": 1
 	},
 	"bank_codes_side": {
@@ -99,7 +99,7 @@
 		"formats": ["avif", "gif"],
 		"label": "Bitmonie",
 		"mobile_only": false,
-		"disabled": false,
+		"disabled": true,
 		"width": "350px",
 		"height": "390px",
 		"_v": 1
