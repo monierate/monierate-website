@@ -9,6 +9,7 @@ import {
 	getCollection
 } from '$lib/data/exchange-collections';
 import { buildCollectionSeo } from '$lib/utils/collectionSeo';
+import { getPublishedSlugs } from '$lib/server/collections';
 
 /**
  * A curated directory collection, e.g. /exchanges/otc-desks-in-lagos.
@@ -47,10 +48,18 @@ export const load: PageServerLoad = async ({ params, fetch, setHeaders }) => {
 
 	// Sibling collections for the "explore more" strip: same shape of query,
 	// different facet. Sorted so the ones sharing a tag with this page come first.
+	//
+	// Filtered through the published set, not just the config — a collection
+	// whose facets currently return nothing 404s, and linking to it from here
+	// would hand crawlers a dead end. The set is cached, so this is normally free.
+	const publishedSlugs = await getPublishedSlugs();
+
 	const shareTag = (a?: string[], b?: string[]) =>
 		Boolean(a && b && a.some((t) => b.includes(t)));
 
-	const related = EXCHANGE_COLLECTIONS.filter((c) => c.slug !== collection.slug)
+	const related = EXCHANGE_COLLECTIONS.filter(
+		(c) => c.slug !== collection.slug && publishedSlugs.has(c.slug)
+	)
 		.sort((a, b) => {
 			const score = (c: typeof a) =>
 				(shareTag(c.facets.tags, collection.facets.tags) ? 2 : 0) + (c.featured ? 1 : 0);
