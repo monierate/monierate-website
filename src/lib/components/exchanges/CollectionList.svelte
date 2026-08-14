@@ -9,10 +9,11 @@
 	 * different height and buried the thing people actually scan for. The bio
 	 * lives on the profile page the card links to.
 	 *
-	 * `ranked` renders it as an ordered list with position badges, matching the
-	 * order the page's ItemList JSON-LD declares — change one and change the
-	 * other. The index passes `false`: its list is filterable, so a position
-	 * number there would claim a ranking that does not exist.
+	 * `ranked` renders an `<ol>` rather than a `<ul>`. There are no visible
+	 * position numbers — the order still carries the ranking, and it matches the
+	 * order the page's ItemList JSON-LD declares, so change one and change the
+	 * other. The index passes `false`: its list is filterable, so claiming an
+	 * order there would be a lie.
 	 *
 	 * Surfaces come from the design tokens (`.card`, `--text-secondary`) rather
 	 * than Tailwind's gray scale, which is blue-tinted and reads as a different
@@ -28,22 +29,12 @@
 	this={ranked ? 'ol' : 'ul'}
 	class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2.5"
 >
-	{#each changers as changer, i (changer.code)}
+	{#each changers as changer (changer.code)}
 		<li>
 			<a
 				href="/exchanges/{changer.code}"
 				class="card h-full flex items-center gap-3 p-3 hover:border-[var(--accent)] transition-colors"
 			>
-				{#if ranked}
-					<span
-						class="hidden sm:flex h-5 w-5 shrink-0 items-center justify-center rounded-full
-						       bg-[var(--badge-neutral-bg)] text-[11px] font-semibold text-[var(--text-secondary)]"
-						aria-hidden="true"
-					>
-						{i + 1}
-					</span>
-				{/if}
-
 				<span
 					class="h-10 w-10 shrink-0 flex items-center justify-center rounded-lg overflow-hidden
 					       bg-[var(--badge-neutral-bg)]"
