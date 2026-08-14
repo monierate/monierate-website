@@ -2,7 +2,7 @@
 	import { onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 
-	import AdBanner from '$lib/components/banners/AdBanner.svelte';
+	import AdBanner, { hasActiveAd } from '$lib/components/banners/AdBanner.svelte';
 	import ExchangeFilter from '$lib/components/ExchangeFilter.svelte';
 	import Notice from '$lib/components/Notice.svelte';
 	import ExchangeRateText from '$lib/components/ExchangeRateText.svelte';
@@ -108,7 +108,7 @@
 	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile} />
 </div>
 
-<div class="container px-0">
+<div class="container px-0 {hasActiveAd('home') ? '' : 'pt-8'}">
 	{#if !data.isValidBase}
 		<Notice>
 			Looks like the currency you entered isn't valid. We've reset it to

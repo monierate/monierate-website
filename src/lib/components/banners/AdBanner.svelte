@@ -1,7 +1,21 @@
+<script context="module" lang="ts">
+	import Adverts from '$data/adverts.json';
+
+	function isValid(ad: any) {
+		return ad && ad.image && !ad.disabled;
+	}
+
+	// Whether a slot has an advert that will actually render. Pages use this to
+	// keep their own top spacing when the slot is empty.
+	export function hasActiveAd(name: keyof typeof Adverts): boolean {
+		const raw = Adverts[name];
+		return Array.isArray(raw) ? raw.some(isValid) : isValid(raw);
+	}
+</script>
+
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import Adverts from '$data/adverts.json';
 	import { bannerStore } from '$lib/stores/banner-store';
 
 	export let name: keyof typeof Adverts;
@@ -20,10 +34,6 @@
 
 	const raw = Adverts[name];
 	const notFound = !(name in Adverts);
-
-	function isValid(ad: any) {
-		return ad && ad.image && !ad.disabled;
-	}
 
 	if (Array.isArray(raw)) {
 		banners = raw.filter(isValid);
