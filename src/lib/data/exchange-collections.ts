@@ -72,8 +72,12 @@ export interface ExchangeCollection {
  */
 export const MIN_COLLECTION_SIZE = 3;
 
-/** How many changers a collection page lists before paging out. */
-export const COLLECTION_PAGE_SIZE = 20;
+/**
+ * How many changers a collection page lists. 100 is the upstream ceiling —
+ * `search_changers` returns no `data` above it — and comfortably clears the
+ * largest collection, so every page lists its full set rather than a top slice.
+ */
+export const COLLECTION_PAGE_SIZE = 100;
 
 export const EXCHANGE_COLLECTIONS: ExchangeCollection[] = [
 	/* ---------------------------------------------------------------- *

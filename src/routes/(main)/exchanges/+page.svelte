@@ -7,7 +7,9 @@
 	const featured = $derived(data.collections.filter((c: any) => c.featured));
 	const others = $derived(data.collections.filter((c: any) => !c.featured));
 
-	const PAGE_SIZE = 24;
+	// The whole directory fits in one batch today (94 changers). The "show more"
+	// control stays wired up so the page degrades gracefully as it grows.
+	const PAGE_SIZE = 100;
 	let visible = $state(PAGE_SIZE);
 
 	let query = $state('');
