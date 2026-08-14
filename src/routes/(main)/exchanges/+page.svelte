@@ -53,9 +53,10 @@
 						<span class="flex items-center justify-between gap-2">
 							<span class="font-medium text-[var(--text-primary)]">{collection.label}</span>
 
-							<!-- Top-rated logos, overlapping, with the total as the final chip.
-							     Each logo sits inside its own well rather than being clipped to a
-							     circle itself — the source art is square and edge-to-edge. -->
+							<!-- A random few members, overlapping, with the total as the final chip.
+							     The logo is inset inside its round well rather than cropped to fill
+							     it — the source art runs edge to edge, so cropping cut into marks
+							     that reach the corners. -->
 							<span class="flex shrink-0 items-center -space-x-1.5">
 								{#each collection.previews as preview (preview.code)}
 									<span
@@ -65,7 +66,7 @@
 										<ProviderIcon
 											icon={preview.icon}
 											alt={preview.name}
-											class="h-5 w-5 object-contain"
+											class="h-[18px] w-[18px] rounded-full object-contain"
 										/>
 									</span>
 								{/each}

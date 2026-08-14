@@ -1,6 +1,10 @@
 import type { PageServerLoad } from './$types';
 import { getAllChangers } from '$lib/services/changer.service';
-import { getPublishedCollections } from '$lib/server/collections';
+import {
+	COLLECTION_PREVIEW_COUNT,
+	getPublishedCollections,
+	shuffle
+} from '$lib/server/collections';
 import { buildExchangesIndexSeo } from '$lib/utils/collectionSeo';
 
 /**
@@ -17,13 +21,15 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
 		getAllChangers(fetch, 1, 200)
 	]);
 
-	const collections = published.map(({ collection, count, previews }) => ({
+	// Shuffled here rather than in the cached probe, so the stack varies on every
+	// render instead of being frozen for the life of the cache entry.
+	const collections = published.map(({ collection, count, pool }) => ({
 		slug: collection.slug,
 		label: collection.label,
 		description: collection.description,
 		featured: collection.featured ?? false,
 		count,
-		previews
+		previews: shuffle(pool).slice(0, COLLECTION_PREVIEW_COUNT)
 	}));
 
 	setHeaders({ 'Cache-Control': 'public, max-age=0, s-maxage=1800' });
