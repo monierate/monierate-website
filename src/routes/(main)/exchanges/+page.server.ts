@@ -17,12 +17,13 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
 		getAllChangers(fetch, 1, 200)
 	]);
 
-	const collections = published.map(({ collection, count }) => ({
+	const collections = published.map(({ collection, count, previews }) => ({
 		slug: collection.slug,
 		label: collection.label,
 		description: collection.description,
 		featured: collection.featured ?? false,
-		count
+		count,
+		previews
 	}));
 
 	setHeaders({ 'Cache-Control': 'public, max-age=0, s-maxage=1800' });

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Seo from '$lib/components/seo/Seo.svelte';
 	import CollectionList from '$lib/components/exchanges/CollectionList.svelte';
+	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
 	let { data } = $props();
 
@@ -49,9 +50,33 @@
 						href="/exchanges/{collection.slug}"
 						class="card block p-4 space-y-1 hover:border-[var(--accent)] transition-colors"
 					>
-						<span class="flex items-baseline justify-between gap-2">
+						<span class="flex items-center justify-between gap-2">
 							<span class="font-medium text-[var(--text-primary)]">{collection.label}</span>
-							<span class="shrink-0 text-xs text-[var(--text-muted)]">{collection.count}</span>
+
+							<!-- Top-rated logos, overlapping, with the total as the final chip.
+							     Each logo sits inside its own well rather than being clipped to a
+							     circle itself — the source art is square and edge-to-edge. -->
+							<span class="flex shrink-0 items-center -space-x-1.5">
+								{#each collection.previews as preview (preview.code)}
+									<span
+										class="flex h-7 w-7 items-center justify-center overflow-hidden rounded-full
+										       bg-[var(--badge-neutral-bg)] ring-2 ring-[var(--card-bg)]"
+									>
+										<ProviderIcon
+											icon={preview.icon}
+											alt={preview.name}
+											class="h-5 w-5 object-contain"
+										/>
+									</span>
+								{/each}
+								<span
+									class="flex h-7 min-w-[1.75rem] items-center justify-center rounded-full px-1.5
+									       bg-[var(--badge-neutral-bg)] ring-2 ring-[var(--card-bg)]
+									       text-[11px] font-medium text-[var(--text-secondary)]"
+								>
+									{collection.count}
+								</span>
+							</span>
 						</span>
 						<span class="block text-sm leading-relaxed line-clamp-2 text-[var(--text-secondary)]">
 							{collection.description}

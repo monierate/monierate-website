@@ -14,9 +14,9 @@ import {
  * 404s is worse than an unlisted one) and the /exchanges index (linking to a
  * dead collection wastes crawl budget and looks broken).
  *
- * Counting is one `limit=1` request per collection, run in parallel — cheap
- * enough for a handful of curated combos, and both callers cache at the edge.
- * Add a collection and this cost grows linearly; if the config ever reaches the
+ * Probing is one small request per collection, run in parallel — cheap enough
+ * for a handful of curated combos, and both callers cache at the edge. Add a
+ * collection and this cost grows linearly; if the config ever reaches the
  * hundreds, replace this with a single counts endpoint.
  */
 
@@ -37,23 +37,56 @@ export function facetsToParams(facets: CollectionFacets): Record<string, string>
 	return params;
 }
 
-async function countChangers(facets: CollectionFacets): Promise<number> {
-	try {
-		const res = await serverApiRequest<{ count?: number }>('/changers/search_changers', {
-			params: { ...facetsToParams(facets), limit: 1 },
-			timeoutMs: 8000,
-			retries: 1
-		});
+/** How many changer logos each collection card previews in its avatar stack. */
+export const COLLECTION_PREVIEW_COUNT = 3;
 
-		return res.success ? (res.data?.count ?? 0) : 0;
+export interface CollectionPreview {
+	code: string;
+	name: string;
+	icon?: string;
+}
+
+/**
+ * The collection's size, plus the top-rated few for the card's avatar stack.
+ * Sorted by rating so the logos on the card are the ones that head the
+ * collection page itself.
+ */
+async function probeCollection(
+	facets: CollectionFacets
+): Promise<{ count: number; previews: CollectionPreview[] }> {
+	try {
+		const res = await serverApiRequest<{ count?: number; result?: any[] }>(
+			'/changers/search_changers',
+			{
+				params: {
+					...facetsToParams(facets),
+					sort: 'rating',
+					limit: COLLECTION_PREVIEW_COUNT
+				},
+				timeoutMs: 8000,
+				retries: 1
+			}
+		);
+
+		if (!res.success) return { count: 0, previews: [] };
+
+		return {
+			count: res.data?.count ?? 0,
+			previews: (res.data?.result ?? []).map((c: any) => ({
+				code: c.code,
+				name: c.name,
+				icon: c.icon
+			}))
+		};
 	} catch {
-		return 0;
+		return { count: 0, previews: [] };
 	}
 }
 
 export interface PublishedCollection {
 	collection: ExchangeCollection;
 	count: number;
+	previews: CollectionPreview[];
 }
 
 /**
@@ -67,14 +100,14 @@ const CACHE_TTL_MS = 10 * 60 * 1000;
 let cache: { at: number; value: Promise<PublishedCollection[]> } | null = null;
 
 async function resolvePublished(): Promise<PublishedCollection[]> {
-	const counts = await Promise.all(
+	const probed = await Promise.all(
 		EXCHANGE_COLLECTIONS.map(async (collection) => ({
 			collection,
-			count: await countChangers(collection.facets)
+			...(await probeCollection(collection.facets))
 		}))
 	);
 
-	return counts.filter(({ count }) => count >= MIN_COLLECTION_SIZE);
+	return probed.filter(({ count }) => count >= MIN_COLLECTION_SIZE);
 }
 
 export async function getPublishedCollections(): Promise<PublishedCollection[]> {
