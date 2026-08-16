@@ -17,19 +17,39 @@
 		availability_pct: number | null;
 	}
 
-	let { history, historyLoading, symbol, selectedRange, providerName, providerIconUrl, previewRows = null, proSource = 'markets-pair-provider', dayPass = null }: {
-		history: Snapshot[];
-		historyLoading: boolean;
+	let {
+		rows,
+		total,
+		page,
+		pageSize = 20,
+		loading,
+		symbol,
+		selectedRange,
+		providerName,
+		providerIconUrl,
+		previewRows = null,
+		proSource = 'markets-pair-provider',
+		dayPass = null,
+		onPageChange
+	}: {
+		/** Current page's rows only — pagination is server-driven, not sliced client-side. */
+		rows: Snapshot[];
+		/** True row count for the selected window, from the API's pagination envelope. */
+		total: number;
+		page: number;
+		pageSize?: number;
+		loading: boolean;
 		symbol: string;
 		selectedRange: Range;
 		providerName: string;
 		providerIconUrl: string | null;
-		/** Render only the first N rows behind a Pro upsell. Null shows everything. */
+		/** Cap the free preview to this many rows (== page 1) behind a Pro upsell. Null shows everything. */
 		previewRows?: number | null;
 		/** Page this table sits on — feeds the gate's CTA attribution. */
 		proSource?: string;
 		/** Resolved server-side by the page's load function. */
 		dayPass?: DayPassStatus | null;
+		onPageChange: (page: number) => void;
 	} = $props();
 
 	let iconError = $state(false);
@@ -38,28 +58,15 @@
 		providerName.split(' ').slice(0, 2).map((w) => w[0]).join('').toUpperCase()
 	);
 
-	// Lifted once a day-pass purchase succeeds, so the already-loaded rows show
-	// without a refetch.
+	// Lifted once a day-pass purchase succeeds — page 1 is already loaded, so
+	// this just unhides the pagination controls for the pages beyond it.
 	let unlocked = $state(false);
 
-	// Rows past the limit are never rendered, so the gate holds up against "inspect
-	// element" — it isn't a visual mask over data already sitting in the DOM.
-	const visibleRows = $derived(previewRows && !unlocked ? history.slice(0, previewRows) : history);
-	const locked = $derived(!unlocked && previewRows !== null && history.length > previewRows);
-
-	const PAGE_SIZE = 10;
-	let currentPage = $state(1);
-
-	// Range switches reload `history` wholesale — snap back to page 1 so the
-	// table never opens on a page past the newly-loaded data.
-	$effect(() => {
-		selectedRange;
-		currentPage = 1;
-	});
-
-	const totalPages = $derived(Math.max(1, Math.ceil(visibleRows.length / PAGE_SIZE)));
-	const safePage = $derived(Math.min(currentPage, totalPages));
-	const pagedRows = $derived(visibleRows.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE));
+	// `total` (not the length of whatever's been fetched) decides whether this
+	// gates, so it stays correct even though only one page is ever in memory.
+	const locked = $derived(!unlocked && previewRows !== null && total > previewRows);
+	const visibleRows = $derived(locked ? rows.slice(0, previewRows!) : rows);
+	const totalPages = $derived(locked ? 1 : Math.max(1, Math.ceil(total / pageSize)));
 </script>
 
 <div class="relative rounded-xl border overflow-hidden" style="background: var(--page-bg); border-color: var(--card-border);">
@@ -70,81 +77,94 @@
 		<h3 class="text-[14px] font-semibold" style="color: var(--text-primary);">OHLC Data</h3>
 		<span class="text-[11px]" style="color: var(--text-secondary);">
 			{#if locked}
-				Showing {visibleRows.length} of {history.length} · {selectedRange}
+				Showing {visibleRows.length} of {total} · {selectedRange}
 			{:else if totalPages > 1}
-				Showing {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, visibleRows.length)} of {visibleRows.length} · {selectedRange}
+				Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, total)} of {total} · {selectedRange}
 			{:else}
-				{history.length} rows · {selectedRange}
+				{total} rows · {selectedRange}
 			{/if}
 		</span>
 	</div>
 
-	{#if historyLoading}
-		<div class="flex items-center justify-center py-12" style="color: var(--text-muted);">
-			<span class="text-[12px]">Loading…</span>
-		</div>
-	{:else if history.length === 0}
+	{#if !loading && rows.length === 0}
 		<EmptyState title="No historical data" description="No daily snapshots found for this pair and time range." compact />
 	{:else}
-		<div class="overflow-x-auto">
-			<table class="w-full text-[12px]" style="min-width: 640px;">
-				<thead>
-					<tr style="background: var(--table-header-bg);">
-						<th class="text-left px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Date</th>
-						<th class="text-left px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Provider</th>
-						<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Open</th>
-						<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">High</th>
-						<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Low</th>
-						<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Close</th>
-						<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Avail.</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each pagedRows as row}
-						{@const up = row.close >= row.open}
-						<tr class="border-t transition-colors hover:bg-[var(--table-hover)]" style="border-color: var(--card-border);">
-							<td class="px-4 py-2.5 whitespace-nowrap" style="color: var(--text-secondary);">
-								{new Date(row.date).toLocaleDateString('en-US', {
-									month: 'short',
-									day: 'numeric',
-									year: 'numeric'
-								})}
-							</td>
-							<td class="px-4 py-2.5">
-								<div class="flex items-center gap-2 w-fit">
-									{#if providerIconUrl && !iconError}
-										<img
-											src={providerIconUrl}
-											alt={providerName}
-											style="width:16px; height:16px; border-radius:3px; object-fit:contain; flex-shrink:0;"
-											onerror={() => {
-												iconError = true;
-											}}
-										/>
-									{:else}
-										<div
-											style="width:16px; height:16px; border-radius:3px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:5px; font-weight:700; background:var(--table-header-bg); color:var(--text-secondary);"
-										>
-											{initials}
-										</div>
-									{/if}
-									<span style="color: var(--text-primary); font-family: var(--font-head);">{providerName}</span>
-								</div>
-							</td>
-							<td class="text-right px-4 py-2.5 font-mono" style="color: var(--text-primary);">{symbol}{fmt(row.open)}</td>
-							<td class="text-right px-4 py-2.5 font-mono" style="color: var(--positive);">{symbol}{fmt(row.high)}</td>
-							<td class="text-right px-4 py-2.5 font-mono" style="color: var(--negative);">{symbol}{fmt(row.low)}</td>
-							<td
-								class="text-right px-4 py-2.5 font-mono font-semibold"
-								style="color: {up ? 'var(--positive)' : 'var(--negative)'};"
-							>{symbol}{fmt(row.close)}</td>
-							<td class="text-right px-4 py-2.5" style="color: var(--text-muted);">
-							{row.availability_pct == null ? '—' : `${row.availability_pct.toFixed(0)}%`}
-						</td>
+		<div class="relative">
+			{#if loading}
+				<!-- Dims the existing rows in place rather than swapping them out, so
+				     paging or switching ranges never shifts the table's height. -->
+				<div
+					class="absolute inset-0 z-10 flex items-center justify-center"
+					style="background: color-mix(in srgb, var(--page-bg) 65%, transparent);"
+				>
+					<div class="flex items-center gap-2" style="color: var(--text-muted);">
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" class="animate-spin">
+							<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-dasharray="31.4 31.4" stroke-linecap="round" />
+						</svg>
+						<span class="text-[12px]">Loading…</span>
+					</div>
+				</div>
+			{/if}
+			<div class="overflow-x-auto">
+				<table class="w-full text-[12px]" style="min-width: 640px;">
+					<thead>
+						<tr style="background: var(--table-header-bg);">
+							<th class="text-left px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Date</th>
+							<th class="text-left px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Provider</th>
+							<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Open</th>
+							<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">High</th>
+							<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Low</th>
+							<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Close</th>
+							<th class="text-right px-4 py-2.5 font-semibold" style="color: var(--text-secondary);">Avail.</th>
 						</tr>
-					{/each}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{#each visibleRows as row}
+							{@const up = row.close >= row.open}
+							<tr class="border-t transition-colors hover:bg-[var(--table-hover)]" style="border-color: var(--card-border);">
+								<td class="px-4 py-2.5 whitespace-nowrap" style="color: var(--text-secondary);">
+									{new Date(row.date).toLocaleDateString('en-US', {
+										month: 'short',
+										day: 'numeric',
+										year: 'numeric'
+									})}
+								</td>
+								<td class="px-4 py-2.5">
+									<div class="flex items-center gap-2 w-fit">
+										{#if providerIconUrl && !iconError}
+											<img
+												src={providerIconUrl}
+												alt={providerName}
+												style="width:16px; height:16px; border-radius:3px; object-fit:contain; flex-shrink:0;"
+												onerror={() => {
+													iconError = true;
+												}}
+											/>
+										{:else}
+											<div
+												style="width:16px; height:16px; border-radius:3px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:5px; font-weight:700; background:var(--table-header-bg); color:var(--text-secondary);"
+											>
+												{initials}
+											</div>
+										{/if}
+										<span style="color: var(--text-primary); font-family: var(--font-head);">{providerName}</span>
+									</div>
+								</td>
+								<td class="text-right px-4 py-2.5 font-mono" style="color: var(--text-primary);">{symbol}{fmt(row.open)}</td>
+								<td class="text-right px-4 py-2.5 font-mono" style="color: var(--positive);">{symbol}{fmt(row.high)}</td>
+								<td class="text-right px-4 py-2.5 font-mono" style="color: var(--negative);">{symbol}{fmt(row.low)}</td>
+								<td
+									class="text-right px-4 py-2.5 font-mono font-semibold"
+									style="color: {up ? 'var(--positive)' : 'var(--negative)'};"
+								>{symbol}{fmt(row.close)}</td>
+								<td class="text-right px-4 py-2.5" style="color: var(--text-muted);">
+								{row.availability_pct == null ? '—' : `${row.availability_pct.toFixed(0)}%`}
+							</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 		{#if locked}
@@ -166,7 +186,7 @@
 				class="px-5 py-3 border-t flex items-center justify-end"
 				style="border-color: var(--card-border);"
 			>
-				<Pagination currentPage={safePage} {totalPages} onChange={(p) => (currentPage = p)} />
+				<Pagination currentPage={page} {totalPages} onChange={onPageChange} />
 			</div>
 		{/if}
 	{/if}

@@ -54,7 +54,8 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 			.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), limit: 90 })
 			.catch(() => null),
 		indexService
-			.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), page: 1, limit: FREE_HISTORY_ROWS })
+			// 20 = the OHLC table's page size (OhlcTable.svelte's `pageSize` default).
+			.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), page: 1, limit: 20 })
 			.catch(() => null)
 	]);
 	const entries: IndexDailyHistoryEntry[] = (historyRes as DailyHistoryResponse | null)?.data?.entries ?? [];

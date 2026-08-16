@@ -24,8 +24,8 @@ export type Range = (typeof RANGES)[number];
 
 const DAYS_MAP: Record<Range, number> = { '7d': 7, '30d': 30, '60d': 60, '90d': 90 };
 
-/** Rows per OHLC table page — mirrors FREE_HISTORY_ROWS so the free preview is exactly page 1. */
-export const TABLE_PAGE_SIZE = 10;
+/** Rows per OHLC table page. */
+export const TABLE_PAGE_SIZE = 20;
 
 export interface PairInsightInitData {
 	pairCode: string;
