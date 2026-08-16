@@ -53,12 +53,13 @@
 				rows={insight.tableRows}
 				total={insight.tableTotal}
 				page={insight.tablePage}
-				loading={insight.historyLoading || insight.tableLoading}
+				loading={insight.tableLoading}
 				symbol={insight.parsedPair.symbol}
-				selectedRange={insight.selectedRange}
+				range={insight.tableRange}
 				previewRows={data.hasFullAccess ? null : 10}
 				dayPass={data.dayPass}
 				onPageChange={(p) => insight.loadTablePage(p)}
+				onRangeChange={(r) => insight.setTableRange(r)}
 			/>
 		</div>
 	{/if}

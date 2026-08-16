@@ -5,7 +5,14 @@
 	import Pagination from '$lib/components/ui/Pagination.svelte';
 	import type { DayPassStatus } from '$lib/services/billing.service';
 
-	type Range = '7d' | '30d' | '60d' | '90d';
+	type TableRange = '7d' | '30d' | '60d' | '90d' | 'all';
+	const RANGE_OPTIONS: { value: TableRange; label: string }[] = [
+		{ value: '7d', label: '7d' },
+		{ value: '30d', label: '30d' },
+		{ value: '60d', label: '60d' },
+		{ value: '90d', label: '90d' },
+		{ value: 'all', label: 'All' }
+	];
 
 	interface Snapshot {
 		date: string;
@@ -24,13 +31,14 @@
 		pageSize = 20,
 		loading,
 		symbol,
-		selectedRange,
+		range,
 		providerName,
 		providerIconUrl,
 		previewRows = null,
 		proSource = 'markets-pair-provider',
 		dayPass = null,
-		onPageChange
+		onPageChange,
+		onRangeChange
 	}: {
 		/** Current page's rows only — pagination is server-driven, not sliced client-side. */
 		rows: Snapshot[];
@@ -40,7 +48,8 @@
 		pageSize?: number;
 		loading: boolean;
 		symbol: string;
-		selectedRange: Range;
+		/** Table's own date window — independent of the chart's range pills above it. */
+		range: TableRange;
 		providerName: string;
 		providerIconUrl: string | null;
 		/** Cap the free preview to this many rows (== page 1) behind a Pro upsell. Null shows everything. */
@@ -50,6 +59,7 @@
 		/** Resolved server-side by the page's load function. */
 		dayPass?: DayPassStatus | null;
 		onPageChange: (page: number) => void;
+		onRangeChange: (range: TableRange) => void;
 	} = $props();
 
 	let iconError = $state(false);
@@ -75,14 +85,26 @@
 		style="background: var(--table-header-bg); border-color: var(--card-border);"
 	>
 		<h3 class="text-[14px] font-semibold" style="color: var(--text-primary);">OHLC Data</h3>
-		<span class="text-[11px]" style="color: var(--text-secondary);">
+		<span class="text-[11px] flex items-center gap-1" style="color: var(--text-secondary);">
 			{#if locked}
-				Showing {visibleRows.length} of {total} · {selectedRange}
+				Showing {visibleRows.length} of {total}
 			{:else if totalPages > 1}
-				Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, total)} of {total} · {selectedRange}
+				Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, total)} of {total}
 			{:else}
-				{total} rows · {selectedRange}
+				{total} rows
 			{/if}
+			<span aria-hidden="true">·</span>
+			<select
+				value={range}
+				onchange={(e) => onRangeChange(e.currentTarget.value as TableRange)}
+				aria-label="Table date range"
+				class="bg-transparent border-none outline-none cursor-pointer font-semibold p-0"
+				style="color: var(--accent); font-size: 11px;"
+			>
+				{#each RANGE_OPTIONS as opt}
+					<option value={opt.value}>{opt.label}</option>
+				{/each}
+			</select>
 		</span>
 	</div>
 

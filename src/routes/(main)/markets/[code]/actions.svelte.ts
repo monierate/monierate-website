@@ -21,6 +21,7 @@ function toDailySnapshot(pairCode: string, e: IndexDailyHistoryEntry): DailySnap
 
 export const RANGES = ['7d', '30d', '60d', '90d'] as const;
 export type Range = (typeof RANGES)[number];
+export type TableRange = Range | 'all';
 
 const DAYS_MAP: Record<Range, number> = { '7d': 7, '30d': 30, '60d': 60, '90d': 90 };
 
@@ -50,7 +51,9 @@ export class PairInsightActions {
 	historyLoading = $state(false);
 
 	// OHLC table — paginated server-side (real `total`, one page fetched at a
-	// time), decoupled from `history` above which stays sized for the chart.
+	// time) and on its own date window, fully decoupled from the chart's range
+	// pills and `history` above.
+	tableRange = $state<TableRange>('30d');
 	tableRows = $state<DailySnapshot[]>([]);
 	tableTotal = $state(0);
 	tablePage = $state(1);
@@ -169,12 +172,20 @@ export class PairInsightActions {
 	async selectRange(range: Range) {
 		if (range === this.selectedRange) return;
 		this.selectedRange = range;
-		// New window → both the chart's full range and the table's page 1 reload.
-		await Promise.all([this.loadHistory(), this.loadTablePage(1)]);
+		await this.loadHistory();
 	}
 
-	private rangeWindow(): { start_date: string; end_date: string } {
-		const days = DAYS_MAP[this.selectedRange];
+	async setTableRange(range: TableRange) {
+		if (range === this.tableRange) return;
+		this.tableRange = range;
+		await this.loadTablePage(1);
+	}
+
+	// `'all'` omits the date bounds entirely — the table's own unrestricted
+	// history, as opposed to the chart's fixed 7d/30d/60d/90d windows.
+	private windowFor(range: TableRange): { start_date?: string; end_date?: string } {
+		if (range === 'all') return {};
+		const days = DAYS_MAP[range];
 		const end = new Date();
 		const start = new Date(end.getTime() - days * 86_400_000);
 		const fmtDate = (d: Date) => d.toISOString().split('T')[0];
@@ -186,7 +197,7 @@ export class PairInsightActions {
 		try {
 			const res = (await index.getDailyHistory({
 				pair: this.pairCode,
-				...this.rangeWindow(),
+				...this.windowFor(this.selectedRange),
 				limit: 200
 			})) as { data?: { entries?: IndexDailyHistoryEntry[] } } | null;
 			const entries = res?.data?.entries ?? [];
@@ -207,7 +218,7 @@ export class PairInsightActions {
 		try {
 			const res = (await index.getDailyHistory({
 				pair: this.pairCode,
-				...this.rangeWindow(),
+				...this.windowFor(this.tableRange),
 				page,
 				limit: TABLE_PAGE_SIZE
 			})) as { data?: { entries?: IndexDailyHistoryEntry[]; total?: number } } | null;

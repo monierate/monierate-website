@@ -4,6 +4,7 @@ import { parsePairCode } from '$lib/utils/pairs';
 
 export const RANGES = ['7d', '30d', '60d', '90d'] as const;
 export type Range = (typeof RANGES)[number];
+export type TableRange = Range | 'all';
 
 const DAYS_MAP: Record<Range, number> = { '7d': 7, '30d': 30, '60d': 60, '90d': 90 };
 
@@ -35,7 +36,9 @@ export class ProviderProfileActions {
 	providerCurrentRates = $state<any[]>([]);
 
 	// OHLC table — paginated server-side (real `total`, one page fetched at a
-	// time), decoupled from `history` above which stays sized for the chart.
+	// time) and on its own date window, decoupled from the chart's range pills
+	// (though still scoped to whichever pair is selected above).
+	tableRange = $state<TableRange>('30d');
 	tableRows = $state<DailySnapshot[]>([]);
 	tableTotal = $state(0);
 	tablePage = $state(1);
@@ -153,11 +156,20 @@ export class ProviderProfileActions {
 	async selectRange(range: Range) {
 		if (range === this.selectedRange) return;
 		this.selectedRange = range;
-		await Promise.all([this.loadHistory(), this.loadTablePage(1)]);
+		await this.loadHistory();
 	}
 
-	private rangeWindow(): { start_date: string; end_date: string } {
-		const days = DAYS_MAP[this.selectedRange];
+	async setTableRange(range: TableRange) {
+		if (range === this.tableRange) return;
+		this.tableRange = range;
+		await this.loadTablePage(1);
+	}
+
+	// `'all'` omits the date bounds entirely — the table's own unrestricted
+	// history, as opposed to the chart's fixed 7d/30d/60d/90d windows.
+	private windowFor(range: TableRange): { start_date?: string; end_date?: string } {
+		if (range === 'all') return {};
+		const days = DAYS_MAP[range];
 		const end = new Date();
 		const start = new Date(end.getTime() - days * 86_400_000);
 		const fmtDate = (d: Date) => d.toISOString().split('T')[0];
@@ -171,7 +183,7 @@ export class ProviderProfileActions {
 			const res = await getRateHistory(fetch, {
 				pair: this.selectedPair,
 				provider_id: this.code,
-				...this.rangeWindow(),
+				...this.windowFor(this.selectedRange),
 				limit: 200
 			});
 			this.history = res?.snapshots ?? [];
@@ -193,7 +205,7 @@ export class ProviderProfileActions {
 			const res = await getRateHistory(fetch, {
 				pair: this.selectedPair,
 				provider_id: this.code,
-				...this.rangeWindow(),
+				...this.windowFor(this.tableRange),
 				page,
 				limit: TABLE_PAGE_SIZE
 			});
