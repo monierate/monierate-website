@@ -24,11 +24,18 @@ export type Range = (typeof RANGES)[number];
 
 const DAYS_MAP: Record<Range, number> = { '7d': 7, '30d': 30, '60d': 60, '90d': 90 };
 
+/** Rows per OHLC table page — mirrors FREE_HISTORY_ROWS so the free preview is exactly page 1. */
+export const TABLE_PAGE_SIZE = 10;
+
 export interface PairInsightInitData {
 	pairCode: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	currentRate: any | null;
 	initialHistory: DailySnapshot[];
+	/** First page of the OHLC table, fetched server-side alongside initialHistory. */
+	initialTableRows?: DailySnapshot[];
+	/** True row count for the selected window, from the API's pagination envelope. */
+	initialTableTotal?: number;
 	/** Seeds the quick converter's send field; defaults to '1'. */
 	amount?: string;
 }
@@ -42,6 +49,13 @@ export class PairInsightActions {
 	history = $state<DailySnapshot[]>([]);
 	historyLoading = $state(false);
 
+	// OHLC table — paginated server-side (real `total`, one page fetched at a
+	// time), decoupled from `history` above which stays sized for the chart.
+	tableRows = $state<DailySnapshot[]>([]);
+	tableTotal = $state(0);
+	tablePage = $state(1);
+	tableLoading = $state(false);
+
 	convertSend = $state('1');
 	convertReceive = $state('');
 	lastEdited = $state<'send' | 'receive'>('send');
@@ -51,6 +65,8 @@ export class PairInsightActions {
 		this.pairCode = data.pairCode;
 		this.currentRate = data.currentRate;
 		this.history = data.initialHistory ?? [];
+		this.tableRows = data.initialTableRows ?? [];
+		this.tableTotal = data.initialTableTotal ?? 0;
 		this.convertSend = data.amount || '1';
 	}
 
@@ -153,21 +169,24 @@ export class PairInsightActions {
 	async selectRange(range: Range) {
 		if (range === this.selectedRange) return;
 		this.selectedRange = range;
-		await this.loadHistory();
+		// New window → both the chart's full range and the table's page 1 reload.
+		await Promise.all([this.loadHistory(), this.loadTablePage(1)]);
+	}
+
+	private rangeWindow(): { start_date: string; end_date: string } {
+		const days = DAYS_MAP[this.selectedRange];
+		const end = new Date();
+		const start = new Date(end.getTime() - days * 86_400_000);
+		const fmtDate = (d: Date) => d.toISOString().split('T')[0];
+		return { start_date: fmtDate(start), end_date: fmtDate(end) };
 	}
 
 	async loadHistory() {
 		this.historyLoading = true;
 		try {
-			const days = DAYS_MAP[this.selectedRange];
-			const end = new Date();
-			const start = new Date(end.getTime() - days * 86_400_000);
-			const fmtDate = (d: Date) => d.toISOString().split('T')[0];
-
 			const res = (await index.getDailyHistory({
 				pair: this.pairCode,
-				start_date: fmtDate(start),
-				end_date: fmtDate(end),
+				...this.rangeWindow(),
 				limit: 200
 			})) as { data?: { entries?: IndexDailyHistoryEntry[] } } | null;
 			const entries = res?.data?.entries ?? [];
@@ -176,6 +195,31 @@ export class PairInsightActions {
 			this.history = [];
 		} finally {
 			this.historyLoading = false;
+		}
+	}
+
+	// Fetches one page of the OHLC table directly from the API's own pagination
+	// (page/limit in, total/count out) instead of slicing a client-held array —
+	// `tableTotal` stays accurate even when the window holds more rows than any
+	// single page fetch would.
+	async loadTablePage(page: number) {
+		this.tableLoading = true;
+		try {
+			const res = (await index.getDailyHistory({
+				pair: this.pairCode,
+				...this.rangeWindow(),
+				page,
+				limit: TABLE_PAGE_SIZE
+			})) as { data?: { entries?: IndexDailyHistoryEntry[]; total?: number } } | null;
+			const entries = res?.data?.entries ?? [];
+			this.tableRows = entries.map((e) => toDailySnapshot(this.pairCode, e));
+			this.tableTotal = res?.data?.total ?? 0;
+			this.tablePage = page;
+		} catch {
+			this.tableRows = [];
+			this.tableTotal = 0;
+		} finally {
+			this.tableLoading = false;
 		}
 	}
 }

@@ -42,15 +42,27 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 	const fmtDate = (d: Date) => d.toISOString().split('T')[0];
 
 	interface DailyHistoryResponse {
-		status: string;
-		data: { entries: IndexDailyHistoryEntry[] };
+		data: { entries: IndexDailyHistoryEntry[]; total?: number; count?: number; page?: number; limit?: number };
 	}
 
-	const historyRes = await indexService
-		.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), limit: 90 })
-		.catch(() => null);
+	// Two fetches: the chart wants every daily point in the window (capped well
+	// above what a 90-day window can hold), while the table below it fetches its
+	// own page 1 so its `total` comes straight from the API's pagination envelope
+	// instead of being inferred from whatever the chart happened to load.
+	const [historyRes, tableRes] = await Promise.all([
+		indexService
+			.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), limit: 90 })
+			.catch(() => null),
+		indexService
+			.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), page: 1, limit: FREE_HISTORY_ROWS })
+			.catch(() => null)
+	]);
 	const entries: IndexDailyHistoryEntry[] = (historyRes as DailyHistoryResponse | null)?.data?.entries ?? [];
 	const initialHistory: DailySnapshot[] = entries.map((e) => toDailySnapshot(pairCode, e));
+
+	const tableData = (tableRes as DailyHistoryResponse | null)?.data;
+	const initialTableRows: DailySnapshot[] = (tableData?.entries ?? []).map((e) => toDailySnapshot(pairCode, e));
+	const initialTableTotal = tableData?.total ?? 0;
 
 	// Latest entry stands in for `latest_rates` — a single composite rate for the
 	// whole pair, not a changer's buy/sell quote (the index has no bid/ask of its
@@ -77,8 +89,9 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 	});
 
 	// Only worth resolving if the table will actually gate — skips the extra
-	// round trip on pairs with too little history to lock anything.
-	const { hasFullAccess, dayPass } = initialHistory.length > FREE_HISTORY_ROWS
+	// round trip on pairs with too little history to lock anything. Driven by
+	// the table's own `total`, not the chart's row count, since the two can differ.
+	const { hasFullAccess, dayPass } = initialTableTotal > FREE_HISTORY_ROWS
 		? await getHistoryAccess(cookies.get('user_token'))
 		: { hasFullAccess: false, dayPass: null };
 
@@ -86,6 +99,8 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 		pairCode,
 		currentRate,
 		initialHistory,
+		initialTableRows,
+		initialTableTotal,
 		amount,
 		seo,
 		dayPass,

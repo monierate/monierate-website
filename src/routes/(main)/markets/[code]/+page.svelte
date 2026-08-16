@@ -14,6 +14,8 @@
 				pairCode: data.pairCode,
 				currentRate: data.currentRate,
 				initialHistory: data.initialHistory,
+				initialTableRows: data.initialTableRows,
+				initialTableTotal: data.initialTableTotal,
 				amount: data.amount
 			})
 	);
@@ -48,12 +50,15 @@
 	{#if insight.history.length > 0 || insight.historyLoading}
 		<div class="mt-5">
 			<OhlcTable
-				history={insight.history}
-				historyLoading={insight.historyLoading}
+				rows={insight.tableRows}
+				total={insight.tableTotal}
+				page={insight.tablePage}
+				loading={insight.historyLoading || insight.tableLoading}
 				symbol={insight.parsedPair.symbol}
 				selectedRange={insight.selectedRange}
 				previewRows={data.hasFullAccess ? null : 10}
 				dayPass={data.dayPass}
+				onPageChange={(p) => insight.loadTablePage(p)}
 			/>
 		</div>
 	{/if}

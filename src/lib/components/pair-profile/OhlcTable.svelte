@@ -2,6 +2,7 @@
 	import { fmt } from '$lib/utils/format';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import HistoryUnlockGate from '$lib/components/pro/HistoryUnlockGate.svelte';
+	import Pagination from '$lib/components/ui/Pagination.svelte';
 	import type { DayPassStatus } from '$lib/services/billing.service';
 
 	type Range = '7d' | '30d' | '60d' | '90d';
@@ -14,27 +15,46 @@
 		close: number;
 	}
 
-	let { history, historyLoading, symbol, selectedRange, previewRows = null, proSource = 'markets-pair', dayPass = null }: {
-		history: Snapshot[];
-		historyLoading: boolean;
+	let {
+		rows,
+		total,
+		page,
+		pageSize = 10,
+		loading,
+		symbol,
+		selectedRange,
+		previewRows = null,
+		proSource = 'markets-pair',
+		dayPass = null,
+		onPageChange
+	}: {
+		/** Current page's rows only — pagination is server-driven, not sliced client-side. */
+		rows: Snapshot[];
+		/** True row count for the selected window, from the API's pagination envelope. */
+		total: number;
+		page: number;
+		pageSize?: number;
+		loading: boolean;
 		symbol: string;
 		selectedRange: Range;
-		/** Render only the first N rows behind a Pro upsell. Null shows everything. */
+		/** Cap the free preview to this many rows (== page 1) behind a Pro upsell. Null shows everything. */
 		previewRows?: number | null;
 		/** Page this table sits on — feeds the gate's CTA attribution. */
 		proSource?: string;
 		/** Resolved server-side by the page's load function. */
 		dayPass?: DayPassStatus | null;
+		onPageChange: (page: number) => void;
 	} = $props();
 
-	// Lifted once a day-pass purchase succeeds, so the already-loaded rows show
-	// without a refetch.
+	// Lifted once a day-pass purchase succeeds — page 1 is already loaded, so
+	// this just unhides the pagination controls for the pages beyond it.
 	let unlocked = $state(false);
 
-	// Rows past the limit are never rendered, so the gate holds up against "inspect
-	// element" — it isn't a visual mask over data already sitting in the DOM.
-	const visibleRows = $derived(previewRows && !unlocked ? history.slice(0, previewRows) : history);
-	const locked = $derived(!unlocked && previewRows !== null && history.length > previewRows);
+	// `total` (not the length of whatever's been fetched) decides whether this
+	// gates, so it stays correct even though only one page is ever in memory.
+	const locked = $derived(!unlocked && previewRows !== null && total > previewRows);
+	const visibleRows = $derived(locked ? rows.slice(0, previewRows!) : rows);
+	const totalPages = $derived(locked ? 1 : Math.max(1, Math.ceil(total / pageSize)));
 </script>
 
 <div class="relative rounded-xl border overflow-hidden" style="background: var(--page-bg); border-color: var(--card-border);">
@@ -45,18 +65,20 @@
 		<h3 class="text-[14px] font-semibold" style="color: var(--text-primary);">OHLC Data</h3>
 		<span class="text-[11px]" style="color: var(--text-secondary);">
 			{#if locked}
-				Showing {visibleRows.length} of {history.length} · {selectedRange}
+				Showing {visibleRows.length} of {total} · {selectedRange}
+			{:else if totalPages > 1}
+				Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, total)} of {total} · {selectedRange}
 			{:else}
-				{history.length} rows · {selectedRange}
+				{total} rows · {selectedRange}
 			{/if}
 		</span>
 	</div>
 
-	{#if historyLoading}
+	{#if loading}
 		<div class="flex items-center justify-center py-12" style="color: var(--text-muted);">
 			<span class="text-[12px]">Loading…</span>
 		</div>
-	{:else if history.length === 0}
+	{:else if rows.length === 0}
 		<EmptyState title="No historical data" description="No daily snapshots found for this pair and time range." compact />
 	{:else}
 		<div class="overflow-x-auto">
@@ -112,6 +134,13 @@
 					{dayPass}
 					onUnlock={() => (unlocked = true)}
 				/>
+			</div>
+		{:else if totalPages > 1}
+			<div
+				class="px-5 py-3 border-t flex items-center justify-end"
+				style="border-color: var(--card-border);"
+			>
+				<Pagination currentPage={page} {totalPages} onChange={onPageChange} />
 			</div>
 		{/if}
 	{/if}

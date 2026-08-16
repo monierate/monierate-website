@@ -2,6 +2,7 @@
 	import { fmt } from '$lib/utils/format';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import HistoryUnlockGate from '$lib/components/pro/HistoryUnlockGate.svelte';
+	import Pagination from '$lib/components/ui/Pagination.svelte';
 	import type { DayPassStatus } from '$lib/services/billing.service';
 
 	type Range = '7d' | '30d' | '60d' | '90d';
@@ -45,6 +46,20 @@
 	// element" — it isn't a visual mask over data already sitting in the DOM.
 	const visibleRows = $derived(previewRows && !unlocked ? history.slice(0, previewRows) : history);
 	const locked = $derived(!unlocked && previewRows !== null && history.length > previewRows);
+
+	const PAGE_SIZE = 10;
+	let currentPage = $state(1);
+
+	// Range switches reload `history` wholesale — snap back to page 1 so the
+	// table never opens on a page past the newly-loaded data.
+	$effect(() => {
+		selectedRange;
+		currentPage = 1;
+	});
+
+	const totalPages = $derived(Math.max(1, Math.ceil(visibleRows.length / PAGE_SIZE)));
+	const safePage = $derived(Math.min(currentPage, totalPages));
+	const pagedRows = $derived(visibleRows.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE));
 </script>
 
 <div class="relative rounded-xl border overflow-hidden" style="background: var(--page-bg); border-color: var(--card-border);">
@@ -56,6 +71,8 @@
 		<span class="text-[11px]" style="color: var(--text-secondary);">
 			{#if locked}
 				Showing {visibleRows.length} of {history.length} · {selectedRange}
+			{:else if totalPages > 1}
+				Showing {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, visibleRows.length)} of {visibleRows.length} · {selectedRange}
 			{:else}
 				{history.length} rows · {selectedRange}
 			{/if}
@@ -83,7 +100,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each visibleRows as row}
+					{#each pagedRows as row}
 						{@const up = row.close >= row.open}
 						<tr class="border-t transition-colors hover:bg-[var(--table-hover)]" style="border-color: var(--card-border);">
 							<td class="px-4 py-2.5 whitespace-nowrap" style="color: var(--text-secondary);">
@@ -143,6 +160,13 @@
 					{dayPass}
 					onUnlock={() => (unlocked = true)}
 				/>
+			</div>
+		{:else if totalPages > 1}
+			<div
+				class="px-5 py-3 border-t flex items-center justify-end"
+				style="border-color: var(--card-border);"
+			>
+				<Pagination currentPage={safePage} {totalPages} onChange={(p) => (currentPage = p)} />
 			</div>
 		{/if}
 	{/if}
