@@ -172,7 +172,7 @@
 			</div>
 		{:else if totalPages > 1}
 			<div
-				class="px-5 py-3 border-t flex items-center justify-end"
+				class="px-5 py-3 border-t flex items-center"
 				style="border-color: var(--card-border);"
 			>
 				<Pagination currentPage={page} {totalPages} onChange={onPageChange} />

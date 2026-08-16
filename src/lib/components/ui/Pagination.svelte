@@ -24,42 +24,50 @@
 </script>
 
 {#if totalPages > 1}
-	<div class="flex items-center gap-1 flex-wrap">
-		<button
-			type="button"
-			disabled={currentPage <= 1}
-			onclick={() => onChange(currentPage - 1)}
-			aria-label="Previous page"
-			class="text-[12px] font-medium px-2.5 py-1.5 rounded-md border cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-			style="background: transparent; border-color: var(--card-border); color: var(--text-secondary);"
-		>Prev</button>
+	<!-- Three-column grid rather than one flex row, so Prev/Next stay pinned to
+	     the footer's edges and only the page numbers recenter as they change. -->
+	<div class="grid grid-cols-3 items-center w-full gap-2">
+		<div class="justify-self-start">
+			<button
+				type="button"
+				disabled={currentPage <= 1}
+				onclick={() => onChange(currentPage - 1)}
+				aria-label="Previous page"
+				class="text-[12px] font-medium px-2.5 py-1.5 rounded-md border cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+				style="background: transparent; border-color: var(--card-border); color: var(--text-secondary);"
+			>Prev</button>
+		</div>
 
-		{#each pages as p}
-			{#if p === '...'}
-				<span class="text-[12px] px-1.5" style="color: var(--text-muted);">…</span>
-			{:else}
-				<button
-					type="button"
-					onclick={() => onChange(p)}
-					aria-current={p === currentPage ? 'page' : undefined}
-					class="text-[12px] font-medium min-w-[28px] px-2 py-1.5 rounded-md border cursor-pointer transition-colors"
-					style="
-						background: {p === currentPage ? 'var(--table-header-bg)' : 'transparent'};
-						border-color: var(--card-border);
-						color: {p === currentPage ? 'var(--text-primary)' : 'var(--text-secondary)'};
-						font-weight: {p === currentPage ? '700' : '500'};
-					"
-				>{p}</button>
-			{/if}
-		{/each}
+		<div class="flex items-center gap-1 flex-wrap justify-self-center">
+			{#each pages as p}
+				{#if p === '...'}
+					<span class="text-[12px] px-1.5" style="color: var(--text-muted);">…</span>
+				{:else}
+					<button
+						type="button"
+						onclick={() => onChange(p)}
+						aria-current={p === currentPage ? 'page' : undefined}
+						class="text-[12px] font-medium min-w-[28px] px-2 py-1.5 rounded-md border cursor-pointer transition-colors"
+						style="
+							background: {p === currentPage ? 'var(--table-header-bg)' : 'transparent'};
+							border-color: var(--card-border);
+							color: {p === currentPage ? 'var(--text-primary)' : 'var(--text-secondary)'};
+							font-weight: {p === currentPage ? '700' : '500'};
+						"
+					>{p}</button>
+				{/if}
+			{/each}
+		</div>
 
-		<button
-			type="button"
-			disabled={currentPage >= totalPages}
-			onclick={() => onChange(currentPage + 1)}
-			aria-label="Next page"
-			class="text-[12px] font-medium px-2.5 py-1.5 rounded-md border cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-			style="background: transparent; border-color: var(--card-border); color: var(--text-secondary);"
-		>Next</button>
+		<div class="justify-self-end">
+			<button
+				type="button"
+				disabled={currentPage >= totalPages}
+				onclick={() => onChange(currentPage + 1)}
+				aria-label="Next page"
+				class="text-[12px] font-medium px-2.5 py-1.5 rounded-md border cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+				style="background: transparent; border-color: var(--card-border); color: var(--text-secondary);"
+			>Next</button>
+		</div>
 	</div>
 {/if}
