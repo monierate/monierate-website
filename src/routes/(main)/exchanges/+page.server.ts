@@ -1,11 +1,14 @@
 import type { PageServerLoad } from './$types';
+import { error } from '@sveltejs/kit';
 import { getAllChangers } from '$lib/services/changer.service';
+import { COLLECTIONS_ENABLED } from '$lib/data/exchange-collections';
 import {
 	COLLECTION_PREVIEW_COUNT,
 	getPublishedCollections,
 	shuffle
 } from '$lib/server/collections';
-import { buildExchangesIndexSeo } from '$lib/utils/collectionSeo';
+// Commented out with the <Seo /> render in +page.svelte — see COLLECTIONS_ENABLED.
+// import { buildExchangesIndexSeo } from '$lib/utils/collectionSeo';
 
 /**
  * The directory index. Its job in the SEO graph is to be the hub every
@@ -16,6 +19,12 @@ import { buildExchangesIndexSeo } from '$lib/utils/collectionSeo';
  * collection that 404s wastes crawl budget on the whole section.
  */
 export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
+	// The directory index goes down with the collection layer — without the
+	// collections it is a bare list of changers with no route into it, and it must
+	// not stay reachable while the feature is held back. Delete these two lines
+	// (or flip COLLECTIONS_ENABLED) to bring the page back.
+	if (!COLLECTIONS_ENABLED) throw error(404, 'Not found');
+
 	const [published, changers] = await Promise.all([
 		getPublishedCollections(),
 		getAllChangers(fetch, 1, 200)
@@ -45,7 +54,7 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
 			rating_score: c.rating_score,
 			changer_tags: c.changer_tags ?? [],
 			licenses: c.licenses ?? []
-		})),
-		seo: buildExchangesIndexSeo()
+		}))
+		// seo: buildExchangesIndexSeo()
 	};
 };

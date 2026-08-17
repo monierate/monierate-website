@@ -5,7 +5,9 @@ Allow: /
 # Public Markets pages — pair hubs, pair x provider long-tail, provider profiles.
 # Stated explicitly so the Disallow rules below are never read as covering them.
 Allow: /markets/
-# Exchange directory — profiles and the curated collection pages.
+# Exchange directory — changer profiles. The directory index and the curated
+# collection pages are disabled (COLLECTIONS_ENABLED) and 404, so this rule
+# effectively covers the profiles only.
 Allow: /exchanges/
 # Interactive rate-comparison pages (thin / not for organic discovery)
 Disallow: /*/compare
