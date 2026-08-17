@@ -123,6 +123,31 @@ not submitted. Flip the constant to include them.
 query — "otc desks in lagos", "licensed crypto exchanges in nigeria" — over the
 `/changers/search_changers` facets.
 
+### Currently disabled
+
+`COLLECTIONS_ENABLED` in `src/lib/data/exchange-collections.ts` is `false`, so
+none of this is live. With the flag off:
+
+- the param matcher claims no slugs, so `/exchanges/:collection` falls through to
+  `/exchanges/[changer]` and 404s,
+- `getCollection()` returns `undefined`, so the route load 404s even if reached,
+- `getPublishedCollections()` resolves empty without running the probe fan-out —
+  the sitemap lists no collections and the `/exchanges` index renders no
+  collection sections,
+- `collectionsForChanger()` returns nothing, so profiles cross-link nothing.
+
+The `/exchanges` index itself still serves — it is a searchable list of every
+changer with the collection strips hidden — but its SEO is **commented out**
+rather than flag-gated: the `<Seo />` render in `+page.svelte`, the
+`buildExchangesIndexSeo()` call in `+page.server.ts`, and its `/sitemap.xml`
+entry. So the page emits no title, canonical or JSON-LD and is not submitted. It
+carries no `noindex`, so a crawler reaching it by another route can still index
+it; add one if that matters.
+
+The config, routes, builders and components all stay in place. Flip the constant
+to `true` and uncomment those three spots to bring the layer back. Everything
+below describes the layer as it behaves when enabled.
+
 ### The config is curated, not generated
 
 `src/lib/data/exchange-collections.ts` holds one entry per published combo:

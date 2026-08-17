@@ -1,5 +1,8 @@
 <script lang="ts">
-	import Seo from '$lib/components/seo/Seo.svelte';
+	// SEO commented out while the directory layer is disabled — the page serves,
+	// it just emits no head metadata or JSON-LD. Restore both this import and the
+	// <Seo /> below alongside COLLECTIONS_ENABLED.
+	// import Seo from '$lib/components/seo/Seo.svelte';
 	import CollectionList from '$lib/components/exchanges/CollectionList.svelte';
 	import ProviderIcon from '$lib/components/ProviderIcon.svelte';
 
@@ -26,7 +29,7 @@
 	const shown = $derived(filtered.slice(0, visible));
 </script>
 
-<Seo {...data.seo} />
+<!-- <Seo {...data.seo} /> -->
 
 <div class="container space-y-12 py-8">
 	<header class="space-y-4">
@@ -35,8 +38,11 @@
 		</h1>
 		<p class="max-w-4xl text-sm md:text-base leading-relaxed text-[var(--text-secondary)]">
 			Every platform Monierate tracks — crypto exchanges, OTC desks, remittance apps, virtual card
-			issuers and banks — with live rates, fees, licences and a full profile for each. Start from a
-			collection below, or search the full list.
+			issuers and banks — with live rates, fees, licences and a full profile for each.
+			<!-- The closing line points at the collection strips, which render only when
+			     the collection layer is enabled and something clears the threshold. -->
+			{#if data.collections.length}Start from a collection below, or search the full list.{:else}Search
+				the full list below.{/if}
 		</p>
 	</header>
 

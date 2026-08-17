@@ -5,7 +5,8 @@ import {
 	getPublishedCollections,
 	shuffle
 } from '$lib/server/collections';
-import { buildExchangesIndexSeo } from '$lib/utils/collectionSeo';
+// Commented out with the <Seo /> render in +page.svelte — see COLLECTIONS_ENABLED.
+// import { buildExchangesIndexSeo } from '$lib/utils/collectionSeo';
 
 /**
  * The directory index. Its job in the SEO graph is to be the hub every
@@ -45,7 +46,7 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
 			rating_score: c.rating_score,
 			changer_tags: c.changer_tags ?? [],
 			licenses: c.licenses ?? []
-		})),
-		seo: buildExchangesIndexSeo()
+		}))
+		// seo: buildExchangesIndexSeo()
 	};
 };

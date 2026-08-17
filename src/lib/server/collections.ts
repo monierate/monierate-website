@@ -1,5 +1,6 @@
 import { serverApiRequest } from '$lib/api/server';
 import {
+	COLLECTIONS_ENABLED,
 	EXCHANGE_COLLECTIONS,
 	MIN_COLLECTION_SIZE,
 	type CollectionFacets,
@@ -142,6 +143,9 @@ async function resolvePublished(): Promise<PublishedCollection[]> {
 }
 
 export async function getPublishedCollections(): Promise<PublishedCollection[]> {
+	// Layer disabled: nothing publishes, and the probe fan-out never runs.
+	if (!COLLECTIONS_ENABLED) return [];
+
 	if (cache && Date.now() - cache.at < CACHE_TTL_MS) {
 		return cache.value;
 	}
