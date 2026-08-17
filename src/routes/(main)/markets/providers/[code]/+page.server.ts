@@ -56,19 +56,38 @@ export const load: PageServerLoad = async ({ params, fetch, cookies, url }) => {
 		null;
 
 	let initialHistory: DailySnapshot[] = [];
+	let initialTableRows: DailySnapshot[] = [];
+	let initialTableTotal = 0;
 	if (initialPairCode) {
 		const end = new Date();
 		const start = new Date(end.getTime() - 30 * 86_400_000);
 		const fmtDate = (d: Date) => d.toISOString().split('T')[0];
 
-		const historyRes = await getRateHistory(fetch, {
-			pair: initialPairCode,
-			provider_id: code,
-			start_date: fmtDate(start),
-			end_date: fmtDate(end),
-			limit: 90
-		});
+		// Two fetches: the chart wants every daily point in the window (capped well
+		// above what a 90-day window can hold), while the table below it fetches its
+		// own page 1 so its `total` comes straight from the API's pagination envelope
+		// instead of being inferred from whatever the chart happened to load.
+		const [historyRes, tableRes] = await Promise.all([
+			getRateHistory(fetch, {
+				pair: initialPairCode,
+				provider_id: code,
+				start_date: fmtDate(start),
+				end_date: fmtDate(end),
+				limit: 90
+			}),
+			// 20 = the OHLC table's page size (OhlcTable.svelte's `pageSize` default).
+			getRateHistory(fetch, {
+				pair: initialPairCode,
+				provider_id: code,
+				start_date: fmtDate(start),
+				end_date: fmtDate(end),
+				page: 1,
+				limit: 20
+			})
+		]);
 		initialHistory = historyRes?.snapshots ?? [];
+		initialTableRows = tableRes?.snapshots ?? [];
+		initialTableTotal = tableRes?.total ?? 0;
 	}
 
 	const seo = buildProviderSeo({
@@ -80,8 +99,9 @@ export const load: PageServerLoad = async ({ params, fetch, cookies, url }) => {
 	});
 
 	// Only worth resolving if the table will actually gate — skips the extra
-	// round trip on providers with too little history to lock anything.
-	const { hasFullAccess, dayPass } = initialHistory.length > FREE_HISTORY_ROWS
+	// round trip on providers with too little history to lock anything. Driven by
+	// the table's own `total`, not the chart's row count, since the two can differ.
+	const { hasFullAccess, dayPass } = initialTableTotal > FREE_HISTORY_ROWS
 		? await getHistoryAccess(cookies.get('user_token'))
 		: { hasFullAccess: false, dayPass: null };
 
@@ -92,6 +112,8 @@ export const load: PageServerLoad = async ({ params, fetch, cookies, url }) => {
 		providerCurrentRates,
 		initialPairCode,
 		initialHistory,
+		initialTableRows,
+		initialTableTotal,
 		seo,
 		dayPass,
 		hasFullAccess

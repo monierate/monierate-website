@@ -26,7 +26,9 @@
 				supportedPairCodes: data.supportedPairCodes,
 				providerCurrentRates: data.providerCurrentRates,
 				initialPairCode: data.initialPairCode,
-				initialHistory: data.initialHistory
+				initialHistory: data.initialHistory,
+				initialTableRows: data.initialTableRows,
+				initialTableTotal: data.initialTableTotal
 			})
 	);
 
@@ -98,15 +100,19 @@
 			/>
 
 			<OhlcTable
-				history={actions.history}
-				historyLoading={actions.historyLoading}
+				rows={actions.tableRows}
+				total={actions.tableTotal}
+				page={actions.tablePage}
+				loading={actions.tableLoading}
 				{symbol}
-				selectedRange={actions.selectedRange}
+				range={actions.tableRange}
 				providerName={data.provider.name}
 				{providerIconUrl}
 				previewRows={data.hasFullAccess ? null : 10}
 				proSource="markets-providers"
 				dayPass={data.dayPass}
+				onPageChange={(p) => actions.loadTablePage(p)}
+				onRangeChange={(r) => actions.setTableRange(r)}
 			/>
 		{/if}
 	{/if}

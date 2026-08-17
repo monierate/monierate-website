@@ -18,6 +18,8 @@
 				providerCode: data.providerCode,
 				currentRate: data.currentRate,
 				initialHistory: data.initialHistory,
+				initialTableRows: data.initialTableRows,
+				initialTableTotal: data.initialTableTotal,
 				amount: data.amount
 			})
 	);
@@ -54,21 +56,26 @@
 		{/snippet}
 	</ProviderPairInsight>
 
-	<!-- Mirrors the OHLC table on /markets/providers/[code]; shares the same range
-	     selection, so switching 7d/30d/60d/90d above refreshes both. Hidden outright
-	     when the provider has neither a live quote nor any recorded history — an
-	     empty table under an empty state is just noise. -->
+	<!-- Mirrors the OHLC table on /markets/providers/[code]. Its date window and
+	     pagination are independent of the chart's 7d/30d/60d/90d range pills above
+	     — the table has its own range selector. Hidden outright when the provider
+	     has neither a live quote nor any recorded history — an empty table under
+	     an empty state is just noise. -->
 	{#if insight.history.length > 0 || insight.historyLoading}
 		<div class="mt-5">
 			<OhlcTable
-				history={insight.history}
-				historyLoading={insight.historyLoading}
+				rows={insight.tableRows}
+				total={insight.tableTotal}
+				page={insight.tablePage}
+				loading={insight.tableLoading}
 				symbol={insight.parsedPair.symbol}
-				selectedRange={insight.selectedRange}
+				range={insight.tableRange}
 				providerName={data.provider.name}
 				{providerIconUrl}
 				previewRows={data.hasFullAccess ? null : 10}
 				dayPass={data.dayPass}
+				onPageChange={(p) => insight.loadTablePage(p)}
+				onRangeChange={(r) => insight.setTableRange(r)}
 			/>
 		</div>
 	{/if}
