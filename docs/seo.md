@@ -136,13 +136,15 @@ none of this is live. With the flag off:
   collection sections,
 - `collectionsForChanger()` returns nothing, so profiles cross-link nothing.
 
-The `/exchanges` index itself still serves — it is a searchable list of every
-changer with the collection strips hidden — but its SEO is **commented out**
-rather than flag-gated: the `<Seo />` render in `+page.svelte`, the
-`buildExchangesIndexSeo()` call in `+page.server.ts`, and its `/sitemap.xml`
-entry. So the page emits no title, canonical or JSON-LD and is not submitted. It
-carries no `noindex`, so a crawler reaching it by another route can still index
-it; add one if that matters.
+The `/exchanges` index goes down with it — its load throws 404 under the same
+flag. Without the collections it is a bare list of changers, and the whole
+feature is meant to be unreachable while it is held back. Its SEO is commented
+out too (the `<Seo />` render in `+page.svelte`, the `buildExchangesIndexSeo()`
+call in `+page.server.ts`, and its `/sitemap.xml` entry), so nothing would be
+emitted even if the page were reachable.
+
+Changer profiles at `/exchanges/:code` are unaffected — all 94 still serve and
+stay in the sitemap.
 
 The config, routes, builders and components all stay in place. Flip the constant
 to `true` and uncomment those three spots to bring the layer back. Everything

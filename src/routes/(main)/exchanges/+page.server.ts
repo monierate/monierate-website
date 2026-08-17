@@ -1,5 +1,7 @@
 import type { PageServerLoad } from './$types';
+import { error } from '@sveltejs/kit';
 import { getAllChangers } from '$lib/services/changer.service';
+import { COLLECTIONS_ENABLED } from '$lib/data/exchange-collections';
 import {
 	COLLECTION_PREVIEW_COUNT,
 	getPublishedCollections,
@@ -17,6 +19,12 @@ import {
  * collection that 404s wastes crawl budget on the whole section.
  */
 export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
+	// The directory index goes down with the collection layer — without the
+	// collections it is a bare list of changers with no route into it, and it must
+	// not stay reachable while the feature is held back. Delete these two lines
+	// (or flip COLLECTIONS_ENABLED) to bring the page back.
+	if (!COLLECTIONS_ENABLED) throw error(404, 'Not found');
+
 	const [published, changers] = await Promise.all([
 		getPublishedCollections(),
 		getAllChangers(fetch, 1, 200)

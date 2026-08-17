@@ -204,9 +204,10 @@ function buildEntries(
 	   would submit dead URLs.
 
 	   The index entry is commented out while the directory layer is disabled
-	   (COLLECTIONS_ENABLED) — the page still serves, it is just not submitted.
-	   Uncomment it with the flag. The per-changer profiles below are unaffected,
-	   and collectionSlugs is empty while the flag is off. --- */
+	   (COLLECTIONS_ENABLED) — the page itself 404s under the same flag, so
+	   submitting it would submit a dead URL. Uncomment it with the flag. The
+	   per-changer profiles below are unaffected, and collectionSlugs is empty
+	   while the flag is off. --- */
 	// entries.push({ path: '/exchanges', changefreq: 'weekly', priority: 0.7, lastmod: now });
 
 	for (const slug of collectionSlugs) {
