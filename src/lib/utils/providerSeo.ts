@@ -7,8 +7,11 @@ import {
 	exchangeRateJsonLd,
 	organizationJsonLd,
 	webPageJsonLd,
+	faqPageJsonLd,
+	type FaqEntry,
 	type SeoMeta
 } from '$lib/utils/seo';
+import type { RateBasis } from '$lib/utils/currentRate';
 
 /**
  * Per-page SeoMeta builders for the public Markets pages. Each returns a value
@@ -69,24 +72,50 @@ export interface PairProviderSeoInput {
 	rate?: number;
 	/** ISO timestamp of the latest quote, for Dataset freshness. */
 	updatedAt?: string;
+	/** Whether `rate` is a live quote or the most recent sealed daily close. */
+	rateBasis?: RateBasis;
+	/** ISO date the rate is effective for — only meaningful when `rateBasis` is `'daily'`. */
+	rateAsOf?: string | null;
+	/** Questions rendered on the page; emitted as FAQPage JSON-LD. */
+	faqs?: FaqEntry[];
 }
 
 /**
  * Pair × provider page — /markets/:pair/:provider. The long-tail counterpart to
  * {@link buildProviderSeo}: one per supported pair per provider.
  *
- * The page still renders when the provider has no live quote for the pair (see
+ * The page still renders when the provider has no rate for the pair at all (see
  * the loader), so the copy and robots directive both flex on `rate`: without one
  * there is nothing to index, and promising a "live rate" in the SERP would be a
  * lie. `noindex, follow` keeps the crawler moving through to the pair hub.
+ *
+ * A daily-basis rate is still real, indexable data, so it keeps the crawler — but
+ * the description says "daily close" and dates it rather than claiming "live".
  */
 export function buildPairProviderSeo(input: PairProviderSeoInput): SeoMeta {
 	const { base, quote, providerName, pairCode, providerCode } = input;
 	const hasRate = input.rate !== undefined && input.rate > 0;
+	const isDaily = input.rateBasis === 'daily';
+	const rateText = hasRate
+		? input.rate!.toLocaleString('en-US', { maximumFractionDigits: 4 })
+		: '';
+	const asOfText = input.rateAsOf
+		? new Date(input.rateAsOf).toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+				timeZone: 'UTC'
+			})
+		: '';
 	const title = `${base} to ${quote} Rate on ${providerName} | Monierate`;
-	const description = hasRate
-		? `Live ${base} → ${quote} exchange rate on ${providerName}, with buy/sell spread and rate history. Current rate: 1 ${base} = ${input.rate!.toLocaleString('en-US', { maximumFractionDigits: 4 })} ${quote}.`
-		: `Monierate is not currently tracking a ${base} → ${quote} rate from ${providerName}. Compare live ${base}/${quote} rates from every provider we track.`;
+	let description: string;
+	if (hasRate && isDaily) {
+		description = `Daily ${base} → ${quote} exchange rate on ${providerName}, with buy/sell spread and rate history. Latest daily close${asOfText ? ` (${asOfText})` : ''}: 1 ${base} = ${rateText} ${quote}.`;
+	} else if (hasRate) {
+		description = `Live ${base} → ${quote} exchange rate on ${providerName}, with buy/sell spread and rate history. Current rate: 1 ${base} = ${rateText} ${quote}.`;
+	} else {
+		description = `Monierate is not currently tracking a ${base} → ${quote} rate from ${providerName}. Compare live ${base}/${quote} rates from every provider we track.`;
+	}
 	const path = `/markets/${pairCode}/${providerCode}`;
 	const canonical = `${SITE}${path}`;
 
@@ -115,7 +144,8 @@ export function buildPairProviderSeo(input: PairProviderSeoInput): SeoMeta {
 			breadcrumbJsonLd([
 				{ name: `${base}/${quote}`, path: `/markets/${pairCode}` },
 				{ name: providerName, path }
-			])
+			]),
+			...(input.faqs?.length ? [faqPageJsonLd(input.faqs)] : [])
 		]
 	};
 }
@@ -126,6 +156,12 @@ export interface PairOverviewSeoInput {
 	quote: string;
 	rate?: number;
 	updatedAt?: string;
+	/**
+	 * Questions rendered on the page. Emitted as FAQPage JSON-LD — pass only what
+	 * the page actually shows, since schema for invisible questions is a penalty,
+	 * not a bonus.
+	 */
+	faqs?: FaqEntry[];
 }
 
 /**
@@ -168,7 +204,8 @@ export function buildPairOverviewSeo(input: PairOverviewSeoInput): SeoMeta {
 			breadcrumbJsonLd([
 				{ name: `${base}/${quote}`, path: `/markets/${pairCode}` },
 				{ name: 'Insight', path }
-			])
+			]),
+			...(input.faqs?.length ? [faqPageJsonLd(input.faqs)] : [])
 		]
 	};
 }
@@ -204,7 +241,8 @@ export function buildPairHistorySeo(input: PairOverviewSeoInput): SeoMeta {
 				modified: input.updatedAt,
 				keywords: [base, quote, `${base}/${quote}`, 'exchange rate', 'OHLC', 'historical data']
 			}),
-			breadcrumbJsonLd([{ name: `${base}/${quote}`, path }])
+			breadcrumbJsonLd([{ name: `${base}/${quote}`, path }]),
+			...(input.faqs?.length ? [faqPageJsonLd(input.faqs)] : [])
 		]
 	};
 }

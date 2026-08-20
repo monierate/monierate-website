@@ -13,12 +13,18 @@
 		toggleSwap: () => void;
 	}
 
-	let { state, base, quote, symbol, currentRate }: {
+	let { state, base, quote, symbol, currentRate, rateNote = '' }: {
 		state: ConverterState;
 		base: string;
 		quote: string;
 		symbol: string;
 		currentRate: any;
+		/**
+		 * Qualifier appended to the rate footnote, e.g. `'daily close · Aug 18, 2026'`.
+		 * Set on providers that publish once a day, so the conversion isn't read as
+		 * a live quote. Empty for live-feed providers.
+		 */
+		rateNote?: string;
 	} = $props();
 </script>
 
@@ -121,7 +127,7 @@
 					1 {base} = {symbol}{fmt(state.activeRateValue)} {quote}
 				{/if}
 				<span class="ml-1" style="color: var(--text-muted);"
-					>({state.convertDir === 'buy' ? 'buy rate' : 'sell rate'})</span
+					>({state.convertDir === 'buy' ? 'buy rate' : 'sell rate'}{rateNote ? `, ${rateNote}` : ''})</span
 				>
 			</div>
 		{/if}

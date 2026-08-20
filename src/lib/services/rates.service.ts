@@ -9,6 +9,22 @@ export interface DailySnapshot {
 	high: number;
 	low: number;
 	availability_pct: number | null;
+	/**
+	 * Two-sided legs of the same day. The OHLC table and chart plot the single-sided
+	 * figures above; these are what let a sealed day stand in for a live buy/sell
+	 * quote on providers that never reach the live feed (see `resolveCurrentRate`).
+	 * Optional because older rows predate them.
+	 */
+	open_buy?: number;
+	open_sell?: number;
+	high_buy?: number;
+	high_sell?: number;
+	low_buy?: number;
+	low_sell?: number;
+	close_buy?: number;
+	close_sell?: number;
+	/** How the day was assembled — `'fetch'` for polled providers, `'manual'` for keyed-in ones. */
+	source?: string;
 }
 
 export interface RateHistoryResponse {
