@@ -15,12 +15,12 @@
 				rel="noopener noreferrer"
 				class="flex items-center gap-3 p-3 rounded-xl border
                border-gray-200 dark:border-gray-800
-               bg-gray-50/60 dark:bg-gray-900
+               bg-[var(--card-bg)]
                hover:shadow-sm transition"
 			>
 				<!-- LOGO -->
 				<span
-					class="h-14 w-14 flex items-center justify-center rounded-lg bg-gray-50 dark:bg-gray-800 overflow-hidden border border-gray-100 dark:border-gray-700"
+					class="h-14 w-14 flex items-center justify-center rounded-lg bg-[var(--card-bg)] overflow-hidden border border-gray-100 dark:border-gray-700"
 				>
 					<ProviderIcon icon={changer.icon} alt={changer.name} class="h-14 w-14 object-contain" />
 				</span>

@@ -156,12 +156,12 @@
 
 	{#if isOpen}
 		<div
-			class="absolute z-10 mt-2 w-full bg-gray-50 text-dark dark:bg-gray-800 dark:text-white rounded-md shadow-lg border border-gray-300 dark:border-gray-600 min-w-64 max-w-[350px]"
+			class="absolute z-10 mt-2 w-full overlay-surface text-[var(--text-primary)] rounded-md shadow-lg min-w-64 max-w-[350px]"
 		>
 			{#if options.length > 10}
 				<div class="p-4">
 					<div
-						class="flex items-center px-2 border-b border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-md"
+						class="flex items-center px-2 border-b border-[var(--card-border)] rounded-md"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +190,7 @@
 			<ul class="max-h-48 overflow-y-auto custom-scrollbar">
 				{#each filtered as option}
 					<li
-						class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+						class="flex items-center px-4 py-2 hover:bg-[var(--table-hover)] cursor-pointer"
 						on:click={() => selectOption(option)}
 					>
 						<div class="flex items-center flex-grow">

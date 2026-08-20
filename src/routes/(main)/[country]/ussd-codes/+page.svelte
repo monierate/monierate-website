@@ -233,6 +233,7 @@
 
 <style>
 	.select-form {
-		@apply bg-white dark:bg-gray-900 shadow-lg rounded-lg px-8 py-12 mx-auto;
+		@apply border rounded-lg px-8 py-12 mx-auto;
+		border-color: var(--card-border);
 	}
 </style>

@@ -4,7 +4,7 @@
 
 <!-- partner -->
 {#if hasActiveAd('bank_codes')}
-	<div class="bg-white dark:bg-gray-800">
+	<div>
 		<AdBanner name="bank_codes" />
 	</div>
 {:else}

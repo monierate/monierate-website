@@ -18,7 +18,7 @@
 					href={playStoreUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="flex flex-1 items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700/60 bg-white dark:bg-gray-800/40 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+					class="flex flex-1 items-center gap-2 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--table-hover)] transition-colors group"
 					class:px-4={stacked} class:py-3={stacked}
 					class:px-3={!stacked} class:py-2={!stacked}
 				>
@@ -39,7 +39,7 @@
 					href={appStoreUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="flex flex-1 items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700/60 bg-white dark:bg-gray-800/40 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+					class="flex flex-1 items-center gap-2 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--table-hover)] transition-colors group"
 					class:px-4={stacked} class:py-3={stacked}
 					class:px-3={!stacked} class:py-2={!stacked}
 				>

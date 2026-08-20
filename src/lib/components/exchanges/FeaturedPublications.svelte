@@ -15,7 +15,7 @@
 	<ul class="divide-y divide-gray-200 dark:divide-gray-700/60">
 		{#each posts as post}
 			<li
-				class="px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-800/40 transition first:rounded-t-xl last:rounded-b-xl"
+				class="px-6 py-4 hover:bg-[var(--table-hover)] transition first:rounded-t-xl last:rounded-b-xl"
 			>
 				<div class="flex items-start gap-4">
 					<!-- Cover / Icon -->
@@ -69,9 +69,9 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-full
-								bg-gray-100 dark:bg-gray-800
-								text-gray-700 dark:text-gray-300
-								hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+								border border-[var(--card-border)]
+								text-[var(--text-secondary)]
+								hover:bg-[var(--table-hover)] transition"
 						>
 							Read
 						</a>

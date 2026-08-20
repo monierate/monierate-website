@@ -27,7 +27,7 @@
         aria-hidden={!isOpen}
     >
         <div
-            class="bg-white dark:bg-gray-900 rounded-lg shadow-lg max-w-md w-full p-6 {contentCenter ? 'flex flex-col justify-center items-center' : ''}"
+            class="overlay-surface rounded-lg shadow-lg max-w-md w-full p-6 {contentCenter ? 'flex flex-col justify-center items-center' : ''}"
             role="dialog"
             aria-labelledby="dialog-title"
             aria-describedby="dialog-content"

@@ -13,7 +13,7 @@
 	{#if subscriptionPlans}
 		{#each subscriptionPlans as plan, i}
 			<div
-				class="bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 rounded-xl shadow-md py-6 {plan.code ===
+				class="bg-[var(--card-bg)] border border-[var(--card-border)] rounded-xl py-6 {plan.code ===
 				'free'
 					? 'md:col-span-3 md:place-self-center'
 					: ''}"

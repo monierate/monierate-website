@@ -248,7 +248,7 @@
 		{/if}
 
 		<div
-			class="overflow-x-auto no-scrollbar mt-4 border-b border-[var(--card-border)] pb-2"
+			class="overflow-x-auto no-scrollbar mt-4 border-b border-[var(--card-border)] pb-4"
 			bind:this={categoryTabContainer}
 		>
 			<div class="flex flex-nowrap gap-4 min-w-max px-1">

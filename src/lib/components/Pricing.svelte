@@ -13,10 +13,10 @@
 	{#if subscriptionPlans}
 		{#each subscriptionPlans as plan, i}
 			<div
-				class="w-full md:basis-[calc(33.333%-1.25rem)] bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 {i ===
+				class="w-full md:basis-[calc(33.333%-1.25rem)] bg-[var(--card-bg)] border border-[var(--card-border)] {i ===
 				1
 					? 'border-blue-500/50 outline outline-2 outline-blue-500/10 outline-offset-2'
-					: 'border-gray-200 dark:border-gray-700'} rounded-lg shadow-md p-6 hover:scale-105 transition-all duration-300"
+					: 'border-[var(--card-border)]'} rounded-lg p-6 hover:scale-105 transition-all duration-300"
 			>
 				<div class="">
 					<div class="mb-6">
@@ -27,7 +27,7 @@
 									? 'text-blue-500 bg-blue-800/10'
 									: i === 2
 										? 'text-green-500 bg-green-800/10'
-										: 'text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-800'} rounded-lg p-1 px-4"
+										: 'text-gray-800 dark:text-gray-200 bg-gray-800/10 dark:bg-gray-200/10'} rounded-lg p-1 px-4"
 						>
 							{plan.name}
 						</span>

@@ -80,11 +80,11 @@
 		{/if}
 
 		<div bind:this={currencyTabContainer} class="overflow-x-auto no-scrollbar scroll-smooth">
-			<div class="flex flex-nowrap gap-2 bg-gray-100 dark:bg-gray-900 rounded-md p-1 min-w-max">
+			<div class="flex flex-nowrap gap-2 border border-[var(--card-border)] rounded-md p-1 min-w-max">
 				<button
 					class={`px-3 py-1 rounded text-sm whitespace-nowrap gap-2 inline-flex items-center ${
 						selectedCurrency === 'all'
-							? 'bg-white dark:bg-gray-700 shadow font-medium'
+							? 'bg-[var(--accent)] text-white font-medium'
 							: 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'
 					}`}
 					on:click={async () => {
@@ -114,7 +114,7 @@
 					<button
 						class={`px-3 py-1 rounded text-sm whitespace-nowrap gap-2 inline-flex items-center ${
 							selectedCurrency === currency
-								? 'bg-white dark:bg-gray-700 shadow font-medium'
+								? 'bg-[var(--accent)] text-white font-medium'
 								: 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-300'
 						}`}
 						on:click={async () => {
@@ -163,7 +163,7 @@
 		<!-- Search (desktop only) -->
 		<div class="hidden md:flex items-center gap-1">
 			<div
-				class="flex relative items-center rounded-md shadow-sm bg-white dark:bg-gray-900 border dark:border-gray-700 px-3 py-2 w-full md:w-72"
+				class="flex relative items-center rounded-md bg-[var(--input-bg)] border border-[var(--input-border)] px-3 py-2 w-full md:w-72"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +190,7 @@
 				/>
 			</div>
 			<button
-				class="rounded-md shadow-sm bg-white dark:bg-gray-900 border border-none px-3 py-1.5 inline-flex items-center gap-2"
+				class="rounded-md bg-[var(--card-bg)] border border-[var(--card-border)] px-3 py-1.5 inline-flex items-center gap-2"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

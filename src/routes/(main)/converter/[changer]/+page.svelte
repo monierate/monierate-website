@@ -182,7 +182,7 @@
 	/>
 </svelte:head>
 
-<div class="bg-white dark:bg-gray-800">
+<div>
 	<AdBanner name="converter" isMobile={data.isMobile} />
 </div>
 
@@ -196,7 +196,7 @@
         </span>
     </div>
     
-    <div id="changer-rate-wrapper" class="w-[95%] md:w-[70%] bg-white dark:bg-gray-900 shadow-lg rounded-lg px-8 py-4 mx-auto">
+    <div id="changer-rate-wrapper" class="w-[95%] md:w-[70%] border border-[var(--card-border)] rounded-lg px-8 py-4 mx-auto">
         <div class="flex justify-center item-center">
             <div class="w-full">
                 <div class="block md:flex md:justify-between md:items-center">
@@ -354,13 +354,13 @@
 		<h2 class="text-2xl mb-6 text-center">Currency Infomation</h2>
 		<hr class="mb-12" />
 		<div class="block md:flex md:justify-between md:items-center">
-			<div class="shadow-lg md:w-[45%] p-8 bg-white dark:bg-gray-900">
+			<div class="border border-[var(--card-border)] rounded-lg md:w-[45%] p-8">
 				<h2 class="text-2xl">{convertFrom} - {currencyFrom.name}</h2>
 				<span class="block mt-6">
 					{currencyFrom.description}
 				</span>
 			</div>
-			<div class="shadow-lg md:w-[45%] p-8 bg-white dark:bg-gray-900">
+			<div class="border border-[var(--card-border)] rounded-lg md:w-[45%] p-8">
 				<h2 class="text-2xl">{convertTo} - {currencyTo.name}</h2>
 				<span class="block mt-6">
 					{currencyTo.description}
@@ -372,7 +372,7 @@
 	<div class="w-[95%] mx-auto md:w-[70%] mt-24 pb-8">
 		<h2 class="text-2xl mb-6 text-center">About {changer.name}</h2>
 		<hr class="mb-12" />
-		<div class="block px-8 bg-white dark:bg-gray-900 py-4 shadow-lg">
+		<div class="block px-8 py-4 border border-[var(--card-border)] rounded-lg">
 			<p class="mb-4">{changer.bio}</p>
 			<p>
 				You can convert {convertFrom} to {convertTo} and {convertTo} to {convertFrom} on {changer.name}.

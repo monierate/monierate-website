@@ -80,7 +80,7 @@
 					>
 						{#if showLabel}
 							<span
-								class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-50 dark:bg-gray-900/10 px-2 py-1 font-semibold text-xs rounded"
+								class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[var(--page-bg)] px-2 py-1 font-semibold text-xs rounded"
 								>Partner Display</span
 							>
 						{/if}

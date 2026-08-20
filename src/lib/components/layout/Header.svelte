@@ -127,13 +127,13 @@
 						</button>
 						{#if showDropdown}
 							<div
-								class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-50 overflow-hidden"
+								class="absolute right-0 mt-2 w-48 overlay-surface rounded-md shadow-lg z-50 overflow-hidden"
 								role="menu"
 								aria-labelledby="profile-menu-button"
 							>
 								<a
 									href="https://pro.monierate.com"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+									class="block px-4 py-2 text-sm text-[var(--text-primary)] hover:bg-[var(--table-hover)]"
 									role="menuitem"
 								>
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
@@ -143,7 +143,7 @@
 								</a>
 								<a
 									href="https://pro.monierate.com/logout"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+									class="block px-4 py-2 text-sm text-[var(--text-primary)] hover:bg-[var(--table-hover)]"
 									role="menuitem"
 								>
 									 Logout
