@@ -25,7 +25,15 @@ export async function GET({ url }) {
 	const data = response.data as any;
 
 	if (data?.changers) {
-		data.changers = data.changers.filter((changer: any) => changer.is_public === true);
+		const all = data.changers as any[];
+
+		data.changers = all.filter((changer: any) => changer.is_public === true);
+
+		// Codes withheld on purpose, so consumers can tell "hidden" from "not quoting
+		// this pair" and don't re-add them from another source.
+		data.hidden_changers = all
+			.filter((changer: any) => changer.is_public !== true)
+			.map((changer: any) => changer.changer_code);
 	}
 
 	return json({data});

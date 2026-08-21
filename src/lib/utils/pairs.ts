@@ -3,6 +3,31 @@ import type { Pair, HistoricalData, ProviderRate } from '$lib/types';
 import type { MarketPair, PairChanger, ChangerMeta } from '$lib/types/pairMarket';
 import type { CurrentRate } from '$lib/services/currency/v1/rates';
 
+/**
+ * A changer quote older than this is treated as no quote at all, because rendering a
+ * dead quote as a current rate is worse than showing none.
+ *
+ * The bar is deliberately loose. Live quotes refresh within the hour, but a bank that
+ * posts a desk rate can sit untouched for a week or more and still be correct — while
+ * the changer document's `pairs` map holds a snapshot frozen months back. A month
+ * clears the slow-but-real feeds and still fails closed on the frozen ones.
+ */
+export const QUOTE_MAX_AGE_DAYS = 30;
+
+/** A quote is usable only if it is active, actually priced, and recent. */
+export function isUsableQuote(
+	quote: Partial<PairChanger> | null | undefined,
+	maxAgeDays: number = QUOTE_MAX_AGE_DAYS
+): boolean {
+	if (!quote?.is_active) return false;
+	if (!(Number(quote.price_buy ?? 0) > 0 || Number(quote.price_sell ?? 0) > 0)) return false;
+
+	const updated = Date.parse(quote.updated_at ?? '');
+	if (!updated) return false;
+
+	return Date.now() - updated <= maxAgeDays * 24 * 60 * 60 * 1000;
+}
+
 export function parsePairCode(code: string): { base: string; quote: string } {
 	const lower = code.toLowerCase();
 	if (lower.includes('-')) {
@@ -17,6 +42,12 @@ export function parsePairCode(code: string): { base: string; quote: string } {
 	}
 	const mid = Math.floor(code.length / 2);
 	return { base: lower.slice(0, mid), quote: lower.slice(mid) };
+}
+
+/** Both halves must be currencies we can name, or a page has nothing to render. */
+export function isRenderablePair(pairCode: string, currencyCodes: Set<string>): boolean {
+	const { base, quote } = parsePairCode(pairCode);
+	return currencyCodes.has(base) && currencyCodes.has(quote);
 }
 
 export function toDisplayPair(mp: MarketPair): Pair {
