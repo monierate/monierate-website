@@ -3,6 +3,7 @@ import { serverApiRequest } from '$lib/api/server';
 import * as CountriesData from '$data/countries.json';
 import blogPosts from '$lib/blog/posts.json';
 import { getPublishedCollections } from '$lib/server/collections';
+import { isRenderablePair, isUsableQuote } from '$lib/utils/pairs';
 
 /**
  * Dynamic, SEO- and AI-SEO-friendly sitemap.
@@ -78,7 +79,9 @@ function countryCodeFromKey(key: string, suffix: string): string {
 	return file.replace(suffix, '');
 }
 
-async function fetchChangerCodes(): Promise<{ code: string; lastmod?: string }[]> {
+async function fetchChangerCodes(): Promise<
+	{ code: string; lastmod?: string; ownPairCodes: string[] }[]
+> {
 	try {
 		const res = await serverApiRequest<{ result?: any[]; count?: number }>(
 			'/changers/get_all_changers',
@@ -91,14 +94,19 @@ async function fetchChangerCodes(): Promise<{ code: string; lastmod?: string }[]
 			.filter((c) => c?.is_active && typeof c.code === 'string')
 			.map((c) => ({
 				code: c.code as string,
-				lastmod: c.updatedAt ? new Date(c.updatedAt).toISOString() : undefined
+				lastmod: c.updatedAt ? new Date(c.updatedAt).toISOString() : undefined,
+				ownPairCodes: Object.entries(c.pairs ?? {})
+					.filter(([, p]: [string, any]) => isUsableQuote(p))
+					.map(([code]) => code)
 			}));
 	} catch {
 		return [];
 	}
 }
 
-async function fetchPairCodes(): Promise<string[]> {
+async function fetchPairs(): Promise<{ codes: string[]; changerPairs: Map<string, string[]> }> {
+	const empty = { codes: [], changerPairs: new Map<string, string[]>() };
+
 	try {
 		const res = await serverApiRequest<{ result?: any[] }>('/pairs/get_all_pairs', {
 			params: { page: 1, limit: 200 },
@@ -106,13 +114,42 @@ async function fetchPairCodes(): Promise<string[]> {
 			retries: 1
 		});
 
-		if (!res.success || !res.data?.result) return [];
+		if (!res.success || !res.data?.result) return empty;
 
-		return res.data.result
-			.filter((p) => typeof p?.code === 'string')
-			.map((p) => p.code as string);
+		const changerPairs = new Map<string, string[]>();
+
+		for (const pair of res.data.result) {
+			for (const changer of pair?.changers ?? []) {
+				if (!changer?.is_public || !isUsableQuote(changer)) continue;
+				changerPairs.set(changer.changer_code, [
+					...(changerPairs.get(changer.changer_code) ?? []),
+					pair.code
+				]);
+			}
+		}
+
+		return {
+			codes: res.data.result.filter((p) => typeof p?.code === 'string').map((p) => p.code as string),
+			changerPairs
+		};
 	} catch {
-		return [];
+		return empty;
+	}
+}
+
+async function fetchCurrencyCodes(): Promise<Set<string>> {
+	try {
+		const res = await serverApiRequest<any[]>('/currencies/get_all_currencies', {
+			params: { page: 1, limit: 100 },
+			timeoutMs: 8000,
+			retries: 1
+		});
+
+		if (!res.success || !Array.isArray(res.data)) return new Set();
+
+		return new Set(res.data.map((c: any) => String(c?.code ?? '').toLowerCase()));
+	} catch {
+		return new Set();
 	}
 }
 
@@ -151,7 +188,7 @@ async function fetchPairProviderCombos(): Promise<PairProviderCombo[]> {
 }
 
 function buildEntries(
-	changers: { code: string; lastmod?: string }[],
+	changers: { code: string; lastmod?: string; hasRate: boolean }[],
 	pairProviderCombos: PairProviderCombo[],
 	pairCodes: string[],
 	collectionSlugs: string[]
@@ -214,13 +251,17 @@ function buildEntries(
 	}
 
 	/* --- Per-exchange landing pages (canonical, no query params) --- */
-	for (const { code, lastmod } of changers) {
-		entries.push({
-			path: `/converter/${code}`,
-			changefreq: 'daily',
-			priority: 0.7,
-			lastmod: lastmod ?? now
-		});
+	for (const { code, lastmod, hasRate } of changers) {
+		// Without a live quote the converter page renders a noindexed "no rate" state,
+		// so don't advertise it. The exchange profile still stands on its own.
+		if (hasRate) {
+			entries.push({
+				path: `/converter/${code}`,
+				changefreq: 'daily',
+				priority: 0.7,
+				lastmod: lastmod ?? now
+			});
+		}
 		entries.push({
 			path: `/exchanges/${code}`,
 			changefreq: 'weekly',
@@ -340,16 +381,27 @@ ${urls}
 }
 
 export const GET: RequestHandler = async () => {
-	const [changers, pairProviderCombos, pairCodes, collections] = await Promise.all([
+	const [changers, pairProviderCombos, pairs, currencyCodes, collections] = await Promise.all([
 		fetchChangerCodes(),
 		fetchPairProviderCombos(),
-		fetchPairCodes(),
+		fetchPairs(),
+		fetchCurrencyCodes(),
 		getPublishedCollections().catch(() => [])
 	]);
+
+	// Mirrors what /converter/:changer will actually render: a quote in either source,
+	// on a pair whose currencies we can name. A failed currency fetch fails open, so a
+	// flaky call drops coverage rather than silently deleting every converter URL.
+	const canRender = (pairCode: string) =>
+		currencyCodes.size === 0 || isRenderablePair(pairCode, currencyCodes);
+
+	const hasRate = (c: { code: string; ownPairCodes: string[] }) =>
+		[...c.ownPairCodes, ...(pairs.changerPairs.get(c.code) ?? [])].some(canRender);
+
 	const entries = buildEntries(
-		changers,
+		changers.map((c) => ({ ...c, hasRate: hasRate(c) })),
 		pairProviderCombos,
-		pairCodes,
+		pairs.codes,
 		collections.map(({ collection }) => collection.slug)
 	);
 

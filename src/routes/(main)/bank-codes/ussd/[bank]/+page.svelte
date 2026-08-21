@@ -10,14 +10,16 @@
 	const bank = data.bank;
 
 	const ussdCodes = [
-		{ option: 'Start', code: code.start },
-		{ option: 'Transfer to same bank', code: code.transfer[0] || null },
-		{ option: 'Transfer to other banks', code: code.transfer[1] || null },
-		{ option: 'Airtime self', code: code.airtime[0] || null },
-		{ option: 'Airtime others', code: code.airtime[1] || null },
+		{ option: 'Start', code: code.start || null },
+		{ option: 'Transfer to same bank', code: code.transfer?.[0] || null },
+		{ option: 'Transfer to other banks', code: code.transfer?.[1] || null },
+		{ option: 'Airtime self', code: code.airtime?.[0] || null },
+		{ option: 'Airtime others', code: code.airtime?.[1] || null },
 		{ option: 'Balance', code: code.balance || null },
 		{ option: 'BVN', code: code.bvn || null }
 	];
+
+	const otherCodes = code.others ?? [];
 
 	let copied: boolean = false;
 	const handleCopy = (text: string) => {
@@ -150,7 +152,7 @@
 					{/if}
 				{/each}
 
-				{#each code.others as item}
+				{#each otherCodes as item}
 					{#if item.code}
 						<tr>
 							<td class="px-6 py-3 text-gray-800 dark:text-gray-200">{item.text}</td>

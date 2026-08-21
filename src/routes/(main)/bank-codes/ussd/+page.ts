@@ -46,7 +46,8 @@ export async function load() {
 			}
 		);
 
-		const banksData: BankData[] = mappedBanks.filter(bankData => Object.keys(bankData.ussd).length > 0);
+		// only list banks we actually have codes for — their detail page 404s otherwise
+		const banksData: BankData[] = mappedBanks.filter((bankData) => Boolean(bankData.ussd.start));
 
 		return { banksData };
 	} catch (e) {
