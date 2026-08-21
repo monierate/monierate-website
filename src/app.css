@@ -26,12 +26,12 @@
        inputs — sits on the SAME background as the page. Structure is carried by
        borders alone. Only two things get a distinct fill: overlays that float
        above the page (--overlay-bg) and transient interaction feedback
-       (--table-hover). Emphasis within the flat plane uses --card-border-strong,
-       never a lighter/darker panel. */
+       (--table-hover), plus one faint lift for highlight cards
+       (--highlight-bg). */
     --page-bg: #fafaf9;
     --card-bg: #fafaf9;
     --card-border: #e5e7eb;
-    --card-border-strong: #d3d6db;
+    --highlight-bg: #fdfdfc;
     --overlay-bg: #ffffff;
     --text-primary: #080808;
     --text-secondary: #6b7280;
@@ -52,7 +52,7 @@
         --page-bg: #080808;
         --card-bg: #080808;
         --card-border: #222222;
-        --card-border-strong: #363636;
+        --highlight-bg: #0f0f0f;
         --overlay-bg: #161616;
         --text-primary: #f1f5f9;
         --text-secondary: #9ca3af;
@@ -181,9 +181,12 @@
         @apply rounded-2xl;
     }
 
-    /* Emphasis inside the flat plane: a stronger border, not a lighter panel. */
-    .card-strong {
-        border-color: var(--card-border-strong);
+    /* The one deliberate lift in the flat plane. Highlight cards carry a fill
+       about half the strength of the pre-flatten card (#161616 -> #0f0f0f in
+       dark, #ffffff -> #fdfdfc in light) — enough to group them as a band,
+       not enough to read as a separate panel. */
+    .card-raised {
+        background: var(--highlight-bg);
     }
 
     /* Floating surfaces (modals, dropdowns, tooltips) are the ONLY things that
