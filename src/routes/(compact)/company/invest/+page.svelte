@@ -133,7 +133,7 @@
 	</section>
 
 	<!-- CTA -->
-	<section class="bg-gray-50 dark:bg-gray-900/60 rounded-2xl p-8 md:p-10 mb-16">
+	<section class="border border-[var(--card-border)] rounded-2xl p-8 md:p-10 mb-16">
 		<div class="max-w-2xl">
 			<h2 class="text-2xl font-bold mb-3">Let's talk</h2>
 			<p class="text-gray-600 dark:text-gray-300 mb-6">

@@ -14,6 +14,7 @@
 	import Seo from '$lib/components/seo/Seo.svelte';
 	import { getIconPath } from '$lib/utils';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
 
 	let { data } = $props();
 
@@ -26,7 +27,9 @@
 				supportedPairCodes: data.supportedPairCodes,
 				providerCurrentRates: data.providerCurrentRates,
 				initialPairCode: data.initialPairCode,
-				initialHistory: data.initialHistory
+				initialHistory: data.initialHistory,
+				initialTableRows: data.initialTableRows,
+				initialTableTotal: data.initialTableTotal
 			})
 	);
 
@@ -98,15 +101,19 @@
 			/>
 
 			<OhlcTable
-				history={actions.history}
-				historyLoading={actions.historyLoading}
+				rows={actions.tableRows}
+				total={actions.tableTotal}
+				page={actions.tablePage}
+				loading={actions.tableLoading}
 				{symbol}
-				selectedRange={actions.selectedRange}
+				range={actions.tableRange}
 				providerName={data.provider.name}
 				{providerIconUrl}
-				previewRows={data.hasFullAccess ? null : 10}
+				previewRows={data.hasFullAccess ? null : FREE_HISTORY_ROWS}
 				proSource="markets-providers"
 				dayPass={data.dayPass}
+				onPageChange={(p) => actions.loadTablePage(p)}
+				onRangeChange={(r) => actions.setTableRange(r)}
 			/>
 		{/if}
 	{/if}

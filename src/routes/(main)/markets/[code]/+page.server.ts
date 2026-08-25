@@ -1,11 +1,14 @@
 import type { PageServerLoad } from './$types';
-import { createIndex } from '$lib/services';
+import { createIndex, createRates } from '$lib/services';
 import type { IndexDailyHistoryEntry } from '$lib/services/currency/v1/index';
 import type { DailySnapshot } from '$lib/services/rates.service';
 import { parsePairCode } from '$lib/utils/pairs';
 import { buildPairHistorySeo } from '$lib/utils/providerSeo';
 import { getHistoryAccess } from '$lib/server/billing';
 import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
+import { allPeriodStats } from '$lib/utils/rateStats';
+import { buildPairContent } from '$lib/utils/pairContent';
+import { CURRENCY_SYMBOLS } from '$lib/constants/currency';
 
 // `?amount=` seeds the quick converter's send field. Sanitized the same way the
 // converter's own input handler does, so a junk query can't poison the state.
@@ -36,21 +39,45 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 	const amount = parseAmountParam(url.searchParams.get('amount'));
 
 	const indexService = createIndex(fetch, url.origin);
+	const ratesService = createRates(fetch, url.origin);
 
 	const end = new Date();
 	const start = new Date(end.getTime() - 30 * 86_400_000);
+	// The stats table and the About copy summarise 7/30/90-day windows, which the
+	// chart's own 30-day fetch cannot cover. Kept as a separate request so widening
+	// it never changes what the chart draws on first paint.
+	const statsStart = new Date(end.getTime() - 90 * 86_400_000);
 	const fmtDate = (d: Date) => d.toISOString().split('T')[0];
 
 	interface DailyHistoryResponse {
-		status: string;
-		data: { entries: IndexDailyHistoryEntry[] };
+		data: { entries: IndexDailyHistoryEntry[]; total?: number; count?: number; page?: number; limit?: number };
 	}
 
-	const historyRes = await indexService
-		.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), limit: 90 })
-		.catch(() => null);
+	// Two fetches: the chart wants every daily point in the window (capped well
+	// above what a 90-day window can hold), while the table below it fetches its
+	// own page 1 so its `total` comes straight from the API's pagination envelope
+	// instead of being inferred from whatever the chart happened to load.
+	const [historyRes, tableRes, statsRes, currentRes] = await Promise.all([
+		indexService
+			.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), limit: 90 })
+			.catch(() => null),
+		indexService
+			// 20 = the OHLC table's page size (OhlcTable.svelte's `pageSize` default).
+			.getDailyHistory({ pair: pairCode, start_date: fmtDate(start), end_date: fmtDate(end), page: 1, limit: 20 })
+			.catch(() => null),
+		indexService
+			.getDailyHistory({ pair: pairCode, start_date: fmtDate(statsStart), end_date: fmtDate(end), limit: 100 })
+			.catch(() => null),
+		// Provider count for the About copy — the one figure on this page that none
+		// of the converter sites can show. Failure just drops the clause.
+		ratesService.getCurrent({ pair: pairCode }).catch(() => null)
+	]);
 	const entries: IndexDailyHistoryEntry[] = (historyRes as DailyHistoryResponse | null)?.data?.entries ?? [];
 	const initialHistory: DailySnapshot[] = entries.map((e) => toDailySnapshot(pairCode, e));
+
+	const tableData = (tableRes as DailyHistoryResponse | null)?.data;
+	const initialTableRows: DailySnapshot[] = (tableData?.entries ?? []).map((e) => toDailySnapshot(pairCode, e));
+	const initialTableTotal = tableData?.total ?? 0;
 
 	// Latest entry stands in for `latest_rates` — a single composite rate for the
 	// whole pair, not a changer's buy/sell quote (the index has no bid/ask of its
@@ -68,17 +95,37 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 
 	const { base, quote } = parsePairCode(pairCode);
 
+	const statsEntries: IndexDailyHistoryEntry[] =
+		(statsRes as DailyHistoryResponse | null)?.data?.entries ?? [];
+	const stats = allPeriodStats(statsEntries.map((e) => toDailySnapshot(pairCode, e)));
+
+	const providerCount =
+		(currentRes as { data?: { count?: number } } | null)?.data?.count ?? undefined;
+
+	const content = buildPairContent({
+		pairCode,
+		base: base.toUpperCase(),
+		quote: quote.toUpperCase(),
+		symbol: CURRENCY_SYMBOLS[quote.toLowerCase()] ?? '',
+		rate: currentRate?.rate_mid ?? 0,
+		spread: currentRate?.spread,
+		stats,
+		providerCount
+	});
+
 	const seo = buildPairHistorySeo({
 		pairCode,
 		base: base.toUpperCase(),
 		quote: quote.toUpperCase(),
 		rate: currentRate?.rate_mid,
-		updatedAt: currentRate?.timestamp
+		updatedAt: currentRate?.timestamp,
+		faqs: content.faqs
 	});
 
 	// Only worth resolving if the table will actually gate — skips the extra
-	// round trip on pairs with too little history to lock anything.
-	const { hasFullAccess, dayPass } = initialHistory.length > FREE_HISTORY_ROWS
+	// round trip on pairs with too little history to lock anything. Driven by
+	// the table's own `total`, not the chart's row count, since the two can differ.
+	const { hasFullAccess, dayPass } = initialTableTotal > FREE_HISTORY_ROWS
 		? await getHistoryAccess(cookies.get('user_token'))
 		: { hasFullAccess: false, dayPass: null };
 
@@ -86,7 +133,11 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 		pairCode,
 		currentRate,
 		initialHistory,
+		initialTableRows,
+		initialTableTotal,
 		amount,
+		stats,
+		content,
 		seo,
 		dayPass,
 		hasFullAccess

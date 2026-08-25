@@ -67,13 +67,13 @@
 
 	{#if open}
 		<ul
-			class="absolute z-10 mt-2 bg-gray-50 dark:bg-gray-800 rounded-md shadow border dark:border-gray-600"
+			class="absolute z-10 mt-2 overlay-surface rounded-md shadow"
 		>
 			{#each currencies as currency}
 				<li>
 					<button
 						type="button"
-						class="flex items-center gap-2 px-4 py-2 w-full hover:bg-gray-100 dark:hover:bg-gray-700"
+						class="flex items-center gap-2 px-4 py-2 w-full hover:bg-[var(--table-hover)]"
 						on:click={() => select(currency)}
 					>
 						<img

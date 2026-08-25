@@ -133,7 +133,7 @@
 </svelte:head>
 
 <!-- partner -->
-<div class="bg-white dark:bg-gray-800">
+<div>
 	<AdBanner name="home" bannerIndexes={data.bannerIndexes} isMobile={data.isMobile} />
 </div>
 
@@ -163,7 +163,7 @@
 	/>
 </div>
 
-<div class="container px-0 mb-4">
+<div class="container px-0 pb-0 mb-0">
 	<ExchangeFilter
 		onSearch={handleSearch}
 		selectedCurrency={base}

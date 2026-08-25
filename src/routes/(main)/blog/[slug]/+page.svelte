@@ -53,13 +53,13 @@
 
 			const container = document.createElement('div');
 			container.className =
-				'relative inline-block text-center bg-gray-50 dark:bg-gray-900/20 p-2 px-8 rounded-md';
+				'relative inline-block text-center border border-[var(--card-border)] p-2 px-8 rounded-md';
 			container.appendChild(img);
 
 			const partnerText = document.createElement('div');
 			partnerText.textContent = 'Partner Display';
 			partnerText.className =
-				'absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-50 dark:bg-gray-900/10 px-2 py-1 font-semibold text-xs rounded';
+				'absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[var(--page-bg)] px-2 py-1 font-semibold text-xs rounded';
 			container.appendChild(partnerText);
 
 			link.appendChild(container);

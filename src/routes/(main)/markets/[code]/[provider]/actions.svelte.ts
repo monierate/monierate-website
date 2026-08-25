@@ -4,8 +4,12 @@ import { parsePairCode } from '$lib/utils/pairs';
 
 export const RANGES = ['7d', '30d', '60d', '90d'] as const;
 export type Range = (typeof RANGES)[number];
+export type TableRange = Range | 'all';
 
 const DAYS_MAP: Record<Range, number> = { '7d': 7, '30d': 30, '60d': 60, '90d': 90 };
+
+/** Rows per OHLC table page. */
+export const TABLE_PAGE_SIZE = 20;
 
 export interface InsightInitData {
 	pairCode: string;
@@ -13,6 +17,10 @@ export interface InsightInitData {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	currentRate: any | null;
 	initialHistory: DailySnapshot[];
+	/** First page of the OHLC table, fetched server-side alongside initialHistory. */
+	initialTableRows?: DailySnapshot[];
+	/** True row count for the selected window, from the API's pagination envelope. */
+	initialTableTotal?: number;
 	/** Seeds the quick converter's send field; defaults to '1'. */
 	amount?: string;
 }
@@ -27,6 +35,15 @@ export class ProviderPairInsightActions {
 	history = $state<DailySnapshot[]>([]);
 	historyLoading = $state(false);
 
+	// OHLC table — paginated server-side (real `total`, one page fetched at a
+	// time) and on its own date window, fully decoupled from the chart's range
+	// pills and `history` above.
+	tableRange = $state<TableRange>('30d');
+	tableRows = $state<DailySnapshot[]>([]);
+	tableTotal = $state(0);
+	tablePage = $state(1);
+	tableLoading = $state(false);
+
 	convertSend = $state('1');
 	convertReceive = $state('');
 	lastEdited = $state<'send' | 'receive'>('send');
@@ -38,6 +55,8 @@ export class ProviderPairInsightActions {
 		this.providerCode = data.providerCode;
 		this.currentRate = data.currentRate;
 		this.history = data.initialHistory ?? [];
+		this.tableRows = data.initialTableRows ?? [];
+		this.tableTotal = data.initialTableTotal ?? 0;
 		this.convertSend = data.amount || '1';
 	}
 
@@ -140,19 +159,30 @@ export class ProviderPairInsightActions {
 		await this.loadHistory();
 	}
 
+	async setTableRange(range: TableRange) {
+		if (range === this.tableRange) return;
+		this.tableRange = range;
+		await this.loadTablePage(1);
+	}
+
+	// `'all'` omits the date bounds entirely — the table's own unrestricted
+	// history, as opposed to the chart's fixed 7d/30d/60d/90d windows.
+	private windowFor(range: TableRange): { start_date?: string; end_date?: string } {
+		if (range === 'all') return {};
+		const days = DAYS_MAP[range];
+		const end = new Date();
+		const start = new Date(end.getTime() - days * 86_400_000);
+		const fmtDate = (d: Date) => d.toISOString().split('T')[0];
+		return { start_date: fmtDate(start), end_date: fmtDate(end) };
+	}
+
 	async loadHistory() {
 		this.historyLoading = true;
 		try {
-			const days = DAYS_MAP[this.selectedRange];
-			const end = new Date();
-			const start = new Date(end.getTime() - days * 86_400_000);
-			const fmtDate = (d: Date) => d.toISOString().split('T')[0];
-
 			const res = await getRateHistory(fetch, {
 				pair: this.pairCode,
 				provider_id: this.providerCode,
-				start_date: fmtDate(start),
-				end_date: fmtDate(end),
+				...this.windowFor(this.selectedRange),
 				limit: 200
 			});
 			this.history = res?.snapshots ?? [];
@@ -160,6 +190,31 @@ export class ProviderPairInsightActions {
 			this.history = [];
 		} finally {
 			this.historyLoading = false;
+		}
+	}
+
+	// Fetches one page of the OHLC table directly from the API's own pagination
+	// (page/limit in, total/count out) instead of slicing a client-held array —
+	// `tableTotal` stays accurate even when the window holds more rows than any
+	// single page fetch would.
+	async loadTablePage(page: number) {
+		this.tableLoading = true;
+		try {
+			const res = await getRateHistory(fetch, {
+				pair: this.pairCode,
+				provider_id: this.providerCode,
+				...this.windowFor(this.tableRange),
+				page,
+				limit: TABLE_PAGE_SIZE
+			});
+			this.tableRows = res?.snapshots ?? [];
+			this.tableTotal = res?.total ?? 0;
+			this.tablePage = page;
+		} catch {
+			this.tableRows = [];
+			this.tableTotal = 0;
+		} finally {
+			this.tableLoading = false;
 		}
 	}
 }

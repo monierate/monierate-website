@@ -71,7 +71,7 @@
    <meta property="og:image" content="https://monierate.com/monierate-og-image.png">
 </svelte:head>
 
-<!-- <div class="bg-white dark:bg-gray-800">
+<!-- <div>
 	<div class="container">
 		<div class="cedar-money">
 			<a href="https://bit.ly/3MDsvBi" target="_blank">
@@ -131,7 +131,7 @@
 	</div>
 </div>
 
-<div class="bg-gray-50 dark:bg-gray-900/60 py-2 mb-16">
+<div class="py-2 mb-16">
 	<div class="container flex flex-col md:flex-row md:items-center justify-between">
 		<div class="mb-5 md:mb-0">
 			<span class="block text-xl font-bold mb-4">Not sure which plan suit your needs?</span>
@@ -151,7 +151,7 @@
 
 <FAQ {faqItems} links={faqLinks} coverPage={false} />
 
-<div class="bg-gray-50 dark:bg-gray-900/60 py-2 mt-16">
+<div class="py-2 mt-16">
 	<div class="container flex flex-col md:flex-row md:items-center justify-between">
 		<div class="mb-5 md:mb-0">
 			<span class="block text-xl font-bold mb-4">Already have a plan?</span>

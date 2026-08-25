@@ -172,7 +172,7 @@
 		</div>
 
 		<!-- Right: form -->
-		<div class="bg-gray-50 dark:bg-gray-900/60 rounded-2xl p-6 md:p-8">
+		<div class="border border-[var(--card-border)] rounded-2xl p-6 md:p-8">
 			{#if submitted}
 				<div class="text-center py-10">
 					<div class="text-4xl mb-4">🎉</div>

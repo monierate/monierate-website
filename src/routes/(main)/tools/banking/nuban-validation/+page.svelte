@@ -48,7 +48,7 @@
 </div>
 
 <main>
-    <div class="w-[100%] md:w-[400px] mx-auto dark:bg-gray-900 p-6">
+    <div class="w-[100%] md:w-[400px] mx-auto p-6">
         <div class="mb-4">
             <label for="field-account-number" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Account Number</label>
             <input type="text" id="field-account-number" name="accountNumber" required pattern="\d{10}" class="input" bind:value={accountNumber}>

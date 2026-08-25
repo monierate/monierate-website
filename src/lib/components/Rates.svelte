@@ -136,10 +136,10 @@
 </script>
 
 <div class="container p-0 w-full m-0 md:md:max-w-[1200px] md:m-auto" bind:this={content}>
-	<div class="overflow-x-auto bg-inherit dark:bg-gray-900/60">
+	<div class="overflow-x-auto bg-[var(--card-bg)]">
 		<table class="text-sm text-gray-800 min-w-full table-auto">
 			<thead
-				class="bg-gray-50 dark:bg-gray-900 text-xs text-gray-900 dark:text-gray-200 font-semibold whitespace-nowrap"
+				class="bg-[var(--table-header-bg)] text-xs text-[var(--text-muted)] font-semibold whitespace-nowrap"
 			>
 				<tr>
 					<th class="px-4 py-6 md:text-[15px] w-10 hidden md:table-cell text-left">#</th>
@@ -264,7 +264,7 @@
 	<!-- PAGINATION -->
 	{#if pagination}
 		<div
-			class="flex flex-wrap justify-center md:justify-between items-center px-4 py-3 pt-8 md:pt-10 border-t dark:border-gray-700 text-sm text-gray-600 bg-inherit dark:bg-gray-900/60"
+			class="flex flex-wrap justify-center md:justify-between items-center px-4 py-3 pt-8 md:pt-10 border-t border-[var(--card-border)] text-sm text-[var(--text-secondary)] bg-[var(--card-bg)]"
 		>
 			<!-- Count -->
 			<div class="hidden md:block">
@@ -278,7 +278,7 @@
 				<div class="flex items-center gap-1">
 					<!-- Prev -->
 					<button
-						class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-900/60 hover:bg-gray-200 border-gray-200 dark:border-gray-700 border text-[11px]"
+						class="px-3 py-1 rounded bg-[var(--table-header-bg)] hover:bg-[var(--table-hover)] border-[var(--card-border)] border text-[11px] text-[var(--text-secondary)]"
 						on:click={() => (gotoPage(Math.max(1, currentPage - 1)), scrollToContent())}
 						disabled={currentPage === 1}
 						aria-label="Previous page"
@@ -305,7 +305,7 @@
 								class={`px-3 py-1 rounded ${
 									page === currentPage
 										? 'bg-blue-600 text-white border-blue-700'
-										: 'bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 border-gray-400 dark:border-gray-700'
+										: 'bg-[var(--table-header-bg)] hover:bg-[var(--table-hover)] border-[var(--card-border)] text-[var(--text-secondary)]'
 								} border`}
 								on:click={() => (gotoPage(page), scrollToContent())}
 								aria-label="Page ${page}"
@@ -317,7 +317,7 @@
 
 					<!-- Next -->
 					<button
-						class="px-3 py-1 rounded bg-gray-100 dark:bg-gray-900/60 hover:bg-gray-200 border-gray-200 dark:border-gray-700 border text-[11px]"
+						class="px-3 py-1 rounded bg-[var(--table-header-bg)] hover:bg-[var(--table-hover)] border-[var(--card-border)] border text-[11px] text-[var(--text-secondary)]"
 						on:click={() => (gotoPage(Math.min(totalPages, currentPage + 1)), scrollToContent())}
 						disabled={currentPage === totalPages}
 						aria-label="Next page"
@@ -342,7 +342,7 @@
 			<div class="flex items-center gap-2 hidden md:block">
 				<span>Row</span>
 				<select
-					class="border rounded px-2 py-1 text-sm dark:bg-gray-900/60 border-gray-200 dark:border-gray-700 dark:text-gray-200"
+					class="border rounded px-2 py-1 text-sm bg-[var(--input-bg)] border-[var(--input-border)] text-[var(--text-primary)]"
 					bind:value={rowsPerPage}
 					on:change={() => (gotoPage(1), scrollToContent())}
 					id="rowsPerPage"

@@ -27,7 +27,7 @@
 
 {#if highlightData && highlightData.length}
 	<div
-		class="card shadow-lg p-4 {mobileOnly
+		class="card card-raised p-4 {mobileOnly
 			? 'md:hidden'
 			: ''}"
 	>

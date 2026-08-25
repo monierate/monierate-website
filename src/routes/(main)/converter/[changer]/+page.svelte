@@ -15,7 +15,7 @@
 	export let data: PageData;
 	const changer = data.changer;
 	let pair_rates: any = {};
-	let changer_rate: any = {};
+	let changer_rate: any = null;
 	let convert = data.convert;
 	let currencies = data.currencies;
 
@@ -37,6 +37,12 @@
 		to: []
 	};
 
+	const unknownCurrency = (code: string) => ({
+		code,
+		name: code.toUpperCase(),
+		description: ''
+	});
+
 	function convertNow() {
 		let from = convertFrom.toLowerCase();
 		let to = convertTo.toLowerCase();
@@ -44,11 +50,12 @@
 		const pair = data.pair as any;
 		const rateInverse: boolean = data.rateInverse;
 
-		currencyFrom = currencies.find((c: any) => c.code === from);
-		currencyTo = currencies.find((c: any) => c.code === to);
+		currencyFrom = currencies.find((c: any) => c.code === from) ?? unknownCurrency(from);
+		currencyTo = currencies.find((c: any) => c.code === to) ?? unknownCurrency(to);
 
 		convertResult.rate = 0;
 		convertResult.rateInverse = 0;
+		changer_rate = null;
 
 		if (from != to) {
 			// if pair is found
@@ -138,15 +145,15 @@
 	}
 
 	$: if (data.pair || data.rateInverse) convertNow();
+	$: rateUpdatedAt = changer_rate?.updated_at ? new Date(changer_rate.updated_at) : null;
+	$: hasRate = convertResult.rate > 0;
 
-	const changeFrom = (currency: string) => {
-		let url = new URL(window.location.href);
-		url.searchParams.set('From', currency);
-		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
-	};
-	const changeTo = (currency: string) => {
-		let url = new URL(window.location.href);
-		url.searchParams.set('To', currency);
+	// Round-trip through the URL so the server load fetches the newly chosen pair.
+	// Recomputing against the pair already in `data` would quote the previous one.
+	const changePair = (side: 'From' | 'To', currency: string) => {
+		const url = new URL(window.location.href);
+		url.searchParams.set(side, currency);
+		url.searchParams.set('Amount', String(convertAmount));
 		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
 	};
 </script>
@@ -166,6 +173,10 @@
 		content="{changer.name} exchange rate, {changer.name} {currencyFrom.name} rate, {changer.name} {currencyTo.name} rate, {changer.name} currency converter."
 	/>
 
+	{#if !hasRate}
+		<meta name="robots" content="noindex" />
+	{/if}
+
 	<!-- OG -->
 	<meta property="og:type" content="website" />
 	<meta
@@ -182,7 +193,7 @@
 	/>
 </svelte:head>
 
-<div class="bg-white dark:bg-gray-800">
+<div>
 	<AdBanner name="converter" isMobile={data.isMobile} />
 </div>
 
@@ -196,7 +207,7 @@
         </span>
     </div>
     
-    <div id="changer-rate-wrapper" class="w-[95%] md:w-[70%] bg-white dark:bg-gray-900 shadow-lg rounded-lg px-8 py-4 mx-auto">
+    <div id="changer-rate-wrapper" class="w-[95%] md:w-[70%] border border-[var(--card-border)] rounded-lg px-8 py-4 mx-auto">
         <div class="flex justify-center item-center">
             <div class="w-full">
                 <div class="block md:flex md:justify-between md:items-center">
@@ -206,7 +217,7 @@
                     </span>
                     <span class="block md:w-[30%]">
                         <label class="label" for="field-convert-from">From</label>
-                        <select id="field-convert-from" class="select" bind:value={convertFrom} on:change={convertNow}>
+                        <select id="field-convert-from" class="select" bind:value={convertFrom} on:change={() => changePair('From', convertFrom)}>
                             {#each Object.entries(currencies) as [index, currency]}
                                 <option value="{currency.code.toUpperCase()}">{currency.code.toUpperCase()} - {currency.name}</option>
                             {/each}
@@ -214,7 +225,7 @@
                     </span>
                     <span class="block md:w-[30%]">
                         <label class="label" for="field-convert-to">To</label>
-                        <select id="field-convert-to" class="select" bind:value={convertTo} on:change={convertNow}>
+                        <select id="field-convert-to" class="select" bind:value={convertTo} on:change={() => changePair('To', convertTo)}>
                             {#each Object.entries(currencies) as [index, currency]}
                                 <option value="{currency.code.toUpperCase()}">{currency.code.toUpperCase()} - {currency.name}</option>
                             {/each}
@@ -222,19 +233,33 @@
                     </span>
                 </div>
                 <div id="convert-result" class="mt-8 mb-8">
-                    <span class="block font-semibold text-lg text-gray-600 dark:text-gray-300 mb-2">
-                        {Money.format(convertAmount)} {currencyFrom.name} =
-                    </span>
-                    <span class="block font-bold text-3xl mb-2 dark:text-gray-200">
-                        {Money.format(convertResult.conversion)} {currencyTo.name}
-                    </span>
-                    <span class="block text-gray-500 dark:text-gray-400">
-                        1 {convertFrom} = {Money.format(convertResult.rate)} {convertTo}
-                    </span>
-                    <span class="block text-gray-500 dark:text-gray-400">
-                        1 {convertTo} = {Money.format(convertResult.rateInverse)} {convertFrom}
-                    </span>
+                    {#if hasRate}
+                        <span class="block font-semibold text-lg text-gray-600 dark:text-gray-300 mb-2">
+                            {Money.format(convertAmount)} {currencyFrom.name} =
+                        </span>
+                        <span class="block font-bold text-3xl mb-2 dark:text-gray-200">
+                            {Money.format(convertResult.conversion)} {currencyTo.name}
+                        </span>
+                        <span class="block text-gray-500 dark:text-gray-400">
+                            1 {convertFrom} = {Money.format(convertResult.rate)} {convertTo}
+                        </span>
+                        <span class="block text-gray-500 dark:text-gray-400">
+                            1 {convertTo} = {Money.format(convertResult.rateInverse)} {convertFrom}
+                        </span>
+                    {:else}
+                        <span class="block font-bold text-2xl mb-2 dark:text-gray-200">
+                            {changer.name} doesn't publish a {convertFrom} to {convertTo} rate
+                        </span>
+                        <span class="block text-gray-500 dark:text-gray-400">
+                            Pick another currency above, or <a
+                                class="underline"
+                                href="/converter?From={convertFrom}&To={convertTo}&Amount={convertAmount}"
+                                >compare {convertFrom} to {convertTo} across every provider</a
+                            >.
+                        </span>
+                    {/if}
                 </div>
+                {#if hasRate}
                 <div class="block md:flex md:justify-between md:items-center">
                     <span class="flex justify-between items-center bg-accent-100 md:w-[40%] border dark:border-gray-700 rounded-lg p-4 mb-8 md:mb-0">
                         <span class="inline-block mr-2">
@@ -247,10 +272,11 @@
                         </span>
                     </span>
                     <span class="block text-sm md:w-[50%] p-4">
-                        {currencyFrom.name} to {currencyTo.name} conversion on {changer.name} — Last updated {new Date(changer_rate.updated_at)}
+                        {currencyFrom.name} to {currencyTo.name} conversion on {changer.name}{#if rateUpdatedAt} — Last updated {rateUpdatedAt}{/if}
                     </span>
                 </div>
-                
+                {/if}
+
                 <span class="block mt-12 mb-4">
                     <a href="{changer.link}?utm_source=monierate&utm_medium=website&utm_campaign=monierate" class="block button w-full md:inline-block md:w-auto mr-4 mb-4 ">
                         Open {changer.name}
@@ -269,6 +295,7 @@
     </div>
 
 
+	{#if hasRate}
 	<div class="more-conversion mt-10 w-[95%] md:w-[60%] mx-auto">
 		<div class="entry">
 			<span class="header">
@@ -349,18 +376,19 @@
 			</div>
 		</div>
 	</div>
+	{/if}
 
 	<div class="w-[95%] mx-auto md:w-[70%] mt-24">
 		<h2 class="text-2xl mb-6 text-center">Currency Infomation</h2>
 		<hr class="mb-12" />
 		<div class="block md:flex md:justify-between md:items-center">
-			<div class="shadow-lg md:w-[45%] p-8 bg-white dark:bg-gray-900">
+			<div class="border border-[var(--card-border)] rounded-lg md:w-[45%] p-8">
 				<h2 class="text-2xl">{convertFrom} - {currencyFrom.name}</h2>
 				<span class="block mt-6">
 					{currencyFrom.description}
 				</span>
 			</div>
-			<div class="shadow-lg md:w-[45%] p-8 bg-white dark:bg-gray-900">
+			<div class="border border-[var(--card-border)] rounded-lg md:w-[45%] p-8">
 				<h2 class="text-2xl">{convertTo} - {currencyTo.name}</h2>
 				<span class="block mt-6">
 					{currencyTo.description}
@@ -372,19 +400,25 @@
 	<div class="w-[95%] mx-auto md:w-[70%] mt-24 pb-8">
 		<h2 class="text-2xl mb-6 text-center">About {changer.name}</h2>
 		<hr class="mb-12" />
-		<div class="block px-8 bg-white dark:bg-gray-900 py-4 shadow-lg">
+		<div class="block px-8 py-4 border border-[var(--card-border)] rounded-lg">
 			<p class="mb-4">{changer.bio}</p>
-			<p>
-				You can convert {convertFrom} to {convertTo} and {convertTo} to {convertFrom} on {changer.name}.
-				As at {new Date(changer_rate?.updatedAt ?? new Date().toDateString())},
-				<strong
-					>1 {convertFrom} is about {Money.format(convertResult.rate)}
-					{convertTo} on {changer.name} and 1 {convertTo} is about {Money.format(
-						convertResult.rateInverse
-					)}
-					{convertFrom} on {changer.name}</strong
-				>
-			</p>
+			{#if hasRate}
+				<p>
+					You can convert {convertFrom} to {convertTo} and {convertTo} to {convertFrom} on {changer.name}.
+					As at {rateUpdatedAt ?? new Date()},
+					<strong
+						>1 {convertFrom} is about {Money.format(convertResult.rate)}
+						{convertTo} on {changer.name} and 1 {convertTo} is about {Money.format(
+							convertResult.rateInverse
+						)}
+						{convertFrom} on {changer.name}</strong
+					>
+				</p>
+			{:else}
+				<p>
+					{changer.name} doesn't currently publish a {convertFrom} to {convertTo} rate on Monierate.
+				</p>
+			{/if}
 		</div>
 	</div>
 </div>

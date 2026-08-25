@@ -21,16 +21,24 @@
     --font-mono: 'JetBrains Mono', monospace;
     --font-body: 'Instrument Sans', sans-serif;
 
-    /* light theme (default) */
+    /* light theme (default)
+       Flat surface model: every in-page section — cards, tables, table headers,
+       inputs — sits on the SAME background as the page. Structure is carried by
+       borders alone. Only two things get a distinct fill: overlays that float
+       above the page (--overlay-bg) and transient interaction feedback
+       (--table-hover), plus one faint lift for highlight cards
+       (--highlight-bg). */
     --page-bg: #fafaf9;
-    --card-bg: #ffffff;
+    --card-bg: #fafaf9;
     --card-border: #e5e7eb;
+    --highlight-bg: #fdfdfc;
+    --overlay-bg: #ffffff;
     --text-primary: #080808;
     --text-secondary: #6b7280;
     --text-muted: #9ca3af;
-    --table-header-bg: #f3f3f2;
-    --table-hover: #f3f4f6;
-    --input-bg: #ffffff;
+    --table-header-bg: #fafaf9;
+    --table-hover: #f1f1ef;
+    --input-bg: #fafaf9;
     --input-border: #e5e7eb;
     --badge-positive-bg: #f0fdf4;
     --badge-negative-bg: #fef2f2;
@@ -42,14 +50,16 @@
     :root {
         --accent-light: #172554;
         --page-bg: #080808;
-        --card-bg: #161616;
+        --card-bg: #080808;
         --card-border: #222222;
+        --highlight-bg: #0f0f0f;
+        --overlay-bg: #161616;
         --text-primary: #f1f5f9;
         --text-secondary: #9ca3af;
         --text-muted: #6b7280;
-        --table-header-bg: #0f0f0f;
-        --table-hover: #161616;
-        --input-bg: #0f0f0f;
+        --table-header-bg: #080808;
+        --table-hover: #151515;
+        --input-bg: #080808;
         --input-border: #333333;
         --badge-positive-bg: #052e16;
         --badge-negative-bg: #450a0a;
@@ -163,11 +173,28 @@
         color: var(--text-secondary);
     }
 
-    /* Token-driven surfaces reused across the redesign */
+    /* Token-driven surfaces reused across the redesign.
+       .card is flat by design — same fill as the page, separated by its border. */
     .card {
         background: var(--card-bg);
         border: 1px solid var(--card-border);
         @apply rounded-2xl;
+    }
+
+    /* The one deliberate lift in the flat plane. Highlight cards carry a fill
+       about half the strength of the pre-flatten card (#161616 -> #0f0f0f in
+       dark, #ffffff -> #fdfdfc in light) — enough to group them as a band,
+       not enough to read as a separate panel. */
+    .card-raised {
+        background: var(--highlight-bg);
+    }
+
+    /* Floating surfaces (modals, dropdowns, tooltips) are the ONLY things that
+       keep a distinct fill — they sit above the page, so they need to occlude
+       whatever is behind them. */
+    .overlay-surface {
+        background: var(--overlay-bg);
+        border: 1px solid var(--card-border);
     }
 
     .btn {

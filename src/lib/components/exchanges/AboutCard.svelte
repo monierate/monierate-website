@@ -12,7 +12,7 @@
 	</h3>
 
 	<div
-		class="max-w-4xl bg-gray-50/90 dark:bg-gray-900/90 border border-gray-200 dark:border-gray-800 rounded-xl p-6"
+		class="max-w-4xl bg-[var(--card-bg)] border border-[var(--card-border)] rounded-xl p-6"
 	>
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 			<!-- LEFT -->
