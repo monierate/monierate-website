@@ -99,7 +99,7 @@
 
 				<div>
 					<span
-						class="inline-flex items-center justify-between space-x-2 border border-gray-200 dark:border-gray-700 px-2 py-2 rounded-md w-full bg-white shadow-md dark:bg-gray-900"
+						class="inline-flex items-center justify-between space-x-2 border border-[var(--card-border)] px-2 py-2 rounded-md w-full"
 					>
 						<input
 							type="text"
@@ -124,7 +124,7 @@
 
 	<div class="container">
 		<div
-			class="border rounded-md bg-white py-4 shadow-md dark:bg-gray-900 dark:text-light dark:border-none"
+			class="border border-[var(--card-border)] rounded-md py-4"
 		>
 			<div class="container">
 				<div class="overflow-x-auto text-center">
@@ -164,13 +164,13 @@
 
 	<div class="container">
 		<div
-			class="bg-white py-4 dark:bg-gray-900 dark:text-light dark:border-none"
+			class="py-4"
 		>
 			<div class="p-4">
 				<div class="flex flex-col md:flex-row md:space-x-8 justify-center items-start">
 					<!-- First List (Left) -->
 					<div
-						class="flex-grow md:basis-1/2 p-6 bg-white border rounded-md shadow-t-md mb-8 md:mb-0 dark:bg-gray-900 dark:text-light dark:border-none"
+						class="flex-grow md:basis-1/2 p-6 border border-[var(--card-border)] rounded-md mb-8 md:mb-0"
 					>
 						<div class="overflow-x-auto">
 							<table class="table-auto w-full text-sm md:text-base text-left">
@@ -238,7 +238,7 @@
 
 					<!-- Second List (Right) -->
 					<div
-						class="flex-grow md:basis-2/3 p-6 bg-white rounded-md shadow-t-md dark:bg-gray-900 dark:text-light dark:border-none px-0 md:px-16"
+						class="flex-grow md:basis-2/3 p-6 rounded-md px-0 md:px-16"
 					>
 						<h2 class="text-lg md:text-3xl font-normal mb-4">
 							{bankInfo.name.toUpperCase()} 

@@ -6,6 +6,12 @@
 	import ProviderPairSummary from '$lib/components/provider-profile/ProviderPairSummary.svelte';
 	import Seo from '$lib/components/seo/Seo.svelte';
 	import { getIconPath } from '$lib/utils';
+	import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
+	import PeriodStats from '$lib/components/pair-content/PeriodStats.svelte';
+	import AmountLadder from '$lib/components/pair-content/AmountLadder.svelte';
+	import AboutSection from '$lib/components/pair-content/AboutSection.svelte';
+	import FaqSection from '$lib/components/pair-content/FaqSection.svelte';
+	import { CURRENCY_SYMBOLS } from '$lib/constants/currency';
 
 	let { data } = $props();
 
@@ -43,6 +49,8 @@
 		currentRate={data.currentRate}
 		state={insight}
 		showBreadcrumb={false}
+		rateBasis={data.rateBasis}
+		rateAsOf={data.rateAsOf}
 	>
 		{#snippet summary()}
 			<ProviderPairSummary
@@ -52,6 +60,8 @@
 				symbol={insight.parsedPair.symbol}
 				currentRate={data.currentRate}
 				rateMonthAgo={monthAgo}
+				rateBasis={data.rateBasis}
+				rateAsOf={data.rateAsOf}
 			/>
 		{/snippet}
 	</ProviderPairInsight>
@@ -72,11 +82,43 @@
 				range={insight.tableRange}
 				providerName={data.provider.name}
 				{providerIconUrl}
-				previewRows={data.hasFullAccess ? null : 10}
+				previewRows={data.hasFullAccess ? null : FREE_HISTORY_ROWS}
 				dayPass={data.dayPass}
 				onPageChange={(p) => insight.loadTablePage(p)}
 				onRangeChange={(r) => insight.setTableRange(r)}
 			/>
 		</div>
 	{/if}
+
+	<!-- Content modules, scoped to this provider's own rate rather than the pair
+	     composite — the amounts and statistics here are what you would get here. -->
+	<div class="mt-5 flex flex-col gap-5">
+		<AmountLadder
+			base={insight.parsedPair.base}
+			quote={insight.parsedPair.quote}
+			baseSymbol={CURRENCY_SYMBOLS[insight.parsedPair.base.toLowerCase()] ?? ''}
+			quoteSymbol={insight.parsedPair.symbol}
+			rate={data.currentRate?.rate_buy || data.currentRate?.rate_mid || 0}
+			scopeLabel={data.provider.name}
+			note={data.content.disclosure}
+		/>
+
+		<PeriodStats
+			stats={data.stats}
+			base={insight.parsedPair.base}
+			quote={insight.parsedPair.quote}
+			symbol={insight.parsedPair.symbol}
+			sentence={data.content.rangeSentence}
+			scopeLabel={data.provider.name}
+			note={data.content.disclosure}
+		/>
+
+		<AboutSection
+			heading="About {data.provider.name}"
+			paragraphs={data.content.about}
+			link={data.content.aboutLink}
+		/>
+
+		<FaqSection faqs={data.content.faqs} />
+	</div>
 </div>

@@ -7,6 +7,7 @@
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import { getIconPath } from '$lib/utils';
 	import type { Snippet } from 'svelte';
+	import type { RateBasis } from '$lib/utils/currentRate';
 
 	type Range = '7d' | '30d' | '60d' | '90d';
 	const RANGES: readonly Range[] = ['7d', '30d', '60d', '90d'];
@@ -34,7 +35,16 @@
 		toggleSwap: () => void;
 	}
 
-	let { provider, currentRate, state, onClose, showBreadcrumb = true, summary }: {
+	let {
+		provider,
+		currentRate,
+		state,
+		onClose,
+		showBreadcrumb = true,
+		summary,
+		rateBasis = 'live',
+		rateAsOf = null
+	}: {
 		provider: any;
 		currentRate: any;
 		state: InsightState;
@@ -42,18 +52,37 @@
 		showBreadcrumb?: boolean;
 		/** Optional blurb rendered between the header and the stat cards. */
 		summary?: Snippet;
+		/** Whether `currentRate` is a live quote or the last sealed daily close. */
+		rateBasis?: RateBasis;
+		/** ISO date the rate is effective for — set when `rateBasis` is `'daily'`. */
+		rateAsOf?: string | null;
 	} = $props();
 
 	const providerIconUrl = $derived(provider.icon ? getIconPath(provider.icon) : null);
 	const { base, quote, symbol } = $derived(state.parsedPair);
 	const pairDisplay = $derived(`${base}/${quote}`);
 
-	// No live quote for this pair. The chart still earns its place if the provider
-	// has history (a recently-stalled feed), but the converter does not — it would
-	// silently multiply by a zero rate.
+	// No rate of any kind for this pair. The chart still earns its place if the
+	// provider has history (a long-stalled feed), but the converter does not — it
+	// would silently multiply by a zero rate.
 	const hasHistory = $derived(state.chartData.length > 0);
 	const showConverter = $derived(!!currentRate);
 	const showChartColumn = $derived(!!currentRate || hasHistory || state.historyLoading);
+
+	// Daily-cadence providers (Yellow Card, Chipper Cash…) never appear in the live
+	// quote feed, so their rate here is the most recent sealed daily close. Labelled
+	// rather than hidden: the number is real, it just isn't a tick-by-tick quote.
+	const isDaily = $derived(!!currentRate && rateBasis === 'daily');
+	const asOfLabel = $derived(
+		rateAsOf
+			? new Date(rateAsOf).toLocaleDateString('en-US', {
+					month: 'short',
+					day: 'numeric',
+					year: 'numeric',
+					timeZone: 'UTC'
+				})
+			: ''
+	);
 </script>
 
 <div class="space-y-5">
@@ -116,6 +145,26 @@
 
 	<!-- Metrics -->
 	{#if currentRate}
+		{#if isDaily}
+			<div
+				class="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl border px-3 py-2 text-[12px]"
+				style="background: var(--table-header-bg); border-color: var(--card-border); color: var(--text-secondary);"
+			>
+				<span
+					class="inline-flex items-center gap-1 font-semibold flex-shrink-0"
+					style="color: var(--text-primary);"
+				>
+					<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" />
+					</svg>
+					Daily rate
+				</span>
+				<span>
+					The {provider.name} {pairDisplay} rate is published once a day rather than continuously.
+					The figures below are the daily close{asOfLabel ? ` for ${asOfLabel}` : ''}.
+				</span>
+			</div>
+		{/if}
 		<RateStats
 			{currentRate}
 			{base}
@@ -131,9 +180,9 @@
 			style="background: var(--card-bg); border-color: var(--card-border);"
 		>
 			<EmptyState
-				title="No live {pairDisplay} rate from {provider.name}"
+				title="No recent {pairDisplay} rate from {provider.name}"
 				description={hasHistory
-					? `We aren't receiving a current quote for this pair. The history below is the last data we recorded.`
+					? `We aren't receiving current quotes for this pair, and the last daily close we recorded is too old to show as a rate. The history below is the last data we have.`
 					: `Monierate isn't currently tracking this pair from ${provider.name}.`}
 			/>
 			<div class="px-6 pb-6 flex flex-wrap justify-center gap-2">
@@ -202,7 +251,14 @@
 		{/if}
 
 		{#if showConverter}
-			<ProviderConverter {state} {base} {quote} {symbol} {currentRate} />
+			<ProviderConverter
+				{state}
+				{base}
+				{quote}
+				{symbol}
+				{currentRate}
+				rateNote={isDaily ? `daily close${asOfLabel ? ` · ${asOfLabel}` : ''}` : ''}
+			/>
 		{/if}
 	</div>
 	{/if}

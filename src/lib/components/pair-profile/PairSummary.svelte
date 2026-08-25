@@ -2,6 +2,7 @@
 	import { fmt } from '$lib/utils/format';
 	import { slide } from 'svelte/transition';
 	import currencies from '$data/currencies.json';
+	import { isDollarBase, DIGITAL_DOLLAR_NOTE, FEES_NOTE } from '$lib/constants/disclosure';
 
 	interface CurrentRate {
 		rate_mid?: number;
@@ -71,6 +72,10 @@
 					depends on your payment method, limits, trade size, and which provider you use. Use the
 					chart and the daily OHLC table below to see how the {base}/{quote} composite rate has
 					moved over time, or compare individual providers on the {baseName} to {quoteName} pair page.
+				</p>
+				<p>
+					{#if isDollarBase(base)}{DIGITAL_DOLLAR_NOTE}{/if}
+					{FEES_NOTE}
 				</p>
 				<button
 					class="cursor-pointer hover:underline"

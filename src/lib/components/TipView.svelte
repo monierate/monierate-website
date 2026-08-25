@@ -63,7 +63,7 @@
 		</svg>
 	</div>
 	<div
-		class="absolute left-0 mt-2 w-56 p-2 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 shadow-md rounded-lg border border-gray-200 dark:border-gray-700 transition-opacity duration-200 z-10"
+		class="absolute left-0 mt-2 w-56 p-2 overlay-surface text-sm text-[var(--text-secondary)] shadow-md rounded-lg transition-opacity duration-200 z-10"
 		class:hidden={!$isOpen}
 	>
 		{tip.value}

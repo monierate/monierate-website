@@ -156,7 +156,7 @@
 		<!-- Sending Rates Section -->
 		{#if sendingResult.length > 0}
 			<div
-				class="card shadow-lg overflow-hidden"
+				class="card overflow-hidden"
 			>
 				<h2
 					class="font-head text-xl font-semibold p-4"
@@ -219,7 +219,7 @@
 		<!-- Buying Rates Section -->
 		{#if buyingResult.length > 0}
 			<div
-				class="card shadow-lg overflow-hidden"
+				class="card overflow-hidden"
 			>
 				<h2
 					class="font-head text-xl font-semibold p-4"
@@ -282,7 +282,7 @@
 		<!-- Selling Rates Section -->
 		{#if sellingResult.length > 0}
 			<div
-				class="card shadow-lg overflow-hidden"
+				class="card overflow-hidden"
 			>
 				<h2
 					class="font-head text-xl font-semibold p-4"
@@ -345,7 +345,7 @@
 		<!-- Funding Rates Section -->
 		{#if fundingResult.length > 0}
 			<div
-				class="card shadow-lg overflow-hidden"
+				class="card overflow-hidden"
 			>
 				<h2
 					class="font-head text-xl font-semibold p-4"

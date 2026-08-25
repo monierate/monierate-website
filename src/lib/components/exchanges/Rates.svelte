@@ -29,7 +29,7 @@
 	>
 		<table class="text-sm text-gray-800 min-w-full table-auto">
 			<thead
-				class="bg-gray-50 dark:bg-gray-800/40 text-xs text-black dark:text-gray-400 tracking-wider"
+				class="bg-[var(--table-header-bg)] text-xs text-[var(--text-muted)] tracking-wider"
 			>
 				<tr>
 					<th class="px-6 py-4 text-left font-bold">Name</th>
@@ -40,7 +40,7 @@
 			</thead>
 			<tbody class="divide-y divide-gray-200/70 dark:divide-gray-700/40 text-nowrap">
 				{#each pairs as pair}
-					<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+					<tr class="hover:bg-[var(--table-hover)] transition-colors">
 						<!-- Currency Pair -->
 						<td class="px-6 py-4">
 							<a

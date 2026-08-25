@@ -22,7 +22,7 @@
 </script>
 
 <div
-	class="bg-white dark:bg-gray-900/40 rounded-xl shadow-sm p-4 w-full md:w-72 border border-gray-200 dark:border-gray-700"
+	class="bg-[var(--card-bg)] rounded-xl p-4 w-full md:w-72 border border-[var(--card-border)]"
 >
 	<div class="flex items-center space-x-2 mb-3">
 		<img

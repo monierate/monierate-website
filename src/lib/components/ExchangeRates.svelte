@@ -142,7 +142,7 @@
 </script>
 
 <div class="container p-0 w-full m-0 md:md:max-w-[1200px] md:m-auto" bind:this={content}>
-	<div class="overflow-x-auto rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)]">
+	<div class="overflow-x-auto border-b border-[var(--card-border)] bg-[var(--card-bg)]">
 		<table class="text-sm text-[var(--text-primary)] min-w-full table-auto">
 			<thead
 				class="bg-[var(--table-header-bg)] text-xs uppercase tracking-wide text-[var(--text-muted)] font-semibold whitespace-nowrap"
@@ -302,7 +302,7 @@
 	<!-- PAGINATION -->
 	{#if pagination}
 		<div
-			class="flex flex-wrap justify-center md:justify-between items-center px-4 py-3 pt-8 md:pt-10 mt-4 rounded-2xl border border-[var(--card-border)] text-sm text-[var(--text-secondary)] bg-[var(--card-bg)]"
+			class="flex flex-wrap justify-center md:justify-between items-center px-4 py-3 pt-8 md:pt-10 text-sm text-[var(--text-secondary)] bg-[var(--card-bg)]"
 		>
 			<!-- Count -->
 			<div class="hidden md:block">

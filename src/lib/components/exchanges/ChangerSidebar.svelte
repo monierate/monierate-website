@@ -120,7 +120,7 @@
 
 		{#if hasQuickFacts}
 			<div
-				class="rounded-xl bg-gray-50 dark:bg-gray-800/40 divide-y divide-gray-200/70 dark:divide-gray-700/40 text-sm"
+				class="rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] divide-y divide-[var(--card-border)] text-sm"
 			>
 				{#if changer.year_launched}
 					<div class="flex items-center justify-between gap-4 px-4 py-3">
@@ -158,7 +158,7 @@
 									href={license.url || undefined}
 									target={license.url ? '_blank' : undefined}
 									rel={license.url ? 'noopener noreferrer' : undefined}
-									class="inline-flex items-center gap-1 rounded-full bg-white dark:bg-gray-900 px-3 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 shadow-sm {license.url ? 'hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors' : ''}"
+									class="inline-flex items-center gap-1 rounded-full bg-[var(--card-bg)] border border-[var(--card-border)] px-3 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 shadow-sm {license.url ? 'hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors' : ''}"
 								>
 									Licensed by {license.authority}
 									{#if license.license_type}
@@ -186,7 +186,7 @@
 							href={whatsappHref(contacts.whatsapp)}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="inline-flex flex-1 min-w-[8rem] items-center justify-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700/60 bg-white dark:bg-gray-800/40 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+							class="inline-flex flex-1 min-w-[8rem] items-center justify-center gap-2 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] px-3 py-2 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--table-hover)] transition-colors"
 						>
 							<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-green-600 dark:text-green-400">
 								<path
@@ -201,7 +201,7 @@
 							href={telegramHref(contacts.telegram)}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="inline-flex flex-1 min-w-[8rem] items-center justify-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700/60 bg-white dark:bg-gray-800/40 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+							class="inline-flex flex-1 min-w-[8rem] items-center justify-center gap-2 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] px-3 py-2 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--table-hover)] transition-colors"
 						>
 							<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-blue-500">
 								<path
@@ -214,7 +214,7 @@
 					{#if contacts.phone}
 						<a
 							href={`tel:${contacts.phone}`}
-							class="inline-flex flex-1 min-w-[8rem] items-center justify-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700/60 bg-white dark:bg-gray-800/40 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+							class="inline-flex flex-1 min-w-[8rem] items-center justify-center gap-2 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] px-3 py-2 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--table-hover)] transition-colors"
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 text-gray-500 dark:text-gray-400">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />

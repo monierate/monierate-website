@@ -38,7 +38,7 @@
 	});
 </script>
 
-<div class="bg-white dark:bg-gray-800">
+<div>
 	<div class="top-landscape mb-8">
 		<AdBanner name="bank_codes" isMobile={data.isMobile} />
 	</div>
@@ -51,7 +51,7 @@
 			bind:this={leftSection}
 			class="hidden md:block md:w-1/4 relative sticky top-4 transition-all duration-300"
 		>
-			<div class="bg-white dark:bg-gray-800">
+			<div>
 				<AdBanner name="bank_codes_side" />
 			</div>
 		</div>

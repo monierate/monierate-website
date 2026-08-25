@@ -120,7 +120,7 @@
 	/>
 </div>
 
-<div class="container px-0 mb-4">
+<div class="container px-0 pb-0 mb-0">
 	<ExchangeFilter
 		onSearch={handleSearch}
 		selectedCurrency={base}

@@ -11,6 +11,7 @@
   import { activeBase } from '$lib/stores/activeBase';
   import { defaultCurrencyStore as activeQuote } from '$lib/stores/defaultCurrency';
   import { CURRENCY_SYMBOLS, defaultBaseForQuote } from '$lib/constants/currency';
+  import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
 
   let { data }: { data: PageData } = $props();
 
@@ -93,7 +94,7 @@
         symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''}
       />
 
-      <IndexOhlcTable rows={state.tableRows} symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''} proSource="markets-history" previewRows={data.hasFullAccess ? null : 10} dayPass={data.dayPass} />
+      <IndexOhlcTable rows={state.tableRows} symbol={CURRENCY_SYMBOLS[data.quote.toLowerCase()] ?? ''} proSource="markets-history" previewRows={data.hasFullAccess ? null : FREE_HISTORY_ROWS} dayPass={data.dayPass} />
     {/if}
   {:catch}
     <div

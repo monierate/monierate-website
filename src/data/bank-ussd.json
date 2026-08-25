@@ -562,5 +562,32 @@
         }
       ],
       "link": "https://sterling.ng/personal/e-channels/ussd/"
+    },
+    "unitybank": {
+      "start": "*7799#",
+      "transfer": [
+        "*7799*1*Amount*Account Number#",
+        "*7799*2*Amount*Account Number#"
+      ],
+      "airtime": [
+        "*7799*Amount#",
+        "*7799*2*Amount*Mobile Number#"
+      ],
+      "balance": "*7799*0#",
+      "bvn": "*7799*8#",
+      "others": [
+        {
+          "text": "Update BVN details",
+          "code": "*7799*8*1#"
+        },
+        {
+          "text": "Stop debit transactions",
+          "code": "*7799*911#"
+        },
+        {
+          "text": "Activate code",
+          "code": "*7799*00#"
+        }
+      ]
     }
 }
