@@ -238,8 +238,14 @@ function buildEntries(
 
 	/* --- Exchange directory: the index and every collection that clears the
 	   thin-page threshold. Combos below it 404 by design, so listing them here
-	   would submit dead URLs. --- */
-	entries.push({ path: '/exchanges', changefreq: 'weekly', priority: 0.7, lastmod: now });
+	   would submit dead URLs.
+
+	   The index entry is commented out while the directory layer is disabled
+	   (COLLECTIONS_ENABLED) — the page itself 404s under the same flag, so
+	   submitting it would submit a dead URL. Uncomment it with the flag. The
+	   per-changer profiles below are unaffected, and collectionSlugs is empty
+	   while the flag is off. --- */
+	// entries.push({ path: '/exchanges', changefreq: 'weekly', priority: 0.7, lastmod: now });
 
 	for (const slug of collectionSlugs) {
 		entries.push({

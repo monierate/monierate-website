@@ -17,6 +17,18 @@
  * backfill (MON-136) populates `address.city`, `countries` and `licenses`.
  */
 
+/**
+ * Kill switch for the whole collection layer.
+ *
+ * `false` takes `/exchanges/:collection` off the site without deleting the
+ * config: the param matcher stops claiming collection slugs (so those paths
+ * fall through to `/exchanges/[changer]` and 404), `getPublishedCollections()`
+ * resolves empty (so the sitemap lists none and the /exchanges index renders no
+ * collection sections), and profiles cross-link nothing. Flip to `true` to turn
+ * the layer back on — no other change needed.
+ */
+export const COLLECTIONS_ENABLED = false;
+
 /** Query params understood by `/changers/search_changers`. */
 export interface CollectionFacets {
 	/** Changer tags, OR'd: `otc`, `offramp`, `onramp`, `remittance`, … */
@@ -442,10 +454,12 @@ export const EXCHANGE_COLLECTIONS: ExchangeCollection[] = [
 const BY_SLUG = new Map(EXCHANGE_COLLECTIONS.map((c) => [c.slug, c]));
 
 export function getCollection(slug: string): ExchangeCollection | undefined {
+	if (!COLLECTIONS_ENABLED) return undefined;
 	return BY_SLUG.get(slug);
 }
 
 export function isCollectionSlug(slug: string): boolean {
+	if (!COLLECTIONS_ENABLED) return false;
 	return BY_SLUG.has(slug);
 }
 
@@ -469,7 +483,7 @@ export function fillCopy(
  * skipped rather than assumed — a wrong cross-link is worse than a missing one.
  */
 export function collectionsForChanger(changer: any, limit = 4): ExchangeCollection[] {
-	if (!changer) return [];
+	if (!COLLECTIONS_ENABLED || !changer) return [];
 
 	const tags: string[] = (changer.changer_tags ?? []).map((t: string) => t?.toLowerCase());
 	const categories: string[] = (changer.categories ?? [])
