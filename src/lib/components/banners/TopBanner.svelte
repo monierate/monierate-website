@@ -9,16 +9,16 @@
 	// runs twice — once on SSR, once on hydration — and the two disagree).
 	const messages = [
 		{
-			text: 'Premium currency APIs & historical rates',
-			shortText: 'Currency APIs & historical data'
+			text: 'Swap Naira to USDT in seconds',
+			shortText: 'Naira to USDT, in seconds'
 		},
 		{
-			text: 'Build with clean stablecoin FX data — 3+ years of history',
-			shortText: 'Stablecoin price & history API'
+			text: 'Fast, transparent FX — Naira to USDT and back',
+			shortText: 'Fast Naira ↔ USDT swaps'
 		},
 		{
-			text: 'Real-time rates, historical data, one API key',
-			shortText: 'Real-time & historical rates'
+			text: 'Trade Naira and USDT at rates you can see upfront',
+			shortText: 'Upfront Naira/USDT rates'
 		}
 	];
 
@@ -27,10 +27,10 @@
 
 	const sponsored_partners = [
 		{
-			image: 'https://pro.monierate.com/',
-			link: 'https://pro.monierate.com/',
-			brand: 'Monierate Pro',
-			cta: 'Get Pro'
+			image: 'https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
+			link: 'https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
+			brand: 'Textile',
+			cta: 'Start trading'
 		}
 	];
 	const selected_partner_top = {
