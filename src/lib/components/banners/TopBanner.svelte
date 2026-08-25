@@ -13,8 +13,8 @@
 			shortText: 'Naira to USDT, in seconds'
 		},
 		{
-			text: 'Fast, transparent FX — Naira to USDT and back',
-			shortText: 'Fast Naira ↔ USDT swaps'
+			text: 'Fast, transparent FX between Naira and USDT',
+			shortText: 'Fast Naira to USDT swaps'
 		},
 		{
 			text: 'Trade Naira and USDT at rates you can see upfront',
@@ -27,7 +27,6 @@
 
 	const sponsored_partners = [
 		{
-			image: 'https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
 			link: 'https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
 			brand: 'Textile',
 			cta: 'Start trading'
@@ -44,11 +43,11 @@
 <div
 	id="top-banner"
 	tabindex="-1"
-	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#026DFC] px-6 py-5 sm:px-3.5 sm:before:flex-1 whitespace-nowrap"
+	class="flex fixed top-0 mb-8 w-full z-50 gap-x-6 overflow-hidden bg-[#301E4B] bg-gradient-to-r from-[#2A1D43] via-[#3A2560] to-[#5A3391] px-6 py-5 sm:px-3.5 sm:before:flex-1 whitespace-nowrap"
 >
 	<div class="flex flex-wrap items-center gap-x-4 gap-y-2">
 		<span class="text-sm leading-6 text-gray-100">
-			<strong class="font-semibold hidden md:inline-block">{selected_partner_top.brand}</strong>
+			<strong class="font-semibold hidden md:inline-block text-[#F68BFD]">{selected_partner_top.brand}</strong>
 			<svg
 				viewBox="0 0 2 2"
 				class="mx-2 hidden md:inline h-0.5 w-0.5 fill-current"
@@ -63,7 +62,7 @@
 			>
 			<a
 				href={selected_partner_top.link}
-				class="hidden md:inline-block rounded-full bg-gray-100 px-3.5 py-1 text-sm font-semibold text-red shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-100"
+				class="hidden md:inline-block rounded-full bg-white px-3.5 py-1 text-sm font-semibold text-[#0B0E12] shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
 			>
 				{selected_partner_top.cta} <span aria-hidden="true">&rarr;</span>
 			</a>
