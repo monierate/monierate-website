@@ -231,6 +231,7 @@ function buildEntries(
 		'offramp-rates',
 		'usd-accounts-rates',
 		'virtualcard-rates',
+		'liquidity-rates',
 		'highlights'
 	]) {
 		entries.push({ path: `/${seg}`, changefreq: 'daily', priority: 0.7, lastmod: now });

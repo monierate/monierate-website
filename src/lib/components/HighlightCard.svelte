@@ -26,8 +26,9 @@
 </script>
 
 {#if highlightData && highlightData.length}
+	<!-- h-full so cards sitting side by side share a height regardless of row count. -->
 	<div
-		class="card card-raised p-4 {mobileOnly
+		class="card card-raised p-4 h-full {mobileOnly
 			? 'md:hidden'
 			: ''}"
 	>

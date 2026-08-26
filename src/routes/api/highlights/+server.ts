@@ -117,6 +117,12 @@ export const GET = async ({ url, fetch }) => {
 			.map((p: any) => [p.code, p])
 	);
 
+	const liquidityChangers = Object.fromEntries(
+		rawChangers
+			.filter((p: any) => p.changer_tags?.includes('liquidity'))
+			.map((p: any) => [p.code, p])
+	);
+
 	const safe = (rates?: PairChanger[]) => Array.isArray(rates) && rates.length;
 
 	const res = {
@@ -124,7 +130,8 @@ export const GET = async ({ url, fetch }) => {
 		sendingResult: safe(remittance) ? findSellPlatforms(changers, remittance).slice(0, max) : [],
 		buyingResult: safe(ramp) ? findBuyPlatforms(changers, ramp).slice(0, max) : [],
 		sellingResult: safe(ramp) ? findSellPlatforms(changers, ramp).slice(0, max) : [],
-		fundingResult: safe(card) ? findBuyPlatforms(virtualCardChangers, card).slice(0, max) : []
+		fundingResult: safe(card) ? findBuyPlatforms(virtualCardChangers, card).slice(0, max) : [],
+		liquidityResult: safe(all) ? findSellPlatforms(liquidityChangers, all).slice(0, max) : []
 	};
 
 	return json(res);
