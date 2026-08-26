@@ -12,6 +12,7 @@
 		sellingResult: any;
 		sendingResult: any;
 		fundingResult: any;
+		liquidityResult: any;
 	};
 	export let isMobile: boolean;
 	export let showHighlightsDefault: boolean = true;
@@ -22,6 +23,7 @@
 	$: sellingResult = highlights.sellingResult;
 	$: sendingResult = highlights.sendingResult;
 	$: fundingResult = highlights.fundingResult;
+	$: liquidityResult = highlights.liquidityResult;
 
 	// Highlighting
 	let showHighlights = isMobile ? false : showHighlightsDefault;
@@ -116,6 +118,17 @@
 				highlightData={sendingResult}
 				highlightType="sell"
 				title="🔥 Best Sending Rate"
+				base={base.symbol || base.code}
+				quote={quote.symbol || quote.code}
+			/>
+		{/if}
+
+		<!--LIQUIDITY-->
+		{#if liquidityResult}
+			<HighlightCard
+				highlightData={liquidityResult}
+				highlightType="sell"
+				title="🔥 Best Liquidity Rate"
 				base={base.symbol || base.code}
 				quote={quote.symbol || quote.code}
 			/>
