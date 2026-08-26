@@ -5,7 +5,7 @@
 	import ExchangeRateText from '$lib/components/ExchangeRateText.svelte';
 	import MainFaq from '$lib/components/MainFAQ.svelte';
 	import Highlights from '$lib/components/Highlights.svelte';
-	import Rates from '$lib/components/Rates.svelte';
+	import ExchangeRates from '$lib/components/ExchangeRates.svelte';
 	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 	import { browser } from '$app/environment';
@@ -45,9 +45,9 @@
 	$: total = rates.length;
 
 	/**
-	 * Sort logic:
-	 * - Non-zero sell prices (descending) — liquidity desks are read sell-side first
-	 * - Zero sell prices (ascending buy)
+	 * Initial order only — the table renders Buy and Sell side by side and both
+	 * headers re-sort it. Desks quoting a sell price lead (highest first), with
+	 * buy-only desks after them (lowest first).
 	 */
 	$: sortedRates = (() => {
 		if (!rates.length) return [];
@@ -155,14 +155,14 @@
 
 <main>
 	{#if filteredRates && filteredRates.length > 0}
-		<Rates
+		<ExchangeRates
 			data={{
 				rates: filteredRates,
 				providers,
 				base,
-				baseSymbol: baseSymbol,
+				baseSymbol,
 				quote,
-				quoteSymbol: quoteSymbol
+				quoteSymbol
 			}}
 			bind:currentPage={data.page}
 		/>
