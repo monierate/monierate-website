@@ -22,6 +22,7 @@
 	$: sellingResult = highlights.sellingResult;
 	$: sendingResult = highlights.sendingResult;
 	$: fundingResult = highlights.fundingResult;
+	$: liquidityResult = highlights.liquidityResult;
 
 	defaultCurrencyStore.subscribe((value) => {
 		if (!browser) return;
@@ -117,6 +118,17 @@
 				highlightData={sendingResult}
 				highlightType="sell"
 				title="🔥 Best Sending Rate"
+				base={baseSymbol}
+				quote={quoteSymbol}
+			/>
+		{/if}
+
+		<!--LIQUIDITY-->
+		{#if liquidityResult}
+			<HighlightCard
+				highlightData={liquidityResult}
+				highlightType="sell"
+				title="🔥 Best Liquidity Rate"
 				base={baseSymbol}
 				quote={quoteSymbol}
 			/>
