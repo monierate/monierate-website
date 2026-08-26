@@ -230,13 +230,11 @@
 
 			<!--FUNDING-->
 			{#if fundingResult?.length}
-				<!-- Mobile only, so it never joins the desktop row. -->
-				<div class="md:hidden">
+				<div class={CARD_CLASS}>
 					<HighlightCard
 						highlightData={fundingResult}
 						highlightType="buy"
 						title="🔥 Best Card Rate"
-						mobileOnly={true}
 						base={base.symbol || base.code}
 						quote={quote.symbol || quote.code}
 					/>
