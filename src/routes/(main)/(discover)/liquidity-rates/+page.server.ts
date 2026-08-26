@@ -8,7 +8,8 @@ import { getPair } from '$lib/services/pair.service';
 import { normalizeCurrency } from '$lib/functions';
 
 type CurrencyMap = Record<string, string>;
-type Provider = Awaited<ReturnType<typeof getAllChangers>>[number];
+// NonNullable: getAllChangers resolves to null when the upstream call fails.
+type Provider = NonNullable<Awaited<ReturnType<typeof getAllChangers>>>[number];
 
 const DEFAULT_BASE = 'USD';
 const DEFAULT_QUOTE = 'NGN';
