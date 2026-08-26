@@ -59,7 +59,8 @@
 	<div class="relative">
 		{#if showCurrencyTabLeftScrollButton}
 			<span
-				class="absolute -left-1 top-1/2 -translate-y-1/2 h-full pl-2 pr-4 bg-gradient-to-r from-white to-white/10 dark:from-gray-800 dark:to-gray-800/10 z-2"
+				class="absolute -left-1 top-1/2 -translate-y-1/2 h-full pl-2 pr-4 z-2"
+				style="background: linear-gradient(to right, var(--page-bg), color-mix(in srgb, var(--page-bg) 10%, transparent));"
 			>
 				<button
 					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
@@ -138,7 +139,8 @@
 
 		{#if showCurrencyTabRightScrollButton}
 			<span
-				class="absolute -right-1 top-1/2 -translate-y-1/2 h-full pl-4 pr-2 bg-gradient-to-l from-white to-white/10 dark:from-gray-800 dark:to-gray-800/10 z-2"
+				class="absolute -right-1 top-1/2 -translate-y-1/2 h-full pl-4 pr-2 z-2"
+				style="background: linear-gradient(to left, var(--page-bg), color-mix(in srgb, var(--page-bg) 10%, transparent));"
 			>
 				<button
 					class="relative -top-1 w-10 h-10 flex items-center justify-center border border-gray-300 dark:border-gray-700 rounded-full bg-white/80 dark:bg-gray-800/80"
