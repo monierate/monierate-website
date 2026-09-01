@@ -12,7 +12,7 @@
 		x: 'https://x.com',
 		twitter: 'https://x.com',
 		instagram: 'https://instagram.com',
-		linkedin: 'https://linkedin.com/in',
+		linkedin: 'https://linkedin.com/company',
 		facebook: 'https://facebook.com'
 	};
 
