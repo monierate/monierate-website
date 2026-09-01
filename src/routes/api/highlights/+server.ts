@@ -24,6 +24,7 @@ interface ChangerRate {
 
 const EXCLUDED = new Set(['market', 'binance', 'paypal']);
 const NEWEST = [
+	'hyperfx',
 	'textile',
 	'doux',
 	'zobo_money',
