@@ -8,7 +8,7 @@
 		instagram: (h) => `https://instagram.com/${h}`,
 		facebook: (h) => `https://facebook.com/${h}`,
 		youtube: (h) => `https://youtube.com/@${h}`,
-		linkedin: (h) => `https://linkedin.com/in/${h}`,
+		linkedin: (h) => `https://linkedin.com/company/${h}`,
 		github: (h) => `https://github.com/${h}`,
 		twitch: (h) => `https://twitch.tv/${h}`,
 		telegram: (h) => `https://t.me/${h}`
