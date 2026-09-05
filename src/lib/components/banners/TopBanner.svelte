@@ -65,6 +65,19 @@
 				via: '#0B4C8C',
 				to: '#0080FF'
 			}
+		},
+		{
+			link: '/exchanges/quickchain',
+			brand: 'QuickChain',
+			text: 'is now on Monierate',
+			shortText: 'Now on Monierate',
+			cta: 'View profile',
+			gradient: {
+				base: '#311227',
+				from: '#240E1D',
+				via: '#921745',
+				to: '#DD4E33'
+			}
 		}
 	];
 
