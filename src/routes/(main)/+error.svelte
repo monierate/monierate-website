@@ -1,14 +1,26 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+
+	$: status = $page.status;
+	$: message = $page.error?.message ?? 'Something went wrong';
+	$: errorId = ($page.error as App.Error | null)?.id;
 </script>
+
+<svelte:head>
+	<title>{status} · Monierate</title>
+	<meta name="robots" content="noindex" />
+</svelte:head>
 
 <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-center px-6 py-12">
 	<!-- Left Section (Text) -->
 	<div class="lg:w-1/2">
 		<div class="space-y-4 mb-8">
+			<p class="text-sm tracking-widest" style="color: var(--text-muted); font-family: var(--font-mono);">
+				{status}
+			</p>
 			<h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100">Whoops....</h1>
 			<h2 class="text-xl font-medium text-gray-700 dark:text-gray-300 flex items-center">
-				Something went wrong
+				{message}
 				<span class="ml-2">😎</span>
 			</h2>
 			<p class="text-gray-500 max-w-md dark:text-gray-400">
@@ -32,6 +44,12 @@
 			</svg>
 			<span>Back to home</span>
 		</a>
+
+		{#if errorId}
+			<p class="mt-7 text-sm" style="color: var(--text-muted);">
+				Reference: <code style="font-family: var(--font-mono);">{errorId}</code>
+			</p>
+		{/if}
 	</div>
 
 	<!-- Right Section (Image) -->

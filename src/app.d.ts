@@ -2,7 +2,12 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
-	// interface Error {}
+	interface Error {
+		message: string;
+		// Short id stamped by handleError; printed on the error page so a user
+		// report can be matched to a line in the Worker logs.
+		id?: string;
+	}
 	interface Locals {
 		access: {
 			token: string;
