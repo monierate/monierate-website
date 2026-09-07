@@ -221,21 +221,38 @@
 		}
 	}
 
-	defaultCurrencyStore.subscribe((defaultCurrency) => {
-		if (browser) {
-			if (defaultCurrency && defaultCurrency !== convertTo && currentView !== CurrentView.SEND) {
-				changeTo(convertTo);
-			} else if (
-				currentView === CurrentView.SEND &&
-				defaultCurrency &&
-				defaultCurrency !== convertTo
-			) {
-				changeTo(defaultCurrency.toUpperCase());
-			}
-		}
-	});
-
 	$: if (data.pair || data.rateInverse) convertNow();
+
+	// Quote currencies the header currency selector can switch between
+	const QUOTE_CURRENCIES = ['NGN', 'KES'];
+
+	// Keep the converter's quote currency in sync with the header selection /
+	// stored preference: switching to KES selects KES, switching to NGN selects
+	// NGN, on whichever side of the pair the quote currency sits.
+	$: syncQuoteCurrency($defaultCurrencyStore);
+
+	function syncQuoteCurrency(preferred: string) {
+		if (!browser || !preferred) return;
+
+		const target = preferred.toUpperCase();
+
+		if (currentView === CurrentView.SEND) {
+			if (target !== convertTo) changeTo(target);
+			return;
+		}
+
+		// Only follow the preference when a quote currency is already one side of
+		// the pair, so a deliberate pairing like USD to EUR is left alone.
+		// Update the bound value first so the <select> and rate reflect the switch,
+		// mirroring what a manual change does.
+		if (QUOTE_CURRENCIES.includes(convertTo) && convertTo !== target) {
+			convertTo = target;
+			changeTo(target);
+		} else if (QUOTE_CURRENCIES.includes(convertFrom) && convertFrom !== target) {
+			convertFrom = target;
+			changeFrom(target);
+		}
+	}
 
 	const changeFrom = (currency: string) => {
 		let url = new URL(window.location.href);
