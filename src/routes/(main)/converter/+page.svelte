@@ -31,16 +31,20 @@
 	const changers = data.changers;
 	const pair = data.pair as any;
 	let pair_rates: any = {};
-	let convert = data.convert;
 	let currencies: Currency[] = data.currencies as any;
 	let countries = data.countries;
 	let countriesToCurrencies = data.countriesToCurrencies;
 	let countryCodeByCurrency = data.countryCodeByCurrency;
 
-	let convertFrom = convert.From.toUpperCase();
-	let convertTo = convert.To.toUpperCase();
-	let convertAmount = parseFloat(`${convert.Amount}`);
-	let unit_currency = convertFrom;
+	// Follow the server load: whenever From/To change (a select change, a swap,
+	// or the header quote-currency switch re-running the load) these track it, so
+	// the labels and rate always match the pair that was actually fetched.
+	$: convert = data.convert;
+	$: convertFrom = (convert.From || 'usd').toUpperCase();
+	$: convertTo = (convert.To || 'ngn').toUpperCase();
+
+	let convertAmount = parseFloat(`${data.convert.Amount}`);
+	let unit_currency = (data.convert.From || 'usd').toUpperCase();
 	let convertResult = {
 		rate: 0,
 		rate_inverse: 0,
@@ -183,11 +187,10 @@
 	}
 
 	function swapConversionInputs() {
-		let getConvertFrom = convertFrom;
-		let getConvertTo = convertTo;
-		convertFrom = getConvertTo;
-		convertTo = getConvertFrom;
-		convertNow();
+		const url = new URL(window.location.href);
+		url.searchParams.set('From', convertTo);
+		url.searchParams.set('To', convertFrom);
+		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
 	}
 
 	function findCountryCodeByCurrency(currency: string) {
@@ -212,13 +215,6 @@
 			}
 		}
 		return null;
-	}
-
-	$: if (currentView === CurrentView.SEND) {
-		const countryCode = findCountryCodeByCurrency(convertTo);
-		if (countryCode) {
-			convertTo = countryCode.toUpperCase() || 'NG';
-		}
 	}
 
 	$: if (data.pair || data.rateInverse) convertNow();
@@ -248,14 +244,11 @@
 		}
 
 		// Only follow the preference when a quote currency is already one side of
-		// the pair, so a deliberate pairing like USD to EUR is left alone.
-		// Update the bound value first so the <select> and rate reflect the switch,
-		// mirroring what a manual change does.
+		// the pair, so a deliberate pairing like USD to EUR is left alone. The
+		// navigation updates the URL; convertTo/convertFrom then track data.convert.
 		if (QUOTE_CURRENCIES.includes(convertTo) && convertTo !== target) {
-			convertTo = target;
 			changeTo(target);
 		} else if (QUOTE_CURRENCIES.includes(convertFrom) && convertFrom !== target) {
-			convertFrom = target;
 			changeFrom(target);
 		}
 	}
@@ -445,11 +438,13 @@
 							<select
 								id="field-convert-from"
 								class="w-full p-4 select"
-								bind:value={convertFrom}
-								on:change={() => changeFrom(convertFrom)}
+								value={convertFrom}
+								on:change={(e) => changeFrom(e.currentTarget.value)}
 							>
 								{#each Object.entries(currencies) as [index, currency]}
-									<option value={currency.code.toUpperCase()}
+									<option
+										value={currency.code.toUpperCase()}
+										selected={currency.code.toUpperCase() === convertFrom}
 										>{currency.code.toUpperCase()} - {currency.name}</option
 									>
 								{/each}
@@ -506,8 +501,8 @@
 							<select
 								id="field-convert-to"
 								class="w-full p-4 select"
-								bind:value={convertTo}
-								on:change={() => changeTo(convertTo)}
+								value={convertTo}
+								on:change={(e) => changeTo(e.currentTarget.value)}
 							>
 								{#if currentView === CurrentView.SEND}
 									{#each Object.entries(countries) as [key, name]}
@@ -515,7 +510,9 @@
 									{/each}
 								{:else}
 									{#each Object.entries(currencies) as [index, currency]}
-										<option value={currency.code.toUpperCase()}
+										<option
+											value={currency.code.toUpperCase()}
+											selected={currency.code.toUpperCase() === convertTo}
 											>{currency.code.toUpperCase()} - {currency.name}</option
 										>
 									{/each}
