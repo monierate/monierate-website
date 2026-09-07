@@ -69,7 +69,10 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals, 
 };
 
 const select_top_pairs = (pairs: any[], quote: string) => {
-	const top_pairs = ['usdngn', 'usdtngn', 'btcngn', 'eurngn', 'gbpngn', 'cadngn'];
+	// A base that is also the quote has no pair of its own (e.g. keskes), so drop it.
+	const top_pairs = TICKER_BASES.filter((base) => base !== quote.toUpperCase()).map((base) =>
+		`${base}${quote}`.toLowerCase()
+	);
 
 	const priorityPairs = top_pairs.map((code) => pairs.find((p) => p.code === code)).filter(Boolean);
 
@@ -77,7 +80,7 @@ const select_top_pairs = (pairs: any[], quote: string) => {
 		.filter((p) => !priorityPairs.some((pp) => pp.code === p.code))
 		.sort((a, b) => b.price.current - a.price.current);
 
-	const selectedPairs = [...priorityPairs, ...remainingPairs].slice(0, 6);
+	const selectedPairs = [...priorityPairs, ...remainingPairs].slice(0, top_pairs.length);
 
 	const result: Record<string, any> = {};
 
@@ -101,8 +104,22 @@ const getTopPairs = async (fetch: any, quote = 'NGN') => {
 	return result ?? null;
 };
 
-const VALID_CURRENCIES = ['USD', 'EUR', 'GBP', 'CAD', 'BTC', 'USDT', 'USDC'] as const;
+const VALID_CURRENCIES = [
+	'USD',
+	'EUR',
+	'GBP',
+	'CAD',
+	'GHS',
+	'KES',
+	'ZAR',
+	'BTC',
+	'USDT',
+	'USDC'
+] as const;
 
 const SUPPORTED_QUOTE_CURRENCIES = ['NGN', 'KES'] as const;
+
+// Bases shown in the top-nav ticker, in order.
+const TICKER_BASES = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'GHS', 'KES', 'ZAR'];
 
 const ENABLE_CATEGORIES_FOR = ['NGN'];
