@@ -5,9 +5,9 @@
 	import { changeParam } from '$lib/functions';
 	import ChangerRates from '$lib/components/ChangerRates.svelte';
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import AdBanner, { hasActiveAd } from '$lib/components/banners/AdBanner.svelte';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
-	import { browser } from '$app/environment';
 
 	interface Currency {
 		code: string;
@@ -226,14 +226,20 @@
 	// Quote currencies the header currency selector can switch between
 	const QUOTE_CURRENCIES = ['NGN', 'KES'];
 
-	// Keep the converter's quote currency in sync with the header selection /
-	// stored preference: switching to KES selects KES, switching to NGN selects
-	// NGN, on whichever side of the pair the quote currency sits.
-	$: syncQuoteCurrency($defaultCurrencyStore);
+	// When the quote currency is switched in the header while the user is on this
+	// page, move the converter's quote side to match (KES -> KES, NGN -> NGN).
+	// A plain store subscription is used rather than a reactive block so this only
+	// fires on an actual header change, never on manual edits to the selects.
+	onMount(() => {
+		let previous = $defaultCurrencyStore;
+		return defaultCurrencyStore.subscribe((preferred) => {
+			if (!preferred || preferred === previous) return;
+			previous = preferred;
+			syncQuoteCurrency(preferred);
+		});
+	});
 
 	function syncQuoteCurrency(preferred: string) {
-		if (!browser || !preferred) return;
-
 		const target = preferred.toUpperCase();
 
 		if (currentView === CurrentView.SEND) {
