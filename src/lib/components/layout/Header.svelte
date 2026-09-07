@@ -2,6 +2,7 @@
 	import CurrencySelector from '$lib/components/CurrencySelector.svelte';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 	import { page, navigating } from '$app/stores';
+	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { login_uri } from '$lib/functions';
@@ -10,10 +11,22 @@
 	export let defaultCurrency: string;
 	export let auth: { isLoggedIn: boolean; user: any } | null = null;
 
+	// Switching the quote currency writes the cookie via the store; re-run the
+	// loads that key off it (`depends('params:quote')`) so the market ticker and
+	// top-pair lists refresh without a full page reload.
+	function selectCurrency(currency: string) {
+		defaultCurrencyStore.set(currency);
+		invalidate('params:quote');
+	}
+
 	// get the current page path
 	$: paths = $page.url.pathname.split('/');
 	$: paths.shift();
 	$: path = paths[0] ?? 'home';
+
+	// CBN and Black Market rates are Nigeria-only; hide them when the
+	// location/quote currency is not NGN
+	$: isNigeria = (defaultCurrency ?? 'NGN').toUpperCase() === 'NGN';
 
 	// hide sticky navbar menu on page change
 	$: if ($navigating) {
@@ -155,7 +168,7 @@
 
 				<span class="hidden md:inline-block">
 					<CurrencySelector
-						onSelect={(currency: any) => defaultCurrencyStore.set(currency)}
+						onSelect={(currency: any) => selectCurrency(currency)}
 						bind:selected={defaultCurrency}
 					/>
 				</span>
@@ -229,19 +242,21 @@
 							>Converter</a
 						>
 					</li>
-					<li>
-						<a
-							href="/fx/parallel"
-							class={$page.url.pathname.startsWith('/fx/parallel') ? 'active' : ''}
-							>Black Market</a
-						>
-					</li>
-					<li>
-						<a
-							href="/fx/official"
-							class={$page.url.pathname.startsWith('/fx/official') ? 'active' : ''}>CBN</a
-						>
-					</li>
+					{#if isNigeria}
+						<li>
+							<a
+								href="/fx/parallel"
+								class={$page.url.pathname.startsWith('/fx/parallel') ? 'active' : ''}
+								>Black Market</a
+							>
+						</li>
+						<li>
+							<a
+								href="/fx/official"
+								class={$page.url.pathname.startsWith('/fx/official') ? 'active' : ''}>CBN</a
+							>
+						</li>
+					{/if}
 					<li>
 						<a data-sveltekit-reload href="/blog" class={path == 'blog' ? 'active' : ''}>Blog</a>
 					</li>
