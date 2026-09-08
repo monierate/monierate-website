@@ -11,9 +11,9 @@ import { isRenderablePair, isUsableQuote } from '$lib/utils/pairs';
  * Design goals:
  *  - Only canonical, indexable URLs (no query parameters, no duplicates).
  *  - Accurate <lastmod> where we know it (blog posts, rate pages).
- *  - Deliberately EXCLUDES rate-comparison pages ("/compare", "/buy|sell|send|card")
- *    and price-alert pages ("/alerts*"), which are interactive/thin and not meant
- *    for organic discovery.
+ *  - Only routes that still exist. The rate-comparison ("/compare", "/buy|sell|
+ *    send|card") and price-alert ("/alerts*") features were removed, so there is
+ *    nothing left to exclude here.
  *
  * Served as a Cloudflare worker route so <lastmod> is always current.
  */
@@ -22,8 +22,8 @@ const SITE = 'https://monierate.com';
 
 /**
  * Held back on request: the provider profile, spread, and history pages stay out
- * of the sitemap until their public clones ship, so only /markets/:pair,
- * /markets/:pair/insight, and /markets/:pair/:provider are submitted. Flip to
+ * of the sitemap until their public clones ship, so only /markets/:pair and
+ * /markets/:pair/:provider are submitted. Flip to
  * true to include them — the pages themselves are indexable either way (no
  * noindex tag).
  */
@@ -104,8 +104,12 @@ async function fetchChangerCodes(): Promise<
 	}
 }
 
-async function fetchPairs(): Promise<{ codes: string[]; changerPairs: Map<string, string[]> }> {
-	const empty = { codes: [], changerPairs: new Map<string, string[]>() };
+async function fetchPairs(): Promise<{
+	codes: string[];
+	indexedCodes: Set<string>;
+	changerPairs: Map<string, string[]>;
+}> {
+	const empty = { codes: [], indexedCodes: new Set<string>(), changerPairs: new Map<string, string[]>() };
 
 	try {
 		const res = await serverApiRequest<{ result?: any[] }>('/pairs/get_all_pairs', {
@@ -117,8 +121,16 @@ async function fetchPairs(): Promise<{ codes: string[]; changerPairs: Map<string
 		if (!res.success || !res.data?.result) return empty;
 
 		const changerPairs = new Map<string, string[]>();
+		const indexedCodes = new Set<string>();
 
 		for (const pair of res.data.result) {
+			// A pair only carries a composite index when contributors feed it. Without
+			// them there is no history to chart, which is half of what decides whether
+			// the pair page has anything worth listing.
+			if (typeof pair?.code === 'string' && pair.index_contributors?.length) {
+				indexedCodes.add(pair.code);
+			}
+
 			for (const changer of pair?.changers ?? []) {
 				if (!changer?.is_public || !isUsableQuote(changer)) continue;
 				changerPairs.set(changer.changer_code, [
@@ -130,6 +142,7 @@ async function fetchPairs(): Promise<{ codes: string[]; changerPairs: Map<string
 
 		return {
 			codes: res.data.result.filter((p) => typeof p?.code === 'string').map((p) => p.code as string),
+			indexedCodes,
 			changerPairs
 		};
 	} catch {
@@ -191,6 +204,7 @@ function buildEntries(
 	changers: { code: string; lastmod?: string; hasRate: boolean }[],
 	pairProviderCombos: PairProviderCombo[],
 	pairCodes: string[],
+	indexedPairCodes: Set<string>,
 	collectionSlugs: string[]
 ): Entry[] {
 	const now = new Date().toISOString();
@@ -278,18 +292,24 @@ function buildEntries(
 		}
 	}
 
-	/* --- Per-pair OHLC hub pages (one per supported pair) --- */
+	/* --- Per-pair OHLC hub pages --- */
+	/* A pair with neither an index nor a live quote still returns 200, but renders a
+	   "no composite rate" empty state — a soft 404, which search engines treat worse
+	   than a hard one. Advertise only the pairs that have something to show. Both
+	   sources failing leaves the set empty, so a flaky upstream drops coverage for an
+	   hour rather than silently deleting every pair URL from the sitemap. */
+	const pairsWorthListing = new Set([
+		...indexedPairCodes,
+		...pairProviderCombos.map((c) => c.pair)
+	]);
+
 	for (const code of pairCodes) {
+		if (pairsWorthListing.size > 0 && !pairsWorthListing.has(code)) continue;
+
 		entries.push({
 			path: `/markets/${code}`,
 			changefreq: 'hourly',
 			priority: 0.65,
-			lastmod: now
-		});
-		entries.push({
-			path: `/markets/${code}/insight`,
-			changefreq: 'hourly',
-			priority: 0.6,
 			lastmod: now
 		});
 	}
@@ -402,6 +422,7 @@ export const GET: RequestHandler = async () => {
 		changers.map((c) => ({ ...c, hasRate: hasRate(c) })),
 		pairProviderCombos,
 		pairs.codes,
+		pairs.indexedCodes,
 		collections.map(({ collection }) => collection.slug)
 	);
 

@@ -225,7 +225,7 @@ export function buildFaqs(input: PairContentInput): FaqEntry[] {
 			question: `Is ${provider.name} the best place to change ${base} to ${quote}?`,
 			answer:
 				`Not necessarily. Providers set their own prices and margins, so the best rate changes from ` +
-				`day to day. Monierate's ${base}/${quote} insight page compares every provider we track ` +
+				`day to day. Monierate's ${base}/${quote} market page compares every provider we track ` +
 				`side by side, with buy and sell rates and the spread between them.`
 		});
 
@@ -276,8 +276,8 @@ export function buildFaqs(input: PairContentInput): FaqEntry[] {
 	faqs.push({
 		question: `Where can I get the best ${base} to ${quote} rate?`,
 		answer:
-			`It changes from day to day, which is the reason to compare rather than assume. Monierate's ` +
-			`${base}/${quote} insight page breaks the pair down by provider, with each one's buy and sell ` +
+			`It changes from day to day, which is the reason to compare rather than assume. This page ` +
+			`breaks ${base}/${quote} down by provider, with each one's buy and sell ` +
 			`rate and the spread between them, so you can see who is actually cheapest right now.`
 	});
 
@@ -300,9 +300,11 @@ export function buildPairContent(input: PairContentInput): PairContent {
 		about: buildAbout(input),
 		faqs: buildFaqs(input),
 		rangeSentence: rangeSentence(input, 30),
+		// Points up at the pair page, so it is only meaningful to pages below it (the
+		// provider view). The pair page itself omits the prop rather than self-link.
 		aboutLink: {
-			href: `/markets/${input.pairCode}/insight`,
-			label: `Compare every provider quoting ${input.base}/${input.quote}`
+			href: `/markets/${input.pairCode}`,
+			label: `See the full ${input.base}/${input.quote} rate history`
 		},
 		disclosure: shortDisclosure(input.base)
 	};

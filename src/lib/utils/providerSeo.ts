@@ -165,56 +165,10 @@ export interface PairOverviewSeoInput {
 }
 
 /**
- * Pair insight page — /markets/:pair/insight. One per supported pair (usdtngn,
- * usdngn…). The metrics/highlights/provider-breakdown deep dive; the bare
- * /markets/:pair hub above it is the OHLC history page (see
- * {@link buildPairHistorySeo}).
- */
-export function buildPairOverviewSeo(input: PairOverviewSeoInput): SeoMeta {
-	const { base, quote, pairCode } = input;
-	const title = `${base}/${quote} Market Insight, Metrics & Providers | Monierate`;
-	const rateLine =
-		input.rate !== undefined
-			? ` Current index rate: 1 ${base} = ${input.rate.toLocaleString('en-US', { maximumFractionDigits: 4 })} ${quote}.`
-			: '';
-	const description = `Live ${base} to ${quote} composite rate, history chart, and every provider quoting this pair, compared side by side on Monierate.${rateLine}`;
-	const path = `/markets/${pairCode}/insight`;
-	const canonical = `${SITE}${path}`;
-
-	return {
-		title,
-		description,
-		canonical,
-		ogImage: DEFAULT_OG_IMAGE,
-		jsonLd: [
-			webPageJsonLd({
-				name: title,
-				description,
-				url: canonical,
-				about: `${base} to ${quote} exchange rate`
-			}),
-			...(input.rate !== undefined ? [exchangeRateJsonLd({ base, quote, rate: input.rate })] : []),
-			datasetJsonLd({
-				name: `${base}/${quote} composite exchange rate index`,
-				description: `Monierate's composite ${base}/${quote} rate, averaged across contributing providers, with history and per-provider breakdown.`,
-				url: canonical,
-				modified: input.updatedAt,
-				keywords: [base, quote, `${base}/${quote}`, 'exchange rate', 'index']
-			}),
-			breadcrumbJsonLd([
-				{ name: `${base}/${quote}`, path: `/markets/${pairCode}` },
-				{ name: 'Insight', path }
-			]),
-			...(input.faqs?.length ? [faqPageJsonLd(input.faqs)] : [])
-		]
-	};
-}
-
-/**
  * Pair OHLC hub — /markets/:pair. One per supported pair (usdtngn, usdngn…).
- * The canonical landing URL for a pair: daily open/high/low/close history for
- * the composite index. The richer metrics/highlights/provider breakdown lives
- * one level down, at /markets/:pair/insight (see {@link buildPairOverviewSeo}).
+ * The canonical — and only — landing URL for a pair: daily open/high/low/close
+ * history for the composite index. The /insight deep dive that used to sit one
+ * level below this now redirects here.
  */
 export function buildPairHistorySeo(input: PairOverviewSeoInput): SeoMeta {
 	const { base, quote, pairCode } = input;

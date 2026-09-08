@@ -95,7 +95,6 @@
 		<AboutSection
 			heading="About {insight.parsedPair.base}/{insight.parsedPair.quote}"
 			paragraphs={data.content.about}
-			link={data.content.aboutLink}
 		/>
 
 		<FaqSection faqs={data.content.faqs} />
