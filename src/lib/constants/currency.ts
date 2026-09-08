@@ -42,4 +42,33 @@ export const CURRENCY_SYMBOLS: Record<string, string> = {
 	usde: '$',
 	cad: 'C$',
 	aud: 'A$',
+
+	// Added for the global converter: without a symbol the conversion table renders
+	// bare numbers, which reads as unitless rather than as yen. Only currencies with
+	// a symbol in genuinely common use — the rest correctly fall back to their code,
+	// which is what `moneyWithUnit` expects. `CN¥` rather than `¥` so the yuan and
+	// the yen cannot be mistaken for each other on a CNY/JPY page.
+	jpy: '¥',
+	cny: 'CN¥',
+	inr: '₹',
+	krw: '₩',
+	brl: 'R$',
+	php: '₱',
+	thb: '฿',
+	vnd: '₫',
+	try: '₺',
+	rub: '₽',
+	ils: '₪',
+	pln: 'zł',
+	nzd: 'NZ$',
+	hkd: 'HK$',
+	mxn: 'Mex$',
+	ars: 'ARS$',
+	clp: 'CLP$',
+	cop: 'COP$',
+	twd: 'NT$',
+	pkr: '₨',
+	lkr: '₨',
+	bdt: '৳',
+	egp: 'E£',
 };

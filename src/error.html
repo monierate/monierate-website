@@ -158,6 +158,14 @@
     display: inline-block;
   }
 
+  .status{
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .8125rem;
+    letter-spacing: .08em;
+    color: var(--muted);
+    margin: 0;
+  }
+
   .illustration{
     max-width: 24rem;
     width: 100%;
@@ -171,9 +179,10 @@
       <!-- Left Section (Text) -->
       <div class="col">
         <div class="stack mb-8">
+          <p class="status">%sveltekit.status%</p>
           <h1>Whoops....</h1>
           <h2>
-            Something went wrong
+            %sveltekit.error.message%
             <span class="ml-2">😎</span>
           </h2>
           <p>
