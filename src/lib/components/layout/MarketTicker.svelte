@@ -13,9 +13,11 @@
 		}
 	>;
 
-	// Pixels per second the strip travels. A pair is ~240px wide, so at this speed one
-	// takes ~3s to pass — readable, while still looping the whole list in well under a minute.
-	const SPEED = 80;
+	// Pixels per second the strip travels. A narrow screen fits about one pair at a time,
+	// so the same speed reads as much faster there — ease off when the strip is cramped.
+	const SPEED_NARROW = 55;
+	const SPEED_WIDE = 80;
+	const WIDE_FROM = 700;
 
 	let viewport: HTMLDivElement;
 	let copies: HTMLDivElement[] = [];
@@ -24,12 +26,12 @@
 	// Width of one full pass, in px. 0 keeps the strip static: the list already fits,
 	// the user asked for less motion, or we haven't measured yet (SSR / first paint).
 	let shift = 0;
+	let duration = 0;
 
 	$: pairs = Object.entries(top_pairs ?? {});
 	$: isSliding = shift > 0;
 	// A second copy trailing the first is what makes the loop seamless.
 	$: passes = isSliding ? [false, true] : [false];
-	$: duration = shift / SPEED;
 
 	const measure = () => {
 		if (!viewport || !copies[0]) return;
@@ -38,6 +40,7 @@
 
 		// Nothing to slide past if the whole list is already on screen.
 		shift = !prefersReducedMotion && width > viewport.clientWidth ? width : 0;
+		duration = shift / (viewport.clientWidth >= WIDE_FROM ? SPEED_WIDE : SPEED_NARROW);
 	};
 
 	onMount(() => {
