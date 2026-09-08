@@ -51,7 +51,10 @@ export const load: PageLoad = async ({ params }) => {
 			if (banks[bank]) {
 				const swiftCodesData = swiftCodes[bank].swift;
 
-				if(swiftCodesData) {
+				// Length, not truthiness: a bank with no SWIFT code on file carries an
+				// empty array, which is truthy, and parsing swiftCodesData[0] off it threw
+				// — taking the whole country listing down with a 404.
+				if (swiftCodesData?.length) {
 					result[bank] = {
 						id: bank,
 						...banks[bank],
@@ -64,7 +67,7 @@ export const load: PageLoad = async ({ params }) => {
 			} else {
 				// If a bank is present only in SwiftCodes dataset, handle gracefully
 				const swiftCodesData = swiftCodes[bank].swift;
-				if(swiftCodesData) {
+				if (swiftCodesData?.length) {
 					result[bank] = {
 						id: bank,
 						name: 'Unknown Bank',
