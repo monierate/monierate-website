@@ -32,18 +32,6 @@
 		"disabled": true,
 		"_v": 1
 	},
-	"compare": {
-		"name": "",
-		"url": "https://bitmonie.co/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/bitmonie_landscape.avif",
-		"formats": ["avif", "gif"],
-		"label": "Bitmonie",
-		"mobileWidth": "100%",
-		"mobileHeight": "50px",
-		"mobile_only": false,
-		"disabled": true,
-		"_v": 1
-	},
 	"converter": {
 		"name": "",
 		"url": "https://bitmonie.co/?ref=monierate&utm_source=monierate&utm_medium=referral",

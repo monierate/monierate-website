@@ -121,7 +121,7 @@
 	<meta
 		property="og:description"
 		content="Transfer {currencies[base] || base} to {currencies[quote] ||
-			quote} with transparent, real-time rates. Compare providers, monitor fees, and get alerts to maximize value on every transfer."
+			quote} with transparent, real-time rates. Compare providers, monitor fees, and find the best payout on every transfer."
 	/>
 	<meta property="og:url" content="https://monierate.com" />
 	<meta
