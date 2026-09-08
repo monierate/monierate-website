@@ -1,77 +1,89 @@
-import { array_to_key_object } from '$lib/helper';
 import type { PageServerLoad } from './$types';
-import { error } from '@sveltejs/kit';
-import Countries from '$data/countries.json';
-import CountriesToCurrencies from '$data/countries-to-currencies.json';
-import CountryCodeByCurrency from '$data/countryCodeByCurrency.json';
-import { getPair, getPairChangers, ChangerServiceCategory } from '$lib/services/pair.service';
-import { getAllChangers } from '$lib/services/changer.service';
+import { redirect } from '@sveltejs/kit';
 import { getCurrencies } from '$lib/services/currency.service';
+import { getPair } from '$lib/services/pair.service';
+import {
+	getRateSnapshot,
+	resolveConversion,
+	getPriceableCodes,
+	pairFallbackRate
+} from '$lib/services/globalRate.service';
+import { conversionPath, MAX_AMOUNT } from '$lib/utils/conversionSlug';
+import { buildCurrencyUniverse, findCurrency } from '$lib/utils/converterCurrencies';
+import { buildConverterHubSeo } from '$lib/utils/converterSeo';
 
-interface CountriesMap {
-	[key: string]: string;
+const DEFAULT_FROM = 'usd';
+const FALLBACK_TO = 'ngn';
+
+/** Params are read case-insensitively — the old page emitted `From`, older links used `from`. */
+function param(search: URLSearchParams, name: string): string | null {
+	return search.get(name) ?? search.get(name.toLowerCase()) ?? search.get(name.toUpperCase());
 }
 
-interface CountryCodeByCurrencyMap {
-	[currencyCode: string]: string | string[];
+function cleanCode(raw: string | null): string | null {
+	if (!raw) return null;
+	const code = raw.trim().toLowerCase();
+	return /^[a-z0-9]{2,6}$/.test(code) ? code : null;
 }
 
-export const load: PageServerLoad = async ({ fetch, url, depends, parent }) => {
+function cleanAmount(raw: string | null): number {
+	const parsed = parseFloat((raw ?? '').replace(/[^0-9.]/g, ''));
+	return Number.isFinite(parsed) && parsed > 0 && parsed <= MAX_AMOUNT ? parsed : 1;
+}
+
+/**
+ * The converter hub.
+ *
+ * Also the retirement home for `?Amount=&From=&To=`. Those URLs are what the page
+ * has been emitting for years, so they carry real links; a 301 hands that weight to
+ * the path form instead of leaving two addresses competing to rank for the same
+ * conversion.
+ */
+export const load: PageServerLoad = async ({ url, fetch, parent }) => {
 	const search = url.searchParams;
+
+	const legacyFrom = cleanCode(param(search, 'From'));
+	const legacyTo = cleanCode(param(search, 'To'));
+
+	// Only a request that actually named a conversion is redirected — `?quote=`
+	// and friends belong to the layout and must keep working.
+	if (legacyFrom && legacyTo && legacyFrom !== legacyTo) {
+		throw redirect(
+			301,
+			conversionPath(cleanAmount(param(search, 'Amount')), legacyFrom, legacyTo)
+		);
+	}
+
 	const { defaultCurrency } = await parent();
 
-	const convert = {
-		From: search.get('From') ?? 'usd',
-		To: search.get('To') ?? (defaultCurrency || 'ngn'),
-		Amount: Number(search.get('Amount')) || 1
+	// The visitor's own currency, unless that is the base — USD to USD has no page.
+	const preferred = cleanCode(defaultCurrency) ?? FALLBACK_TO;
+	const to = preferred === DEFAULT_FROM ? FALLBACK_TO : preferred;
+
+	const [currencies, snapshot, pair] = await Promise.all([
+		getCurrencies(fetch).catch(() => []),
+		getRateSnapshot(fetch, DEFAULT_FROM),
+		getPair(fetch, `${DEFAULT_FROM}${to}`).catch(() => null)
+	]);
+
+	// Membership is what we can price; the currency API only supplies names and icons.
+	const universe = buildCurrencyUniverse(
+		(Array.isArray(currencies) ? currencies : []) as any[],
+		await getPriceableCodes(fetch, snapshot),
+		[DEFAULT_FROM, to]
+	);
+
+	const resolved =
+		resolveConversion(snapshot, to) ?? pairFallbackRate(pair as any, DEFAULT_FROM, to);
+
+	return {
+		conversion: { amount: 1, from: DEFAULT_FROM.toUpperCase(), to: to.toUpperCase() },
+		fromCurrency: findCurrency(universe, DEFAULT_FROM),
+		toCurrency: findCurrency(universe, to),
+		currencies: universe,
+		rate: resolved?.rate ?? 0,
+		market: resolved?.market ?? null,
+		updatedAt: resolved?.updatedAt ?? null,
+		seo: buildConverterHubSeo()
 	};
-
-	depends(`convert:from=${convert.From}`, `convert:to=${convert.To}`);
-
-	const pairCode = `${convert.From}${convert.To}`;
-
-	try {
-		const [remittanceRates, rampRates, cardRates, changers, currencies] = await Promise.all([
-			getPairChangers(fetch, pairCode, ChangerServiceCategory.Remittance),
-			getPairChangers(fetch, pairCode, ChangerServiceCategory.Ramp),
-			getPairChangers(fetch, pairCode, ChangerServiceCategory.Card),
-			getAllChangers(fetch),
-			getCurrencies(fetch)
-		]);
-
-		let rateInverse: boolean = false;
-
-		let pair: any = await getPair(fetch, pairCode);
-
-		if (!pair) {
-			pair = await getPair(fetch, `${convert.To}${convert.From}`);
-			rateInverse = true;
-			console.log('rateInverse', rateInverse);
-		}
-
-		if (!currencies.length) throw error(500, 'Currencies data failed');
-		if (
-			!currencies.find((c: any) => c.code.toUpperCase() === convert.From.toUpperCase()) ||
-			!currencies.find((c: any) => c.code.toUpperCase() === convert.To.toUpperCase())
-		) {
-			throw error(500, 'Currency not supported');
-		}
-
-		return {
-			convert,
-			pair,
-			changers: array_to_key_object(changers, 'code'),
-			currencies,
-			countries: Countries as CountriesMap,
-			countriesToCurrencies: CountriesToCurrencies as CountriesMap,
-			countryCodeByCurrency: CountryCodeByCurrency as CountryCodeByCurrencyMap,
-			remittanceRates,
-			rampRates,
-			cardRates,
-			rateInverse
-		};
-	} catch (err) {
-		console.error(err);
-		throw error(502, 'Unable to fetch an important data');
-	}
 };

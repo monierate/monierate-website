@@ -1,827 +1,131 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import Money from '$lib/money';
-	import { round, chain } from 'mathjs';
-	import { changeParam } from '$lib/functions';
-	import ChangerRates from '$lib/components/ChangerRates.svelte';
-	import { goto } from '$app/navigation';
+	import Seo from '$lib/components/seo/Seo.svelte';
 	import AdBanner, { hasActiveAd } from '$lib/components/banners/AdBanner.svelte';
-	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
-	import { browser } from '$app/environment';
+	import ConverterForm from '$lib/components/converter/ConverterForm.svelte';
+	import RateHeadline from '$lib/components/converter/RateHeadline.svelte';
+	import RateDisclaimer from '$lib/components/converter/RateDisclaimer.svelte';
+	import PopularConversions from '$lib/components/converter/PopularConversions.svelte';
+	import CurrencyIcon from '$lib/components/converter/CurrencyIcon.svelte';
+	import { conversionPath } from '$lib/utils/conversionSlug';
 
-	interface Currency {
-		code: string;
-		name: string;
-		icon: string;
-	}
+	/**
+	 * The hub.
+	 *
+	 * Deliberately a directory rather than another conversion page: the live result
+	 * is there so the form does not look broken on arrival, but the content that
+	 * earns the URL is the index of every currency we can convert — which is also
+	 * how a crawler reaches the pair pages in the first place.
+	 */
 
-	enum CurrentView {
-		CONVERT = 'convert',
-		BUY = 'buy',
-		SELL = 'sell',
-		SEND = 'send'
-	}
+	let { data }: { data: PageData } = $props();
 
-	type Conversions = {
-		from: { amount: number; conversion: number }[];
-		to: { amount: number; conversion: number }[];
-	};
-
-	export let data: PageData;
-	const changers = data.changers;
-	const pair = data.pair as any;
-	let pair_rates: any = {};
-	let convert = data.convert;
-	let currencies: Currency[] = data.currencies as any;
-	let countries = data.countries;
-	let countriesToCurrencies = data.countriesToCurrencies;
-	let countryCodeByCurrency = data.countryCodeByCurrency;
-
-	let convertFrom = convert.From.toUpperCase();
-	let convertTo = convert.To.toUpperCase();
-	let convertAmount = parseFloat(`${convert.Amount}`);
-	let unit_currency = convertFrom;
-	let convertResult = {
-		rate: 0,
-		rate_inverse: 0,
-		conversion: 0
-	};
-
-	var currencyFrom: any = {};
-	var currencyTo: any = {};
-	var updated_at = '';
-	let currentView: string = CurrentView.CONVERT;
-
-	let moreConversions: Conversions = {
-		from: [],
-		to: []
-	};
-
-	const convertNow = () => {
-		const getPair: any = data.pair;
-		const rateInverse = data.rateInverse;
-
-		const from = convertFrom.toLowerCase();
-		const to =
-			currentView === CurrentView.SEND
-				? countriesToCurrencies[convertTo.toUpperCase()].toLowerCase()
-				: convertTo.toLowerCase();
-
-		let rate = 1; // 1:1
-		let rate_inverse = 1;
-
-		if (from != to) {
-			/** Get the rate */
-			if (getPair && !rateInverse) {
-				updated_at = getPair.updatedAt; // get last update time
-				rate = getPair.price.current;
-				rate_inverse = 1 / rate;
-				unit_currency = from.toUpperCase();
-
-				// get rates of a pair
-				pair_rates = sortRates(getPair.changers || {});
-			} else {
-				if (getPair && rateInverse) {
-					updated_at = getPair.updatedAt; // get last update time
-					rate_inverse = getPair.price.current;
-					rate = 1 / rate_inverse;
-					unit_currency = to.toUpperCase();
-
-					// get rates of a pair
-					pair_rates = sortRates(getPair.changers || {});
-				} else {
-					rate = 0;
-					rate_inverse = 0;
-					unit_currency = from.toUpperCase();
-				}
-			}
-		}
-
-		/** Calcuate the conversion*/
-		convertResult.rate = rate;
-		convertResult.rate_inverse = rate_inverse;
-		convertResult.conversion = round(chain(rate).multiply(convertAmount).done(), 8);
-
-		currencyFrom = currencies.find((c) => c.code === from);
-		currencyTo = currencies.find((c) => c.code === to);
-
-		getMoreConversions();
-	};
-
-	async function getMoreConversions() {
-		let series = [
-			1, 3, 5, 7, 10, 12, 15, 25, 30, 45, 50, 75, 100, 300, 400, 500, 750, 1000, 3000, 5000, 7500,
-			10000, 15000, 25000, 50000, 75000, 100000
-		];
-		let conversions: any = {
-			from: [],
-			to: []
-		};
-
-		series.forEach((serie) => {
-			let rate = convertResult.rate;
-			conversions.from.push({
-				amount: serie,
-				conversion: round(chain(rate).multiply(serie).done(), 8)
-			});
-
-			let rate_inverse = convertResult.rate_inverse;
-			conversions.to.push({
-				amount: serie,
-				conversion: round(chain(rate_inverse).multiply(serie).done(), 8)
-			});
-		});
-
-		moreConversions = conversions;
-	}
-
-	function sortRates(rates: any) {
-		// sort rates in decending order by price_sell;
-		rates.sort((a: any, b: any) => b.price_sell - a.price_sell);
-		// filter out rate with price_sell as 0
-		const filtered_non_zero_rates = rates.filter((rate: any) => rate.price_sell > 0);
-		const filtered_zero_rates = rates.filter((rate: any) => rate.price_sell <= 0);
-		// soirt rates in descending order by price_buy
-		filtered_zero_rates.sort((a: any, b: any) => a.price_buy - b.price_buy);
-		// merge both rates
-		rates = filtered_non_zero_rates.concat(filtered_zero_rates);
-
-		return rates;
-	}
-
-	async function changeTabView(event: Event) {
-		let currentViewButton = event.currentTarget as HTMLButtonElement;
-		let viewTabs = document.getElementById('converter-tabs');
-		let buttons = viewTabs?.getElementsByTagName('button');
-		let currentViewData: any = currentViewButton.getAttribute('data-view');
-		if (currentViewButton && viewTabs && buttons && currentViewData) {
-			for (let i = 0; i < buttons.length; i++) {
-				buttons[i].classList.remove('active');
-			}
-			currentViewButton?.classList.add('active');
-			currentView = currentViewData;
-		}
-	}
-
-	function viewAction() {
-		if (currentView) {
-			let view = null;
-			if (convertAmount > 1 && sessionStorage) {
-				sessionStorage.setItem('convertAmount', convertAmount.toString());
-			}
-			if (currentView === CurrentView.BUY) {
-				view = `/buy/${convertFrom.toLowerCase()}-with-${convertTo.toLowerCase()}-best-buying-rate`;
-			} else if (currentView === CurrentView.SELL) {
-				view = `/sell/${convertFrom.toLowerCase()}-get-${convertTo.toLowerCase()}-best-selling-rate`;
-			} else if (currentView === CurrentView.SEND) {
-				view = `/send/${convertFrom.toLowerCase()}-to-${convertTo.toLowerCase()}-best-rate`;
-			}
-			if (view) {
-				goto(view);
-			}
-		}
-	}
-
-	function swapConversionInputs() {
-		let getConvertFrom = convertFrom;
-		let getConvertTo = convertTo;
-		convertFrom = getConvertTo;
-		convertTo = getConvertFrom;
-		convertNow();
-	}
-
-	function findCountryCodeByCurrency(currency: string) {
-		for (const [currencyKey, countries] of Object.entries(countryCodeByCurrency)) {
-			if (
-				currencyKey === currency ||
-				(Array.isArray(countries) && countries.includes(currency.toUpperCase()))
-			) {
-				return Array.isArray(countries) ? countries[0] : countries; // Return the first country code associated with the currency
-			}
-		}
-		return null;
-	}
-
-	function findCurrencyByCountryCode(countryCode: string) {
-		for (const [currency, countries] of Object.entries(countryCodeByCurrency)) {
-			if (
-				countryCode === currency ||
-				(Array.isArray(countries) && countries.includes(countryCode.toUpperCase()))
-			) {
-				return currency;
-			}
-		}
-		return null;
-	}
-
-	$: if (currentView === CurrentView.SEND) {
-		const countryCode = findCountryCodeByCurrency(convertTo);
-		if (countryCode) {
-			convertTo = countryCode.toUpperCase() || 'NG';
-		}
-	}
-
-	defaultCurrencyStore.subscribe((defaultCurrency) => {
-		if (browser) {
-			if (defaultCurrency && defaultCurrency !== convertTo && currentView !== CurrentView.SEND) {
-				changeTo(convertTo);
-			} else if (
-				currentView === CurrentView.SEND &&
-				defaultCurrency &&
-				defaultCurrency !== convertTo
-			) {
-				changeTo(defaultCurrency.toUpperCase());
-			}
-		}
-	});
-
-	$: if (data.pair || data.rateInverse) convertNow();
-
-	const changeFrom = (currency: string) => {
-		let url = new URL(window.location.href);
-		url.searchParams.set('From', currency);
-		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
-	};
-	const changeTo = (currency: string) => {
-		if (currentView === CurrentView.SEND) {
-			const foundCurrency = findCurrencyByCountryCode(currency);
-			console.log(`Found currency ${foundCurrency} for country code ${currency}`);
-			if (foundCurrency) {
-				currency = foundCurrency.toUpperCase() || 'NGN';
-			} else {
-				console.warn(`No currency found for country code ${currency}`);
-				currency = $defaultCurrencyStore || 'NGN';
-			}
-		}
-
-		let url = new URL(window.location.href);
-		url.searchParams.set('To', currency);
-		goto(url.toString(), { keepFocus: true, noScroll: true, replaceState: true });
-	};
+	const c = $derived(data.conversion);
+	const base = $derived(c.from.toLowerCase());
 </script>
 
-<svelte:head>
-	<title>
-		{Money.format(convertAmount)}
-		{convertFrom} to {convertTo} - Convert {currencyFrom.name} to {currencyTo.name}
-	</title>
-	<meta
-		name="description"
-		content="Convert {currencyFrom.name} to {currencyTo.name} on Monierate. This is the average exchange rate price of {currencyFrom.name} to {currencyTo.name} in the market right now. It is for information purposes only."
-	/>
-	<meta
-		name="keywords"
-		content="{currencyFrom.name} to {currencyTo.name}, {currencyFrom.name} to {currencyTo.name} exchange rate, {currencyFrom.name} to {currencyTo.name} black market, {currencyFrom.name} to {currencyTo.name} rate, {currencyFrom.name} to {currencyTo.name} converter."
-	/>
-
-	<meta property="og:type" content="website" />
-	<meta
-		property="og:title"
-		content="{Money.format(
-			convertAmount
-		)} {convertFrom} to {convertTo} - Convert {currencyFrom.name} to {currencyTo.name}"
-	/>
-	<meta
-		property="og:description"
-		content="Convert {currencyFrom.name} to {currencyTo.name} on Monierate. Enter any amount in {convertFrom} to see the conversion in {convertTo}."
-	/>
-</svelte:head>
+<Seo {...data.seo} />
 
 <div style="background: var(--page-bg);">
 	<AdBanner name="converter" isMobile={data.isMobile} />
 </div>
 
-<div class="mb-24 {hasActiveAd('converter') ? '' : 'pt-8'}">
-	<div class="w-[100%] md:w-[100%] px-8 pb-4 mx-auto mb-4 text-center">
-		<h1 class="text-2xl md:text-4xl">
-			{Money.format(convertAmount)}
-			{convertFrom} to {currentView === CurrentView.SEND
-				? countriesToCurrencies[convertTo.toUpperCase()]
-				: convertTo} - Convert {currencyFrom.name} to {currencyTo.name}
-		</h1>
-	</div>
+<div class="w-[95%] md:max-w-[900px] mx-auto pb-24 {hasActiveAd('converter') ? 'pt-4' : 'pt-8'}">
+	<h1 class="text-[22px] md:text-[30px] leading-tight">Currency converter</h1>
+	<p class="mt-2 text-[14px] leading-relaxed max-w-2xl" style="color: var(--text-secondary);">
+		Convert any currency at the live parallel market or mid-market rate — then see what each
+		exchange would actually pay you, instead of one headline number.
+	</p>
 
-	<div id="changer-rate-wrapper" class="section">
-		<div class="flex justify-center items-center">
-			<div class="w-full">
-				<!-- Tabs hidden for now: the Buy/Sell/Send pages have been deleted
-				<div
-					class="flex justify-between gap-1 rounded-full p-1.5 mb-6 text-sm"
-					id="converter-tabs"
-					style="background: var(--table-header-bg); border: 1px solid var(--card-border);"
+	<section
+		class="mt-6 rounded-2xl px-5 py-6 md:px-7 md:py-7"
+		style="background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);"
+	>
+		<ConverterForm currencies={data.currencies} amount={c.amount} from={c.from} to={c.to} />
+
+		<RateHeadline
+			amount={c.amount}
+			from={c.from}
+			to={c.to}
+			fromName={data.fromCurrency.name}
+			toName={data.toCurrency.name}
+			fromSymbol={data.fromCurrency.symbol}
+			toSymbol={data.toCurrency.symbol}
+			rate={data.rate}
+			market={data.market}
+			updatedAt={data.updatedAt}
+		/>
+
+		<RateDisclaimer market={data.market} isLoggedIn={data.auth?.isLoggedIn ?? false} />
+
+		{#if data.rate > 0}
+			<a
+				href={conversionPath(1, base, c.to.toLowerCase())}
+				class="inline-flex items-center gap-1.5 mt-5 text-[13px] font-semibold no-underline"
+				style="color: var(--accent);"
+			>
+				See {c.from} to {c.to} exchange rates
+				<svg
+					width="13"
+					height="13"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2.5"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					aria-hidden="true"
 				>
-					<button
-						class="button converter-tab-button active text-[0.8em] md:text-sm"
-						data-view={CurrentView.CONVERT}
-						on:click={changeTabView}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							width="24"
-							height="24"
-							class="hidden md:inline md:mr-2 w-full md:w-auto"
-						>
-							<path
-								d="M18 7h-9.59l2.3-2.29a1 1 0 1 0-1.42-1.42l-4 4a1 1 0 0 0 0 1.42l4 4a1 1 0 1 0 1.42-1.42L8.41 9H18a2 2 0 0 1 0 4h-2a1 1 0 1 0 0 2h2a4 4 0 0 0 0-8zM6 17h9.59l-2.3 2.29a1 1 0 1 0 1.42 1.42l4-4a1 1 0 0 0 0-1.42l-4-4a1 1 0 1 0-1.42 1.42L15.59 15H6a2 2 0 0 1 0-4h2a1 1 0 1 0 0-2H6a4 4 0 0 0 0 8z"
-							/>
-						</svg>
-						Convert
-					</button>
-					<button
-						class="button converter-tab-button text-[0.8em] md:text-sm"
-						data-view={CurrentView.BUY}
-						on:click={changeTabView}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							width="24"
-							height="24"
-							class="hidden md:inline md:mr-2 w-full md:w-auto"
-						>
-							<path
-								d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM3 4h2l3.6 7.59-1.35 2.44A1 1 0 0 0 8 16h11v-2H8.42l.93-1.68L19 6H6.21L5.27 4H3z"
-							/>
-						</svg>
-						Buy
-					</button>
-					<button
-						class="button converter-tab-button text-[0.8em] md:text-sm"
-						data-view={CurrentView.SELL}
-						on:click={changeTabView}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							width="24"
-							height="24"
-							class="hidden md:inline md:mr-2 w-full md:w-auto"
-						>
-							<path
-								d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v1.5h1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5H11v2h1v1.5h-1.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5H13V9h-1V7.5h1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"
-							/>
-						</svg>
-						Sell
-					</button>
-					<button
-						class="button converter-tab-button text-[0.8em] md:text-sm"
-						data-view={CurrentView.SEND}
-						on:click={changeTabView}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							fill="currentColor"
-							width="24"
-							height="24"
-							class="hidden md:inline md:mr-2 w-full md:w-auto"
-						>
-							<path d="M2 21l21-9-21-9v7l15 2-15 2z" />
-						</svg>
-						Send
-					</button>
-				</div>
-				-->
+					<line x1="5" y1="12" x2="19" y2="12" />
+					<polyline points="12 5 19 12 12 19" />
+				</svg>
+			</a>
+		{/if}
+	</section>
 
-				<!-- Form -->
-				<div class="flex flex-wrap flex-col md:flex-row items-center md:gap-4">
-					<div class="flex-1 w-full">
-						<label class="block text-sm mb-1" style="color: var(--text-secondary);" for="field-convert-amount">Amount</label
-						>
-						<div class="flex-1 flex items-center input w-full p-0">
-							<input
-								type="number"
-								id="field-convert-amount"
-								class="text-lg bg-transparent border-none focus:border-none font-medium focus:outline-none w-full p-3"
-								bind:value={convertAmount}
-								on:input={() => convertNow()}
-								on:input={() => changeParam('Amount', convertAmount, false)}
-							/>
-							<span class="mx-2 text-gray-500 text-sm font-semibold">
-								{convertFrom}
-							</span>
-						</div>
-					</div>
-					<div class="flex-1 w-full">
-						<label class="block text-sm mb-1" style="color: var(--text-secondary);" for="field-convert-from">
-							{#if currentView === CurrentView.SEND}
-								You Send
-							{:else if currentView === CurrentView.BUY}
-								You Buy
-							{:else if currentView === CurrentView.SELL}
-								You Sell
-							{:else}
-								From
-							{/if}
-						</label>
-						<div class="relative">
-							<select
-								id="field-convert-from"
-								class="w-full p-4 select"
-								bind:value={convertFrom}
-								on:change={() => changeFrom(convertFrom)}
-							>
-								{#each Object.entries(currencies) as [index, currency]}
-									<option value={currency.code.toUpperCase()}
-										>{currency.code.toUpperCase()} - {currency.name}</option
-									>
-								{/each}
-							</select>
-							<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-								<!-- Arrow Icon -->
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M19 9l-7 7-7-7"
-									/>
-								</svg>
-							</div>
-						</div>
-					</div>
-					{#if currentView !== CurrentView.SEND}
-						<div class="flex items-center">
-							<button
-								class="text-sm p-2 md:mt-3 hover:opacity-80 focus:outline-none rounded-full"
-								style="background: var(--table-header-bg); border: 1px solid var(--card-border); color: var(--text-primary);"
-								on:click={swapConversionInputs}
-								aria-label="Swap inputs"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="currentColor"
-									width="24"
-									height="24"
-									class="inline mr-2"
-								>
-									<path
-										d="M16.59 7H4a1 1 0 1 1 0-2h12.59L13.3 2.71a1 1 0 0 1 1.42-1.42l4 4a1 1 0 0 1 0 1.42l-4 4a1 1 0 0 1-1.42-1.42L16.59 7zM7.41 17H20a1 1 0 1 1 0 2H7.41l3.3 3.29a1 1 0 0 1-1.42 1.42l-4-4a1 1 0 0 1 0-1.42l4-4a1 1 0 0 1 1.42 1.42L7.41 17z"
-									/>
-								</svg>
-							</button>
-						</div>
-					{/if}
-					<div class="flex-1 w-full">
-						<label class="block text-sm mb-1" style="color: var(--text-secondary);" for="field-convert-to">
-							{#if currentView === CurrentView.SEND}
-								To
-							{:else if currentView === CurrentView.BUY}
-								You Pay
-							{:else if currentView === CurrentView.SELL}
-								To Get
-							{:else}
-								To
-							{/if}
-						</label>
-						<div class="relative">
-							<select
-								id="field-convert-to"
-								class="w-full p-4 select"
-								bind:value={convertTo}
-								on:change={() => changeTo(convertTo)}
-							>
-								{#if currentView === CurrentView.SEND}
-									{#each Object.entries(countries) as [key, name]}
-										<option value={key.toUpperCase()}>{name}</option>
-									{/each}
-								{:else}
-									{#each Object.entries(currencies) as [index, currency]}
-										<option value={currency.code.toUpperCase()}
-											>{currency.code.toUpperCase()} - {currency.name}</option
-										>
-									{/each}
-								{/if}
-							</select>
-							<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-								<!-- Arrow Icon -->
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M19 9l-7 7-7-7"
-									/>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</div>
+	<div class="mt-8 space-y-8">
+		<PopularConversions />
 
-				<div>
-					{#if currentView === CurrentView.CONVERT}
-						<div id="convert-result" class="mt-8 mb-8">
-							<span class="block text-base mb-1" style="color: var(--text-secondary);">
-								{Money.format(convertAmount)}
-								{currencyFrom.name} =
-							</span>
-							<span class="font-head block font-bold text-4xl mb-3" style="color: var(--text-primary); letter-spacing: -0.02em;">
-								<span class="font-mono">{Money.format(convertResult.conversion)}</span>
-								{currencyTo.name}
-							</span>
-							<span class="block text-sm" style="color: var(--text-muted);">
-								1 {convertFrom} = <span class="font-mono">{Money.format(convertResult.rate)}</span>
-								{convertTo}
-							</span>
-							<span class="block text-sm" style="color: var(--text-muted);">
-								1 {convertTo} = <span class="font-mono">{Money.format(convertResult.rate_inverse)}</span>
-								{convertFrom}
-							</span>
-						</div>
-						<div class="block md:flex md:justify-between md:items-center">
-							<!-- only show this if the from currency or to currency is BTC -->
-							{#if convertFrom === 'BTC' || convertTo === 'BTC'}
-								<span
-									class="flex justify-between items-center md:hidden rounded-xl p-4 mb-8"
-									style="background: var(--accent-light); border: 1px solid var(--card-border);"
-								>
-									<span class="block text-gray-600 dark:text-gray-300 text-sm">
-										99% of Bitcoin price predictions are wrong, signup on
-										<a href="https://tinyurl.com/everybitcoin-text-link">Every Bitcoin Newsletter</a
-										>
-										and get the 1% useful ones every Monday.
-
-										<p class="mt-4">
-											<a
-												href="https://tinyurl.com/everybitcoin-text-link"
-												class="underline text-semibold">Get Bitcoin Price Updates</a
-											>
-										</p>
-									</span>
-								</span>
-							{/if}
-							<span
-								class="flex justify-between items-center md:w-[40%] rounded-xl p-4 mb-8 md:mb-0"
-								style="background: var(--accent-light); border: 1px solid var(--card-border);"
-							>
-								<span class="inline-block mr-2">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke-width="1.5"
-										stroke="currentColor"
-										class="w-6 h-6"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-										/>
-									</svg>
-								</span>
-								<span class="text-gray-600 dark:text-gray-300 text-sm">
-									We aggregate and weigh exchange rates from popular exchanges for this conversion.
-									This is for informational purposes only.
-								</span>
-							</span>
-							<span class="block text-sm md:w-[50%] p-4">
-								{currencyFrom.name} to {currencyTo.name} conversion — Last updated {new Date(
-									updated_at
-								)}
-							</span>
-						</div>
-					{/if}
-				</div>
-
-				<span class="block mt-12 mb-4">
-					<!--
-					<a
-						href="https://tinyurl.com/mavapay-monierate-link"
-						class="block button buy font-bold w-full md:inline-block md:w-auto"
-					>
-						Get the best rate on Mavapay
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="inline-block w-4 h-4 ml-2"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-							/>
-						</svg>
-					</a>
-					-->
-
-					{#if currentView === CurrentView.CONVERT}
-						<!-- <button class="button w-full md:max-w-[250px]" on:click={convertNow}> Convert </button> -->
-					{:else}
-						<button class="button w-full md:max-w-[250px]" on:click={viewAction}>
-							{#if currentView === CurrentView.BUY}
-								Buy
-							{:else if currentView === CurrentView.SELL}
-								Sell
-							{:else if currentView === CurrentView.SEND}
-								Send
-							{/if}
-						</button>
-					{/if}
-				</span>
+		<!-- The crawl surface: every currency we can price, each linking to its own page. -->
+		<section
+			class="rounded-xl border overflow-hidden"
+			style="background: var(--page-bg); border-color: var(--card-border);"
+		>
+			<div class="px-5 py-3.5 border-b" style="border-color: var(--card-border);">
+				<h2 class="text-[15px] font-semibold" style="color: var(--text-primary);">
+					All currencies
+				</h2>
+				<p class="text-[12px] mt-0.5" style="color: var(--text-secondary);">
+					{data.currencies.length} currencies, converted from {c.from}.
+				</p>
 			</div>
-		</div>
+
+			<ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 m-0 p-0 list-none">
+				{#each data.currencies as currency (currency.code)}
+					{#if currency.code !== c.from}
+						<li style="border-bottom: 1px solid var(--card-border);">
+							<a
+								href={conversionPath(1, base, currency.code.toLowerCase())}
+								class="flex items-center gap-2 px-4 py-2.5 no-underline"
+								style="color: var(--text-primary);"
+							>
+								<CurrencyIcon code={currency.code} icon={currency.icon} size={18} />
+								<span
+									class="text-[12.5px] font-semibold flex-shrink-0"
+									style="font-family: var(--font-mono);">{currency.code}</span
+								>
+								<span class="text-[11.5px] truncate" style="color: var(--text-muted);"
+									>{currency.name}</span
+								>
+							</a>
+						</li>
+					{/if}
+				{/each}
+			</ul>
+		</section>
 	</div>
 
-	<div class="mt-8 md:mt-0">
+	<div class="mt-8">
 		<AdBanner name="converter_mobile_only" mobileOnly={true} showLabel={true} />
 	</div>
-
-	{#if currencyFrom.code !== currencyTo.code && pair_rates.length > 0}
-		<div
-			class="container mt-16 border border-none py-[10px] dark:text-light dark:border-none w-full overflow-x-scroll md:overflow-x-hidden overflow-y-scroll md:overflow-y-hidden"
-		>
-			<h2 class="mb-8 text-center text-2xl">
-				Best {convertFrom} to {currentView === CurrentView.SEND
-					? countriesToCurrencies[convertTo.toUpperCase()]
-					: convertTo} rates
-			</h2>
-			<ChangerRates
-				rates={{ remittance: data.remittanceRates, ramp: data.rampRates, card: data.cardRates }}
-				{changers}
-				from={currencyFrom}
-				to={currencyTo}
-				amount={convertAmount}
-			/>
-		</div>
-	{/if}
-
-	<div class="more-conversion">
-		<div class="entry">
-			<span class="header">
-				<h2 class="text-center text-lg">
-					Convert {currencyFrom.name} to {currencyTo.name}
-				</h2>
-			</span>
-			<div class="pb-4">
-				{#await moreConversions}
-					<span class="block text-center py-8 px-4">Loading...</span>
-				{:then conversions}
-					<table class="w-full text-center px-8">
-						<thead>
-							<tr>
-								<th class="py-4">{convertFrom}</th>
-								<th class="py-4"
-									>{currentView === CurrentView.SEND
-										? countriesToCurrencies[convertTo.toUpperCase()]
-										: convertTo}</th
-								>
-							</tr>
-						</thead>
-						<tbody>
-							{#each Object.entries(conversions.from) as [index, convert]}
-								<tr>
-									<td class="py-2.5">
-										<a
-											data-sveltekit-reload
-											href="/converter/?Amount={convert.amount}&From={convertFrom}&To={convertTo}"
-										>
-											{Money.format(convert.amount)}
-											{convertFrom}
-										</a>
-									</td>
-									<td class="py-2.5">
-										{Money.format(convert.conversion)}
-										{currentView === CurrentView.SEND
-											? countriesToCurrencies[convertTo.toUpperCase()]
-											: convertTo}
-									</td>
-								</tr>
-							{/each}
-						</tbody>
-					</table>
-				{/await}
-			</div>
-		</div>
-		<div class="entry">
-			<span class="header">
-				<h2 class="text-center text-lg">Convert {currencyTo.name} to {currencyFrom.name}</h2>
-			</span>
-			<div class="pb-4">
-				{#await moreConversions}
-					<span class="block text-center py-8 px-4">Loading...</span>
-				{:then conversions}
-					<table class="w-full text-center px-8">
-						<thead class="">
-							<tr>
-								<th class="py-4"
-									>{currentView === CurrentView.SEND
-										? countriesToCurrencies[convertTo.toUpperCase()]
-										: convertTo}</th
-								>
-								<th class="py-4">{convertFrom}</th>
-							</tr>
-						</thead>
-						<tbody>
-							{#each Object.entries(conversions.to) as [index, convert]}
-								<tr>
-									<td class="py-2.5">
-										<a
-											data-sveltekit-reload
-											href="/converter?Amount={convert.amount}&From={convertTo}&To={convertFrom}"
-										>
-											{Money.format(convert.amount)}
-											{currentView === CurrentView.SEND
-												? countriesToCurrencies[convertTo.toUpperCase()]
-												: convertTo}
-										</a>
-									</td>
-									<td class="py-2.5">
-										{Money.format(convert.conversion)}
-										{convertFrom}
-									</td>
-								</tr>
-							{/each}
-						</tbody>
-					</table>
-				{/await}
-			</div>
-		</div>
-	</div>
-
-	<div class="w-[95%] mx-auto md:w-[70%] mt-24">
-		<h2 class="text-2xl mb-6 text-center">Currency Infomation</h2>
-		<div class="block md:flex md:justify-between md:items-center">
-			<div class="card md:w-[45%] p-8">
-				<h2 class="text-2xl">{convertFrom} - {currencyFrom.name}</h2>
-				<span class="block mt-6" style="color: var(--text-secondary);">
-					{currencyFrom.description}
-				</span>
-			</div>
-			<div class="card md:w-[45%] p-8">
-				<h2 class="text-2xl">
-					{currentView === CurrentView.SEND
-						? countriesToCurrencies[convertTo.toUpperCase()]
-						: convertTo} - {currencyTo.name}
-				</h2>
-				<span class="block mt-6">
-					{currencyTo.description}
-				</span>
-			</div>
-		</div>
-	</div>
 </div>
-
-<style>
-	.section {
-		@apply w-[95%] md:w-[70%] rounded-2xl px-5 py-6 md:px-7 md:py-7 mx-auto;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
-	}
-
-	.more-conversion {
-		@apply w-[95%] mx-auto md:w-[70%] md:flex md:justify-between md:items-start mt-16 gap-5;
-	}
-	.more-conversion .entry {
-		@apply rounded-2xl md:w-[48%] mb-4 overflow-hidden;
-		background: var(--card-bg);
-		border: 1px solid var(--card-border);
-	}
-	.more-conversion .entry .header {
-		@apply block py-4 px-8;
-		border-bottom: 1px solid var(--card-border);
-	}
-
-	table thead th {
-		@apply whitespace-nowrap text-xs uppercase tracking-wide font-semibold py-3;
-		color: var(--text-muted);
-	}
-	table tbody tr td {
-		@apply py-2.5 whitespace-nowrap;
-		font-family: var(--font-mono);
-		color: var(--text-primary);
-		border-top: 1px solid var(--card-border);
-	}
-	table tbody tr:hover td {
-		background: var(--table-hover);
-	}
-	table tr td:first-child,
-	table thead th:first-child {
-		@apply pl-0;
-	}
-
-	/* Segmented pill control — matches the dashboard's tab styling */
-	.converter-tab-button {
-		@apply flex items-center justify-center w-full bg-transparent p-2 md:py-2.5 md:px-4 rounded-full font-medium;
-		font-family: var(--font-head);
-		color: var(--text-secondary);
-		transition: background 0.15s ease, color 0.15s ease;
-	}
-	.converter-tab-button:hover {
-		color: var(--text-primary);
-	}
-	.converter-tab-button.active {
-		background: var(--card-bg);
-		color: var(--text-primary);
-		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.1);
-	}
-</style>
