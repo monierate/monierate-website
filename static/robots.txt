@@ -9,6 +9,10 @@ Allow: /markets/
 # collection pages are disabled (COLLECTIONS_ENABLED) and 404, so this rule
 # effectively covers the profiles only.
 Allow: /exchanges/
+# Currency converter — pair pages, ladder amounts, and the per-exchange converters.
+# Off-ladder amounts hold themselves back with a noindex tag, which needs the page
+# to be crawlable to be read at all; a Disallow here would hide the tag instead.
+Allow: /converter/
 # Interactive rate-comparison pages (thin / not for organic discovery)
 Disallow: /*/compare
 Disallow: /buy/

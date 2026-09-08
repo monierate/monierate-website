@@ -211,6 +211,89 @@ curl -su changemoney_api:… "$API_URL/changers/search_changers?city=lagos&limit
 Multi-value facets are comma-separated (`tags=onramp,offramp`, OR'd). Repeating
 a param is a 400.
 
+## The currency converter
+
+`/converter` answers any global pair, so its URL space is unbounded and the
+indexing rule has to be explicit.
+
+### URL grammar
+
+`src/lib/utils/conversionSlug.ts` is the only place the grammar is written down.
+
+| URL | What it is |
+| --- | --- |
+| `/converter` | Hub. Form, one live conversion, and the directory of every currency. |
+| `/converter/usd-to-ngn` | The pair page — **and** the amount-1 page. Canonical. |
+| `/converter/100-usd-to-ngn` | An amount page. |
+| `/converter/binance` | The per-exchange converter, unchanged. |
+
+`1-usd-to-ngn` deliberately has no URL of its own: it would say exactly what
+`usd-to-ngn` says. `buildConversionSlug` folds it into the bare form, and the
+route 301s anything arriving at a non-canonical spelling (`1-`, `007-`), so a
+conversion can never be reachable at two addresses.
+
+`?Amount=&From=&To=` — the shape this page used for years — **301s** to the path
+form. Note that `robots.txt` already carries `Disallow: /*?`, so the redirect is
+mostly for humans following old links; the weight it passes is from external
+backlinks rather than from anything Google had indexed.
+
+### The indexing rule
+
+Only the ladder amounts get an indexable URL: `LADDER_AMOUNTS` in
+`src/lib/utils/amountLadder.ts` (1, 5, 10, 20, 50, 100, 250, 500, 1000, 2000,
+5000, 10000). Every other amount renders normally but carries
+`robots: noindex, follow` and canonicals to the pair page.
+
+That set is deliberately shared with the on-page conversion table, so **every row
+the ladder links to is a page we are willing to index** — the internal linking and
+the indexing policy cannot drift apart. `buildConversionSeo`
+(`src/lib/utils/converterSeo.ts`) is the only place the rule is applied.
+
+A conversion we hold no rate for is held back the same way: a page whose headline
+is "no rate available" has nothing to rank for.
+
+### Rate provenance, and why the page says which market
+
+Three sources, in order:
+
+1. `market=parallel` from the account API — what desks actually quote. Built
+   upstream from the pairs feed, inverts but never crosses, so it covers the
+   tracked corridors and their inverses only.
+2. `market=mid` — the interbank snapshot. Crosses freely, which is what makes a
+   global converter possible.
+3. `pair.price.current` from the currency API — the same number as (1) reached
+   without the account API, used when that call comes back empty.
+
+The badge on the headline is not decoration. A parallel rate and an interbank mid
+rate are different claims, and a visitor comparing us with Google needs to know
+which one they are reading.
+
+**`ACCOUNT_API_KEY` gates (1) and (2).** It is read server-side only
+(`src/lib/api/accountApi.ts`) and reached through the `/api/rates/latest` proxy,
+which caches at the edge (`s-maxage=60`) because the upstream endpoint is metered
+per call. Unset, the converter still serves every tracked corridor through (3)
+and renders a clean "no rate" state elsewhere.
+
+### Sitemap
+
+`converterEntries()` in `src/routes/sitemap.xml/+server.ts` emits three tiers,
+narrowing as cardinality grows:
+
+| Tier | What | Roughly |
+| --- | --- | --- |
+| 1 | Every live corridor, both directions | 38 |
+| 2 | A curated global matrix, intersected with what `mid` can actually price | ~100 |
+| 3 | Ladder amounts, **tier 1 only** | ~420 |
+
+Tier 3 is restricted on purpose: `/converter/500-usd-to-ngn` is a real query,
+`/converter/500-gbp-to-xaf` is not, and amount pages multiply by 11.
+
+Tier 2 is intersected against a live `mid` lookup rather than a hardcoded list, so
+we never submit a corridor that renders a noindexed empty state — the same "no
+soft 404s in the sitemap" rule the `/markets` section follows. With no
+`ACCOUNT_API_KEY` configured the lookup returns empty and tier 2 is simply
+skipped, rather than every converter URL disappearing.
+
 ## robots.txt
 
 `static/robots.txt` allows `/markets/` and `/exchanges/` explicitly and points at

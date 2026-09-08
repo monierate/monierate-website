@@ -12,7 +12,7 @@
 	export let enableCategories: boolean = true;
 	export let quoteCurrency: string = 'NGN';
 
-	let currencies = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'USDC'];
+	let currencies = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'GHS', 'KES', 'ZAR', 'USDC'];
 
 	let defaultCurrencies: string[] = currencies;
 	$: if(quoteCurrency === 'KES') {
