@@ -3,7 +3,10 @@ import { serverApiRequest } from '$lib/api/server';
 import * as CountriesData from '$data/countries.json';
 import blogPosts from '$lib/blog/posts.json';
 import { getPublishedCollections } from '$lib/server/collections';
-import { isRenderablePair, isUsableQuote } from '$lib/utils/pairs';
+import { isRenderablePair, isUsableQuote, parsePairCode } from '$lib/utils/pairs';
+import { getLatestRates } from '$lib/api/accountApi';
+import { conversionPath } from '$lib/utils/conversionSlug';
+import { LADDER_AMOUNTS } from '$lib/utils/amountLadder';
 
 /**
  * Dynamic, SEO- and AI-SEO-friendly sitemap.
@@ -104,8 +107,13 @@ async function fetchChangerCodes(): Promise<
 	}
 }
 
-async function fetchPairs(): Promise<{ codes: string[]; changerPairs: Map<string, string[]> }> {
-	const empty = { codes: [], changerPairs: new Map<string, string[]>() };
+async function fetchPairs(): Promise<{
+	codes: string[];
+	/** Active and actually priced — the corridors the converter can lead with. */
+	liveCodes: string[];
+	changerPairs: Map<string, string[]>;
+}> {
+	const empty = { codes: [], liveCodes: [], changerPairs: new Map<string, string[]>() };
 
 	try {
 		const res = await serverApiRequest<{ result?: any[] }>('/pairs/get_all_pairs', {
@@ -128,12 +136,41 @@ async function fetchPairs(): Promise<{ codes: string[]; changerPairs: Map<string
 			}
 		}
 
+		const named = res.data.result.filter((p) => typeof p?.code === 'string');
+
 		return {
-			codes: res.data.result.filter((p) => typeof p?.code === 'string').map((p) => p.code as string),
+			codes: named.map((p) => p.code as string),
+			liveCodes: named
+				.filter((p) => p?.is_active === true && Number(p?.price?.current) > 0)
+				.map((p) => p.code as string),
 			changerPairs
 		};
 	} catch {
 		return empty;
+	}
+}
+
+/**
+ * Currencies the mid market can actually quote against USD.
+ *
+ * The converter's global reach is exactly this set — a corridor outside it renders
+ * a noindexed "no rate" state, and listing those would fill the sitemap with soft
+ * 404s. An empty set means the lookup failed or no key is configured; the caller
+ * then falls back to the corridors it knows from the pairs feed rather than
+ * dropping every converter URL.
+ */
+async function fetchMidQuoteCodes(): Promise<Set<string>> {
+	try {
+		const rates = await getLatestRates('USD', 'mid');
+		if (!rates?.rates) return new Set();
+
+		return new Set(
+			Object.entries(rates.rates)
+				.filter(([, value]) => Number(value) > 0)
+				.map(([code]) => code.toLowerCase())
+		);
+	} catch {
+		return new Set();
 	}
 }
 
@@ -187,11 +224,104 @@ async function fetchPairProviderCombos(): Promise<PairProviderCombo[]> {
 	}
 }
 
+/**
+ * Currencies the global converter matrix is built from, most-searched first.
+ *
+ * Deliberately a hand-picked list rather than "every currency we can quote": the
+ * mid market can price hundreds of combinations, and submitting the cross product
+ * would be tens of thousands of near-identical pages competing with each other.
+ * These are the ones with real search demand, and each is intersected with what
+ * the mid market actually holds before it is listed.
+ */
+const CONVERTER_MAJORS = [
+	'usd', 'eur', 'gbp', 'ngn', 'cad', 'aud', 'jpy', 'cny', 'chf', 'inr',
+	'aed', 'zar', 'ghs', 'kes', 'brl', 'sgd', 'egp', 'xof', 'xaf', 'usdt'
+];
+
+/** Bases the matrix radiates from — where the "convert X to anything" demand sits. */
+const CONVERTER_MATRIX_BASES = ['usd', 'eur', 'gbp'];
+
+/**
+ * Converter URLs.
+ *
+ * Three tiers, narrowing as cardinality grows:
+ *
+ * 1. Every live corridor, both directions — the pages that carry an exchange
+ *    comparison table and so show something no other converter can.
+ * 2. A curated global matrix, intersected with what the mid market can price.
+ * 3. Ladder amounts, but only on tier 1. `/converter/500-usd-to-ngn` is a real
+ *    query; `/converter/500-gbp-to-xaf` is not, and amount pages multiply by 11.
+ *
+ * Only ladder amounts are listed, because `converterSeo` noindexes every other
+ * amount — advertising a page we ask Google to drop is worse than not listing it.
+ */
+function converterEntries(
+	livePairCodes: string[],
+	currencyCodes: Set<string>,
+	midQuoteCodes: Set<string>,
+	now: string
+): Entry[] {
+	const entries: Entry[] = [];
+	const seen = new Set<string>();
+
+	const push = (path: string, priority: number, changefreq: ChangeFreq) => {
+		if (seen.has(path)) return;
+		seen.add(path);
+		entries.push({ path, changefreq, priority, lastmod: now });
+	};
+
+	/* --- Tier 1: live corridors, both directions --- */
+	const corridors: { from: string; to: string }[] = [];
+
+	for (const code of livePairCodes) {
+		if (currencyCodes.size > 0 && !isRenderablePair(code, currencyCodes)) continue;
+
+		const { base, quote } = parsePairCode(code);
+		if (!base || !quote || base === quote) continue;
+
+		corridors.push({ from: base, to: quote }, { from: quote, to: base });
+	}
+
+	for (const { from, to } of corridors) {
+		push(conversionPath(1, from, to), 0.8, 'hourly');
+	}
+
+	/* --- Tier 2: the global matrix, only where the mid market can price it --- */
+	if (midQuoteCodes.size > 0) {
+		for (const base of CONVERTER_MATRIX_BASES) {
+			for (const quote of CONVERTER_MAJORS) {
+				if (base === quote) continue;
+				// USD is the pivot the mid document is stored against, so it never
+				// appears as one of its own quotes — but it is always priceable.
+				if (quote !== 'usd' && !midQuoteCodes.has(quote)) continue;
+				if (base !== 'usd' && !midQuoteCodes.has(base)) continue;
+
+				push(conversionPath(1, base, quote), 0.7, 'daily');
+				push(conversionPath(1, quote, base), 0.6, 'daily');
+			}
+		}
+	}
+
+	/* --- Tier 3: ladder amounts on the live corridors only --- */
+	for (const { from, to } of corridors) {
+		for (const amount of LADDER_AMOUNTS) {
+			// 1 is the corridor page itself, already listed above.
+			if (amount === 1) continue;
+			push(conversionPath(amount, from, to), 0.5, 'daily');
+		}
+	}
+
+	return entries;
+}
+
 function buildEntries(
 	changers: { code: string; lastmod?: string; hasRate: boolean }[],
 	pairProviderCombos: PairProviderCombo[],
 	pairCodes: string[],
-	collectionSlugs: string[]
+	livePairCodes: string[],
+	collectionSlugs: string[],
+	currencyCodes: Set<string>,
+	midQuoteCodes: Set<string>
 ): Entry[] {
 	const now = new Date().toISOString();
 	const entries: Entry[] = [];
@@ -256,6 +386,9 @@ function buildEntries(
 			lastmod: now
 		});
 	}
+
+	/* --- Currency converter: corridors, the global matrix, and ladder amounts --- */
+	entries.push(...converterEntries(livePairCodes, currencyCodes, midQuoteCodes, now));
 
 	/* --- Per-exchange landing pages (canonical, no query params) --- */
 	for (const { code, lastmod, hasRate } of changers) {
@@ -388,13 +521,15 @@ ${urls}
 }
 
 export const GET: RequestHandler = async () => {
-	const [changers, pairProviderCombos, pairs, currencyCodes, collections] = await Promise.all([
-		fetchChangerCodes(),
-		fetchPairProviderCombos(),
-		fetchPairs(),
-		fetchCurrencyCodes(),
-		getPublishedCollections().catch(() => [])
-	]);
+	const [changers, pairProviderCombos, pairs, currencyCodes, collections, midQuoteCodes] =
+		await Promise.all([
+			fetchChangerCodes(),
+			fetchPairProviderCombos(),
+			fetchPairs(),
+			fetchCurrencyCodes(),
+			getPublishedCollections().catch(() => []),
+			fetchMidQuoteCodes()
+		]);
 
 	// Mirrors what /converter/:changer will actually render: a quote in either source,
 	// on a pair whose currencies we can name. A failed currency fetch fails open, so a
@@ -409,7 +544,10 @@ export const GET: RequestHandler = async () => {
 		changers.map((c) => ({ ...c, hasRate: hasRate(c) })),
 		pairProviderCombos,
 		pairs.codes,
-		collections.map(({ collection }) => collection.slug)
+		pairs.liveCodes,
+		collections.map(({ collection }) => collection.slug),
+		currencyCodes,
+		midQuoteCodes
 	);
 
 	if (entries.length > MAX_URLS_PER_SITEMAP) {
