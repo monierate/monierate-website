@@ -1,6 +1,18 @@
 [
   {
     "layout": "blog",
+    "title": "Football Forecasting: Performance Indicators That Matter Most",
+    "description": "Learn how match predictions today are improved by football match analysis, team performance data, team form, and match statistics.",
+    "createdAt": "2026-08-17T11:58",
+    "updatedAt": "2026-08-17T11:58",
+    "tag": "reports",
+    "image": "https://ik.imagekit.io/monierate/Blog/partner/football_forecasting_performance_indicators_that_matter_most.webp",
+    "published": true,
+    "author": "Partner",
+    "slug": "football-forecasting-performance-indicators-that-matter-most"
+  },
+  {
+    "layout": "blog",
     "title": "How to legally reduce hidden fees in cross-border payouts across sub-Saharan Africa",
     "description": "Reduce hidden fees in cross-border payouts across Africa with better routing, local currency settlement, transparent FX execution, and payment infrastructure built for compliant global expansion.",
     "createdAt": "2026-07-27T22:40",
