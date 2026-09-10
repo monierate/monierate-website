@@ -108,8 +108,18 @@
 					class="flex items-center justify-between gap-3 px-3 py-2 text-[13px] transition-colors hover:bg-[var(--table-hover)]"
 					style="color: {current ? 'var(--text-primary)' : 'var(--text-secondary)'};"
 				>
-					<span class="tabular-nums font-semibold" style="font-family: var(--font-mono);">
-						{opt.base}/{opt.quote}
+					<span class="flex shrink-0 items-center gap-2">
+						<img
+							src="/icons/currencies/{opt.base.toLowerCase()}.png"
+							alt=""
+							loading="lazy"
+							onerror={(e) => ((e.currentTarget as HTMLImageElement).style.visibility = 'hidden')}
+							class="h-4 w-4 rounded-full object-cover"
+							style="border: 1px solid var(--card-border);"
+						/>
+						<span class="tabular-nums font-semibold" style="font-family: var(--font-mono);">
+							{opt.base}/{opt.quote}
+						</span>
 					</span>
 					<span class="min-w-0 truncate text-right text-[12px]" style="color: var(--text-muted);">
 						{NAMES[opt.base] ?? opt.base} / {NAMES[opt.quote] ?? opt.quote}
