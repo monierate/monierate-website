@@ -41,6 +41,20 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 	const liveRate = (latest_rates ?? []).find((r) => r.pair === pairCode) ?? null;
 	const hasLiveRate = liveRate !== null;
 
+	// Pairs this provider actually supports, for the header pair switcher: the
+	// live v1 feed plus any still-active pair on the legacy changer record (the
+	// only source for daily-cadence providers, which never reach the live feed).
+	// The current pair is always included so the switcher can mark it.
+	const supportedPairCodes = Array.from(
+		new Set<string>([
+			pairCode,
+			...(latest_rates ?? []).map((r) => r.pair.toLowerCase()),
+			...Object.entries((provider.pairs ?? {}) as Record<string, { is_active?: boolean }>)
+				.filter(([, v]) => v && v.is_active !== false)
+				.map(([code]) => code.toLowerCase())
+		])
+	);
+
 	const end = new Date();
 	const start = new Date(end.getTime() - 30 * 86_400_000);
 	// The stats table and the About copy summarise 7/30/90-day windows, which the
@@ -136,6 +150,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 		pairCode,
 		providerCode,
 		provider,
+		supportedPairCodes,
 		currentRate,
 		hasLiveRate,
 		rateBasis,
