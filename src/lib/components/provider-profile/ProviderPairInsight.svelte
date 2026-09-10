@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ProviderLogo from '$lib/components/ui/ProviderLogo.svelte';
+	import PairSwitcher from '$lib/components/pair-profile/PairSwitcher.svelte';
 	import RateStats from './RateStats.svelte';
 	import ProviderAbout from './ProviderAbout.svelte';
 	import ProviderConverter from './ProviderConverter.svelte';
@@ -35,12 +36,19 @@
 		toggleSwap: () => void;
 	}
 
+	interface PairOption {
+		code: string;
+		base: string;
+		quote: string;
+	}
+
 	let {
 		provider,
 		currentRate,
 		state,
 		onClose,
 		showBreadcrumb = true,
+		pairOptions = [],
 		summary,
 		rateBasis = 'live',
 		rateAsOf = null
@@ -50,6 +58,8 @@
 		state: InsightState;
 		onClose?: () => void;
 		showBreadcrumb?: boolean;
+		/** All tracked pairs, for the header pair switcher. */
+		pairOptions?: PairOption[];
 		/** Optional blurb rendered between the header and the stat cards. */
 		summary?: Snippet;
 		/** Whether `currentRate` is a live quote or the last sealed daily close. */
@@ -104,10 +114,13 @@
 			<div class="flex items-center gap-3">
 				<ProviderLogo logo={provider.icon ?? ''} name={provider.name} size={40} />
 				<div class="min-w-0">
-					<h1
-						class="text-[18px] font-bold leading-tight tabular-nums"
-						style="font-family: var(--font-mono); color: var(--text-primary);"
-					>{pairDisplay}</h1>
+					<PairSwitcher
+						{base}
+						{quote}
+						pairCode={state.pairCode}
+						options={pairOptions}
+						hrefFor={(code) => `/markets/${code}/${state.providerCode}`}
+					/>
 					<p class="text-[13px] truncate" style="color: var(--text-secondary);">{provider.name}</p>
 				</div>
 			</div>

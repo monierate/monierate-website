@@ -1,6 +1,7 @@
 <script lang="ts">
 	import RateStats from './RateStats.svelte';
 	import Converter from './Converter.svelte';
+	import PairSwitcher from './PairSwitcher.svelte';
 	import HistoryChart from '$lib/components/history/HistoryChart.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import { useImageOrDefault } from '$lib/utils/loadImageOrDefault';
@@ -31,9 +32,17 @@
 		toggleSwap: () => void;
 	}
 
-	let { currentRate, state, summary }: {
+	interface PairOption {
+		code: string;
+		base: string;
+		quote: string;
+	}
+
+	let { currentRate, state, pairOptions = [], summary }: {
 		currentRate: any;
 		state: InsightState;
+		/** All tracked pairs, for the header pair switcher. */
+		pairOptions?: PairOption[];
 		/** Optional blurb rendered between the header and the stat cards. */
 		summary?: Snippet;
 	} = $props();
@@ -71,10 +80,7 @@
 				{/if}
 			{/await}
 			<div class="min-w-0">
-				<h1
-					class="text-[18px] font-bold leading-tight tabular-nums"
-					style="font-family: var(--font-mono); color: var(--text-primary);"
-				>{pairDisplay}</h1>
+				<PairSwitcher {base} {quote} pairCode={state.pairCode} options={pairOptions} />
 				<p class="text-[13px] truncate" style="color: var(--text-secondary);">Composite Index</p>
 			</div>
 		</div>

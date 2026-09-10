@@ -49,6 +49,7 @@
 		currentRate={data.currentRate}
 		state={insight}
 		showBreadcrumb={false}
+		pairOptions={data.pairOptions}
 		rateBasis={data.rateBasis}
 		rateAsOf={data.rateAsOf}
 	>
