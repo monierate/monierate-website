@@ -5,7 +5,6 @@
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 	import { parsePairCode } from '$lib/utils/pairs';
 	import currencies from '$data/currencies.json';
-	import Dialog from '$lib/components/Dialog.svelte';
 
 	let { data, children } = $props();
 
@@ -114,16 +113,40 @@
 	{@render children()}
 {/key}
 
-<Dialog
-	bind:isOpen={dialogOpen}
-	title={dialogTitle}
-	hideCancelButton
-	hideCancelTimes
-	overlayClick={false}
-	actions={[
-		{ label: 'Cancel', callback: cancelSwitch },
-		{ label: dialogConfirmLabel, callback: confirmSwitch }
-	]}
->
-	<p>{dialogBody}</p>
-</Dialog>
+<svelte:window onkeydown={(e) => dialogOpen && e.key === 'Escape' && cancelSwitch()} />
+
+{#if dialogOpen}
+	<div
+		class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
+		role="presentation"
+		onclick={(e) => e.target === e.currentTarget && cancelSwitch()}
+	>
+		<div
+			class="w-full max-w-sm rounded-2xl p-6"
+			style="background: var(--card-bg); border: 1px solid var(--card-border); box-shadow: 0 10px 40px rgba(0,0,0,0.2);"
+			role="alertdialog"
+			aria-labelledby="qs-title"
+			aria-describedby="qs-body"
+		>
+			<h2 id="qs-title" class="text-base font-semibold" style="color: var(--text-primary);">
+				{dialogTitle}
+			</h2>
+			<p id="qs-body" class="mt-2 text-sm leading-relaxed" style="color: var(--text-secondary);">
+				{dialogBody}
+			</p>
+			<div class="mt-6 flex justify-end gap-2">
+				<button
+					type="button"
+					onclick={cancelSwitch}
+					class="rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors hover:bg-[var(--table-hover)]"
+					style="background: transparent; border: 1px solid var(--card-border); color: var(--text-primary); font-family: var(--font-head);"
+				>
+					Cancel
+				</button>
+				<button type="button" onclick={confirmSwitch} class="button px-4 py-2.5">
+					{dialogConfirmLabel}
+				</button>
+			</div>
+		</div>
+	</div>
+{/if}
