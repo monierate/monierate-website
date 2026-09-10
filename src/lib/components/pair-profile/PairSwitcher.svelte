@@ -71,15 +71,15 @@
 			>
 				{pairDisplay}
 				<svg
-					width="14"
-					height="14"
+					width="20"
+					height="20"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
 					stroke-width="2.5"
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					class="transition-transform {open ? 'rotate-180' : ''}"
+					class="shrink-0 transition-transform {open ? 'rotate-180' : ''}"
 					style="color: var(--text-muted);"
 					aria-hidden="true"
 				>
