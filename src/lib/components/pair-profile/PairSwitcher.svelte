@@ -12,6 +12,7 @@
 		quote,
 		pairCode,
 		options = [],
+		selectedQuote = '',
 		hrefFor = (code: string) => `/markets/${code}`
 	}: {
 		/** Uppercase currency codes for the pair currently shown, e.g. USD / NGN. */
@@ -20,6 +21,11 @@
 		/** Lowercase code of the pair currently shown, e.g. usdngn. */
 		pairCode: string;
 		options?: PairOption[];
+		/**
+		 * The quote currency selected in the header (NGN / KES). When set, the list
+		 * is limited to pairs quoted in it (the current pair is always kept).
+		 */
+		selectedQuote?: string;
 		/** Where selecting a pair navigates to. */
 		hrefFor?: (code: string) => string;
 	} = $props();
@@ -27,7 +33,13 @@
 	const NAMES: Record<string, string> = { ...currencies.fiat, ...currencies.coins };
 
 	const pairDisplay = $derived(`${base}/${quote}`);
-	const hasOptions = $derived(options.length > 1);
+
+	const visibleOptions = $derived.by(() => {
+		const q = selectedQuote.toUpperCase();
+		if (!q) return options;
+		return options.filter((o) => o.quote.toUpperCase() === q || o.code === pairCode);
+	});
+	const hasOptions = $derived(visibleOptions.length > 1);
 
 	let open = $state(false);
 	let wrap = $state<HTMLDivElement>();
@@ -86,7 +98,7 @@
 			class="absolute left-0 top-full z-30 mt-1.5 max-h-[320px] w-[240px] overflow-y-auto rounded-xl border py-1 shadow-lg"
 			style="background: var(--card-bg); border-color: var(--card-border);"
 		>
-			{#each options as opt (opt.code)}
+			{#each visibleOptions as opt (opt.code)}
 				{@const current = opt.code === pairCode}
 				<a
 					href={hrefFor(opt.code)}

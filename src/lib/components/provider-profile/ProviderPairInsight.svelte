@@ -49,6 +49,7 @@
 		onClose,
 		showBreadcrumb = true,
 		pairOptions = [],
+		selectedQuote = '',
 		summary,
 		rateBasis = 'live',
 		rateAsOf = null
@@ -60,6 +61,8 @@
 		showBreadcrumb?: boolean;
 		/** All tracked pairs, for the header pair switcher. */
 		pairOptions?: PairOption[];
+		/** Header quote currency (NGN / KES) — limits the switcher list. */
+		selectedQuote?: string;
 		/** Optional blurb rendered between the header and the stat cards. */
 		summary?: Snippet;
 		/** Whether `currentRate` is a live quote or the last sealed daily close. */
@@ -119,6 +122,7 @@
 						{quote}
 						pairCode={state.pairCode}
 						options={pairOptions}
+						{selectedQuote}
 						hrefFor={(code) => `/markets/${code}/${state.providerCode}`}
 					/>
 					<p class="text-[13px] truncate" style="color: var(--text-secondary);">{provider.name}</p>

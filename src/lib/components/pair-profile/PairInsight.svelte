@@ -38,11 +38,13 @@
 		quote: string;
 	}
 
-	let { currentRate, state, pairOptions = [], summary }: {
+	let { currentRate, state, pairOptions = [], selectedQuote = '', summary }: {
 		currentRate: any;
 		state: InsightState;
 		/** All tracked pairs, for the header pair switcher. */
 		pairOptions?: PairOption[];
+		/** Header quote currency (NGN / KES) — limits the switcher list. */
+		selectedQuote?: string;
 		/** Optional blurb rendered between the header and the stat cards. */
 		summary?: Snippet;
 	} = $props();
@@ -80,7 +82,7 @@
 				{/if}
 			{/await}
 			<div class="min-w-0">
-				<PairSwitcher {base} {quote} pairCode={state.pairCode} options={pairOptions} />
+				<PairSwitcher {base} {quote} pairCode={state.pairCode} options={pairOptions} {selectedQuote} />
 				<p class="text-[13px] truncate" style="color: var(--text-secondary);">Composite Index</p>
 			</div>
 		</div>

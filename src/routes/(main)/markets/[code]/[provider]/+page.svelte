@@ -55,6 +55,7 @@
 		state={insight}
 		showBreadcrumb={false}
 		pairOptions={providerPairOptions}
+		selectedQuote={data.defaultCurrency}
 		rateBasis={data.rateBasis}
 		rateAsOf={data.rateAsOf}
 	>

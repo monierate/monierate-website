@@ -39,7 +39,12 @@
 
 <!-- Container mirrors Breadcrumb.svelte so the page gutter lines up with the breadcrumb bar. -->
 <div class="w-[95%] md:max-w-[1200px] mx-auto px-4 py-8">
-	<PairInsight currentRate={data.currentRate} state={insight} pairOptions={data.pairOptions}>
+	<PairInsight
+		currentRate={data.currentRate}
+		state={insight}
+		pairOptions={data.pairOptions}
+		selectedQuote={data.defaultCurrency}
+	>
 		{#snippet summary()}
 			<PairSummary
 				base={insight.parsedPair.base}
