@@ -33,6 +33,11 @@
 	const seo = data.seo;
 	const providerIconUrl = data.provider.icon ? getIconPath(data.provider.icon) : null;
 
+	// The pair switcher on a provider page lists only the pairs this provider
+	// supports (from `supportedPairCodes`), not every tracked pair.
+	const supported = new Set(data.supportedPairCodes ?? []);
+	const providerPairOptions = (data.pairOptions ?? []).filter((o) => supported.has(o.code));
+
 	// Oldest snapshot in the loaded 30-day window — the "a month ago" comparison
 	// point. Reduced rather than indexed, since the API's ordering isn't guaranteed.
 	const monthAgo = data.initialHistory?.length
@@ -49,6 +54,8 @@
 		currentRate={data.currentRate}
 		state={insight}
 		showBreadcrumb={false}
+		pairOptions={providerPairOptions}
+		selectedQuote={data.defaultCurrency}
 		rateBasis={data.rateBasis}
 		rateAsOf={data.rateAsOf}
 	>
