@@ -143,7 +143,9 @@
 							rel="noopener noreferrer sponsored"
 							class="inline-block text-[12px] font-semibold underline underline-offset-2 hover:no-underline"
 							style="color: var(--accent);"
-							aria-label="{cta.label} {provider.name}"
+							aria-label={cta.kind === 'app'
+								? `Download the ${provider.name} app`
+								: `Visit the ${provider.name} website`}
 						>{cta.label}</a>
 					{/if}
 				</div>
