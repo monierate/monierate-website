@@ -55,6 +55,30 @@
 		isFirstVisit = false;
 	}
 
+	let interval: ReturnType<typeof setInterval> | null = null;
+
+	function swap() {
+		current = bannerStore.getNextIndex(name, banners.length, false);
+	}
+
+	// Keep swapping banners at a fixed interval while the visitor stays put.
+	function startInterval() {
+		if (interval) clearInterval(interval);
+		if (banners.length > 1) {
+			interval = setInterval(swap, SWAP_INTERVAL_MS);
+		}
+	}
+
+	function handleMouseEnter() {
+		if (interval) clearInterval(interval);
+	}
+
+	function handleMouseLeave() {
+		// Don't make the visitor wait out a fresh interval before it changes.
+		swap();
+		startInterval();
+	}
+
 	onMount(() => {
 		current = bannerStore.getNextIndex(name, banners.length, isFirstVisit);
 		isFirstVisit = false;
@@ -64,13 +88,7 @@
 			current = bannerStore.getNextIndex(name, banners.length, false);
 		});
 
-		// Keep swapping banners at a fixed interval while the visitor stays put
-		let interval: ReturnType<typeof setInterval> | null = null;
-		if (banners.length > 1) {
-			interval = setInterval(() => {
-				current = bannerStore.getNextIndex(name, banners.length, false);
-			}, SWAP_INTERVAL_MS);
-		}
+		startInterval();
 
 		return () => {
 			unsubscribe();
@@ -84,7 +102,12 @@
 
 <div class={mobileOnly ? 'md:hidden' : ''}>
 	{#if banners.length > 0}
-		<div style="display: grid; overflow: hidden; width: 100%;">
+		<div
+			role="presentation"
+			style="display: grid; overflow: hidden; width: 100%;"
+			on:mouseenter={handleMouseEnter}
+			on:mouseleave={handleMouseLeave}
+		>
 		{#key current}
 			<div
 				class="container {banners[current].mobile_only ? 'md:hidden' : ''} text-center {cover ? 'p-0 m-0' : ''}"
