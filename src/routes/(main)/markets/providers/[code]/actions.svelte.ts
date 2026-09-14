@@ -76,13 +76,15 @@ export class ProviderProfileActions {
 	}
 
 	get chartData(): { dateLabel: string; open: number; close: number; high: number; low: number }[] {
-		return this.history.map((s) => ({
-			dateLabel: new Date(s.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-			open: s.open,
-			close: s.close,
-			high: s.high,
-			low: s.low
-		}));
+		return [...this.history]
+			.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+			.map((s) => ({
+				dateLabel: new Date(s.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+				open: s.open,
+				close: s.close,
+				high: s.high,
+				low: s.low
+			}));
 	}
 
 	readonly chartSeries = [
