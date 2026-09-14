@@ -149,7 +149,7 @@
 										: banners[current].width ?? '800px')}; height: {height ??
 									(isMobile
 										? banners[current].mobileHeight ?? '70px'
-										: banners[current].height ?? '99px')};"
+										: banners[current].height ?? '99px')}; object-fit: contain;"
 								class="w-full"
 							/>
 						</picture>
@@ -174,7 +174,7 @@
 									: banners[current].width ?? '800px')}; height: {height ??
 								(isMobile
 									? banners[current].mobileHeight ?? '70px'
-									: banners[current].height ?? '99px')};"
+									: banners[current].height ?? '99px')}; object-fit: contain;"
 							class="mx-auto max-w-full"
 						/>
 					</picture>
