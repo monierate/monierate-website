@@ -25,7 +25,7 @@
 			"width": "800px",
 			"height": "114px",
 			"mobileHeight": "77px",
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		}
 	],
@@ -65,7 +65,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		}
 	],
@@ -95,7 +95,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		}
 	],
@@ -125,7 +125,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		}
 	],
@@ -155,7 +155,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		}
 	],
@@ -179,7 +179,7 @@
 			"formats": ["avif", "gif"],
 			"label": "HyperFX",
 			"mobile_only": true,
-			"disabled": false,
+			"disabled": true,
 			"width": "350px",
 			"height": "438px",
 			"_v": 1
@@ -211,7 +211,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		}
 	],
@@ -235,7 +235,7 @@
 			"formats": ["avif", "gif"],
 			"label": "HyperFX",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"width": "350px",
 			"height": "438px",
 			"_v": 1
