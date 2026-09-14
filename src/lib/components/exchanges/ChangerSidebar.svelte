@@ -77,6 +77,7 @@
 			<a
 				href={changer.link}
 				target="_blank"
+				rel="noopener noreferrer sponsored"
 				class="shrink-0 whitespace-nowrap text-center border border-gray-200/80 dark:border-gray-700/60 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-100 transition-colors hover:bg-gray-100/10 dark:hover:bg-gray-700/60"
 			>Visit website</a>
 		</div>
