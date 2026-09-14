@@ -22,8 +22,10 @@ export interface DeviceHints {
 
 export interface ProviderCta {
 	url: string;
-	/** `Download` when the destination is an app store, `Visit` for a website. */
-	label: 'Visit' | 'Download';
+	/** Which destination we resolved to — drives the spoken label at the call site. */
+	kind: 'app' | 'site';
+	/** Visible link text. */
+	label: 'Download App' | 'Visit Website';
 }
 
 function playStoreUrl(provider: ProviderLinkSource): string | undefined {
@@ -66,8 +68,8 @@ export function providerCta(
 	device: DeviceHints = {}
 ): ProviderCta | null {
 	const app = providerAppUrl(provider, device);
-	if (app) return { url: app, label: 'Download' };
-	if (provider.link) return { url: provider.link, label: 'Visit' };
+	if (app) return { url: app, kind: 'app', label: 'Download App' };
+	if (provider.link) return { url: provider.link, kind: 'site', label: 'Visit Website' };
 	return null;
 }
 

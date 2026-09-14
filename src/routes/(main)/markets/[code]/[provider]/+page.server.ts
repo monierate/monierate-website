@@ -157,6 +157,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies, reques
 		pairCode,
 		providerCode,
 		provider,
+		supportedPairCodes,
 		isAndroid,
 		isIOS,
 		currentRate,
