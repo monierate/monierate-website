@@ -19,10 +19,17 @@ function parseAmountParam(raw: string | null): string {
 	return parseFloat(cleaned) > 0 ? cleaned : '1';
 }
 
-export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
+export const load: PageServerLoad = async ({ fetch, params, url, cookies, request }) => {
 	const pairCode = params.code.toLowerCase();
 	const providerCode = params.provider.toLowerCase();
 	const amount = parseAmountParam(url.searchParams.get('amount'));
+
+	// Picks which store the header's "Download" link points at. Sniffed server
+	// side — the same way /exchanges/[changer] does it — so the href is settled
+	// before hydration rather than flipping under the reader.
+	const ua = request.headers.get('user-agent') ?? '';
+	const isAndroid = /android/i.test(ua);
+	const isIOS = /iphone|ipad|ipod/i.test(ua);
 
 	const result = await getProviderV1(fetch, providerCode);
 
@@ -136,6 +143,8 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies }) => {
 		pairCode,
 		providerCode,
 		provider,
+		isAndroid,
+		isIOS,
 		currentRate,
 		hasLiveRate,
 		rateBasis,

@@ -74,6 +74,7 @@
 					<a
 						href={banners[current].url}
 						target="_blank"
+						rel="noopener noreferrer sponsored"
 						class="inline-block text-center {showLabel
 							? 'inline-block max-w-full relative text-center bg-gray-50 dark:bg-gray-900/10 p-4 rounded-md text-black dark:text-white'
 							: ''}"

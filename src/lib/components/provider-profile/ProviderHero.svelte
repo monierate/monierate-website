@@ -56,7 +56,7 @@
 			<a
 				href={provider.link}
 				target="_blank"
-				rel="noopener noreferrer"
+				rel="noopener noreferrer sponsored"
 				class="flex items-center gap-1 text-[12px] font-medium hover:underline"
 				style="color: var(--accent);"
 			>
@@ -78,7 +78,7 @@
 			<a
 				href={link.url}
 				target="_blank"
-				rel="noopener noreferrer"
+				rel="noopener noreferrer sponsored"
 				class="text-[12px] hover:underline"
 				style="color: var(--accent);"
 			>{link.title}</a>
