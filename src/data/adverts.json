@@ -1,18 +1,34 @@
 {
-	"footer": {
-		"name": "",
-		"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/textile-landscape.avif",
-		"formats": ["avif", "gif"],
-		"label": "Textile",
-		"mobile_only": false,
-		"mobileWidth": "100%",
-		"width": "800px",
-		"height": "114px",
-		"mobileHeight": "auto",
-		"disabled": false,
-		"_v": 1
-	},
+	"footer": [
+		{
+			"name": "",
+			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/textile-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "Textile",
+			"mobile_only": false,
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"disabled": false,
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://app.hyperfx.finance/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/hyperfx-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "HyperFX",
+			"mobile_only": false,
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"disabled": false,
+			"_v": 1
+		}
+	],
 	"blog": [
 		{
 			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
@@ -23,98 +39,206 @@
 			"disabled": false
 		}
 	],
-	"home": {
-		"name": "",
-		"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/textile-landscape.avif",
-		"formats": ["avif", "gif"],
-		"label": "Textile",
-		"mobileWidth": "100%",
-		"width": "800px",
-		"height": "114px",
-		"mobileHeight": "auto",
-		"mobile_only": false,
-		"disabled": false,
-		"_v": 1
-	},
-	"compare": {
-		"name": "",
-		"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/textile-landscape.avif",
-		"formats": ["avif", "gif"],
-		"label": "Textile",
-		"mobileWidth": "100%",
-		"width": "800px",
-		"height": "114px",
-		"mobileHeight": "auto",
-		"mobile_only": false,
-		"disabled": false,
-		"_v": 1
-	},
-	"converter": {
-		"name": "",
-		"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/textile-landscape.avif",
-		"formats": ["avif", "gif"],
-		"label": "Textile",
-		"mobileWidth": "100%",
-		"width": "800px",
-		"height": "114px",
-		"mobileHeight": "auto",
-		"mobile_only": false,
-		"disabled": false,
-		"_v": 1
-	},
-	"blog_home": {
-		"name": "",
-		"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/textile-landscape.avif",
-		"formats": ["avif", "gif"],
-		"label": "Textile",
-		"mobileWidth": "100%",
-		"width": "800px",
-		"height": "114px",
-		"mobileHeight": "auto",
-		"mobile_only": false,
-		"disabled": false,
-		"_v": 1
-	},
-	"converter_mobile_only": {
-		"name": "",
-		"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/textile.avif",
-		"formats": ["avif", "gif"],
-		"label": "Textile",
-		"mobile_only": true,
-		"disabled": false,
-		"width": "350px",
-		"height": "438px",
-		"_v": 1
-	},
-	"bank_codes": {
-		"name": "",
-		"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/textile-landscape.avif",
-		"formats": ["avif", "gif"],
-		"label": "Textile",
-		"mobileWidth": "100%",
-		"width": "800px",
-		"height": "114px",
-		"mobileHeight": "auto",
-		"mobile_only": false,
-		"disabled": false,
-		"_v": 1
-	},
-	"bank_codes_side": {
-		"name": "",
-		"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
-		"image": "/media/banners/textile.avif",
-		"formats": ["avif", "gif"],
-		"label": "Textile",
-		"mobile_only": false,
-		"disabled": false,
-		"width": "350px",
-		"height": "438px",
-		"_v": 1
-	}
+	"home": [
+		{
+			"name": "",
+			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/textile-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "Textile",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://app.hyperfx.finance/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/hyperfx-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "HyperFX",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		}
+	],
+	"compare": [
+		{
+			"name": "",
+			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/textile-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "Textile",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://app.hyperfx.finance/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/hyperfx-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "HyperFX",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		}
+	],
+	"converter": [
+		{
+			"name": "",
+			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/textile-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "Textile",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://app.hyperfx.finance/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/hyperfx-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "HyperFX",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		}
+	],
+	"blog_home": [
+		{
+			"name": "",
+			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/textile-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "Textile",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://app.hyperfx.finance/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/hyperfx-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "HyperFX",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		}
+	],
+	"converter_mobile_only": [
+		{
+			"name": "",
+			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/textile.avif",
+			"formats": ["avif", "gif"],
+			"label": "Textile",
+			"mobile_only": true,
+			"disabled": false,
+			"width": "350px",
+			"height": "438px",
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://app.hyperfx.finance/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/hyperfx.avif",
+			"formats": ["avif", "gif"],
+			"label": "HyperFX",
+			"mobile_only": true,
+			"disabled": false,
+			"width": "350px",
+			"height": "438px",
+			"_v": 1
+		}
+	],
+	"bank_codes": [
+		{
+			"name": "",
+			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/textile-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "Textile",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://app.hyperfx.finance/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/hyperfx-landscape.avif",
+			"formats": ["avif", "gif"],
+			"label": "HyperFX",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
+		}
+	],
+	"bank_codes_side": [
+		{
+			"name": "",
+			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/textile.avif",
+			"formats": ["avif", "gif"],
+			"label": "Textile",
+			"mobile_only": false,
+			"disabled": false,
+			"width": "350px",
+			"height": "438px",
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://app.hyperfx.finance/?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/hyperfx.avif",
+			"formats": ["avif", "gif"],
+			"label": "HyperFX",
+			"mobile_only": false,
+			"disabled": false,
+			"width": "350px",
+			"height": "438px",
+			"_v": 1
+		}
+	]
 }
