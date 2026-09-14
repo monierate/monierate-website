@@ -58,6 +58,8 @@
 		selectedQuote={data.defaultCurrency}
 		rateBasis={data.rateBasis}
 		rateAsOf={data.rateAsOf}
+		isAndroid={data.isAndroid}
+		isIOS={data.isIOS}
 	>
 		{#snippet summary()}
 			<ProviderPairSummary
