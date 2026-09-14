@@ -17,7 +17,7 @@
 				<a
 					href={playStoreUrl}
 					target="_blank"
-					rel="noopener noreferrer"
+					rel="noopener noreferrer sponsored"
 					class="flex flex-1 items-center gap-2 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--table-hover)] transition-colors group"
 					class:px-4={stacked} class:py-3={stacked}
 					class:px-3={!stacked} class:py-2={!stacked}
@@ -38,7 +38,7 @@
 				<a
 					href={appStoreUrl}
 					target="_blank"
-					rel="noopener noreferrer"
+					rel="noopener noreferrer sponsored"
 					class="flex flex-1 items-center gap-2 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--table-hover)] transition-colors group"
 					class:px-4={stacked} class:py-3={stacked}
 					class:px-3={!stacked} class:py-2={!stacked}

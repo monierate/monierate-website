@@ -13,12 +13,16 @@
 		toggleSwap: () => void;
 	}
 
-	let { state, base, quote, symbol, currentRate, rateNote = '' }: {
+	let { state, base, quote, symbol, currentRate, providerName, tradeUrl = null, rateNote = '' }: {
 		state: ConverterState;
 		base: string;
 		quote: string;
 		symbol: string;
 		currentRate: any;
+		/** Provider display name, used in the "Buy on …" CTA. */
+		providerName: string;
+		/** Where the CTA sends people — `null` hides it when the profile has no link. */
+		tradeUrl?: string | null;
 		/**
 		 * Qualifier appended to the rate footnote, e.g. `'daily close · Aug 18, 2026'`.
 		 * Set on providers that publish once a day, so the conversion isn't read as
@@ -131,5 +135,25 @@
 				>
 			</div>
 		{/if}
+	{/if}
+
+	<!-- Pinned to the card's bottom edge so it lines up with the chart beside it.
+	     Outside the rate branches above: worth showing even when we have no quote.
+	     Tracks the Buy/Sell toggle, so the CTA always names the side whose rate
+	     the reader is looking at. -->
+	{#if tradeUrl}
+		<a
+			href={tradeUrl}
+			target="_blank"
+			rel="noopener noreferrer sponsored"
+			class="mt-auto mx-4 mb-4 inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-[13px] font-semibold transition-opacity hover:opacity-90"
+			style="background: var(--accent); color: #fff;"
+		>
+			{state.convertDir === 'buy' ? 'Buy' : 'Sell'} on {providerName}
+			<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M7 17 17 7" />
+				<path d="M7 7h10v10" />
+			</svg>
+		</a>
 	{/if}
 </div>
