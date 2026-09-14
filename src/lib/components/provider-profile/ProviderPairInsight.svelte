@@ -7,6 +7,7 @@
 	import HistoryChart from '$lib/components/history/HistoryChart.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import { getIconPath } from '$lib/utils';
+	import { providerCta, providerTradeUrl } from '$lib/utils/providerCta';
 	import type { Snippet } from 'svelte';
 	import type { RateBasis } from '$lib/utils/currentRate';
 
@@ -52,7 +53,9 @@
 		selectedQuote = '',
 		summary,
 		rateBasis = 'live',
-		rateAsOf = null
+		rateAsOf = null,
+		isAndroid = false,
+		isIOS = false
 	}: {
 		provider: any;
 		currentRate: any;
@@ -69,9 +72,16 @@
 		rateBasis?: RateBasis;
 		/** ISO date the rate is effective for — set when `rateBasis` is `'daily'`. */
 		rateAsOf?: string | null;
+		/** Device hints from the server's UA sniff — picks the matching app store. */
+		isAndroid?: boolean;
+		isIOS?: boolean;
 	} = $props();
 
 	const providerIconUrl = $derived(provider.icon ? getIconPath(provider.icon) : null);
+
+	// "Download" when the profile lists an app, "Visit" when all it has is a site.
+	const cta = $derived(providerCta(provider, { isAndroid, isIOS }));
+	const tradeUrl = $derived(providerTradeUrl(provider, { isAndroid, isIOS }));
 	const { base, quote, symbol } = $derived(state.parsedPair);
 	const pairDisplay = $derived(`${base}/${quote}`);
 
@@ -126,6 +136,16 @@
 						hrefFor={(code) => `/markets/${code}/${state.providerCode}`}
 					/>
 					<p class="text-[13px] truncate" style="color: var(--text-secondary);">{provider.name}</p>
+					{#if cta}
+						<a
+							href={cta.url}
+							target="_blank"
+							rel="noopener noreferrer sponsored"
+							class="inline-block text-[12px] font-semibold underline underline-offset-2 hover:no-underline"
+							style="color: var(--accent);"
+							aria-label="{cta.label} {provider.name}"
+						>{cta.label}</a>
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -274,6 +294,8 @@
 				{quote}
 				{symbol}
 				{currentRate}
+				providerName={provider.name}
+				{tradeUrl}
 				rateNote={isDaily ? `daily close${asOfLabel ? ` · ${asOfLabel}` : ''}` : ''}
 			/>
 		{/if}
