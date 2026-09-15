@@ -78,6 +78,19 @@
 				via: '#921745',
 				to: '#DD4E33'
 			}
+		},
+		{
+			link: '/exchanges/numofx',
+			brand: 'NumoFX',
+			text: 'is now on Monierate',
+			shortText: 'Now on Monierate',
+			cta: 'View profile',
+			gradient: {
+				base: '#0F2E28',
+				from: '#0A2019',
+				via: '#12664F',
+				to: '#1FCB8C'
+			}
 		}
 	];
 
