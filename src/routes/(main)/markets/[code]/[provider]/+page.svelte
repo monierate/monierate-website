@@ -16,7 +16,7 @@
 	let { data } = $props();
 
 	// Named `insight`, not `state` — a local variable literally called `state`
-	// collides with the `$state` rune (see markets/providers/[code]/+page.svelte).
+	// collides with the `$state` rune and breaks Svelte's SSR output.
 	const insight = untrack(
 		() =>
 			new ProviderPairInsightActions({
@@ -75,7 +75,7 @@
 		{/snippet}
 	</ProviderPairInsight>
 
-	<!-- Mirrors the OHLC table on /markets/providers/[code]. Its date window and
+	<!-- Its date window and
 	     pagination are independent of the chart's 7d/30d/60d/90d range pills above
 	     — the table has its own range selector. Hidden outright when the provider
 	     has neither a live quote nor any recorded history — an empty table under

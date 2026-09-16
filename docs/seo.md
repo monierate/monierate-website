@@ -41,7 +41,6 @@ Adding a tag for every page means editing that one file.
 | --- | --- | --- |
 | `/markets/:pair` | `buildPairOverviewSeo` | WebPage, ExchangeRateSpecification, Dataset, BreadcrumbList |
 | `/markets/:pair/:provider` | `buildPairProviderSeo` | Organization, ExchangeRateSpecification, Dataset, BreadcrumbList |
-| `/markets/providers/:code` | `buildProviderSeo` | Organization, BreadcrumbList |
 | `/markets/history` | `buildHistorySeo` | Dataset, BreadcrumbList |
 | `/markets/spread` | `buildSpreadSeo` | Dataset, BreadcrumbList |
 
@@ -76,7 +75,6 @@ by the Cloudflare worker.
 | --- | --- | --- | --- |
 | `/markets/:pair` | ~89 pairs | SSR | Rates change by the minute; a build-time snapshot would ship stale numbers in the description and JSON-LD. |
 | `/markets/:pair/:provider` | ~172 live combos | SSR | High cardinality and the set changes as providers add or drop pairs. Prerendering needs a fixed build-time list, which would 404 on anything new until the next deploy. |
-| `/markets/providers/:code` | ~92 changers | SSR | Same freshness argument; the page leads with live rates. |
 | `/markets/history`, `/markets/spread` | 1 each | SSR | Single pages, but the headline figures are live. |
 
 The tradeoff is a worker invocation per request instead of a static asset. It is
@@ -112,10 +110,10 @@ index.
 
 ### Currently held back
 
-`SUBMIT_SECONDARY_MARKETS_PAGES` is `false`, keeping `/markets/providers/:code`,
-`/markets/spread`, and `/markets/history` out of the sitemap until their public
-clones ship. The pages remain crawlable and carry no `noindex` — they are simply
-not submitted. Flip the constant to include them.
+`SUBMIT_SECONDARY_MARKETS_PAGES` is `false`, keeping `/markets/spread` and
+`/markets/history` out of the sitemap until their public clones ship. The pages
+remain crawlable and carry no `noindex` — they are simply not submitted. Flip the
+constant to include them.
 
 ## Programmatic collection pages
 
