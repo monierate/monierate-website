@@ -176,10 +176,10 @@
 			{#if submitted}
 				<div class="text-center py-10">
 					<div class="text-4xl mb-4">🎉</div>
-					<h2 class="text-2xl font-bold mb-3">Request received</h2>
+					<h2 class="text-2xl font-bold mb-3">Request submitted — next step</h2>
 					<p class="text-gray-600 dark:text-gray-300 mb-6">
-						Thanks — we've got your listing request. Our team will review it and reach out to you at
-						<strong>{email}</strong> to follow up and book a call.
+						Pick a time and we'll walk you through listing <strong>{platform}</strong>. 15 minutes,
+						no prep needed.
 					</p>
 					<a
 						href={BOOKING_URL}
@@ -187,8 +187,11 @@
 						rel="noopener"
 						class="button bg-blue-500 hover:bg-blue-600 text-white py-3 px-6"
 					>
-						Book a call now
+						Pick a time
 					</a>
+					<p class="text-sm text-gray-500 dark:text-gray-400 mt-6">
+						Can't right now? We'll email you at <strong>{email}</strong> within 2-3 business days.
+					</p>
 				</div>
 			{:else}
 				<h2 class="text-xl font-bold mb-1">Submit a listing request</h2>
