@@ -10,7 +10,7 @@ published: true
 author: Tim Bolarinwa
 ---
 
-# **Textile FX Review: Non-Custodial Naira-to-USDT Swaps, Onchain**
+![Textile Onchain FX](https://ik.imagekit.io/monierate/Blog/product/textile.webp)
 
 If you want to convert naira to USDT, you have to deal with P2P traders on Bybit and crypto apps. The issue with using P2P and other crypto apps is that your transaction will go through banks; it might be delayed, and hopefully you don’t get scammed.
 
