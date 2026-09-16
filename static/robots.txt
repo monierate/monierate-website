@@ -2,7 +2,7 @@
 
 User-agent: *
 Allow: /
-# Public Markets pages — pair hubs, pair x provider long-tail, provider profiles.
+# Public Markets pages — pair hubs and the pair x provider long-tail.
 # Stated explicitly so the Disallow rules below are never read as covering them.
 Allow: /markets/
 # Exchange directory — changer profiles. The directory index and the curated

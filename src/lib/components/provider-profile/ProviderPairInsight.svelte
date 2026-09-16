@@ -233,7 +233,7 @@
 					Compare live {pairDisplay} rates
 				</a>
 				<a
-					href="/markets/providers/{state.providerCode}"
+					href="/exchanges/{state.providerCode}"
 					class="inline-flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1.5 rounded-lg border transition-colors hover:bg-[var(--table-hover)]"
 					style="color: var(--text-secondary); border-color: var(--card-border);"
 				>
