@@ -271,11 +271,7 @@
 
 				<span id="alert" class="block hidden py-2"></span>
 
-				<button
-					id="btn-list"
-					class="button bg-black text-white w-full py-3.5 mt-2"
-					on:click={submit}
-				>
+				<button id="btn-list" class="button w-full py-3.5 mt-2" on:click={submit}>
 					Submit listing request
 				</button>
 			{/if}
