@@ -2,7 +2,7 @@
 	const items = [
 		{
 			q: 'What currencies and markets are supported?',
-			a: 'Official, mid-market, and black market NGN rates from 40+ providers — Binance P2P, Bybit, Luno, Quidax, Chipper Cash, and more. Stablecoins (USDT, USDC) and fiat (USD, EUR, GBP) included.'
+			a: 'Official, mid-market, and black market NGN rates from 90+ providers — Binance P2P, Bybit, Luno, Quidax, Chipper Cash, and more. Stablecoins (USDT, USDC) and fiat (USD, EUR, GBP) included.'
 		},
 		{
 			q: 'How do I authenticate?',
