@@ -232,7 +232,7 @@
 
 			{#if providerName}
 				<a
-					href="/markets/providers/{providerCode}"
+					href="/exchanges/{providerCode}"
 					class="flex items-center gap-2 hover:underline"
 					style="color: inherit; text-decoration: none;"
 				>

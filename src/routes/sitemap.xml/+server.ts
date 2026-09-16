@@ -24,11 +24,10 @@ import { LADDER_AMOUNTS } from '$lib/utils/amountLadder';
 const SITE = 'https://monierate.com';
 
 /**
- * Held back on request: the provider profile, spread, and history pages stay out
- * of the sitemap until their public clones ship, so only /markets/:pair,
- * /markets/:pair/insight, and /markets/:pair/:provider are submitted. Flip to
- * true to include them — the pages themselves are indexable either way (no
- * noindex tag).
+ * Held back on request: the spread and history pages stay out of the sitemap
+ * until their public clones ship, so only /markets/:pair, /markets/:pair/insight,
+ * and /markets/:pair/:provider are submitted. Flip to true to include them — the
+ * pages themselves are indexable either way (no noindex tag).
  */
 const SUBMIT_SECONDARY_MARKETS_PAGES = false;
 
@@ -408,14 +407,6 @@ function buildEntries(
 			priority: 0.6,
 			lastmod
 		});
-		if (SUBMIT_SECONDARY_MARKETS_PAGES) {
-			entries.push({
-				path: `/markets/providers/${code}`,
-				changefreq: 'hourly',
-				priority: 0.6,
-				lastmod
-			});
-		}
 	}
 
 	/* --- Per-pair OHLC hub pages (one per supported pair) --- */

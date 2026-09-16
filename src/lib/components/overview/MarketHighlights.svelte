@@ -20,9 +20,9 @@
     onViewAll?: (slug: string) => void;
   } = $props();
 
-  // Pair-scoped insight when a pairCode is supplied, else the full provider profile.
+  // Pair-scoped insight when a pairCode is supplied, else the exchange profile.
   function providerHref(id: string): string {
-    return pairCode ? `/markets/${pairCode}/${id}` : `/markets/providers/${id}`;
+    return pairCode ? `/markets/${pairCode}/${id}` : `/exchanges/${id}`;
   }
 
   const idxSet = $derived(new Set(indexContributorIds));

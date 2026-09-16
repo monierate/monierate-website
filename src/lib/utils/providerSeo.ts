@@ -23,44 +23,6 @@ function providerOgImage(code: string): string {
 	return `https://ik.imagekit.io/monierate/thumbnails/${code}-og.png`;
 }
 
-export interface ProviderSeoInput {
-	code: string;
-	name: string;
-	bio?: string;
-	icon?: string;
-	link?: string;
-}
-
-/**
- * Provider rates page — /markets/providers/:code. One per changer code.
- */
-export function buildProviderSeo(provider: ProviderSeoInput): SeoMeta {
-	const title = `${provider.name} Exchange Rates & Spreads | Monierate`;
-	const description = provider.bio
-		? `${provider.bio} See live ${provider.name} exchange rates, buy/sell spreads and 24h changes on Monierate.`
-		: `Live ${provider.name} exchange rates, buy/sell spreads and 24h changes, tracked in real time on Monierate.`;
-	const path = `/markets/providers/${provider.code}`;
-	const canonical = `${SITE}${path}`;
-
-	return {
-		title,
-		description,
-		canonical,
-		ogImage: providerOgImage(provider.code),
-		jsonLd: [
-			organizationJsonLd({
-				name: provider.name,
-				url: provider.link,
-				logo: `${SITE}${getIconPath(provider.icon)}`
-			}),
-			breadcrumbJsonLd([
-				{ name: 'Providers', path: '/markets/providers' },
-				{ name: provider.name, path }
-			])
-		]
-	};
-}
-
 export interface PairProviderSeoInput {
 	pairCode: string;
 	base: string;
@@ -82,7 +44,7 @@ export interface PairProviderSeoInput {
 
 /**
  * Pair × provider page — /markets/:pair/:provider. The long-tail counterpart to
- * {@link buildProviderSeo}: one per supported pair per provider.
+ * the exchange profile at /exchanges/:code: one per supported pair per provider.
  *
  * The page still renders when the provider has no rate for the pair at all (see
  * the loader), so the copy and robots directive both flex on `rate`: without one

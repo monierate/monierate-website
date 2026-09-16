@@ -45,9 +45,9 @@
     pairCode?: string;
   } = $props();
 
-  // Pair-scoped provider page when we know the pair, else the standalone profile.
+  // Pair-scoped provider page when we know the pair, else the exchange profile.
   const providerHref = (code: string) =>
-    pairCode ? `/markets/${pairCode}/${code}` : `/markets/providers/${code}`;
+    pairCode ? `/markets/${pairCode}/${code}` : `/exchanges/${code}`;
 
   const msiTone = $derived(msiLevel ? TONE_COLOR[classifyTone(msiLevel as PremiumLevel)] : '#a855f7');
   const volTone = $derived(volRegime ? volRegimeColor(volRegime as VolRegime) : '#f59e0b');
