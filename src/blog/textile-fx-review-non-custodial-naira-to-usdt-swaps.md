@@ -25,8 +25,8 @@ You can verify pricing yourself through Textile FX’s live integration on Monie
 ## **Company/ Product Profile**
 
 | Profile Parameter | Details |
-| ----- | ----- |
-| **Website** | [https://app.textilecredit.com](https://app.textilecredit.com)  |
+| --- | --- |
+| **Website** | [https://app.textilecredit.com](https://app.textilecredit.com) |
 | **Established** | TextileFX protocol launched live in 2024–2025 |
 | **Chief Executive Officer** | **Tomer Bariach** |
 | **Focus** | Instant, request-for-quote (RFQ) and limit-order on-chain foreign exchange swaps between local fiat stablecoins, real-world assets (RWAs), and USD stablecoins |
@@ -36,7 +36,7 @@ You can verify pricing yourself through Textile FX’s live integration on Monie
 | **Headquarters** | Distributed / Remote (Backed by global web3 funds like Flori Ventures) |
 | **Regulations** | **Unregulated / Smart Contract Protocol**: Functions completely peer-to-peer on public blockchains; rate providers/fillers and underlying stablecoin issuers manage localised compliance |
 | **User Base** | Institutional OTC desks, cross-border remittance providers, web3 wallet users, automated liquidity fillers, and retail traders |
-| **Corridors** | **cNGN \- USDT** (BNB Smart Chain & Celo) **wARS \- USDT** (Celo) **wBRL \- USDT** (Celo) **USDC \- USDT** (Celo)  **XAUt- USDT** (Ethereum \- Gold) • **NVDA \- USDG** (Robinhood Chain) **WETH \- USDT** (Ethereum) |
+| **Corridors** | **cNGN - USDT** (BNB Smart Chain & Celo) **wARS - USDT** (Celo) **wBRL - USDT** (Celo) **USDC - USDT** (Celo)  **XAUt- USDT** (Ethereum - Gold) • **NVDA - USDG** (Robinhood Chain) **WETH - USDT** (Ethereum) |
 | **Custody Model** | **Non-Custodial**: Operates fully on-chain via smart contracts; Textile never holds user keys, deposits, or funds |
 
 ## **How Textile FX Works**
@@ -49,9 +49,7 @@ Textile FX runs on a request-for-quote model rather than a public order book you
 
 2. **You name your size**.  Choose a pair, say, sell cNGN, receive USDT, and either the amount you're selling or the exact amount you want to receive.
    ![Textile FX Deposit NGN screen](https://ik.imagekit.io/monierate/Blog/general/textile-swap-screen-3.jpeg)
-
 3. Trades receive a single executable quote bound to the target wallet address with a 60-second expiration window. If insufficient liquidity prevents full execution, the system issues a **'no quote**' response to prevent partial fills at inferior rates
-
 4. Trades settle atomically within a single transaction. Submitting the order prior to quote expiration guarantees that the cNGN transfer and USDT or whatever pair you're swapping, delivery occur simultaneously. Any execution failure triggers a complete transaction revert, eliminating intermediate states or locked funds.
 
 **Note**: Textile FX swaps cNGN into USDT/USDC and vice versa; it doesn't mint cNGN itself. To get from cash Naira into cNGN in the first place, you'd go through cNGN's official platform or a licensed exchange like Busha or Noblocks, which mint cNGN 1:1 against Naira deposits. 
