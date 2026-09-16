@@ -1,7 +1,7 @@
 <script lang="ts">
 	const features = [
 		{
-			title: 'Real-time rates, 40+ providers',
+			title: 'Real-time rates, 90+ providers',
 			body: 'Live NGN rates from Binance P2P, Bybit, Luno, Quidax, and dozens more — updated continuously.',
 			icon: 'M13 2 3 14h9l-1 8 10-12h-9l1-8z'
 		},
