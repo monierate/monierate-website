@@ -12,7 +12,6 @@ author: Tim Bolarinwa
 
 ![Textile Onchain FX](https://ik.imagekit.io/monierate/Blog/product/textile.webp)
 
-
 If you want to convert naira to USDT, you have to deal with P2P traders on Bybit and crypto apps. The issue with using P2P and other crypto apps is that your transaction will go through banks; it might be delayed, and hopefully you don’t get scammed.
 
 If you don’t like USDT and want to get hard physical dollars, you’ll need to meet the informal street traders known as “Aboki”. This can be costly and time-consuming.
