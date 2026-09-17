@@ -10,6 +10,8 @@ published: true
 author: Tim Bolarinwa
 ---
 
+![Textile Onchain FX](https://ik.imagekit.io/monierate/Blog/product/textile.webp)
+
 Swapping cNGN for USDT is now faster, cheaper, and safer. With Textile FX, you get a firm quote tailored to your exact amount; no order books to browse and no P2P hassle. Here is a step-by-step guide on how to do it.
 
 ### **Before You Start**
