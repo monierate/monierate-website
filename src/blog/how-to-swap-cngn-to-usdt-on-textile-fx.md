@@ -23,7 +23,6 @@ You'll need:
 
 1. Open the swap page, at: [https://app.textilecredit.com/](https://app.textilecredit.com/) 
 ![Textile FX](https://ik.imagekit.io/monierate/Blog/general/textile-swap-flow-1.jpeg)
-
 2. Connect your wallet, and switch to the network your cNGN is on if the app prompts you to. 
 
 ![Textile FX](https://ik.imagekit.io/monierate/Blog/general/textile-swap-flow-2.jpeg)
@@ -40,10 +39,8 @@ You'll need:
 
 ![Textile FX](https://ik.imagekit.io/monierate/Blog/general/textile-swap-flow-5.jpeg)
 
-6. Wait about a second for your firm quote. Makers price your full amount and you’ll either get one firm, executable quote with a countdown timer, or a clear “no quote” if nobody can fill the whole size.
-
+6. Wait about a second for your firm quote. Makers price your full amount, and you’ll either get one firm, executable quote with a countdown timer, or a clear “no quote” if nobody can fill the whole size.
 7. Review the quote, check what you’re debited, what you’ll receive, and the rate. If this is your first time swapping cNGN through Textile FX or vice versa, you’ll also need to approve the token, a one-time transaction that only happens once per token, not on every swap.
-
 8. Confirm the swap in your wallet before the quote expires. Your USDT lands in your wallet as soon as the transaction confirms on-chain.
 
 ![Textile FX](https://ik.imagekit.io/monierate/Blog/general/textile-swap-flow-8.jpeg)
@@ -61,7 +58,7 @@ The only charge is a small on-chain taker fee, already included in the rate you�
 | **BNB Smart Chain** | 0.01% (1 bps) |
 | **Celo** | 0.01% (1 bps) |
 
-There’s nothing added afterward,  the number you see at Step 5 is the number you get.
+There’s nothing added afterwards; the number you see at Step 5 is the number you get.
 
 ## **If Nobody Quotes Your Full Amount**
 
