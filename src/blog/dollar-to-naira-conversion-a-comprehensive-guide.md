@@ -16,7 +16,7 @@ Are you looking to convert dollars to naira? Understanding the currency exchange
 
 Before diving into the conversion process, it is essential to know the [current exchange](https://monierate.com) rate between the US dollar and the Nigerian naira. As exchange rates fluctuate, it is crucial to obtain the most up-to-date information. To find the current exchange rate, you can visit reputable financial websites or consult your bank's foreign exchange department.
 
-> Monierate is a website to find the current exchange rate in Nigerian. You can track and compare the rates accross 13+ exchanges such as Binance, Luno, Payday, and others.
+> Monierate is a website to find the current exchange rate in Nigerian. You can track and compare the rates across 90+ exchanges such as Binance, Luno, Payday, and others.
 
 ## Understanding the Conversion Formula
 

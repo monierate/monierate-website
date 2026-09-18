@@ -183,4 +183,4 @@ Whatever the market says, the knowledge you've gained from this article equips y
 
 Before any Euro to Naira conversion, make it a habit to check the current rate using [Monierate](https://monierate.com/).
 
-*For those based in Nigeria, Monierate offers a fantastic resource where you can track and compare rates across 15+ exchanges like Bybit, Remitano, Nigeria Customs, and more, ensuring you get the best deal on your Euro to Naira conversions.*
+*For those based in Nigeria, Monierate offers a fantastic resource where you can track and compare rates across 90+ exchanges like Bybit, Remitano, Nigeria Customs, and more, ensuring you get the best deal on your Euro to Naira conversions.*

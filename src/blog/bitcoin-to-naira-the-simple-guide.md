@@ -98,7 +98,7 @@ Now, this could be based on the level of supply and demand in the system, or by 
 
 **Bottom Line:** When entering one of these marketplaces, first check the different conversion rates using a currency converter. Then, weigh the value of getting the cash fast, over getting a better rate on a different platform.
 
-*Monierate offers a fantastic resource where you can track and compare rates across 15+ exchanges like Bybit, Remitano, Nigeria Customs, and more, ensuring you get the best deal on your Euro to Naira conversions.*
+*Monierate offers a fantastic resource where you can track and compare rates across 90+ exchanges like Bybit, Remitano, Nigeria Customs, and more, ensuring you get the best deal on your Euro to Naira conversions.*
 
 ## What to consider before choosing the right BTC to Naira Converter
 
