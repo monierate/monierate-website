@@ -54,7 +54,7 @@
 			}
 		},
 		{
-			link: 'https://usedivest.onelink.me/iccy/tdrrdxc0',
+			link: 'https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral',
 			brand: 'Divest',
 			text: 'Get competitive crypto exchange rates',
 			shortText: 'Competitive crypto rates',
