@@ -54,6 +54,19 @@
 			}
 		},
 		{
+			link: 'https://usedivest.onelink.me/iccy/tdrrdxc0',
+			brand: 'Divest',
+			text: 'Get competitive crypto exchange rates',
+			shortText: 'Competitive crypto rates',
+			cta: 'Download',
+			gradient: {
+				base: '#0E3B2A',
+				from: '#0A2C20',
+				via: '#12704A',
+				to: '#22A868'
+			}
+		},
+		{
 			link: '/exchanges/hyperfx',
 			brand: 'HyperFX',
 			text: 'is now on Monierate',
