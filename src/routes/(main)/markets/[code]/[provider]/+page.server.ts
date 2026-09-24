@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { getProviderV1 } from '$lib/services/providers.service';
+import { getAllChangers } from '$lib/services/changer.service';
 import { getRateHistory, type DailySnapshot } from '$lib/services/rates.service';
 import { parsePairCode } from '$lib/utils/pairs';
 import { buildPairProviderSeo } from '$lib/utils/providerSeo';
@@ -19,7 +20,7 @@ function parseAmountParam(raw: string | null): string {
 	return parseFloat(cleaned) > 0 ? cleaned : '1';
 }
 
-export const load: PageServerLoad = async ({ fetch, params, url, cookies, request }) => {
+export const load: PageServerLoad = async ({ fetch, params, url, cookies, request, parent }) => {
 	const pairCode = params.code.toLowerCase();
 	const providerCode = params.provider.toLowerCase();
 	const amount = parseAmountParam(url.searchParams.get('amount'));
@@ -31,10 +32,22 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies, reques
 	const isAndroid = /android/i.test(ua);
 	const isIOS = /iphone|ipad|ipod/i.test(ua);
 
-	const result = await getProviderV1(fetch, providerCode);
+	const [result, { hiddenChangers, publicPairProviders }, changers] = await Promise.all([
+		getProviderV1(fetch, providerCode),
+		parent(),
+		getAllChangers(fetch)
+	]);
 
 	if (!result?.provider?.name) {
 		throw error(404, `Provider "${providerCode}" not found`);
+	}
+
+	// Not public, either as a provider or for this specific pair (the pair layout
+	// reports the providers it withheld). A provider missing from the changer list is
+	// left alone rather than treated as hidden.
+	const listed = (changers ?? []).find((c: any) => c.code?.toLowerCase() === providerCode);
+	if (listed?.is_public === false || hiddenChangers.includes(providerCode)) {
+		throw error(404, `Provider "${providerCode}" not found for ${pairCode}`);
 	}
 
 	const { provider, latest_rates } = result;
@@ -52,6 +65,7 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies, reques
 	// live v1 feed plus any still-active pair on the legacy changer record (the
 	// only source for daily-cadence providers, which never reach the live feed).
 	// The current pair is always included so the switcher can mark it.
+	// Only pairs that are active and where this provider's rate is public are kept.
 	const supportedPairCodes = Array.from(
 		new Set<string>([
 			pairCode,
@@ -60,6 +74,9 @@ export const load: PageServerLoad = async ({ fetch, params, url, cookies, reques
 				.filter(([, v]) => v && v.is_active !== false)
 				.map(([code]) => code.toLowerCase())
 		])
+	).filter(
+		(code) =>
+			code === pairCode || !publicPairProviders || publicPairProviders[code]?.includes(providerCode)
 	);
 
 	const end = new Date();

@@ -53,8 +53,9 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 			getPair(fetch, pairCode)
 		]);
 
-		
-		if (!pair || pair.changers.length === 0) {
+		// Only fall back to another base when none was requested; an explicit base stays selected
+		// and the page shows an empty state instead.
+		if (!baseParam && (!pair || pair.changers.length === 0)) {
 			for (const currency of testCurrencies) {
 				const testPairCode = `${currency}${quote}`.toLowerCase();
 				if (testPairCode) {
@@ -76,7 +77,8 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		/* -----------------------------
 		 * Providers & rates
 		 * ----------------------------- */
-		const providersByCode = mapProvidersByCode(providers, [pairCode]);
+		// base may have changed via the fallback above, so use the pair actually being shown
+		const providersByCode = mapProvidersByCode(providers, [`${base}${quote}`.toLowerCase()]);
 
 		const rates = pair?.changers ?? [];
 		const filteredRates = rates.filter((rate: any) => rate.is_public === true && !!providersByCode[rate.changer_code]);
