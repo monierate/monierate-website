@@ -18,7 +18,7 @@ Two traders take the same number of trades, in the same market, using the same s
 
 ## **What the Ratio Measures and How to Calculate It**
 
-The risk/reward ratio compares two distances on a chart: entry to stop-loss, and entry to take-profit. Divide the first by the second. A trade that risks 20 pips to make 40 pips has a ratio of 1:2. One that risks 50 points on the S\&P 500 to make 150 has a ratio of 1:3.
+The risk/reward ratio compares two distances on a chart: entry to stop-loss, and entry to take-profit. Divide the first by the second. A trade that risks 20 pips to make 40 pips has a ratio of 1:2. One that risks 50 points on the S&P 500 to make 150 has a ratio of 1:3.
 
 Position size does not enter the calculation, which is why the ratio transfers across instruments and account sizes. A gold trade risking $30 to make $90 and a Bitcoin trade risking $300 to make $900 are the same 1:3 ratio expressed in different magnitudes. The ratio is a shape, not a dollar amount.
 
@@ -47,7 +47,7 @@ EUR/USD shows 1.1001 on the chart. The actual quote is 1.1001 bid, 1.1002 ask. Y
 One pip on a 60-pip trade is barely visible. But watch what happens as the trade distance shrinks:
 
 | Stop | Target | Spread | Actual risk | Actual reward | Actual ratio | Breakeven win rate |
-| :---- | :---- | :---- | :---- | :---- | :---- | :---- |
+| --- | --- | --- | --- | --- | --- | --- |
 | 20 pips | 40 pips | 1 pip | 21 pips | 39 pips | 1:1.86 | 35.0% |
 | 10 pips | 20 pips | 1 pip | 11 pips | 19 pips | 1:1.73 | 36.7% |
 | 5 pips | 10 pips | 1 pip | 6 pips | 9 pips | 1:1.50 | 40.0% |
@@ -73,7 +73,7 @@ The ratio tells you the shape of each trade. Position sizing converts that shape
 
 The standard approach is to define the maximum percentage of account equity that can be at risk on any single trade, typically 1% to 2%, and to calculate position size backward from the stop distance.
 
-Account equity $10,000. Risk per trade 1% \= $100. Stop distance 50 pips on EUR/USD where one pip equals $10 per standard lot. Position size \= $100 risk divided by (50 pips × $10 per pip per lot) \= 0.2 standard lots.
+Account equity $10,000. Risk per trade 1% = $100. Stop distance 50 pips on EUR/USD where one pip equals $10 per standard lot. Position size = $100 risk divided by (50 pips × $10 per pip per lot) = 0.2 standard lots.
 
 This calculation has to happen before every trade, not once at account opening and then forgotten. When the stop is tight, position size is larger. When the stop is wide, position size is smaller. The dollar risk stays fixed at 1% regardless of how confident the trader feels about the setup.
 
@@ -103,4 +103,4 @@ If that ratio is below the breakeven line for the actual historical win rate on 
 
 The risk/reward ratio is the most important number to calculate before any trade, and the most commonly misread one after it is calculated. It cannot tell you whether any individual trade will work. It can tell you, combined with an honest win rate measured over hundreds of trades, whether a strategy has positive expected value. Spread degradation converts the chart ratio into a smaller account ratio, with the effect growing sharply as trade distances shrink. Position sizing converts the ratio from a shape into a dollar impact, determining whether the account survives the losing streaks that every positive expected value strategy generates. And the discipline of placing stop and target at technically honest levels, then reading the ratio as an output rather than engineering it as an input, is what separates the ratio as an analytical tool from the ratio as a way of talking yourself into a trade that does not merit taking.
 
-_**Guest articles and opinions are the author's own and not necessarily shared by Monierate. This content is for informational purposes only and does not constitute financial advice. Trading involves significant risk, so please do your own research before making any decisions.**_
+**_Guest articles and opinions are the author's own and not necessarily shared by Monierate. This content is for informational purposes only and does not constitute financial advice. Trading involves significant risk, so please do your own research before making any decisions._**
