@@ -2,7 +2,7 @@
 layout: blog
 title: "Risk/Reward Ratio Explained: How to Size Trades So One Loss Doesn't Wipe Your Account"
 description: Learn how the risk/reward ratio works, how spreads affect real trading results, and how proper position sizing helps protect your account from large losses.
-createdAt: 2026-09-25T14:04:00
+createdAt: 2026-09-25T13:04:00
 updatedAt: 2026-09-25T14:04:00
 tag: guide
 image: https://ik.imagekit.io/monierate/Blog/partner/risk_reward_ratio_explained.jpg
