@@ -27,6 +27,20 @@
 			"mobileHeight": "77px",
 			"disabled": true,
 			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest-landscape.avif",
+			"formats": ["avif", "jpg"],
+			"label": "Divest",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
 		}
 	],
 	"blog": [
@@ -34,6 +48,14 @@
 			"url": "https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral",
 			"image": "/media/banners/textile-landscape.avif",
 			"label": "Textile",
+			"width": "400px",
+			"height": "57px",
+			"disabled": false
+		},
+		{
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest-landscape.avif",
+			"label": "Divest",
 			"width": "400px",
 			"height": "57px",
 			"disabled": false
@@ -67,6 +89,20 @@
 			"mobile_only": false,
 			"disabled": true,
 			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest-landscape.avif",
+			"formats": ["avif", "jpg"],
+			"label": "Divest",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
 		}
 	],
 	"compare": [
@@ -96,6 +132,20 @@
 			"mobileHeight": "77px",
 			"mobile_only": false,
 			"disabled": true,
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest-landscape.avif",
+			"formats": ["avif", "jpg"],
+			"label": "Divest",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
 			"_v": 1
 		}
 	],
@@ -127,6 +177,20 @@
 			"mobile_only": false,
 			"disabled": true,
 			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest-landscape.avif",
+			"formats": ["avif", "jpg"],
+			"label": "Divest",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
 		}
 	],
 	"blog_home": [
@@ -157,6 +221,20 @@
 			"mobile_only": false,
 			"disabled": true,
 			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest-landscape.avif",
+			"formats": ["avif", "jpg"],
+			"label": "Divest",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
 		}
 	],
 	"converter_mobile_only": [
@@ -180,6 +258,18 @@
 			"label": "HyperFX",
 			"mobile_only": true,
 			"disabled": true,
+			"width": "350px",
+			"height": "438px",
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest.avif",
+			"formats": ["avif", "jpg"],
+			"label": "Divest",
+			"mobile_only": true,
+			"disabled": false,
 			"width": "350px",
 			"height": "438px",
 			"_v": 1
@@ -213,6 +303,20 @@
 			"mobile_only": false,
 			"disabled": true,
 			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest-landscape.avif",
+			"formats": ["avif", "jpg"],
+			"label": "Divest",
+			"mobileWidth": "100%",
+			"width": "800px",
+			"height": "114px",
+			"mobileHeight": "77px",
+			"mobile_only": false,
+			"disabled": false,
+			"_v": 1
 		}
 	],
 	"bank_codes_side": [
@@ -236,6 +340,18 @@
 			"label": "HyperFX",
 			"mobile_only": false,
 			"disabled": true,
+			"width": "350px",
+			"height": "438px",
+			"_v": 1
+		},
+		{
+			"name": "",
+			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
+			"image": "/media/banners/divest.avif",
+			"formats": ["avif", "jpg"],
+			"label": "Divest",
+			"mobile_only": false,
+			"disabled": false,
 			"width": "350px",
 			"height": "438px",
 			"_v": 1
