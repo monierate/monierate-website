@@ -25,6 +25,7 @@
 		const advertArray = (Array.isArray(adverts) ? adverts : [adverts]).filter(Boolean) as {
 			label: string;
 			image: string;
+			variants?: string[];
 			url: string;
 			width?: string;
 			height?: string;
@@ -38,7 +39,9 @@
 
 		function insertAd(advert: typeof advertArray[0], anchor: Element) {
 			const img = document.createElement('img');
-			img.src = advert.image;
+			img.src = advert.variants?.length
+				? advert.variants[Math.floor(Math.random() * advert.variants.length)]
+				: advert.image;
 			img.alt = advert.label || 'Banner';
 			img.className = 'block mx-auto max-w-full';
 			if (advert.width) img.style.width = advert.width;

@@ -4,6 +4,8 @@
 
 	interface ConverterState {
 		convertDir: 'buy' | 'sell';
+		/** Sides the changer quotes; the toggle only offers these. */
+		availableDirs: ('buy' | 'sell')[];
 		convertSwapped: boolean;
 		sendDisplay: string;
 		receiveDisplay: string;
@@ -41,12 +43,12 @@
 			style="font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--text-secondary);"
 			>Quick Convert</span
 		>
-		{#if currentRate}
+		{#if currentRate && state.availableDirs.length}
 			<div
 				class="inline-flex items-center gap-0.5 p-0.5 rounded-full"
 				style="background: var(--table-header-bg); border: 1px solid var(--card-border);"
 			>
-				{#each [{ dir: 'buy' as const, label: 'Buy' }, { dir: 'sell' as const, label: 'Sell' }] as opt}
+				{#each [{ dir: 'buy' as const, label: 'Buy' }, { dir: 'sell' as const, label: 'Sell' }].filter((o) => state.availableDirs.includes(o.dir)) as opt}
 					<button
 						onclick={() => (state.convertDir = opt.dir)}
 						class="px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer transition-all"
@@ -131,7 +133,7 @@
 					1 {base} = {symbol}{fmt(state.activeRateValue)} {quote}
 				{/if}
 				<span class="ml-1" style="color: var(--text-muted);"
-					>({state.convertDir === 'buy' ? 'buy rate' : 'sell rate'}{rateNote ? `, ${rateNote}` : ''})</span
+					>({!state.availableDirs.length ? 'mid rate' : state.convertDir === 'buy' ? 'buy rate' : 'sell rate'}{rateNote ? `, ${rateNote}` : ''})</span
 				>
 			</div>
 		{/if}
@@ -149,7 +151,7 @@
 			class="mt-auto mx-4 mb-4 inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-[13px] font-semibold transition-opacity hover:opacity-90"
 			style="background: var(--accent); color: #fff;"
 		>
-			{state.convertDir === 'buy' ? 'Buy' : 'Sell'} on {providerName}
+			{!state.availableDirs.length ? 'Trade' : state.convertDir === 'buy' ? 'Buy' : 'Sell'} on {providerName}
 			<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 				<path d="M7 17 17 7" />
 				<path d="M7 7h10v10" />
