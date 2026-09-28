@@ -31,7 +31,8 @@
 		{
 			"name": "",
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest-landscape.avif",
+			"image": "/media/banners/divest-landscape-1.avif",
+			"variants": ["/media/banners/divest-landscape-1.avif", "/media/banners/divest-landscape-2.avif", "/media/banners/divest-landscape-3.avif"],
 			"formats": ["avif", "jpg"],
 			"label": "Divest",
 			"mobileWidth": "100%",
@@ -54,10 +55,11 @@
 		},
 		{
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest-landscape.avif",
+			"image": "/media/banners/divest-landscape-blog-1.avif",
+			"variants": ["/media/banners/divest-landscape-blog-1.avif", "/media/banners/divest-landscape-blog-2.avif", "/media/banners/divest-landscape-blog-3.avif"],
 			"label": "Divest",
 			"width": "400px",
-			"height": "57px",
+			"height": "78px",
 			"disabled": false
 		}
 	],
@@ -93,7 +95,8 @@
 		{
 			"name": "",
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest-landscape.avif",
+			"image": "/media/banners/divest-landscape-1.avif",
+			"variants": ["/media/banners/divest-landscape-1.avif", "/media/banners/divest-landscape-2.avif", "/media/banners/divest-landscape-3.avif"],
 			"formats": ["avif", "jpg"],
 			"label": "Divest",
 			"mobileWidth": "100%",
@@ -137,7 +140,8 @@
 		{
 			"name": "",
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest-landscape.avif",
+			"image": "/media/banners/divest-landscape-1.avif",
+			"variants": ["/media/banners/divest-landscape-1.avif", "/media/banners/divest-landscape-2.avif", "/media/banners/divest-landscape-3.avif"],
 			"formats": ["avif", "jpg"],
 			"label": "Divest",
 			"mobileWidth": "100%",
@@ -181,7 +185,8 @@
 		{
 			"name": "",
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest-landscape.avif",
+			"image": "/media/banners/divest-landscape-1.avif",
+			"variants": ["/media/banners/divest-landscape-1.avif", "/media/banners/divest-landscape-2.avif", "/media/banners/divest-landscape-3.avif"],
 			"formats": ["avif", "jpg"],
 			"label": "Divest",
 			"mobileWidth": "100%",
@@ -225,7 +230,8 @@
 		{
 			"name": "",
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest-landscape.avif",
+			"image": "/media/banners/divest-landscape-1.avif",
+			"variants": ["/media/banners/divest-landscape-1.avif", "/media/banners/divest-landscape-2.avif", "/media/banners/divest-landscape-3.avif"],
 			"formats": ["avif", "jpg"],
 			"label": "Divest",
 			"mobileWidth": "100%",
@@ -265,7 +271,8 @@
 		{
 			"name": "",
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest.avif",
+			"image": "/media/banners/divest-1.avif",
+			"variants": ["/media/banners/divest-1.avif", "/media/banners/divest-2.avif", "/media/banners/divest-3.avif"],
 			"formats": ["avif", "jpg"],
 			"label": "Divest",
 			"mobile_only": true,
@@ -307,7 +314,8 @@
 		{
 			"name": "",
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest-landscape.avif",
+			"image": "/media/banners/divest-landscape-1.avif",
+			"variants": ["/media/banners/divest-landscape-1.avif", "/media/banners/divest-landscape-2.avif", "/media/banners/divest-landscape-3.avif"],
 			"formats": ["avif", "jpg"],
 			"label": "Divest",
 			"mobileWidth": "100%",
@@ -347,7 +355,8 @@
 		{
 			"name": "",
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
-			"image": "/media/banners/divest.avif",
+			"image": "/media/banners/divest-1.avif",
+			"variants": ["/media/banners/divest-1.avif", "/media/banners/divest-2.avif", "/media/banners/divest-3.avif"],
 			"formats": ["avif", "jpg"],
 			"label": "Divest",
 			"mobile_only": false,
