@@ -28,6 +28,7 @@
 		selectRange: (r: Range) => void;
 		// Quick converter
 		convertDir: 'buy' | 'sell';
+		availableDirs: ('buy' | 'sell')[];
 		convertSwapped: boolean;
 		sendDisplay: string;
 		receiveDisplay: string;

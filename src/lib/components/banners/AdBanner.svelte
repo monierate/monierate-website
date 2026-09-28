@@ -96,6 +96,19 @@
 		};
 	});
 
+	// Adverts with several creatives list them in `variants`; a random one is
+	// shown each time the banner changes. Picked on the client only, so SSR and
+	// hydration agree on the first image.
+	let mounted = false;
+	onMount(() => (mounted = true));
+	$: ad = banners[current] && {
+		...banners[current],
+		image:
+			mounted && banners[current].variants?.length
+				? banners[current].variants[Math.floor(Math.random() * banners[current].variants.length)]
+				: banners[current].image
+	};
+
 	const getExtension = (url: string) => url.split('.').pop() ?? 'png';
 	const replaceExt = (url: string, ext: string) => url.replace(/\.\w+$/, `.${ext}`);
 </script>
@@ -110,14 +123,14 @@
 		>
 		{#key current}
 			<div
-				class="container {banners[current].mobile_only ? 'md:hidden' : ''} text-center {cover ? 'p-0 m-0' : ''}"
+				class="container {ad.mobile_only ? 'md:hidden' : ''} text-center {cover ? 'p-0 m-0' : ''}"
 				style="grid-area: 1 / 1; width: 100%;"
 				in:fly={{ y: 24, duration: SWAP_DURATION_MS, easing: quintOut }}
 				out:fly={{ y: -24, duration: SWAP_DURATION_MS, easing: quintOut }}
 			>
-				{#if banners[current].url}
+				{#if ad.url}
 					<a
-						href={banners[current].url}
+						href={ad.url}
 						target="_blank"
 						rel="noopener noreferrer sponsored"
 						class="inline-block text-center {showLabel
@@ -131,50 +144,50 @@
 							>
 						{/if}
 						<picture>
-							{#each banners[current].formats ?? [getExtension(banners[current].image)] as format}
+							{#each ad.formats ?? [getExtension(ad.image)] as format}
 								<source
-									srcset="{replaceExt(banners[current].image, format)}?v={banners[current]._v}"
+									srcset="{replaceExt(ad.image, format)}?v={ad._v}"
 									type="image/{format}"
 								/>
 							{/each}
 							<img
 								src="{replaceExt(
-									banners[current].image,
-									(banners[current].formats ?? [getExtension(banners[current].image)]).at(-1)
-								)}?v={banners[current]._v}"
-								alt={banners[current].label ?? 'Advertisement'}
+									ad.image,
+									(ad.formats ?? [getExtension(ad.image)]).at(-1)
+								)}?v={ad._v}"
+								alt={ad.label ?? 'Advertisement'}
 								style="width: {width ??
 									(isMobile
-										? banners[current].mobileWidth ?? '700px'
-										: banners[current].width ?? '800px')}; height: {height ??
+										? ad.mobileWidth ?? '700px'
+										: ad.width ?? '800px')}; height: {height ??
 									(isMobile
-										? banners[current].mobileHeight ?? '70px'
-										: banners[current].height ?? '99px')}; object-fit: contain;"
+										? ad.mobileHeight ?? '70px'
+										: ad.height ?? '99px')}; object-fit: contain;"
 								class="w-full"
 							/>
 						</picture>
 					</a>
 				{:else}
 					<picture>
-						{#each banners[current].formats ?? [getExtension(banners[current].image)] as format}
+						{#each ad.formats ?? [getExtension(ad.image)] as format}
 							<source
-								srcset="{replaceExt(banners[current].image, format)}?v={banners[current]._v}"
+								srcset="{replaceExt(ad.image, format)}?v={ad._v}"
 								type="image/{format}"
 							/>
 						{/each}
 						<img
 							src="{replaceExt(
-								banners[current].image,
-								(banners[current].formats ?? [getExtension(banners[current].image)]).at(-1)
-							)}?v={banners[current]._v}"
-							alt={banners[current].label ?? 'Advertisement'}
+								ad.image,
+								(ad.formats ?? [getExtension(ad.image)]).at(-1)
+							)}?v={ad._v}"
+							alt={ad.label ?? 'Advertisement'}
 							style="width: {width ??
 								(isMobile
-									? banners[current].mobileWidth ?? '700px'
-									: banners[current].width ?? '800px')}; height: {height ??
+									? ad.mobileWidth ?? '700px'
+									: ad.width ?? '800px')}; height: {height ??
 								(isMobile
-									? banners[current].mobileHeight ?? '70px'
-									: banners[current].height ?? '99px')}; object-fit: contain;"
+									? ad.mobileHeight ?? '70px'
+									: ad.height ?? '99px')}; object-fit: contain;"
 							class="mx-auto max-w-full"
 						/>
 					</picture>
