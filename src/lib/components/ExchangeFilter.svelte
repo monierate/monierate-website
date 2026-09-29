@@ -2,6 +2,7 @@
 	import { setUrlParam } from '$lib/functions';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { accountsHref, accountsLabel } from '$lib/utils/accountsRoute';
 
 	export let search: string = '';
 	export let onSearch: (a: any) => void = () => {};
@@ -346,8 +347,8 @@
 				</a>
 
 				<a
-					href="/usd-accounts-rates{parseCurrencyInUrl}"
-					class={`category-link ${selectedCategory === '/usd-accounts-rates' ? 'active' : 'normal'}`}
+					href={accountsHref(selectedCurrency)}
+					class={`category-link ${selectedCategory === '/accounts-rates' ? 'active' : 'normal'}`}
 					on:click={handleClick}
 				>
 					<svg
@@ -365,7 +366,7 @@
 						/>
 					</svg>
 
-					USD Accounts
+					{accountsLabel(selectedCurrency)}
 				</a>
 
 				<a

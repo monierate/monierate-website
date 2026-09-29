@@ -10,7 +10,11 @@
 	import Highlights from '$lib/components/Highlights.svelte';
 	import Rates from '$lib/components/Rates.svelte';
 
-	import { handleQuoteCurrencyChange, handleBaseCurrencyChange } from '$lib/utils/url';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+
+	import { handleQuoteCurrencyChange } from '$lib/utils/url';
+	import { accountsHref, accountsLabel as labelFor } from '$lib/utils/accountsRoute';
 
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 
@@ -36,6 +40,12 @@
 
 	$: baseSymbol = currencySymbols[base] ?? base;
 	$: quoteSymbol = currencySymbols[quote] ?? quote;
+
+	$: accountsLabel = labelFor(base);
+
+	// Each fiat base has its own URL, so switching currency is a route change, not a `?base=` update
+	const handleBaseCurrencyChange = (currency: string) =>
+		goto(accountsHref(currency, $page.url.search), { keepFocus: true, noScroll: true });
 
 	// Providers lookup
 	const providers: Record<string, Changer> = data.providers ?? {};
@@ -80,7 +90,7 @@
 </script>
 
 <svelte:head>
-	<title>USD Accounts Providers - Best Rates & Secure Payments | Monierate</title>
+	<title>{accountsLabel} Providers - Best Rates & Secure Payments | Monierate</title>
 
 	<meta
 		name="description"
@@ -90,7 +100,7 @@
 	<meta property="og:type" content="website" />
 	<meta
 		property="og:title"
-		content="USD Accounts Providers - Best Rates & Secure Online Payments | Monierate"
+		content="{accountsLabel} Providers - Best Rates & Secure Online Payments | Monierate"
 	/>
 	<meta
 		property="og:description"
@@ -117,7 +127,7 @@
 	{/if}
 
 	<ExchangeRateText
-		title={`${currencies[base] ?? base} to Naira rates for USD Accounts Providers`}
+		title={`${currencies[base] ?? base} to Naira rates for ${accountsLabel} Providers`}
 		data={{
 			currencies,
 			base: { name: base, symbol: baseSymbol },
@@ -140,7 +150,7 @@
 		onSearch={handleSearch}
 		selectedCurrency={base}
 		onChangeCurrency={handleBaseCurrencyChange}
-		selectedCategory="/usd-accounts-rates"
+		selectedCategory="/accounts-rates"
 	/>
 </div>
 
