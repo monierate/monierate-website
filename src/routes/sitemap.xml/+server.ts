@@ -7,6 +7,11 @@ import { isRenderablePair, isUsableQuote, parsePairCode } from '$lib/utils/pairs
 import { getLatestRates } from '$lib/api/accountApi';
 import { conversionPath } from '$lib/utils/conversionSlug';
 import { LADDER_AMOUNTS } from '$lib/utils/amountLadder';
+import {
+	accountsHref,
+	ACCOUNT_FIAT_BASES,
+	DEFAULT_VIRTUAL_ACCOUNT_BASE
+} from '$lib/utils/accountsRoute';
 
 /**
  * Dynamic, SEO- and AI-SEO-friendly sitemap.
@@ -358,12 +363,16 @@ function buildEntries(
 		'bank-rates',
 		'money-transfer-rate',
 		'offramp-rates',
-		'usd-accounts-rates',
 		'virtualcard-rates',
 		'liquidity-rates',
 		'highlights'
 	]) {
 		entries.push({ path: `/${seg}`, changefreq: 'daily', priority: 0.7, lastmod: now });
+	}
+
+	// One accounts page per fiat currency, plus the shared crypto one
+	for (const base of [...ACCOUNT_FIAT_BASES, DEFAULT_VIRTUAL_ACCOUNT_BASE]) {
+		entries.push({ path: accountsHref(base), changefreq: 'daily', priority: 0.7, lastmod: now });
 	}
 
 	/* --- Exchange directory: the index and every collection that clears the
