@@ -14,7 +14,7 @@
 		},
 		{
 			q: 'Is there a free tier?',
-			a: 'Yes. Every new account starts with a $10 wallet credit — no card needed. The dashboard is free forever. You only pay when you make API calls, export data, or execute offramp trades.'
+			a: 'Yes. Every new account starts with a $10 wallet credit — no card needed. The dashboard is free forever. You only pay when you make API calls or export data.'
 		},
 		{
 			q: 'How does billing work?',

@@ -11,7 +11,7 @@
 			label: 'START FREE',
 			tagline: 'Only pay when you act.',
 			description:
-				"Full dashboard access for free. You're only charged when you make API calls, download data, or execute trades.",
+				"Full dashboard access for free. You're only charged when you make API calls or download data.",
 			cta: 'Get Started Free',
 			ctaHref: `${ACCOUNT_URL}/auth/signup`,
 			highlighted: false,
@@ -22,7 +22,6 @@
 				{ label: 'Market Insight', value: 'View only', accent: false },
 				{ label: 'Analytics Dashboard', value: 'View only', accent: false },
 				{ label: 'Historical data download / exports', value: '$1/yr', accent: false },
-				{ label: 'Offramp payments', value: '$0.08 fee', accent: false },
 				{ label: 'Currency rates API', value: '$0.01/request', accent: false }
 			],
 			apiLimitsNote:
@@ -31,7 +30,7 @@
 		pro: {
 			label: 'PROFESSIONAL',
 			tagline: 'Unlimited access. Predictable cost.',
-			description: 'Unlimited API access and data exports. 0% discount on offramp fees vs PAYG.',
+			description: 'Unlimited API access and data exports.',
 			cta: 'Start Pro',
 			ctaHref: `${ACCOUNT_URL}/auth/signup`,
 			highlighted: false,
@@ -42,7 +41,6 @@
 				{ label: 'Market Insight', value: 'Full Access', accent: true },
 				{ label: 'Analytics Dashboard', value: 'Full Access', accent: true },
 				{ label: 'Historical data download / exports', value: 'Unlimited', accent: true },
-				{ label: 'Offramp payments', value: '$0.05 fee', accent: false },
 				{ label: 'Currency rates API', value: null, accent: false }
 			],
 			apiLimitsNote: 'Limits apply to currency rates and FX data requests only.'
@@ -62,7 +60,6 @@
 				{ label: 'Market Insight', value: 'Full Access', accent: true },
 				{ label: 'Analytics Dashboard', value: 'Full Access', accent: true },
 				{ label: 'Historical data download / exports', value: 'Unlimited', accent: true },
-				{ label: 'Offramp payments', value: '$0.01 fee', accent: false },
 				{ label: 'Currency rates API', value: null, accent: false }
 			],
 			apiLimitsNote: 'Limits apply to currency rates and FX data requests only.'
@@ -148,8 +145,8 @@
 		<div class="text-center mb-8">
 			<h2 class="text-2xl font-bold mb-2">Simple, transparent pricing</h2>
 			<p class="text-sm max-w-lg mx-auto" style="color: var(--text-secondary);">
-				Dashboard is free for everyone. Only pay when you make API calls, export data, or execute
-				trades. Pro and Max remove all per-action fees.
+				Dashboard is free for everyone. Only pay when you make API calls or export data. Pro and Max
+				remove all per-action fees.
 			</p>
 		</div>
 
