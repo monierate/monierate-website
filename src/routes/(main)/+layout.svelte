@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getCookie, setCookie } from '$lib/functions';
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import { timezone } from '$lib/functions';
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import LoadingIndicator from '$lib/components/LoadingIndicator.svelte';
@@ -20,6 +21,10 @@
 
 	$: top_pairs = data.top_pairs;
 	$: defaultCurrency = data.defaultCurrency;
+
+	// Marketing pages that should not show the rates ticker
+	const hideTickerOn = ['/api-pricing'];
+	$: showTicker = !hideTickerOn.includes($page.url.pathname);
 
 	// toggle navbar collapse menu on mobile
 	onMount(() => {
@@ -51,7 +56,9 @@
 <LoadingIndicator />
 <TopBanner />
 <Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
-<MarketTicker top_pairs={top_pairs} />
+{#if showTicker}
+	<MarketTicker top_pairs={top_pairs} />
+{/if}
 <Breadcrumb />
 
 <slot />
