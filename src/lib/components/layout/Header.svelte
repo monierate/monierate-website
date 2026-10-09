@@ -10,6 +10,7 @@
 
 	export let defaultCurrency: string;
 	export let auth: { isLoggedIn: boolean; user: any } | null = null;
+	export let showCurrencySelector = true;
 
 	// Switching the quote currency writes the cookie via the store; re-run the
 	// loads that key off it (`depends('params:quote')`) so the market ticker and
@@ -166,12 +167,14 @@
 					</div>
 				{/if} -->
 
-				<span class="hidden md:inline-block">
-					<CurrencySelector
-						onSelect={(currency: any) => selectCurrency(currency)}
-						bind:selected={defaultCurrency}
-					/>
-				</span>
+				{#if showCurrencySelector}
+					<span class="hidden md:inline-block">
+						<CurrencySelector
+							onSelect={(currency: any) => selectCurrency(currency)}
+							bind:selected={defaultCurrency}
+						/>
+					</span>
+				{/if}
 
 				{#if auth?.isLoggedIn}
 					<a

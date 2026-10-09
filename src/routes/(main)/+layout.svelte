@@ -22,9 +22,9 @@
 	$: top_pairs = data.top_pairs;
 	$: defaultCurrency = data.defaultCurrency;
 
-	// Marketing pages that should not show the rates ticker
-	const hideTickerOn = ['/api-pricing'];
-	$: showTicker = !hideTickerOn.includes($page.url.pathname);
+	// Marketing pages that don't use rates: hide the ticker and currency selector
+	const marketingPages = ['/api-pricing'];
+	$: isMarketingPage = marketingPages.includes($page.url.pathname);
 
 	// toggle navbar collapse menu on mobile
 	onMount(() => {
@@ -55,8 +55,8 @@
 
 <LoadingIndicator />
 <TopBanner />
-<Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
-{#if showTicker}
+<Header bind:defaultCurrency={defaultCurrency} auth={data.auth} showCurrencySelector={!isMarketingPage} />
+{#if !isMarketingPage}
 	<MarketTicker top_pairs={top_pairs} />
 {/if}
 <Breadcrumb />
