@@ -362,6 +362,7 @@ function buildEntries(
 		{ path: '/blog', changefreq: 'daily', priority: 0.7 },
 		{ path: '/api', changefreq: 'monthly', priority: 0.6 },
 		{ path: '/pricing', changefreq: 'monthly', priority: 0.6 },
+		{ path: '/api-pricing', changefreq: 'monthly', priority: 0.6 },
 		{ path: '/bank-codes', changefreq: 'weekly', priority: 0.6 },
 		{ path: '/bank-codes/ussd', changefreq: 'weekly', priority: 0.5 },
 		{ path: '/tools/banking/nuban-validation', changefreq: 'monthly', priority: 0.5 }

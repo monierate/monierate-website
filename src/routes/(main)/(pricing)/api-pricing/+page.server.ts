@@ -1,0 +1,20 @@
+import type { PageServerLoad } from './$types';
+import { parseJSONSafe } from '$lib/functions';
+
+export const load: PageServerLoad = async ({ fetch }) => {
+  let subscriptionPlans: any = [];
+
+  try {
+    const response = await fetch(`/api/pricing/get_all_pricing`);
+    if (response.ok) {
+      const parsed: any = parseJSONSafe(await response.json());
+      subscriptionPlans = parsed?.data ?? [];
+    } else {
+      console.error(`Failed to fetch subscription plans. Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Error fetching subscription plans:', error);
+  }
+
+  return { subscriptionPlans };
+};
