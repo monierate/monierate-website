@@ -7,6 +7,11 @@ import { isRenderablePair, isUsableQuote, parsePairCode } from '$lib/utils/pairs
 import { getLatestRates } from '$lib/api/accountApi';
 import { conversionPath } from '$lib/utils/conversionSlug';
 import { LADDER_AMOUNTS } from '$lib/utils/amountLadder';
+import {
+	accountsHref,
+	ACCOUNT_FIAT_BASES,
+	DEFAULT_VIRTUAL_ACCOUNT_BASE
+} from '$lib/utils/accountsRoute';
 
 /**
  * Dynamic, SEO- and AI-SEO-friendly sitemap.
@@ -82,7 +87,7 @@ function countryCodeFromKey(key: string, suffix: string): string {
 }
 
 async function fetchChangerCodes(): Promise<
-	{ code: string; lastmod?: string; ownPairCodes: string[] }[]
+	{ code: string; lastmod?: string; ownPairCodes: string[]; tags: string[] }[]
 > {
 	try {
 		const res = await serverApiRequest<{ result?: any[]; count?: number }>(
@@ -99,7 +104,8 @@ async function fetchChangerCodes(): Promise<
 				lastmod: c.updatedAt ? new Date(c.updatedAt).toISOString() : undefined,
 				ownPairCodes: Object.entries(c.pairs ?? {})
 					.filter(([, p]: [string, any]) => isUsableQuote(p))
-					.map(([code]) => code)
+					.map(([code]) => code),
+				tags: Array.isArray(c.changer_tags) ? c.changer_tags : []
 			}));
 	} catch {
 		return [];
@@ -313,6 +319,29 @@ function converterEntries(
 	return entries;
 }
 
+/**
+ * Bases whose accounts page would actually list providers: an `account`-tagged changer
+ * with a public quote on the base's NGN pair, which is what the page renders. The rest
+ * show an empty state, so listing them would submit thin pages. The virtual page is
+ * judged on its default base (USDT). A failed pairs fetch fails open and lists them all.
+ */
+function accountBasesWithProviders(
+	changers: { code: string; tags: string[] }[],
+	changerPairs: Map<string, string[]>
+): string[] {
+	const candidates = [...ACCOUNT_FIAT_BASES, DEFAULT_VIRTUAL_ACCOUNT_BASE];
+	if (changerPairs.size === 0) return candidates;
+
+	const excluded = ['market', 'binance'];
+	const covered = new Set<string>();
+	for (const { code, tags } of changers) {
+		if (!tags.includes('account') || excluded.includes(code)) continue;
+		for (const pairCode of changerPairs.get(code) ?? []) covered.add(pairCode.toLowerCase());
+	}
+
+	return candidates.filter((base) => covered.has(`${base}ngn`.toLowerCase()));
+}
+
 function buildEntries(
 	changers: { code: string; lastmod?: string; hasRate: boolean }[],
 	pairProviderCombos: PairProviderCombo[],
@@ -320,7 +349,8 @@ function buildEntries(
 	livePairCodes: string[],
 	collectionSlugs: string[],
 	currencyCodes: Set<string>,
-	midQuoteCodes: Set<string>
+	midQuoteCodes: Set<string>,
+	accountBases: string[]
 ): Entry[] {
 	const now = new Date().toISOString();
 	const entries: Entry[] = [];
@@ -358,12 +388,16 @@ function buildEntries(
 		'bank-rates',
 		'money-transfer-rate',
 		'offramp-rates',
-		'usd-accounts-rates',
 		'virtualcard-rates',
 		'liquidity-rates',
 		'highlights'
 	]) {
 		entries.push({ path: `/${seg}`, changefreq: 'daily', priority: 0.7, lastmod: now });
+	}
+
+	// One accounts page per currency that has account providers (see accountBasesWithProviders)
+	for (const base of accountBases) {
+		entries.push({ path: accountsHref(base), changefreq: 'daily', priority: 0.7, lastmod: now });
 	}
 
 	/* --- Exchange directory: the index and every collection that clears the
@@ -538,7 +572,8 @@ export const GET: RequestHandler = async () => {
 		pairs.liveCodes,
 		collections.map(({ collection }) => collection.slug),
 		currencyCodes,
-		midQuoteCodes
+		midQuoteCodes,
+		accountBasesWithProviders(changers, pairs.changerPairs)
 	);
 
 	if (entries.length > MAX_URLS_PER_SITEMAP) {

@@ -136,99 +136,112 @@
 </script>
 
 <div class="container p-0 w-full m-0 md:md:max-w-[1200px] md:m-auto" bind:this={content}>
-	<div class="overflow-x-auto bg-[var(--card-bg)]">
-		<table class="text-sm text-gray-800 min-w-full table-auto">
-			<thead
-				class="bg-[var(--table-header-bg)] text-xs text-[var(--text-muted)] font-semibold whitespace-nowrap"
-			>
-				<tr>
-					<th class="px-4 py-6 md:text-[15px] w-10 hidden md:table-cell text-left">#</th>
-					<th class="px-4 py-6 md:text-[15px] text-left">
-						<span class="flex items-center">
-							Provider
-							<button
-								class="ml-2"
-								on:click={() => {
-									sortTable('provider');
-								}}
-								aria-label="Sort table"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-									class="size-5"
+	{#if rates.length}
+		<div class="overflow-x-auto bg-[var(--card-bg)]">
+			<table class="text-sm text-gray-800 min-w-full table-auto">
+				<thead
+					class="bg-[var(--table-header-bg)] text-xs text-[var(--text-muted)] font-semibold whitespace-nowrap"
+				>
+					<tr>
+						<th class="px-4 py-6 md:text-[15px] w-10 hidden md:table-cell text-left">#</th>
+						<th class="px-4 py-6 md:text-[15px] text-left">
+							<span class="flex items-center">
+								Provider
+								<button
+									class="ml-2"
+									on:click={() => {
+										sortTable('provider');
+									}}
+									aria-label="Sort table"
 								>
-									<path
-										fill-rule="evenodd"
-										d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-							</button>
-						</span>
-					</th>
-					<th class="px-4 py-6 md:text-[15px] text-right">
-						<span class="inline-flex flex items-center">
-							Rate
-							<button
-								class="ml-2"
-								on:click={() => {
-									sortTable('rate');
-								}}
-								aria-label="Sort table"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-									class="size-5"
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20"
+										fill="currentColor"
+										class="size-5"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+								</button>
+							</span>
+						</th>
+						<th class="px-4 py-6 md:text-[15px] text-right">
+							<span class="inline-flex flex items-center">
+								Rate
+								<button
+									class="ml-2"
+									on:click={() => {
+										sortTable('rate');
+									}}
+									aria-label="Sort table"
 								>
-									<path
-										fill-rule="evenodd"
-										d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-							</button>
-						</span>
-					</th>
-					<th class="px-4 py-6 md:text-[15px] text-right">Last Updated</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each paginatedRows as rate, i}
-					<tr class="border-t dark:border-gray-700 whitespace-nowrap">
-						<!-- Index -->
-						<td class="px-4 py-3 w-10 hidden md:table-cell text-left dark:text-gray-200">{i + 1}</td
-						>
-
-						<!-- Name with icon and link -->
-						<td class="px-4 py-3 text-left dark:text-gray-200 font-bold md:text-[17px]">
-							<a
-								href={`/markets/${base.toLowerCase()}${quote.toLowerCase()}/${rate.changer_code}`}
-								class="flex items-center gap-2 text-gray-700 dark:text-gray-200"
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 20 20"
+										fill="currentColor"
+										class="size-5"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+								</button>
+							</span>
+						</th>
+						<th class="px-4 py-6 md:text-[15px] text-right">Last Updated</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each paginatedRows as rate, i}
+						<tr class="border-t dark:border-gray-700 whitespace-nowrap">
+							<!-- Index -->
+							<td class="px-4 py-3 w-10 hidden md:table-cell text-left dark:text-gray-200">{i + 1}</td
 							>
-								<picture class="h-6 w-6 rounded-full overflow-hidden">
-									<source srcset={`/icons/svg/${rate.changer_code}.svg`} type="image/svg+xml" />
-									<source srcset={`/icons/svg/${rate.changer_code}.png`} type="image/png" />
-									<img
-										src={`/icons/svg/${rate.changer_code}.png`}
-										alt={providers[rate.changer_code].name}
-										class="h-6 w-6 rounded-full"
-									/>
-								</picture>
-								<span class="font-semibold">{providers[rate.changer_code].name}</span>
-							</a>
-						</td>
-
-						<!-- Rate -->
-						<td class="px-4 py-3 text-right dark:text-gray-200 font-bold md:text-[17px]">
-							{#if rateType === 'buy'}
-								{#if rate.price_buy > 0}
+	
+							<!-- Name with icon and link -->
+							<td class="px-4 py-3 text-left dark:text-gray-200 font-bold md:text-[17px]">
+								<a
+									href={`/markets/${base.toLowerCase()}${quote.toLowerCase()}/${rate.changer_code}`}
+									class="flex items-center gap-2 text-gray-700 dark:text-gray-200"
+								>
+									<picture class="h-6 w-6 rounded-full overflow-hidden">
+										<source srcset={`/icons/svg/${rate.changer_code}.svg`} type="image/svg+xml" />
+										<source srcset={`/icons/svg/${rate.changer_code}.png`} type="image/png" />
+										<img
+											src={`/icons/svg/${rate.changer_code}.png`}
+											alt={providers[rate.changer_code].name}
+											class="h-6 w-6 rounded-full"
+										/>
+									</picture>
+									<span class="font-semibold">{providers[rate.changer_code].name}</span>
+								</a>
+							</td>
+	
+							<!-- Rate -->
+							<td class="px-4 py-3 text-right dark:text-gray-200 font-bold md:text-[17px]">
+								{#if rateType === 'buy'}
+									{#if rate.price_buy > 0}
+										<div class="space-y-1">
+											<div class="font-semibold">
+												{quoteSymbol || quote + ' '}{formatNumber(rate.price_buy, 'en-US', { maximumFractionDigits: 0 })}
+											</div>
+											<div class="text-gray-400 text-xs">
+												per {baseSymbol || base + ' '}1
+											</div>
+										</div>
+									{:else}
+										-
+									{/if}
+								{:else if rate.price_sell > 0}
 									<div class="space-y-1">
 										<div class="font-semibold">
-											{quoteSymbol || quote + ' '}{formatNumber(rate.price_buy, 'en-US', { maximumFractionDigits: 0 })}
+											{quoteSymbol || quote + ' '}{formatNumber(rate.price_sell, 'en-US', { maximumFractionDigits: 0 })}
 										</div>
 										<div class="text-gray-400 text-xs">
 											per {baseSymbol || base + ' '}1
@@ -237,32 +250,61 @@
 								{:else}
 									-
 								{/if}
-							{:else if rate.price_sell > 0}
-								<div class="space-y-1">
-									<div class="font-semibold">
-										{quoteSymbol || quote + ' '}{formatNumber(rate.price_sell, 'en-US', { maximumFractionDigits: 0 })}
-									</div>
-									<div class="text-gray-400 text-xs">
-										per {baseSymbol || base + ' '}1
-									</div>
-								</div>
-							{:else}
-								-
-							{/if}
-						</td>
-
-						<!-- Last Updated -->
-						<td class="px-4 py-3 text-right dark:text-gray-200">
-							{friendlyDate(rate.updated_at)}
-						</td>
-					</tr>
+							</td>
+	
+							<!-- Last Updated -->
+							<td class="px-4 py-3 text-right dark:text-gray-200">
+								{friendlyDate(rate.updated_at)}
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+	{:else}
+		<!-- Empty state: a ghost of the table (same style as the history ghosts) behind a note
+		     about the selected currency. Static rather than pulsing, since nothing is loading. -->
+		<div class="relative rounded-xl overflow-hidden bg-[var(--card-bg)]">
+			<div class="pointer-events-none select-none" aria-hidden="true">
+				<div
+					class="flex items-center gap-4 px-4 py-6 border-b"
+					style="background: var(--table-header-bg); border-color: var(--card-border);"
+				>
+					<div class="h-2.5 w-4 rounded hidden md:block" style="background: var(--card-border);"></div>
+					<div class="h-2.5 w-16 rounded" style="background: var(--card-border);"></div>
+					<div class="h-2.5 w-10 rounded ml-auto" style="background: var(--card-border);"></div>
+					<div class="h-2.5 w-20 rounded hidden sm:block" style="background: var(--card-border);"></div>
+				</div>
+				{#each [120, 96, 136, 88, 112, 104] as w}
+					<div class="flex items-center gap-4 px-4 py-4 border-b" style="border-color: var(--card-border);">
+						<div class="h-3 w-4 rounded hidden md:block" style="background: var(--card-border);"></div>
+						<div class="h-6 w-6 rounded-full shrink-0" style="background: var(--card-border);"></div>
+						<div class="h-3 rounded" style="width: {w}px; background: var(--card-border);"></div>
+						<div class="ml-auto flex flex-col items-end gap-1.5">
+							<div class="h-3 w-16 rounded" style="background: var(--card-border);"></div>
+							<div class="h-2 w-10 rounded" style="background: var(--table-header-bg);"></div>
+						</div>
+						<div class="h-3 w-20 rounded hidden sm:block" style="background: var(--table-header-bg);"></div>
+					</div>
 				{/each}
-			</tbody>
-		</table>
-	</div>
+			</div>
+
+			<div
+				class="absolute inset-0 flex flex-col items-center justify-center gap-1 px-4 text-center"
+				style="background: radial-gradient(ellipse at center, var(--card-bg) 25%, color-mix(in srgb, var(--card-bg) 55%, transparent) 75%);"
+			>
+				<p class="font-semibold text-base text-[var(--text-primary)]">
+					No providers for {base?.toUpperCase()} yet
+				</p>
+				<p class="text-sm text-[var(--text-secondary)]">
+					There's no data for the selected currency. Try another currency above.
+				</p>
+			</div>
+		</div>
+	{/if}
 
 	<!-- PAGINATION -->
-	{#if pagination}
+	{#if pagination && rates.length}
 		<div
 			class="flex flex-wrap justify-center md:justify-between items-center px-4 py-3 pt-8 md:pt-10 border-t border-[var(--card-border)] text-sm text-[var(--text-secondary)] bg-[var(--card-bg)]"
 		>
