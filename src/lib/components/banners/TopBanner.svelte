@@ -29,8 +29,8 @@
 
 	const sponsored_partners = [
 		{
-			link: 'https://textilecredit.com/?ref=monierate&utm_source=monierate&utm_medium=referral',
-			brand: 'Textile',
+			link: 'https://app.hyperfx.finance/swap?utm_source=monierate&utm_medium=banner&utm_campaign=monierate',
+			brand: 'HyperFX',
 			cta: 'Start trading'
 		}
 	];
@@ -47,10 +47,23 @@
 		{
 			...selected_partner_top,
 			gradient: {
-				base: '#301E4B',
-				from: '#2A1D43',
-				via: '#3A2560',
-				to: '#5A3391'
+				base: '#0A2A4D',
+				from: '#041E38',
+				via: '#0B4C8C',
+				to: '#0080FF'
+			}
+		},
+		{
+			link: 'https://forms.gle/LD4mGzoNyTDA9AP78?utm_source=monierate&utm_medium=banner&utm_campaign=monierate',
+			brand: 'HyperFX',
+			text: 'Move Naira and USDT at scale for your business',
+			shortText: 'FX at scale for businesses',
+			cta: 'Get started',
+			gradient: {
+				base: '#0A2A4D',
+				from: '#041E38',
+				via: '#0B4C8C',
+				to: '#0080FF'
 			}
 		},
 		{
@@ -64,19 +77,6 @@
 				from: '#0A2C20',
 				via: '#12704A',
 				to: '#22A868'
-			}
-		},
-		{
-			link: '/exchanges/hyperfx',
-			brand: 'HyperFX',
-			text: 'is now on Monierate',
-			shortText: 'Now on Monierate',
-			cta: 'View profile',
-			gradient: {
-				base: '#0A2A4D',
-				from: '#041E38',
-				via: '#0B4C8C',
-				to: '#0080FF'
 			}
 		},
 		{
@@ -132,11 +132,11 @@
 <div
 	id="top-banner"
 	tabindex="-1"
-	class="flex fixed top-0 mb-8 w-full z-50 isolate gap-x-6 overflow-hidden bg-[#301E4B] px-6 py-5 sm:px-3.5 sm:before:flex-1 whitespace-nowrap"
+	class="flex fixed top-0 mb-8 w-full z-50 isolate gap-x-6 overflow-hidden bg-[#0A2A4D] px-6 py-5 sm:px-3.5 sm:before:flex-1 whitespace-nowrap"
 >
 	<!-- One background per headline, stacked and cross-faded, so the banner
 	     colour changes with the row instead of snapping when it slides. -->
-	{#each headlines as headline, i (headline.brand)}
+	{#each headlines as headline, i (headline.link)}
 		<div
 			class="absolute inset-0 -z-10 transition-opacity duration-700 ease-in-out motion-reduce:transition-none"
 			style="{gradientStyle(headline.gradient)} opacity: {i === active ? 1 : 0};"
@@ -152,7 +152,7 @@
 				class="transition-transform duration-700 ease-in-out motion-reduce:transition-none"
 				style="transform: translateY(-{(active * 100) / headlines.length}%)"
 			>
-				{#each headlines as headline (headline.brand)}
+				{#each headlines as headline (headline.link)}
 					<span
 						class="flex h-7 items-center text-sm leading-6 text-gray-100"
 						aria-hidden={headline !== headlines[active]}
