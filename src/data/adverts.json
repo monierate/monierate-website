@@ -11,7 +11,7 @@
 			"width": "800px",
 			"height": "114px",
 			"mobileHeight": "77px",
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -25,7 +25,7 @@
 			"width": "800px",
 			"height": "114px",
 			"mobileHeight": "77px",
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -51,7 +51,7 @@
 			"label": "HyperFX",
 			"width": "400px",
 			"height": "57px",
-			"disabled": false
+			"disabled": true
 		},
 		{
 			"url": "https://forms.gle/LD4mGzoNyTDA9AP78?utm_source=monierate&utm_medium=banner&utm_campaign=monierate",
@@ -59,7 +59,7 @@
 			"label": "HyperFX",
 			"width": "400px",
 			"height": "57px",
-			"disabled": false
+			"disabled": true
 		},
 		{
 			"url": "https://usedivest.onelink.me/iccy/tdrrdxc0?ref=monierate&utm_source=monierate&utm_medium=referral",
@@ -83,7 +83,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -97,7 +97,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -128,7 +128,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -142,7 +142,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -173,7 +173,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -187,7 +187,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -218,7 +218,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -232,7 +232,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -259,7 +259,7 @@
 			"formats": ["avif", "jpg"],
 			"label": "HyperFX",
 			"mobile_only": true,
-			"disabled": false,
+			"disabled": true,
 			"width": "350px",
 			"height": "438px",
 			"_v": 1
@@ -271,7 +271,7 @@
 			"formats": ["avif", "jpg"],
 			"label": "HyperFX",
 			"mobile_only": true,
-			"disabled": false,
+			"disabled": true,
 			"width": "350px",
 			"height": "438px",
 			"_v": 1
@@ -302,7 +302,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -316,7 +316,7 @@
 			"height": "114px",
 			"mobileHeight": "77px",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"_v": 1
 		},
 		{
@@ -343,7 +343,7 @@
 			"formats": ["avif", "jpg"],
 			"label": "HyperFX",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"width": "350px",
 			"height": "438px",
 			"_v": 1
@@ -355,7 +355,7 @@
 			"formats": ["avif", "jpg"],
 			"label": "HyperFX",
 			"mobile_only": false,
-			"disabled": false,
+			"disabled": true,
 			"width": "350px",
 			"height": "438px",
 			"_v": 1
