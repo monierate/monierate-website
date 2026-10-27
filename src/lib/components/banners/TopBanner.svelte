@@ -43,9 +43,11 @@
 	// slides up on an interval, so add an entry here to put it in the rotation.
 	// `gradient` is the banner background while that headline is showing: `base`
 	// is the flat fallback, the other three are the left/middle/right stops.
+	// Set `disabled: true` to pull a headline out of the rotation.
 	const headlines = [
 		{
 			...selected_partner_top,
+			disabled: true,
 			gradient: {
 				base: '#0A2A4D',
 				from: '#041E38',
@@ -59,6 +61,7 @@
 			text: 'Move Naira and USDT at scale for your business',
 			shortText: 'FX at scale for businesses',
 			cta: 'Get started',
+			disabled: true,
 			gradient: {
 				base: '#0A2A4D',
 				from: '#041E38',
@@ -105,7 +108,7 @@
 				to: '#1FCB8C'
 			}
 		}
-	];
+	].filter((headline) => !('disabled' in headline && headline.disabled));
 
 	const gradientStyle = (gradient: (typeof headlines)[number]['gradient']) =>
 		`background-color: ${gradient.base}; background-image: linear-gradient(to right, ${gradient.from}, ${gradient.via}, ${gradient.to});`;
