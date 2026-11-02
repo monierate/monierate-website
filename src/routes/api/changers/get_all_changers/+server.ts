@@ -13,7 +13,9 @@ export async function GET({ url }) {
 		params: {
 			page: page,
 			limit: limit
-		}
+		},
+		// Fetched on nearly every page render; changer profiles change rarely.
+		cacheTtl: 300
 	});
 
 	if (!response.success) {

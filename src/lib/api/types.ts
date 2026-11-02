@@ -9,6 +9,8 @@ export interface ApiOptions<B = unknown> {
 	retries?: number;
 	signal?: AbortSignal;
 	authLevel?: 'api' | 'system';
+	/** Seconds to keep a GET response in the edge cache. 0 (default) = no caching. */
+	cacheTtl?: number;
 }
 
 export interface ApiResponse<T = unknown> {
