@@ -1,7 +1,7 @@
 {
   "bfvsg": {
-    "name": "BFV-Société Générale Madagascar",
-    "link": "https://societegenerale.mg",
+    "name": "BRED Madagasikara",
+    "link": "https://bred.mg",
     "address": "14, Rue Général Rabehevitra, Antaninarenina",
     "city": "Antananarivo",
     "branch": "Head Office"
@@ -24,13 +24,6 @@
     "name": "AccèsBanque Madagascar",
     "link": "https://accesbanque.mg",
     "address": "Villa Analamanga, Rue Solombavambahoaka Frantsay 77, Antsahavola",
-    "city": "Antananarivo",
-    "branch": "Head Office"
-  },
-  "mbi": {
-    "name": "Madagascar Banque Industrielle",
-    "link": "https://mbi.mg",
-    "address": "Immeuble Océan Trade, Zone Galaxy Andraharo",
     "city": "Antananarivo",
     "branch": "Head Office"
   },

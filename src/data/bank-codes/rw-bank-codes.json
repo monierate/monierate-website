@@ -37,10 +37,10 @@
   "gtbank": {
     "swift": ["GTBIRWRW"],
     "ussd": {
-      "start": "*182#",
-      "balance": "*182*1#",
-      "transfer_to_same_bank": "*182*2*1*account_number*amount#",
-      "mini_statement": "*182*1*2#"
+      "start": "*600#",
+      "balance": null,
+      "transfer_to_same_bank": null,
+      "mini_statement": null
     }
   },
   "equity": {
@@ -55,10 +55,10 @@
   "bankofafrica": {
     "swift": ["AFRIRWRW"],
     "ussd": {
-      "start": "*765#",
-      "balance": "*765*1#",
-      "transfer_to_same_bank": "*765*2*1*account_number*amount#",
-      "mini_statement": "*765*1*2#"
+      "start": "*512#",
+      "balance": null,
+      "transfer_to_same_bank": null,
+      "mini_statement": null
     }
   },
   "imb": {
@@ -68,15 +68,6 @@
       "balance": "*227*1#",
       "transfer_to_same_bank": "*227*2*1*account_number*amount#",
       "mini_statement": "*227*1*2#"
-    }
-  },
-  "cogebanque": {
-    "swift": ["CGBKRWRW"],
-    "ussd": {
-      "start": "*505#",
-      "balance": "*505*1#",
-      "transfer_to_same_bank": "*505*2*1*account_number*amount#",
-      "mini_statement": "*505*1*2#"
     }
   }
 }

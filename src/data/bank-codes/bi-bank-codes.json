@@ -38,12 +38,12 @@
       "BCBUBIBI"
     ],
     "ussd": {
-      "start": "*222#",
-      "transfer_to_same_bank": "*222*1*amount*account_number#",
-      "transfer_other_banks": "*222*2*amount*account_number*bank_code#",
-      "airtime_self": "*222*4*amount#",
-      "airtime_others": "*222*4*amount*phone_number#",
-      "balance": "*222*7#",
+      "start": "*161#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
       "bvn": null,
       "update_bvn_details": null,
       "stop_debit_transactions": null,
@@ -72,12 +72,12 @@
       "FNBKBIBI"
     ],
     "ussd": {
-      "start": "*505#",
-      "transfer_to_same_bank": "*505*1*amount*account_number#",
-      "transfer_other_banks": "*505*2*amount*account_number*bank_code#",
-      "airtime_self": "*505*4*amount#",
-      "airtime_others": "*505*4*amount*phone_number#",
-      "balance": "*505*7#",
+      "start": "*170#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
       "bvn": null,
       "update_bvn_details": null,
       "stop_debit_transactions": null,
@@ -123,29 +123,12 @@
       "CRDBBIBI"
     ],
     "ussd": {
-      "start": "*255#",
-      "transfer_to_same_bank": "*255*1*amount*account_number#",
-      "transfer_other_banks": "*255*2*amount*account_number*bank_code#",
-      "airtime_self": "*255*4*amount#",
-      "airtime_others": "*255*4*amount*phone_number#",
-      "balance": "*255*7#",
-      "bvn": null,
-      "update_bvn_details": null,
-      "stop_debit_transactions": null,
-      "activate_code": null
-    }
-  },
-  "dtb_burundi": {
-    "swift": [
-      "DTBKBIBI"
-    ],
-    "ussd": {
-      "start": "*366#",
-      "transfer_to_same_bank": "*366*1*amount*account_number#",
-      "transfer_other_banks": "*366*2*amount*account_number*bank_code#",
-      "airtime_self": "*366*4*amount#",
-      "airtime_others": "*366*4*amount*phone_number#",
-      "balance": "*366*7#",
+      "start": "*199#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
       "bvn": null,
       "update_bvn_details": null,
       "stop_debit_transactions": null,

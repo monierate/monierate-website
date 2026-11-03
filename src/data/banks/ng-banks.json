@@ -91,8 +91,8 @@
     "branch": "Marina Branch"
   },
   "unitybank": {
-    "name": "Unity Bank",
-    "link": "https://www.unitybankng.com",
+    "name": "ProvidusUnity Bank",
+    "link": "https://www.providusbank.com",
     "address": "42, Ahmed Onibudo Street, Victoria Island",
     "city": "Lagos",
     "branch": "Victoria Island Branch"
@@ -118,18 +118,95 @@
     "city": "Lagos",
     "branch": "Victoria Island Branch"
   },
-  "heritagebank": {
-    "name": "Heritage Banking Company",
-    "link": "https://www.hbng.com",
-    "address": "292B, Ajose Adeogun Street, Victoria Island",
-    "city": "Lagos",
-    "branch": "Victoria Island Branch"
-  },
   "lotusbank": {
     "name": "Lotus Bank",
     "link": "https://lotusbank.com.ng",
     "address": "42, Adetokunbo Ademola Street, Victoria Island",
     "city": "Lagos",
     "branch": "Victoria Island Branch"
+  },
+  "moniepoint": {
+    "name": "Moniepoint",
+    "link": "https://moniepoint.com/ng",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "stanbicibtc": {
+    "name": "Stanbic IBTC Bank",
+    "link": "https://www.stanbicibtcbank.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "globusbank": {
+    "name": "Globus Bank",
+    "link": "https://www.globusbank.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "novabank": {
+    "name": "Nova Bank",
+    "link": "https://www.novabank.ng",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "palmpay": {
+    "name": "PalmPay",
+    "link": "https://www.palmpay.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "parallexbank": {
+    "name": "Parallex Bank",
+    "link": "https://parallexbank.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "optimusbank": {
+    "name": "Optimus Bank",
+    "link": "https://www.optimusbank.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "titantrustbank": {
+    "name": "Titan Trust Bank",
+    "link": "https://www.titantrustbank.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "premiumtrustbank": {
+    "name": "PremiumTrust Bank",
+    "link": "https://www.premiumtrustbank.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "alphamorganbank": {
+    "name": "Alpha Morgan Bank",
+    "link": "https://www.alphamorganbank.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "signaturebank": {
+    "name": "Signature Bank",
+    "link": "https://www.signaturebankng.com",
+    "address": "",
+    "city": "",
+    "branch": ""
+  },
+  "suntrustbank": {
+    "name": "SunTrust Bank",
+    "link": "https://suntrustng.com",
+    "address": "",
+    "city": "",
+    "branch": ""
   }
 }

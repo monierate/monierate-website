@@ -21,8 +21,8 @@
         "branch": "Head Office"
     },
     "societegenerale": {
-        "name": "Société Générale Mauritanie",
-        "link": "https://societegenerale.mr",
+        "name": "Banque Internationale d'Investissement (BII)",
+        "link": "https://b2i.mr",
         "address": "Avenue de l'Indépendance",
         "city": "Nouakchott",
         "branch": "Head Office"
@@ -63,8 +63,8 @@
         "branch": "Head Office"
     },
     "chinguitel": {
-        "name": "Banque Chinguitel",
-        "link": "https://www.chinguitelbank.mr",
+        "name": "Banque Chinguitty",
+        "link": "https://www.chbank.mr",
         "address": "Avenue Gamal Abdel Nasser",
         "city": "Nouakchott",
         "branch": "Head Office"

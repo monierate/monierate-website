@@ -83,10 +83,10 @@
   "nedbank": {
     "swift": ["NBZWZWHA"],
     "ussd": {
-      "start": "*244#",
-      "balance": "*244*1#",
-      "transfer_to_same_bank": "*244*2*recipient*amount#",
-      "airtime": "*244*3*number*amount#"
+      "start": "*299#",
+      "balance": null,
+      "transfer_to_same_bank": null,
+      "airtime": null
     }
   }
 }

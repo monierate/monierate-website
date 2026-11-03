@@ -7,7 +7,6 @@ export const validCountryKeys: string[] = [
     'BW', // Botswana
     'CV', // Cape Verde
     'CM', // Cameroon
-    'CF', // Central African Republic
     'TD', // Chad
     'KM', // Comoros
     'CG', // Congo (Brazzaville)

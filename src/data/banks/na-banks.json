@@ -34,13 +34,6 @@
     "city": "Windhoek",
     "branch": "Head Office"
   },
-  "trustco": {
-    "name": "Trustco Bank Namibia",
-    "link": "https://www.tbn.na",
-    "address": "Windhoek Office Tower, Windhoek",
-    "city": "Windhoek",
-    "branch": "Head Office"
-  },
   "bon": {
     "name": "Bank of Namibia",
     "link": "https://www.bon.com.na",

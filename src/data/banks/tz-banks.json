@@ -20,13 +20,6 @@
     "city": "Dar es Salaam",
     "branch": "Main Branch"
   },
-  "mbinga": {
-    "name": "Mbinga Community Bank Limited",
-    "link": "https://www.mbingabank.co.tz",
-    "address": "Sokoine Road, Plot No. 6 Block A, Mbinga",
-    "city": "Mbinga",
-    "branch": "Main Branch"
-  },
   "bankofafrica": {
     "name": "Bank of Africa Tanzania Limited",
     "link": "https://boatanzania.co.tz",
@@ -39,13 +32,6 @@
     "link": "https://www.tcb.co.tz",
     "address": "TCB Tower, Samora Avenue/Bridge Street, Dar es Salaam",
     "city": "Dar es Salaam",
-    "branch": "Main Branch"
-  },
-  "yetu": {
-    "name": "Yetu Microfinance Bank Plc",
-    "link": "https://www.yetumfbank.co.tz",
-    "address": "Plot No. 3/4 Block D, Majengo Area, Dodoma Road, Iringa",
-    "city": "Iringa",
     "branch": "Main Branch"
   },
   "exim": {

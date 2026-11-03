@@ -21,8 +21,8 @@
     "branch": "Siège"
   },
   "bici": {
-    "name": "BICIG - Groupe BNP Paribas",
-    "link": "https://www.bicig.ga",
+    "name": "AFG Bank Gabon",
+    "link": "https://afgbankgabon.com",
     "address": "Avenue du Colonel Parant, BP 2241",
     "city": "Libreville",
     "branch": "Agence Principale"
@@ -40,13 +40,6 @@
     "address": "Avenue du Colonel Parant, BP 1140",
     "city": "Libreville",
     "branch": "Agence Principale"
-  },
-  "postbank": {
-    "name": "La Poste Bank",
-    "link": "https://lapostebank.ga",
-    "address": "Boulevard Triomphal Omar Bongo, BP 20000",
-    "city": "Libreville",
-    "branch": "Siège Social"
   },
   "ecobank": {
     "name": "Ecobank Gabon",
