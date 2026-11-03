@@ -1,12 +1,4 @@
 {
-  "btd": {
-    "swift": ["BTDGTG22"],
-    "ussd": {
-      "start": "*155#",
-      "balance": "*155*1#",
-      "transfer_to_same_bank": "*155*2*amount*account_number#"
-    }
-  },
   "ecobank": {
     "swift": ["ECOCTGTG"],
     "ussd": {

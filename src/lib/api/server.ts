@@ -30,6 +30,45 @@ function getAuthHeader(level: 'api' | 'system' = 'api') {
 }
 
 /* ------------------ */
+/* Edge cache         */
+/* ------------------ */
+
+// The data center's shared cache (Workers Cache API). Absent under `vite dev`,
+// where requests simply go to the API every time.
+function edgeCache(): Cache | undefined {
+	return (globalThis as { caches?: { default?: Cache } }).caches?.default;
+}
+
+// Serves a GET from the edge cache when it can, so every page render does not
+// pull the same payload from the API (and run up Railway egress). The auth
+// level is part of the key because responses can differ by it; the key URL is
+// only a cache entry name and is never fetched.
+async function cachedFetch(url: string, config: RequestInit, ttl: number, authLevel: string) {
+	const cache = ttl > 0 ? edgeCache() : undefined;
+	if (!cache) return fetch(url, config);
+
+	const key = new Request(`${url}${url.includes('?') ? '&' : '?'}__auth=${authLevel}`);
+
+	try {
+		const hit = await cache.match(key);
+		if (hit) return hit;
+	} catch {
+		// cache unavailable; fall through to the API
+	}
+
+	const response = await fetch(url, config);
+
+	if (response.ok) {
+		const copy = new Response(response.clone().body, response);
+		copy.headers.set('Cache-Control', `max-age=${ttl}`);
+		copy.headers.delete('Set-Cookie');
+		await cache.put(key, copy).catch(() => {});
+	}
+
+	return response;
+}
+
+/* ------------------ */
 /* Server API request */
 /* ------------------ */
 
@@ -45,7 +84,8 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 		timeoutMs = DEFAULT_TIMEOUT,
 		retries = 0,
 		signal,
-		authLevel = 'api'
+		authLevel = 'api',
+		cacheTtl = 0
 	} = options;
 
 	let url = `${BASE_URL}${endpoint}`;
@@ -77,7 +117,7 @@ export async function serverApiRequest<T = unknown, B = unknown>(
 	}
 
 	try {
-		const response = await fetch(url, config);
+		const response = await cachedFetch(url, config, method === 'GET' ? cacheTtl : 0, authLevel);
 		clearTimeout(timeoutId);
 
 		const contentType = response.headers.get('content-type');

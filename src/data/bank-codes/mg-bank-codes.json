@@ -31,14 +31,6 @@
       "transfer_to_same_bank": "*160*amount*account_number#"
     }
   },
-  "mbi": {
-    "swift": ["MBINMGMG"],
-    "ussd": {
-      "start": "*180#",
-      "balance": "*180*1#",
-      "transfer_to_same_bank": "*180*amount*account_number#"
-    }
-  },
   "bgfi": {
     "swift": ["BGFIMGMG"],
     "ussd": {
@@ -58,9 +50,9 @@
   "microcred": {
     "swift": ["MICRMGMG"],
     "ussd": {
-      "start": "*120#",
-      "balance": "*120*1#",
-      "transfer_to_same_bank": "*120*amount*account_number#"
+      "start": "#144#",
+      "balance": null,
+      "transfer_to_same_bank": null
     }
   },
   "acep": {

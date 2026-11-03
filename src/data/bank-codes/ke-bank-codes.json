@@ -73,12 +73,12 @@
   "standard_chartered": {
       "swift": ["SCBLKENX"],
       "ussd": {
-          "start": "*977#",
-          "transfer_to_same_bank": "*977*2*account_number*amount#",
-          "transfer_other_banks": "*977*3*bank_code*account_number*amount#",
-          "airtime_self": "*977*1*amount#",
-          "balance": "*977*1#",
-          "mini_statement": "*977*4#"
+          "start": "*722#",
+          "transfer_to_same_bank": null,
+          "transfer_other_banks": null,
+          "airtime_self": null,
+          "balance": null,
+          "mini_statement": null
       }
   },
   "i_and_m": {
@@ -94,12 +94,12 @@
   "ncba": {
       "swift": ["CBAFKENX"],
       "ussd": {
-          "start": "*412#",
-          "transfer_to_same_bank": "*412*2*account_number*amount#",
-          "transfer_other_banks": "*412*3*bank_code*account_number*amount#",
-          "airtime_self": "*412*1*amount#",
-          "balance": "*412*1#",
-          "mini_statement": "*412*4#"
+          "start": "*488#",
+          "transfer_to_same_bank": null,
+          "transfer_other_banks": null,
+          "airtime_self": null,
+          "balance": null,
+          "mini_statement": null
       }
   },
   "family": {

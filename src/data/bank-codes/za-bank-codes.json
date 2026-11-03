@@ -35,12 +35,12 @@
     "capitec": {
         "swift": ["CABLZAJJ"],
         "ussd": {
-            "start": "*120*1*0#",
-            "balance": "*120*1*0*1#",
-            "transfer_to_same_bank": "*120*1*0*2*amount*account_number#",
-            "transfer_other_banks": "*120*1*0*3*amount*account_number*bank_code#",
-            "airtime_self": "*120*1*0*4*1*amount#",
-            "airtime_others": "*120*1*0*4*2*amount*phone_number#"
+            "start": "*120*3279#",
+            "balance": null,
+            "transfer_to_same_bank": null,
+            "transfer_other_banks": null,
+            "airtime_self": null,
+            "airtime_others": null
         }
     },
     "nedbank": {

@@ -21,15 +21,15 @@
     "branch": "Direction Générale"
   },
   "bicis": {
-    "name": "Banque Internationale pour le Commerce et l'Industrie du Sénégal",
-    "link": "https://bicis.sn",
+    "name": "SUNU Bank Sénégal",
+    "link": "https://sunubanksenegal.sn",
     "address": "2, Avenue Léopold Sédar Senghor, Dakar",
     "city": "Dakar",
     "branch": "Siège Social"
   },
   "cncas": {
-    "name": "Caisse Nationale de Crédit Agricole du Sénégal",
-    "link": "https://cncas.sn",
+    "name": "La Banque Agricole (LBA)",
+    "link": "https://www.labanqueagricole.sn",
     "address": "31-33, Rue Amadou Assane Ndoye, Dakar",
     "city": "Dakar",
     "branch": "Siège"

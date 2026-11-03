@@ -2,37 +2,37 @@
   "dashenbank": {
     "swift": ["DASHETAA"],
     "ussd": {
-      "start": "*721#",
-      "transfer_to_same_bank": "*721*1*account_number*amount#",
-      "transfer_other_banks": "*721*2*account_number*bank_code*amount#",
-      "airtime_self": "*721*3*1*amount#",
-      "airtime_others": "*721*3*2*phone_number*amount#",
-      "balance": "*721*4#",
-      "mini_statement": "*721*5#",
-      "change_pin": "*721*8*old_pin*new_pin#"
+      "start": "*996#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
+      "mini_statement": null,
+      "change_pin": null
     }
   },
   "wegagenbank": {
     "swift": ["WEGAETAA"],
     "ussd": {
-      "start": "*889#",
-      "transfer_to_same_bank": "*889*1*account_number*amount#",
-      "transfer_other_banks": "*889*2*account_number*bank_code*amount#",
-      "airtime_self": "*889*3*amount#",
-      "airtime_others": "*889*4*phone_number*amount#",
-      "balance": "*889*5#",
-      "mini_statement": "*889*6#"
+      "start": "*866#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
+      "mini_statement": null
     }
   },
   "bunnabank": {
     "swift": ["BUNNETAA"],
     "ussd": {
-      "start": "*252#",
-      "transfer_to_same_bank": "*252*1*account_number*amount#",
-      "transfer_other_banks": "*252*2*account_number*bank_code*amount#",
-      "airtime_self": "*252*3*amount#",
-      "airtime_others": "*252*4*phone_number*amount#",
-      "balance": "*252*5#"
+      "start": "*820#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null
     }
   },
   "cbe": {
@@ -63,49 +63,49 @@
   "abyssinia": {
     "swift": ["ABYSETAA"],
     "ussd": {
-      "start": "*999#",
-      "transfer_to_same_bank": "*999*1*account_number*amount#",
-      "transfer_other_banks": "*999*2*account_number*bank_code*amount#",
-      "airtime_self": "*999*3*amount#",
-      "airtime_others": "*999*4*phone_number*amount#",
-      "balance": "*999*5#",
-      "mini_statement": "*999*6#"
+      "start": "*815#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
+      "mini_statement": null
     }
   },
   "coopbank": {
     "swift": ["COBKETAA"],
     "ussd": {
-      "start": "*896#",
-      "transfer_to_same_bank": "*896*1*account_number*amount#",
-      "transfer_other_banks": "*896*2*account_number*bank_code*amount#",
-      "airtime_self": "*896*3*amount#",
-      "airtime_others": "*896*4*phone_number*amount#",
-      "balance": "*896*5#",
-      "mini_statement": "*896*6#"
+      "start": "*841#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
+      "mini_statement": null
     }
   },
   "nib": {
     "swift": ["NIBTETAA"],
     "ussd": {
-      "start": "*968#",
-      "transfer_to_same_bank": "*968*1*account_number*amount#",
-      "transfer_other_banks": "*968*2*account_number*bank_code*amount#",
-      "airtime_self": "*968*3*amount#",
-      "airtime_others": "*968*4*phone_number*amount#",
-      "balance": "*968*5#",
-      "mini_statement": "*968*6#"
+      "start": "*865#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
+      "mini_statement": null
     }
   },
   "zemen": {
     "swift": ["ZEMEETAA"],
     "ussd": {
-      "start": "*710#",
-      "transfer_to_same_bank": "*710*1*account_number*amount#",
-      "transfer_other_banks": "*710*2*account_number*bank_code*amount#",
-      "airtime_self": "*710*3*amount#",
-      "airtime_others": "*710*4*phone_number*amount#",
-      "balance": "*710*5#",
-      "mini_statement": "*710*6#"
+      "start": "*844#",
+      "transfer_to_same_bank": null,
+      "transfer_other_banks": null,
+      "airtime_self": null,
+      "airtime_others": null,
+      "balance": null,
+      "mini_statement": null
     }
   }
 }

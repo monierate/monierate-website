@@ -17,17 +17,6 @@
           "balance": "*123*0#"
       }
   },
-  "bic": {
-      "swift": ["BICCKMKM"],
-      "ussd": {
-          "start": "*444#",
-          "transfer_to_same_bank": "*444*1*amount*account_number#",
-          "transfer_other_banks": "*444*2*amount*account_number*bank_code#",
-          "airtime_self": "*444*3*amount#",
-          "airtime_others": "*444*4*amount*phone_number#",
-          "balance": "*444*0#"
-      }
-  },
   "eximbank": {
       "swift": ["EXCOMKKM"],
       "ussd": {

@@ -1,7 +1,7 @@
 {
     "bnpi_comores": {
-        "name": "BNP Paribas International - Comores",
-        "link": "https://www.bnpi.km",
+        "name": "AFG Bank Comores",
+        "link": "https://afgholding-sa.com/en/afg-bank-comores/",
         "address": "Place de France, BP 175",
         "city": "Moroni",
         "branch": "Siège Social"
@@ -12,13 +12,6 @@
         "address": "Place de la Coulée, BP 298",
         "city": "Moroni",
         "branch": "Siège Social"
-    },
-    "bic": {
-        "name": "Banque pour l'Industrie et le Commerce - Comores",
-        "link": "https://www.biccom.km",
-        "address": "Place de l'Indépendance, BP 175",
-        "city": "Moroni",
-        "branch": "Agence Principale"
     },
     "eximbank": {
         "name": "Exim Bank Comores",

@@ -44,8 +44,18 @@ export const load: PageServerLoad = async ({ params, fetch, request }) => {
 		.filter((c) => publishedSlugs.has(c.slug))
 		.map((c) => ({ slug: c.slug, label: c.label }));
 
+	// Phone and email are paid-only. There is no paid session on the public site
+	// yet, so strip them here — hiding them in the UI alone would still ship them
+	// in the page payload.
+	const isPaidUser = false;
+	if (!isPaidUser && changerResult.contacts) {
+		const { phone, email, ...publicContacts } = changerResult.contacts;
+		changerResult.contacts = publicContacts;
+	}
+
 	return {
 		changer: changerResult,
+		isPaidUser,
 		currencies: allCurrencies,
 		currencySymbols,
 		relatedChangers: relatedChangers?.data ?? [],

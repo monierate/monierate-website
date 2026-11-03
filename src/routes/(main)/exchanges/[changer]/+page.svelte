@@ -99,7 +99,7 @@
 <!-- <AdBanner name="footer" /> -->
 
 <div class="flex flex-col md:flex-row md:justify-between md:container">
-	<ChangerSidebar {changer} isAndroid={data.isAndroid} isIOS={data.isIOS} />
+	<ChangerSidebar {changer} isPaidUser={data.isPaidUser} isAndroid={data.isAndroid} isIOS={data.isIOS} />
 
 	<div class="md:w-2/3 space-y-16">
 		<div class="space-y-6 container px-0 mx-0 w-full md:px-6 md:mx-auto">

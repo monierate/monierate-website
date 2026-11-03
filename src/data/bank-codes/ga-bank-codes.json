@@ -70,16 +70,5 @@
       "airtime_others": "*326*phone_number*amount#",
       "balance": "*326*0#"
     }
-  },
-  "postbank": {
-    "swift": ["LPBGGAL1"],
-    "ussd": {
-      "start": "*241#",
-      "transfer_to_same_bank": "*241*1*account_number*amount#",
-      "transfer_other_banks": "*241*2*account_number*bank_code*amount#",
-      "airtime_self": "*241*3*amount#",
-      "airtime_others": "*241*3*phone_number*amount#",
-      "balance": "*241*1#"
-    }
   }
 }

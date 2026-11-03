@@ -54,12 +54,5 @@
     "address": "Boulevard du 28 Novembre",
     "city": "Bujumbura",
     "branch": "Siège"
-  },
-  "dtb_burundi": {
-    "name": "Diamond Trust Bank Burundi (DTB)",
-    "link": "https://www.dtbafrica.com/bi",
-    "address": "Avenue de l'Uprona",
-    "city": "Bujumbura",
-    "branch": "Siège"
   }
 }

@@ -2,9 +2,9 @@
   "slcb": {
       "swift": ["SLCBSLFR"],
       "ussd": {
-          "start": "*303#",
-          "balance": "*303*1#",
-          "transfer_to_same_bank": "*303*2*1*account_number*amount#"
+          "start": "*944#",
+          "balance": null,
+          "transfer_to_same_bank": null
       }
   },
   "rokel": {
@@ -26,9 +26,9 @@
   "ecobank": {
       "swift": ["ECOCSLFR"],
       "ussd": {
-          "start": "*777#",
-          "balance": "*777*0#",
-          "transfer_to_same_bank": "*777*2*account_number*amount#"
+          "start": "*977#",
+          "balance": null,
+          "transfer_to_same_bank": null
       }
   },
   "fib": {
@@ -62,13 +62,5 @@
   "sldb": {
       "swift": ["SLDBSLFR"],
       "ussd": null
-  },
-  "scb": {
-      "swift": ["SCBLSLFR"],
-      "ussd": {
-          "start": "*722#",
-          "balance": "*722*1#",
-          "transfer_to_same_bank": "*722*2*account_number*amount#"
-      }
   }
 }
