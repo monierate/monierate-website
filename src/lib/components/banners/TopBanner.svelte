@@ -96,6 +96,19 @@
 			}
 		},
 		{
+			link: '/exchanges/divest',
+			brand: 'Divest',
+			text: 'is now on Monierate',
+			shortText: 'Now on Monierate',
+			cta: 'View profile',
+			gradient: {
+				base: '#0E3B2A',
+				from: '#0A2C20',
+				via: '#12704A',
+				to: '#22A868'
+			}
+		},
+		{
 			link: '/exchanges/numofx',
 			brand: 'NumoFX',
 			text: 'is now on Monierate',
