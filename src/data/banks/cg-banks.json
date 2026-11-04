@@ -1,7 +1,7 @@
 {
   "lpc": {
-    "name": "La Congolaise de Banque",
-    "link": "https://www.lcb-bank.com",
+    "name": "Bank of Africa Congo (BOA)",
+    "link": "https://boa-cg.com",
     "address": "Avenue Amilcar Cabral, Centre-ville",
     "city": "Brazzaville",
     "branch": "Siège Social"
@@ -28,8 +28,8 @@
     "branch": "Agence Principale"
   },
   "bcdc": {
-    "name": "Banque Commerciale Du Congo",
-    "link": "https://www.bcdc.cg",
+    "name": "EquityBCDC",
+    "link": "https://equitygroupholdings.com/cd/",
     "address": "Avenue William Guynet, Centre-ville",
     "city": "Brazzaville",
     "branch": "Direction Générale"

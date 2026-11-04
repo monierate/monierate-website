@@ -46,8 +46,41 @@
     --scrollbar-thumb: #d1d5db;
 }
 
+/* api-pricing ignores the OS theme. hooks.server.ts and the (main) layout tag
+   <html> with light-only (default, with stronger text and a white page for
+   legibility) or dark-only (chosen with the header toggle). */
+:root.dark-only {
+    color-scheme: dark;
+    --accent-light: #172554;
+    --page-bg: #080808;
+    --card-bg: #080808;
+    --card-border: #222222;
+    --highlight-bg: #0f0f0f;
+    --overlay-bg: #161616;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --table-header-bg: #0f0f10;
+    --table-hover: #151515;
+    --input-bg: #080808;
+    --input-border: #333333;
+    --badge-positive-bg: #052e16;
+    --badge-negative-bg: #450a0a;
+    --badge-neutral-bg: #222222;
+    --scrollbar-thumb: #333333;
+}
+
+:root.light-only {
+    color-scheme: light;
+    --page-bg: #ffffff;
+    --card-bg: #ffffff;
+    --table-header-bg: #f8fafc;
+    --text-secondary: #374151;
+    --text-muted: #6b7280;
+}
+
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not(.light-only):not(.dark-only) {
         --accent-light: #172554;
         --page-bg: #080808;
         --card-bg: #080808;

@@ -9,6 +9,7 @@
 	import MainFaq from '$lib/components/MainFAQ.svelte';
 	import Highlights from '$lib/components/Highlights.svelte';
 	import ExchangeRates from '$lib/components/ExchangeRates.svelte';
+	import RatesEmptyGhost from '$lib/components/RatesEmptyGhost.svelte';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
 
 	export let data;
@@ -143,6 +144,8 @@
 			}}
 			bind:currentPage={data.page}
 		/>
+	{:else if rates.length === 0}
+		<RatesEmptyGhost base={currencies[base] || base} quote={currencies[quote] || quote} />
 	{:else}
 		<div class="container text-center text-gray-600 dark:text-gray-300">
 			<p>No exchange providers found</p>

@@ -15,6 +15,8 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 	import { page } from '$app/stores';
 	import { bannerStore } from '$lib/stores/banner-store';
 
@@ -27,6 +29,11 @@
 	export let bannerIndexes: any = {};
 	export let isMobile: boolean = false;
 	export let cover: boolean = false;
+
+	// While the visitor stays on the page, auto-advance to the next banner
+	// (sliding up) rather than only swapping on navigation.
+	const SWAP_INTERVAL_MS = 6000;
+	const SWAP_DURATION_MS = 450;
 
 	let banners: any[] = [];
 	let current = 0;
@@ -48,6 +55,30 @@
 		isFirstVisit = false;
 	}
 
+	let interval: ReturnType<typeof setInterval> | null = null;
+
+	function swap() {
+		current = bannerStore.getNextIndex(name, banners.length, false);
+	}
+
+	// Keep swapping banners at a fixed interval while the visitor stays put.
+	function startInterval() {
+		if (interval) clearInterval(interval);
+		if (banners.length > 1) {
+			interval = setInterval(swap, SWAP_INTERVAL_MS);
+		}
+	}
+
+	function handleMouseEnter() {
+		if (interval) clearInterval(interval);
+	}
+
+	function handleMouseLeave() {
+		// Don't make the visitor wait out a fresh interval before it changes.
+		swap();
+		startInterval();
+	}
+
 	onMount(() => {
 		current = bannerStore.getNextIndex(name, banners.length, isFirstVisit);
 		isFirstVisit = false;
@@ -57,10 +88,26 @@
 			current = bannerStore.getNextIndex(name, banners.length, false);
 		});
 
+		startInterval();
+
 		return () => {
 			unsubscribe();
+			if (interval) clearInterval(interval);
 		};
 	});
+
+	// Adverts with several creatives list them in `variants`; a random one is
+	// shown each time the banner changes. Picked on the client only, so SSR and
+	// hydration agree on the first image.
+	let mounted = false;
+	onMount(() => (mounted = true));
+	$: ad = banners[current] && {
+		...banners[current],
+		image:
+			mounted && banners[current].variants?.length
+				? banners[current].variants[Math.floor(Math.random() * banners[current].variants.length)]
+				: banners[current].image
+	};
 
 	const getExtension = (url: string) => url.split('.').pop() ?? 'png';
 	const replaceExt = (url: string, ext: string) => url.replace(/\.\w+$/, `.${ext}`);
@@ -68,11 +115,22 @@
 
 <div class={mobileOnly ? 'md:hidden' : ''}>
 	{#if banners.length > 0}
+		<div
+			role="presentation"
+			style="display: grid; overflow: hidden; width: 100%;"
+			on:mouseenter={handleMouseEnter}
+			on:mouseleave={handleMouseLeave}
+		>
 		{#key current}
-			<div class="container {banners[current].mobile_only ? 'md:hidden' : ''} text-center {cover ? 'p-0 m-0' : ''}">
-				{#if banners[current].url}
+			<div
+				class="container {ad.mobile_only ? 'md:hidden' : ''} text-center {cover ? 'p-0 m-0' : ''}"
+				style="grid-area: 1 / 1; width: 100%;"
+				in:fly={{ y: 24, duration: SWAP_DURATION_MS, easing: quintOut }}
+				out:fly={{ y: -24, duration: SWAP_DURATION_MS, easing: quintOut }}
+			>
+				{#if ad.url}
 					<a
-						href={banners[current].url}
+						href={ad.url}
 						target="_blank"
 						rel="noopener noreferrer sponsored"
 						class="inline-block text-center {showLabel
@@ -86,56 +144,57 @@
 							>
 						{/if}
 						<picture>
-							{#each banners[current].formats ?? [getExtension(banners[current].image)] as format}
+							{#each ad.formats ?? [getExtension(ad.image)] as format}
 								<source
-									srcset="{replaceExt(banners[current].image, format)}?v={banners[current]._v}"
+									srcset="{replaceExt(ad.image, format)}?v={ad._v}"
 									type="image/{format}"
 								/>
 							{/each}
 							<img
 								src="{replaceExt(
-									banners[current].image,
-									(banners[current].formats ?? [getExtension(banners[current].image)]).at(-1)
-								)}?v={banners[current]._v}"
-								alt={banners[current].label ?? 'Advertisement'}
+									ad.image,
+									(ad.formats ?? [getExtension(ad.image)]).at(-1)
+								)}?v={ad._v}"
+								alt={ad.label ?? 'Advertisement'}
 								style="width: {width ??
 									(isMobile
-										? banners[current].mobileWidth ?? '700px'
-										: banners[current].width ?? '800px')}; height: {height ??
+										? ad.mobileWidth ?? '700px'
+										: ad.width ?? '800px')}; height: {height ??
 									(isMobile
-										? banners[current].mobileHeight ?? '70px'
-										: banners[current].height ?? '99px')};"
+										? ad.mobileHeight ?? '70px'
+										: ad.height ?? '99px')}; object-fit: contain;"
 								class="w-full"
 							/>
 						</picture>
 					</a>
 				{:else}
 					<picture>
-						{#each banners[current].formats ?? [getExtension(banners[current].image)] as format}
+						{#each ad.formats ?? [getExtension(ad.image)] as format}
 							<source
-								srcset="{replaceExt(banners[current].image, format)}?v={banners[current]._v}"
+								srcset="{replaceExt(ad.image, format)}?v={ad._v}"
 								type="image/{format}"
 							/>
 						{/each}
 						<img
 							src="{replaceExt(
-								banners[current].image,
-								(banners[current].formats ?? [getExtension(banners[current].image)]).at(-1)
-							)}?v={banners[current]._v}"
-							alt={banners[current].label ?? 'Advertisement'}
+								ad.image,
+								(ad.formats ?? [getExtension(ad.image)]).at(-1)
+							)}?v={ad._v}"
+							alt={ad.label ?? 'Advertisement'}
 							style="width: {width ??
 								(isMobile
-									? banners[current].mobileWidth ?? '700px'
-									: banners[current].width ?? '800px')}; height: {height ??
+									? ad.mobileWidth ?? '700px'
+									: ad.width ?? '800px')}; height: {height ??
 								(isMobile
-									? banners[current].mobileHeight ?? '70px'
-									: banners[current].height ?? '99px')};"
+									? ad.mobileHeight ?? '70px'
+									: ad.height ?? '99px')}; object-fit: contain;"
 							class="mx-auto max-w-full"
 						/>
 					</picture>
 				{/if}
 			</div>
 		{/key}
+		</div>
 	{:else if notFound}
 		<div class="text-center text-red-600 text-sm italic">Advert "{name}" not found.</div>
 	{/if}

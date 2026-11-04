@@ -156,6 +156,17 @@
 		@apply mb-4;
 	}
 	footer .converter-list a {
-		@apply block text-sm text-gray-500 font-semibold dark:text-gray-300;
+		@apply block text-sm text-gray-500 font-semibold;
+	}
+	/* Dark link colour written with :global, not `dark:` in @apply: Svelte scopes
+	   the html.light-only / html.dark-only check inside the dark variant, so it
+	   never matches and api-pricing (light by default) got the dark colour. */
+	@media (prefers-color-scheme: dark) {
+		:global(html:not(.light-only)) footer .converter-list a {
+			@apply text-gray-300;
+		}
+	}
+	:global(html.dark-only) footer .converter-list a {
+		@apply text-gray-300;
 	}
 </style>

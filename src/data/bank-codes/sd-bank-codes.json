@@ -6,9 +6,9 @@
   "bok": {
       "swift": ["KRTPSDKH"],
       "ussd": {
-          "start": "*221#",
-          "balance": "*221*1#",
-          "transfer_to_same_bank": "*221*2*account_number*amount#"
+          "start": "*1913#",
+          "balance": null,
+          "transfer_to_same_bank": null
       }
   },
   "fib": {

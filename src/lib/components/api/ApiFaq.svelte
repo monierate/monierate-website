@@ -1,5 +1,14 @@
 <script lang="ts">
-	const items = [
+	// api-pricing lays every section out at the full container width
+	export let fullWidth = false;
+	// api-pricing swaps in its own pricing answers, keyed by question
+	export let answers: Record<string, string> = {};
+	// api-pricing adds questions the shared list does not cover
+	export let extra: { q: string; a: string }[] = [];
+	// api-pricing drops shared questions that do not apply, keyed by question
+	export let hide: string[] = [];
+
+	const defaults = [
 		{
 			q: 'What currencies and markets are supported?',
 			a: 'Official, mid-market, and black market NGN rates from 90+ providers — Binance P2P, Bybit, Luno, Quidax, Chipper Cash, and more. Stablecoins (USDT, USDC) and fiat (USD, EUR, GBP) included.'
@@ -26,6 +35,11 @@
 		}
 	];
 
+	$: items = [
+		...defaults.filter((item) => !hide.includes(item.q)).map((item) => ({ ...item, a: answers[item.q] ?? item.a })),
+		...extra
+	];
+
 	let open: number | null = null;
 
 	function toggle(i: number) {
@@ -37,7 +51,7 @@
 	<div class="container py-14">
 		<h2 class="text-2xl font-bold text-center mb-8">Frequently asked questions</h2>
 
-		<div class="max-w-2xl mx-auto">
+		<div class={fullWidth ? "" : "max-w-2xl mx-auto"}>
 			{#each items as item, i}
 				<div style="border-bottom: 1px solid var(--card-border);">
 					<button

@@ -12,10 +12,10 @@
   "gtbank": {
       "swift": ["GTBILRLM"],
       "ussd": {
-          "start": "*170#",
-          "transfer_to_same_bank": "*170*1*account_number*amount#",
-          "airtime_self": "*170*2*amount#",
-          "balance": "*170*4#"
+          "start": "*737#",
+          "transfer_to_same_bank": null,
+          "airtime_self": null,
+          "balance": null
       }
   },
   "uba": {
@@ -30,18 +30,18 @@
   "lbdi": {
       "swift": ["LBDILRLM"],
       "ussd": {
-          "start": "*553#",
-          "transfer_to_same_bank": "*553*1*account_number*amount#",
-          "balance": "*553*0#"
+          "start": "*156*7*5#",
+          "transfer_to_same_bank": null,
+          "balance": null
       }
   },
   "iblliberia": {
       "swift": ["IBLLRLM"],
       "ussd": {
-          "start": "*545#",
-          "transfer_to_same_bank": "*545*1*account_number*amount#",
-          "airtime_self": "*545*2*amount#",
-          "balance": "*545*0#"
+          "start": "*722#",
+          "transfer_to_same_bank": "*722*1*account_number*amount#",
+          "airtime_self": "*722*2*amount#",
+          "balance": "*722*0#"
       }
   },
   "gblliberia": {

@@ -24,6 +24,8 @@ interface ChangerRate {
 
 const EXCLUDED = new Set(['market', 'binance', 'paypal']);
 const NEWEST = [
+	'divest',
+	'numofx',
 	'quickchain',
 	'hyperfx',
 	'textile',

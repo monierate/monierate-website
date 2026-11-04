@@ -41,13 +41,6 @@
         "city": "Lusaka",
         "branch": "Head Office"
     },
-    "investrust": {
-        "name": "Investrust Bank Plc",
-        "link": "https://www.investrust.co.zm",
-        "address": "Investrust Building, Plot 4604 Tito Road",
-        "city": "Lusaka",
-        "branch": "Head Office"
-    },
     "accessbank": {
         "name": "Access Bank Zambia Limited",
         "link": "https://www.accessbankplc.com/zm",

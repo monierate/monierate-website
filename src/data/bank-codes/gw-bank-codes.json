@@ -56,17 +56,6 @@
           "balance": "*144*5#"
       }
   },
-  "bgfigb": {
-      "swift": ["BGFIGWGW"],
-      "ussd": {
-          "start": "*182#",
-          "transfer_to_same_bank": "*182*1*account_number*amount#",
-          "transfer_other_banks": "*182*2*bank_code*account_number*amount#",
-          "airtime_self": "*182*3*amount#",
-          "airtime_others": "*182*4*phone_number*amount#",
-          "balance": "*182*5#"
-      }
-  },
   "uba_gb": {
       "swift": ["UNAFGWGW"],
       "ussd": {

@@ -47,7 +47,7 @@ export class ProviderPairInsightActions {
 	convertSend = $state('1');
 	convertReceive = $state('');
 	lastEdited = $state<'send' | 'receive'>('send');
-	convertDir = $state<'buy' | 'sell'>('buy');
+	private selectedDir = $state<'buy' | 'sell'>('buy');
 	convertSwapped = $state(false);
 
 	constructor(data: InsightInitData) {
@@ -70,13 +70,15 @@ export class ProviderPairInsightActions {
 	}
 
 	get chartData(): { dateLabel: string; open: number; close: number; high: number; low: number }[] {
-		return this.history.map((s) => ({
-			dateLabel: new Date(s.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-			open: s.open,
-			close: s.close,
-			high: s.high,
-			low: s.low
-		}));
+		return [...this.history]
+			.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+			.map((s) => ({
+				dateLabel: new Date(s.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+				open: s.open,
+				close: s.close,
+				high: s.high,
+				low: s.low
+			}));
 	}
 
 	readonly chartSeries = [
@@ -98,6 +100,27 @@ export class ProviderPairInsightActions {
 	}
 
 	// --- Quick converter (pair-agnostic; mirrors the provider-profile converter) ---
+
+	// Sides the changer actually quotes. A changer with only a sell rate never
+	// offers "Buy", and vice versa. Empty when only a mid rate is published.
+	get availableDirs(): ('buy' | 'sell')[] {
+		const rate = this.currentRate;
+		if (!rate) return [];
+		const dirs: ('buy' | 'sell')[] = [];
+		if (rate.rate_buy > 0) dirs.push('buy');
+		if (rate.rate_sell > 0) dirs.push('sell');
+		return dirs;
+	}
+
+	// Falls back to whichever side is quoted, so a sell-only changer opens on Sell.
+	get convertDir(): 'buy' | 'sell' {
+		const dirs = this.availableDirs;
+		return dirs.length === 0 || dirs.includes(this.selectedDir) ? this.selectedDir : dirs[0];
+	}
+
+	set convertDir(dir: 'buy' | 'sell') {
+		this.selectedDir = dir;
+	}
 
 	get activeRateValue(): number {
 		const rate = this.currentRate;

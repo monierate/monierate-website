@@ -27,13 +27,6 @@
     "city": "Maseru",
     "branch": "Head Office"
   },
-  "bancabc": {
-    "name": "BancABC Lesotho",
-    "link": "https://lesotho.bancabc.com",
-    "address": "BancABC House, Kingsway Road",
-    "city": "Maseru",
-    "branch": "Head Office"
-  },
   "mpesa": {
     "name": "M-PESA Lesotho",
     "link": "https://www.mpesa.co.ls",

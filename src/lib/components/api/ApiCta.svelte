@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { ACCOUNT_URL } from '$lib/config';
+
+	// api-pricing overrides the default pricing line with its own
+	export let subtitle =
+		'Create a free account and get your API key in minutes. $10 credit included, no card required.';
 </script>
 
 <div style="background: var(--table-header-bg); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);">
 	<div class="container py-14 text-center">
 		<h2 class="text-2xl font-bold mb-3">Ready to integrate?</h2>
 		<p class="text-sm max-w-md mx-auto mb-7 leading-relaxed" style="color: var(--text-secondary);">
-			Create a free account and get your API key in minutes. $10 credit included, no card required.
+			{subtitle}
 		</p>
 
 		<div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">

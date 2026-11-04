@@ -1,5 +1,6 @@
 import type { Handle, HandleServerError } from '@sveltejs/kit';
 import { timezone } from '$lib/functions';
+import { API_THEME_COOKIE, parseApiTheme, themeClass } from '$lib/utils/apiTheme';
 
 const securityHeaders = {
 	//'Cross-Origin-Embedder-Policy': 'require-corp',
@@ -15,11 +16,21 @@ const securityHeaders = {
 
 const removeHeaders = ['Public-Key-Pins', 'X-Powered-By', 'X-AspNet-Version'];
 
+// Keep in sync with marketingPages in src/routes/(main)/+layout.svelte
+const API_THEME_PATHS = ['/api-pricing'];
+
 export const handle: Handle = async ({ event, resolve }) => {
 	// Cloudflare country (ISO-2)
 	event.locals.ucountry = event.request.headers.get('cf-ipcountry') ?? '';
 
-	const response = await resolve(event);
+	// api-pricing ignores the OS theme: tag <html> with the visitor's chosen theme
+	// (light by default) so the first paint is already right
+	const themed = API_THEME_PATHS.includes(event.url.pathname);
+	const htmlClass = themeClass(parseApiTheme(event.cookies.get(API_THEME_COOKIE)));
+	const response = await resolve(event, {
+		transformPageChunk: ({ html }) =>
+			themed ? html.replace('<html lang="en">', `<html lang="en" class="${htmlClass}">`) : html
+	});
 
 	Object.entries(securityHeaders).forEach(([header, value]) => response.headers.set(header, value));
 

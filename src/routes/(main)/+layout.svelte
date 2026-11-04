@@ -2,11 +2,13 @@
 	import { onMount } from 'svelte';
 	import { getCookie, setCookie } from '$lib/functions';
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import { timezone } from '$lib/functions';
 	import AdBanner from '$lib/components/banners/AdBanner.svelte';
 	import LoadingIndicator from '$lib/components/LoadingIndicator.svelte';
 	import TopBanner from '$lib/components/banners/TopBanner.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
+	import ApiHeader from '$lib/components/layout/ApiHeader.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import MarketTicker from '$lib/components/layout/MarketTicker.svelte';
 	import Breadcrumb from '$lib/components/layout/Breadcrumb.svelte';
@@ -16,6 +18,7 @@
 	import Notification from '$lib/components/layout/Notification.svelte';
 	import { getUserCountryClient } from '$lib/utils/userCountry';
 	import { syncDefaultCurrency } from '$lib/stores/defaultCurrency';
+	import { applyApiTheme } from '$lib/utils/apiTheme';
 
 	export let data;
 
@@ -24,6 +27,14 @@
 	// Browser only: the store is a module singleton, so on the server it would
 	// leak one request's currency into the next.
 	$: if (browser) syncDefaultCurrency(data.defaultCurrency);
+
+	// API marketing pages: swap the default header and ticker for the API header
+	const marketingPages = ['/api-pricing'];
+	$: isMarketingPage = marketingPages.includes($page.url.pathname);
+
+	// Marketing pages ignore the OS theme and use the header toggle (light by default).
+	// hooks.server.ts tags <html> on the first render; this keeps it right on navigation.
+	$: if (browser) applyApiTheme(isMarketingPage);
 
 	// toggle navbar collapse menu on mobile
 	onMount(() => {
@@ -53,10 +64,14 @@
 </script>
 
 <LoadingIndicator />
-<TopBanner />
-<Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
-<MarketTicker top_pairs={top_pairs} />
-<Breadcrumb />
+{#if isMarketingPage}
+	<ApiHeader />
+{:else}
+	<TopBanner />
+	<Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
+	<MarketTicker top_pairs={top_pairs} />
+	<Breadcrumb />
+{/if}
 
 <slot />
 

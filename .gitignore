@@ -8,3 +8,6 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Wrangler/Miniflare local dev state (not used by Cloudflare Pages builds)
+.wrangler

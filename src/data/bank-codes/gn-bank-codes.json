@@ -16,15 +16,15 @@
   "ecobank": {
       "swift": ["ECOCGNCO"],
       "ussd": {
-          "start": "*888#",
-          "transfer_to_same_bank": "*888*1*amount*account_number#",
-          "transfer_other_banks": "*888*2*amount*account_number*bank_code#",
-          "airtime_self": "*888*3*amount#",
-          "airtime_others": "*888*3*amount*phone_number#",
-          "balance": "*888*0#",
-          "mini_statement": "*888*5#",
-          "change_pin": "*888*9#",
-          "help": "*888*100#"
+          "start": "*326#",
+          "transfer_to_same_bank": null,
+          "transfer_other_banks": null,
+          "airtime_self": null,
+          "airtime_others": null,
+          "balance": null,
+          "mini_statement": null,
+          "change_pin": null,
+          "help": null
       }
   },
   "orabank": {
@@ -88,18 +88,6 @@
           "balance": "*919*4#",
           "mini_statement": "*919*5#",
           "change_pin": "*919*0#"
-      }
-  },
-  "bicigui": {
-      "swift": ["BICIGNGX"],
-      "ussd": {
-          "start": "*161#",
-          "transfer_to_same_bank": "*161*1*amount*account_number#",
-          "transfer_other_banks": "*161*2*amount*account_number*bank_code#",
-          "airtime_self": "*161*3*amount#",
-          "airtime_others": "*161*3*amount*phone_number#",
-          "balance": "*161*4#",
-          "mini_statement": "*161*5#"
       }
   },
   "vista": {
