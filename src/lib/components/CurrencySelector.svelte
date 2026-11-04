@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
     import { browser } from '$app/environment';
+	import { AVAILABLE_QUOTE_CURRENCIES } from '$lib/constants/currency';
 
-	export let currencies: string[] = ['NGN', 'KES'];
+	export let currencies: readonly string[] = AVAILABLE_QUOTE_CURRENCIES;
 	export let selected: string = '';
     export let onSelect: (currency: string) => void = () => {};
 

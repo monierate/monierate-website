@@ -92,7 +92,7 @@
 	<meta
 		name="description"
 		content="Cash out {currencies[base] || base} to {currencies[quote] ||
-			quote} at the best offramp rates. Compare providers, track real-time updates, and withdraw securely with Monierate."
+			quote} at the best offramp rates. Compare providers and track real-time updates on Monierate."
 	/>
 
 	<meta property="og:type" content="website" />
@@ -106,7 +106,7 @@
 	<meta
 		property="og:description"
 		content="Get the best offramp rates to convert {currencies[base] ||
-			base} into Naira. Compare providers, track live updates, and withdraw your funds with Monierate."
+			base} into Naira. Compare providers and track live updates on Monierate."
 	/>
 
 	<meta property="og:url" content="https://monierate.com" />

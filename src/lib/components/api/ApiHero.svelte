@@ -21,8 +21,7 @@
 		</h1>
 
 		<p class="text-base max-w-xl mx-auto mb-8 leading-relaxed" style="color: var(--text-secondary);">
-			Live rates, historical data, and offramp execution across 90+ providers — Binance P2P, Luno,
-			Quidax, and more.
+			Live and historical rates across 90+ providers — Binance P2P, Luno, Quidax, and more.
 		</p>
 
 		<div class="flex flex-col sm:flex-row gap-3 justify-center mb-10">

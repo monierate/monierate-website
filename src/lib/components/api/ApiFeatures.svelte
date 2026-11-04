@@ -11,11 +11,6 @@
 			icon: 'M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z'
 		},
 		{
-			title: 'Offramp execution',
-			body: 'Execute stablecoin-to-NGN offramp trades directly through the API. No manual steps.',
-			icon: 'M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4'
-		},
-		{
 			title: 'Multiple rate markets',
 			body: 'Official, mid-market, and parallel market rates — all from a single endpoint.',
 			icon: 'M18 20V10M12 20V4M6 20v-6'

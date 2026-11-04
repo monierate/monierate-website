@@ -5,6 +5,7 @@ import { buildHistorySeo } from '$lib/utils/providerSeo';
 import type { IndexDailyHistoryEntry } from '$lib/services/currency/v1/index';
 import { getHistoryAccess } from '$lib/server/billing';
 import { FREE_HISTORY_ROWS } from '$lib/constants/gate';
+import { resolveDefaultCurrency } from '$lib/server/defaultCurrency';
 
 const RANGES = ['7d', '30d', '60d', '90d'] as const;
 type Range = (typeof RANGES)[number];
@@ -15,8 +16,10 @@ interface DailyHistoryResponse {
 	data: { entries: IndexDailyHistoryEntry[] };
 }
 
-export const load: PageServerLoad = async ({ fetch, url, cookies }) => {
-	const quote = (cookies.get('default_currency') ?? 'NGN').toUpperCase();
+export const load: PageServerLoad = async ({ fetch, url, cookies, locals }) => {
+	// Same pick as the layout (?quote=, cookie, then the visitor's country), so a
+	// first-time visitor from Ghana lands on USDT/GHS history rather than NGN.
+	const quote = resolveDefaultCurrency({ url, cookies, locals }).toUpperCase();
 	const supported = QUOTE_SUPPORTED_BASES[quote] ?? [];
 	const cookieBase = cookies.get('active_base')?.toUpperCase();
 	const requestedBase = url.searchParams.get('base')?.toUpperCase();

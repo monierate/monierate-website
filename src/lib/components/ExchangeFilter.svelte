@@ -16,8 +16,11 @@
 	let currencies = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'GHS', 'KES', 'ZAR', 'USDC'];
 
 	let defaultCurrencies: string[] = currencies;
-	$: if(quoteCurrency === 'KES') {
-		currencies = ['USDT', 'USDC', 'BTC', 'USD', ];
+	// Outside NGN the currency-api only carries USDT and USD books (usdtkes/usdkes,
+	// usdtghs/usdghs, usdtzar/usdzar). Offering EUR, BTC or the quote itself as a
+	// tab would just fall back to USDT, or ask for a pair like GHS/GHS.
+	$: if (quoteCurrency !== 'NGN') {
+		currencies = ['USDT', 'USD'];
 	} else {
 		currencies = defaultCurrencies;
 	}
