@@ -1,8 +1,8 @@
 import type { LayoutServerLoad } from './$types';
-import { DEFAULT_CURRENCY_COOKIE_NAME } from '$lib/stores/defaultCurrency';
 import { getAllPairs } from '$lib/services/pair.service';
 import { getUser } from '$lib/services/user.service';
-import countriesToCurrency from '$data/countries-to-currencies.json';
+import { AVAILABLE_QUOTE_CURRENCIES } from '$lib/constants/currency';
+import { resolveDefaultCurrency, visitorCountry } from '$lib/server/defaultCurrency';
 
 export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals, depends, url }) => {
 	const userAgent = request.headers.get('user-agent') || '';
@@ -20,19 +20,8 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals, 
 		user: null
 	};
 
-	const ucountry = locals.ucountry || cookies.get('ucountry') || 'XX'; // XX is default country code
-	const selectedCurrencyFromCookie = cookies.get(DEFAULT_CURRENCY_COOKIE_NAME) || undefined;
-	const typedCountriesToCurrency: Record<string, string> = countriesToCurrency as Record<
-		string,
-		string
-	>;
-	const currencyFromCountry = (typedCountriesToCurrency[ucountry.toUpperCase()] || 'NGN') as any;
-	const quote = url.searchParams.get('quote') ?? undefined;
-
-	const defaultCurrency =
-		quote ||
-		selectedCurrencyFromCookie ||
-		(SUPPORTED_QUOTE_CURRENCIES.includes(currencyFromCountry) ? currencyFromCountry : 'NGN');
+	const ucountry = visitorCountry(locals, cookies);
+	const defaultCurrency = resolveDefaultCurrency({ url, cookies, locals });
 
 	/* -------------------- */
 	/* User authentication */
@@ -117,7 +106,7 @@ const VALID_CURRENCIES = [
 	'USDC'
 ] as const;
 
-const SUPPORTED_QUOTE_CURRENCIES = ['NGN', 'KES'] as const;
+const SUPPORTED_QUOTE_CURRENCIES: readonly string[] = AVAILABLE_QUOTE_CURRENCIES;
 
 // Bases shown in the top-nav ticker, in order.
 const TICKER_BASES = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'GHS', 'KES', 'ZAR'];

@@ -8,14 +8,18 @@ export const isCryptoBase = (base: string): boolean => CRYPTO_BASES.includes(bas
 
 export const DEFAULT_BASE = 'USDT';
 
-// Ordered list — SparklineCards renders quote currencies in this sequence
-export const AVAILABLE_QUOTE_CURRENCIES = ['NGN', 'KES', 'GHS'];
+// The local currencies the site can be viewed in, in picker order. A visitor
+// whose country (Cloudflare's cf-ipcountry) uses one of these sees it by default;
+// everyone else gets NGN. Adding a currency here is all it takes to serve a new
+// country, provided the currency-api has <base><quote> pairs for it.
+export const AVAILABLE_QUOTE_CURRENCIES = ['NGN', 'KES', 'GHS', 'ZAR'] as const;
 
-// KES and GHS only have USDT liquidity; NGN supports all bases
+// KES, GHS and ZAR only have USDT liquidity; NGN supports all bases
 export const QUOTE_SUPPORTED_BASES: Record<string, string[]> = {
 	NGN: ['USDT', 'USD', 'USDC', 'BTC'],
 	KES: ['USDT'],
 	GHS: ['USDT'],
+	ZAR: ['USDT'],
 };
 
 // The default base for a given quote — the first base in that quote's supported
