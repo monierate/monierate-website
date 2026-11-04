@@ -2,25 +2,25 @@
   "stanbic": {
     "swift": ["SBICZMLX"],
     "ussd": {
-      "start": "*240#",
-      "balance": "*240*1#",
-      "transfer_to_same_bank": "*240*2*amount*account_number#"
+      "start": "*247#",
+      "balance": null,
+      "transfer_to_same_bank": null
     }
   },
   "fnb": {
     "swift": ["FIRNZMLX"],
     "ussd": {
-      "start": "*303#",
-      "balance": "*303*1#",
-      "transfer_to_same_bank": "*303*2*amount*account_number#"
+      "start": "*130*321#",
+      "balance": null,
+      "transfer_to_same_bank": null
     }
   },
   "absa": {
     "swift": ["BARCZMLX"],
     "ussd": {
-      "start": "*100#",
-      "balance": "*100*1#",
-      "transfer_to_same_bank": "*100*2*amount*account_number#"
+      "start": "*229#",
+      "balance": null,
+      "transfer_to_same_bank": null
     }
   },
   "ecobank": {
@@ -29,14 +29,6 @@
       "start": "*250#",
       "balance": "*250*1#",
       "transfer_to_same_bank": "*250*2*amount*account_number#"
-    }
-  },
-  "investrust": {
-    "swift": ["VSTRZMLU"],
-    "ussd": {
-      "start": "*320#",
-      "balance": "*320*1#",
-      "transfer_to_same_bank": "*320*2*amount*account_number#"
     }
   },
   "bankofzambia": {

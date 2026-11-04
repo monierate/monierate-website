@@ -197,16 +197,16 @@
 	"jaizbank": {
 		"swift": ["JAIZNGLA"],
 		"ussd": {
-			"start": "*389*301#",
-			"transfer_to_same_bank": "*389*301*1*amount*account_number#",
-			"transfer_other_banks": "*389*301*2*amount*account_number#",
-			"airtime_self": "*389*301*amount#",
-			"airtime_others": "*389*301*2*amount*phone_number#",
-			"balance": "*389*301*00#",
-			"bvn": "*389*301*5#",
-			"update_bvn_details": "*389*301*5*1#",
-			"stop_debit_transactions": "*389*301*911#",
-			"activate_code": "*389*301*0#"
+			"start": "*773#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
 		}
 	},
 	"polarisbank": {
@@ -224,34 +224,19 @@
 			"activate_code": "*833*0#"
 		}
 	},
-	"heritagebank": {
-		"swift": ["HBNGNGLA"],
-		"ussd": {
-			"start": "*745#",
-			"transfer_to_same_bank": "*745*1*amount*account_number#",
-			"transfer_other_banks": "*745*2*amount*account_number#",
-			"airtime_self": "*745*amount#",
-			"airtime_others": "*745*2*amount*phone_number#",
-			"balance": "*745*0#",
-			"bvn": "*745*7#",
-			"update_bvn_details": "*745*7*1#",
-			"stop_debit_transactions": "*745*911#",
-			"activate_code": "*745*00#"
-		}
-	},
 	"lotusbank": {
 		"swift": ["LOTUNGLA"],
 		"ussd": {
-			"start": "*5047#",
-			"transfer_to_same_bank": "*5047*1*amount*account_number#",
-			"transfer_other_banks": "*5047*2*amount*account_number#",
-			"airtime_self": "*5047*amount#",
-			"airtime_others": "*5047*2*amount*phone_number#",
-			"balance": "*5047*0#",
-			"bvn": "*5047*7#",
-			"update_bvn_details": "*5047*7*1#",
-			"stop_debit_transactions": "*5047*911#",
-			"activate_code": "*5047*00#"
+			"start": "*5045#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
 		}
 	},
 	"opay": {
@@ -263,6 +248,186 @@
 			"airtime_self": "*955*3*Amount#",
 			"airtime_others": "*955*3*Amount*Phone Number#",
 			"balance": "*955*0#",
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"moniepoint": {
+		"swift": [],
+		"ussd": {
+			"start": "*5573#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"stanbicibtc": {
+		"swift": [],
+		"ussd": {
+			"start": "*909#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"globusbank": {
+		"swift": [],
+		"ussd": {
+			"start": "*989#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"novabank": {
+		"swift": [],
+		"ussd": {
+			"start": "*682#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"palmpay": {
+		"swift": [],
+		"ussd": {
+			"start": "*861#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"parallexbank": {
+		"swift": [],
+		"ussd": {
+			"start": "*1242#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"optimusbank": {
+		"swift": [],
+		"ussd": {
+			"start": "*930#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"titantrustbank": {
+		"swift": [],
+		"ussd": {
+			"start": "*922#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"premiumtrustbank": {
+		"swift": [],
+		"ussd": {
+			"start": "*858#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"alphamorganbank": {
+		"swift": [],
+		"ussd": {
+			"start": "*734#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"signaturebank": {
+		"swift": [],
+		"ussd": {
+			"start": "*647#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
+	},
+	"suntrustbank": {
+		"swift": [],
+		"ussd": {
+			"start": "*5230#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
 			"bvn": null,
 			"update_bvn_details": null,
 			"stop_debit_transactions": null,

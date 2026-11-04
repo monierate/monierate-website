@@ -34,13 +34,6 @@
         "city": "Bissau",
         "branch": "Main Branch"
     },
-    "bgfigb": {
-        "name": "BGFIBank Guinea-Bissau",
-        "link": "https://guinebissau.groupebgfibank.com",
-        "address": "Avenida Amílcar Cabral, Bissau",
-        "city": "Bissau",
-        "branch": "Main Branch"
-    },
     "uba_gb": {
         "name": "United Bank for Africa Guinea-Bissau",
         "link": "https://www.ubagroup.com/gw-en/",

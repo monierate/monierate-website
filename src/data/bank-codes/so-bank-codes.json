@@ -2,9 +2,9 @@
   "dahabshiil": {
     "swift": ["DHABSOM1"],
     "ussd": {
-      "start": "*770#",
-      "balance": "*770*1#",
-      "transfer_to_same_bank": "*770*2*amount*account_number#"
+      "start": "*777#",
+      "balance": null,
+      "transfer_to_same_bank": null
     }
   },
   "amal": {
@@ -74,9 +74,9 @@
   "hormuud": {
     "swift": ["HRMTSOM1"],
     "ussd": {
-      "start": "*220#", 
-      "balance": "*220*1#",
-      "transfer_to_same_bank": "*220*2*amount*account_number#"
+      "start": "*770#", 
+      "balance": null,
+      "transfer_to_same_bank": null
     }
   }
 }

@@ -1,25 +1,4 @@
 {
-  "banque_congolaise": {
-    "name": "Banque Commerciale du Congo",
-    "link": "https://www.bcdc.cd",
-    "address": "Avenue des Trois Martyrs",
-    "city": "Kinshasa",
-    "branch": "Siège Social"
-  },
-  "banque_internationale_pour_lafrique": {
-    "name": "Banque Internationale pour l'Afrique au Congo",
-    "link": "https://www.biac.cd",
-    "address": "Avenue de la République",
-    "city": "Kinshasa",
-    "branch": "Direction Générale"
-  },
-  "societe_generale_congo": {
-    "name": "Société Générale Congo",
-    "link": "https://www.societegenerale.cd",
-    "address": "Avenue Colonel Mondjiba",
-    "city": "Kinshasa",
-    "branch": "Agence Principale"
-  },
   "banque_de_developpement_rdc": {
     "name": "Banque de Développement du Congo",
     "link": "https://www.bdc.cd",

@@ -35,8 +35,8 @@
         "branch": "Siège"
     },
     "sgbg": {
-        "name": "Société Générale Guinée",
-        "link": "https://www.societegenerale.gn",
+        "name": "AFG Bank Guinée",
+        "link": "https://afgbank.gn",
         "address": "Avenue de la République, Kaloum",
         "city": "Conakry",
         "branch": "Siège"
@@ -45,13 +45,6 @@
         "name": "United Bank for Africa Guinée",
         "link": "https://www.ubagroup.com/guinea",
         "address": "Immeuble UBA, Avenue de la République, Kaloum",
-        "city": "Conakry",
-        "branch": "Siège"
-    },
-    "bicigui": {
-        "name": "Banque Internationale pour le Commerce et l'Industrie de Guinée",
-        "link": "https://www.bicigui.org",
-        "address": "Avenue de la République, Kaloum",
         "city": "Conakry",
         "branch": "Siège"
     },
