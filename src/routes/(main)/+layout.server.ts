@@ -5,6 +5,7 @@ import { AVAILABLE_QUOTE_CURRENCIES } from '$lib/constants/currency';
 import { resolveDefaultCurrency, visitorCountry } from '$lib/server/defaultCurrency';
 import { footerCountry, pickFooterProviders, providerNames } from '$lib/server/footerProviders';
 import { loadTicker } from '$lib/server/ticker';
+import { quoteBases } from '$lib/server/quoteBases';
 
 export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals, depends, url }) => {
 	const userAgent = request.headers.get('user-agent') || '';
@@ -56,6 +57,7 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals, 
 	return {
 		top_pairs,
 		footer,
+		quote_bases: quoteBases(allPairs?.result ?? [], defaultCurrency || 'NGN'),
 		market_avg_rate,
 		auth,
 		bannerIndexes: 0,
@@ -82,6 +84,7 @@ const VALID_CURRENCIES = [
 	'KES',
 	'ZAR',
 	'BTC',
+	'ETH',
 	'USDT',
 	'USDC'
 ] as const;

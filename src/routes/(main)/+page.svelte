@@ -133,6 +133,7 @@
 		onChangeCurrency={handleBaseCurrencyChange}
 		enableCategories={ENABLE_CATEGORIES_FOR.includes(quote)}
 		quoteCurrency={quote}
+		bases={data.quote_bases ?? []}
 	/>
 </div>
 
