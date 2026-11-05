@@ -44,12 +44,12 @@ describe('pickFooterProviders', () => {
 		];
 
 		expect(pickFooterProviders(pairs, 'ZAR', names)).toEqual([
-			{ href: '/markets/usdtzar/luno', label: 'Convert USDT on Luno' },
-			{ href: '/markets/usdtzar/bybit', label: 'Convert USDT on Bybit' },
-			{ href: '/markets/usdtzar/grey', label: 'Convert USDT on Grey' },
-			{ href: '/markets/usdtzar/binance_p2p', label: 'Convert USDT on Binance P2P' },
-			{ href: '/markets/usdtzar/divest', label: 'Convert USDT on Divest' },
-			{ href: '/markets/usdzar/nala', label: 'Convert USD on Nala' }
+			{ href: '/markets/usdtzar/luno', label: 'Convert USDT on Luno', name: 'Luno' },
+			{ href: '/markets/usdtzar/bybit', label: 'Convert USDT on Bybit', name: 'Bybit' },
+			{ href: '/markets/usdtzar/grey', label: 'Convert USDT on Grey', name: 'Grey' },
+			{ href: '/markets/usdtzar/binance_p2p', label: 'Convert USDT on Binance P2P', name: 'Binance P2P' },
+			{ href: '/markets/usdtzar/divest', label: 'Convert USDT on Divest', name: 'Divest' },
+			{ href: '/markets/usdzar/nala', label: 'Convert USD on Nala', name: 'Nala' }
 		]);
 	});
 

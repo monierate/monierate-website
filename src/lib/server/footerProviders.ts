@@ -7,6 +7,8 @@ import { resolveDefaultCurrency } from './defaultCurrency';
 export interface FooterProvider {
 	href: string;
 	label: string;
+	/** Display name alone, for copy that lists the region's providers. */
+	name: string;
 }
 
 export interface FooterData {
@@ -72,9 +74,11 @@ export function pickFooterProviders(
 
 	return picked.slice(0, MAX_LINKS).map(({ code, pair }) => {
 		const base = pair.code.slice(0, -q.length).toUpperCase();
+		const name = names.get(code) as string;
 		return {
 			href: `/markets/${pair.code}/${code}`,
-			label: `Convert ${base} on ${names.get(code)}`
+			label: `Convert ${base} on ${name}`,
+			name
 		};
 	});
 }
