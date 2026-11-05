@@ -1,18 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Money from "$lib/money";
+	import type { TickerItem } from '$lib/server/ticker';
 
-	export let top_pairs: Record<
-		string,
-		{
-			from: string;
-			to: string;
-			name: string;
-			price: number;
-			// null: the pair is too new to have a price from 24 hours ago.
-			price_change_percent_24hr: number | null;
-		}
-	>;
+	export let top_pairs: Record<string, TickerItem>;
+
+	// NGN/ZAR is about 0.012: two decimals would round it to 0.01.
+	const decimals = (price: number) => (price < 1 ? 4 : 2);
 
 	// Pixels per second the strip travels. A pair is ~240px wide, so at this speed one
 	// takes ~3s to pass — readable, while still looping the whole list in well under a minute.
@@ -89,12 +83,20 @@
 					{#each pairs as [code, value] (code)}
 						<a
 							data-sveltekit-reload
-							href="/markets/{code}"
+							href={value.href}
 							class="mr-6 text-[90%] md:text-sm"
 							style="color: var(--text-primary);"
 						>
 							<span class="font-medium mr-1">{value.name}</span>
-							<span class="font-mono font-normal mr-1" style="color: var(--text-secondary);">{Money.format(value.price, 2)}</span>
+							<span class="font-mono font-normal mr-1" style="color: var(--text-secondary);">{Money.format(value.price, decimals(value.price))}</span>
+							{#if value.market === 'mid'}
+								<!-- Interbank, not a desk quote: say so rather than pass it off as one. -->
+								<span
+									class="mr-1 rounded px-1 align-middle text-[10px] font-medium uppercase tracking-wide"
+									style="color: var(--text-secondary); border: 1px solid var(--card-border);"
+									title="Interbank (mid-market) rate, not a desk or P2P quote">mid</span
+								>
+							{/if}
 							<!-- 24hr change: green up, red down, neutral when flat, nothing without history -->
 							{#if value.price_change_percent_24hr == null}
 								<!-- no 24h history yet -->
