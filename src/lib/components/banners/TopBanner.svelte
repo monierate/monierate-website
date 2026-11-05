@@ -1,6 +1,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	// The visitor's quote currency. A headline with `markets` only shows to
+	// visitors on one of those currencies; one without shows to everyone.
+	let { currency }: { currency?: string } = $props();
+
+	type Headline = {
+		link: string;
+		brand: string;
+		text: string;
+		shortText: string;
+		cta: string;
+		disabled?: boolean;
+		markets?: readonly string[];
+		gradient: { base: string; from: string; via: string; to: string };
+	};
+
 	export const selectTopPartnerBanner = (sponsored_partners: any[]) => {
 		const random_index = Math.floor(Math.random() * sponsored_partners.length);
 		return sponsored_partners[random_index];
@@ -44,7 +59,7 @@
 	// `gradient` is the banner background while that headline is showing: `base`
 	// is the flat fallback, the other three are the left/middle/right stops.
 	// Set `disabled: true` to pull a headline out of the rotation.
-	const headlines = [
+	const allHeadlines: Headline[] = [
 		{
 			...selected_partner_top,
 			disabled: true,
@@ -85,6 +100,8 @@
 		{
 			link: '/exchanges/quickchain',
 			brand: 'QuickChain',
+			// Quotes USD/USDT/USDC-NGN only.
+			markets: ['NGN'],
 			text: 'is now on Monierate',
 			shortText: 'Now on Monierate',
 			cta: 'View profile',
@@ -111,6 +128,8 @@
 		{
 			link: '/exchanges/numofx',
 			brand: 'NumoFX',
+			// Quotes off the USDC/cNGN book only.
+			markets: ['NGN'],
 			text: 'is now on Monierate',
 			shortText: 'Now on Monierate',
 			cta: 'View profile',
@@ -121,9 +140,16 @@
 				to: '#1FCB8C'
 			}
 		}
-	].filter((headline) => !('disabled' in headline && headline.disabled));
+	].filter((headline) => !headline.disabled);
 
-	const gradientStyle = (gradient: (typeof headlines)[number]['gradient']) =>
+	const headlines = $derived(
+		allHeadlines.filter(
+			(headline) =>
+				!currency || !headline.markets || headline.markets.includes(currency.toUpperCase())
+		)
+	);
+
+	const gradientStyle = (gradient: Headline['gradient']) =>
 		`background-color: ${gradient.base}; background-image: linear-gradient(to right, ${gradient.from}, ${gradient.via}, ${gradient.to});`;
 
 	const SLIDE_INTERVAL = 7000;
@@ -132,10 +158,15 @@
 	// interval only ever runs in the browser.
 	let active = $state(0);
 
-	onMount(() => {
-		if (headlines.length < 2) return;
+	// The list changes length when the visitor switches currency; keep the
+	// active row inside it.
+	$effect(() => {
+		if (active >= headlines.length) active = 0;
+	});
 
+	onMount(() => {
 		const timer = setInterval(() => {
+			if (headlines.length < 2) return;
 			active = (active + 1) % headlines.length;
 		}, SLIDE_INTERVAL);
 

@@ -28,8 +28,14 @@
 	</h1>
 	<div class="font-normal space-y-2" style="color: var(--text-secondary);">
 		<p>
-			The average rate for {data.base.symbol}1 is {data.quote.symbol}{formatNumber(data.rate.now)},
-			compared to {data.quote.symbol}{formatNumber(data.rate.last)} a month ago.
+			<!-- A pair under a month old has no 30-day price (it reads 0), and
+			     "compared to R0 a month ago" reads as a broken page. -->
+			{#if data.rate.last > 0}
+				The average rate for {data.base.symbol}1 is {data.quote.symbol}{formatNumber(data.rate.now)},
+				compared to {data.quote.symbol}{formatNumber(data.rate.last)} a month ago.
+			{:else}
+				The average rate for {data.base.symbol}1 is {data.quote.symbol}{formatNumber(data.rate.now)}.
+			{/if}
 			{#if !readMore}
 				<button
 					class="mt-2 cursor-pointer font-medium hover:underline"

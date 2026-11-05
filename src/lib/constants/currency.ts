@@ -14,6 +14,15 @@ export const DEFAULT_BASE = 'USDT';
 // country, provided the currency-api has <base><quote> pairs for it.
 export const AVAILABLE_QUOTE_CURRENCIES = ['NGN', 'KES', 'GHS', 'ZAR'] as const;
 
+// The country each quote currency belongs to, as used in /{country}/ussd-codes
+// and /{country}/swift-codes.
+export const QUOTE_HOME_COUNTRY: Record<string, string> = {
+	NGN: 'ng',
+	KES: 'ke',
+	GHS: 'gh',
+	ZAR: 'za'
+};
+
 // KES, GHS and ZAR only have USDT liquidity; NGN supports all bases
 export const QUOTE_SUPPORTED_BASES: Record<string, string[]> = {
 	NGN: ['USDT', 'USD', 'USDC', 'BTC'],

@@ -2,6 +2,8 @@
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import { ACCOUNT_URL, BOOKING_URL } from '$lib/config';
 
+	export let data;
+
 	const SIGNUP_URL = `${ACCOUNT_URL}/auth/signup`;
 </script>
 
@@ -73,4 +75,4 @@
 </div>
 
 <div class="w-full h-1 mt-16 dark:border-gray-900"></div>
-<Footer />
+<Footer providers={data.footer.providers} country={data.footer.country} />
