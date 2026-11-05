@@ -3,6 +3,7 @@ import { getAllPairs } from '$lib/services/pair.service';
 import { getUser } from '$lib/services/user.service';
 import { AVAILABLE_QUOTE_CURRENCIES } from '$lib/constants/currency';
 import { resolveDefaultCurrency, visitorCountry } from '$lib/server/defaultCurrency';
+import { footerCountry, pickFooterProviders, providerNames } from '$lib/server/footerProviders';
 
 export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals, depends, url }) => {
 	const userAgent = request.headers.get('user-agent') || '';
@@ -38,13 +39,22 @@ export const load: LayoutServerLoad = async ({ request, cookies, fetch, locals, 
 	/* Market data          */
 	/* -------------------- */
 
-	const allPairs = await getTopPairs(fetch, defaultCurrency || 'NGN');
+	const [allPairs, names] = await Promise.all([
+		getTopPairs(fetch, defaultCurrency || 'NGN'),
+		providerNames(fetch)
+	]);
 	const top_pairs = select_top_pairs(allPairs?.result ?? [], defaultCurrency || 'NGN');
 
 	const market_avg_rate = top_pairs?.usdngn?.price ?? 0;
 
+	const footer = {
+		providers: pickFooterProviders(allPairs?.result ?? [], defaultCurrency || 'NGN', names),
+		country: footerCountry(defaultCurrency || 'NGN')
+	};
+
 	return {
 		top_pairs,
+		footer,
 		market_avg_rate,
 		auth,
 		bannerIndexes: 0,

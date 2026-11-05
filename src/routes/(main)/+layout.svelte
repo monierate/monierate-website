@@ -67,7 +67,7 @@
 {#if isMarketingPage}
 	<ApiHeader />
 {:else}
-	<TopBanner />
+	<TopBanner currency={defaultCurrency} />
 	<Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
 	<MarketTicker top_pairs={top_pairs} />
 	<Breadcrumb />
@@ -83,7 +83,7 @@
 	</div>
 </div>
 
-<Footer />
+<Footer providers={data.footer.providers} country={data.footer.country} />
 <!-- <PromotionBar marketAvgRate={data.market_avg_rate} /> -->
 <MarketInsightBanner variant="sticky" link="{ACCOUNT_URL}/auth/signup" />
 <Notification />
