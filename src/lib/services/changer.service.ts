@@ -1,29 +1,42 @@
 import { clientApiFetch } from '$lib/api/client';
 
-/**
- * Get all changers with pagination
- */
-export const getAllChangers = async (
-	fetch: typeof globalThis.fetch,
-	page: number = 1,
-	limit: number = 100
-) => {
-	const response = await clientApiFetch<Record<string, any>>(
+// Big enough that today's list comes back in one request (and one cache entry);
+// any providers beyond it are fetched as further pages.
+const CHANGERS_PAGE_SIZE = 200;
+
+const fetchChangersPage = (fetch: typeof globalThis.fetch, page: number) =>
+	clientApiFetch<Record<string, any>>(
 		'/changers/get_all_changers',
-		{
-			params: {
-				page,
-				limit
-			}
-		},
+		{ params: { page, limit: CHANGERS_PAGE_SIZE } },
 		fetch
 	);
 
-	if (!response) {
+/**
+ * Get every active changer.
+ *
+ * Pages through the full list using the API's `count`. It used to take one page
+ * of 100, and once there were more than 100 providers the rest silently dropped
+ * out of every page that looks providers up by code (their rates went missing).
+ */
+export const getAllChangers = async (fetch: typeof globalThis.fetch) => {
+	const first = await fetchChangersPage(fetch, 1);
+
+	if (!first) {
 		return null;
 	}
 
-	return (response.result as any[])?.filter((c: any) => c.is_active) ?? response.result;
+	let result: any[] = first.result ?? [];
+	const total = Number(first.count) || result.length;
+
+	if (total > result.length) {
+		const pageCount = Math.ceil(total / CHANGERS_PAGE_SIZE);
+		const rest = await Promise.all(
+			Array.from({ length: pageCount - 1 }, (_, i) => fetchChangersPage(fetch, i + 2))
+		);
+		result = result.concat(...rest.map((page) => page?.result ?? []));
+	}
+
+	return result.filter((c: any) => c.is_active);
 };
 
 export interface SearchChangersParams {
