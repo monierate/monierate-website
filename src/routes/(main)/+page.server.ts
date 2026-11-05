@@ -6,6 +6,9 @@ import { getAllChangers } from '$lib/services/changer.service';
 import { getPair } from '$lib/services/pair.service';
 import { getHighlights } from '$lib/services/highlight.service';
 import { mapProvidersByCode } from '$lib/utils';
+import { HIGHLIGHT_ROW, showableHighlightCount } from '$lib/utils/highlights';
+import { buildSnapshot } from '$lib/server/marketSnapshot';
+import { getMidRates } from '$lib/server/ticker';
 
 type CurrencyMap = Record<string, string>;
 
@@ -83,6 +86,13 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 		const rates = pair?.changers ?? [];
 		const filteredRates = rates.filter((rate: any) => rate.is_public === true && !!providersByCode[rate.changer_code]);
 
+		// A market too thin to fill the highlight row gets a summary card in it
+		// instead. Only then is the interbank rate fetched, so NGN pays nothing.
+		const snapshot =
+			showableHighlightCount(highlights) < HIGHLIGHT_ROW
+				? buildSnapshot(pair, base, await getMidRates(fetch, quote.toUpperCase()).catch(() => null))
+				: null;
+
 		/* -----------------------------
 		 * Currency maps
 		 * ----------------------------- */
@@ -99,6 +109,7 @@ export const load: PageServerLoad = async ({ fetch, url, parent, cookies, depend
 			showHighlights,
 			pair,
 			highlights,
+			snapshot,
 			rates: filteredRates,
 			providers: providersByCode,
 			total: Object.keys(providersByCode).length,

@@ -1,5 +1,12 @@
 <script lang="ts">
 	import HighlightCard from '$lib/components/HighlightCard.svelte';
+	import MarketSnapshotCard from '$lib/components/MarketSnapshotCard.svelte';
+	import type { MarketSnapshot } from '$lib/server/marketSnapshot';
+	import {
+		HIGHLIGHT_ROW,
+		isShowableHighlight,
+		showableHighlightCount
+	} from '$lib/utils/highlights';
 	import { slide } from 'svelte/transition';
 	import { setCookie } from '$lib/functions';
 	import { beforeNavigate } from '$app/navigation';
@@ -18,6 +25,8 @@
 	export let isMobile: boolean;
 	export let showHighlightsDefault: boolean = true;
 	export let inProgress: boolean = false;
+	// The homepage passes one when the market is too thin to fill the row.
+	export let snapshot: MarketSnapshot | null = null;
 
 	$: newResult = highlights.newResult;
 	$: buyingResult = highlights.buyingResult;
@@ -59,6 +68,11 @@
 	const CARD_GAP = 16; // matches gap-4
 	// A quarter of the row on desktop (4 cards + three 1rem gaps); no effect below `lg`.
 	const CARD_CLASS = 'lg:shrink-0 lg:w-[calc(25%-0.75rem)] lg:snap-start';
+
+	// Fewer cards than a row holds share its width rather than leaving a gap.
+	$: cardCount = showableHighlightCount(highlights) + (snapshot ? 1 : 0);
+	$: cardClass = cardCount < HIGHLIGHT_ROW ? 'lg:flex-1 lg:min-w-0' : CARD_CLASS;
+	$: pairCode = `${base.code}${quote.code}`.toLowerCase();
 
 	let scroller: HTMLDivElement | null = null;
 	let showLeftScrollButton: boolean = false;
@@ -163,80 +177,92 @@
 			use:trackScroll
 			class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:flex lg:flex-nowrap lg:overflow-x-auto lg:scroll-smooth lg:snap-x no-scrollbar"
 		>
+			{#if snapshot}
+				<div class={cardClass}>
+					<MarketSnapshotCard {snapshot} base={base.symbol || base.code} quote={quote.symbol || quote.code} />
+				</div>
+			{/if}
+
 			<!--New-->
-			{#if newResult?.length}
-				<div class={CARD_CLASS}>
+			{#if isShowableHighlight(newResult)}
+				<div class={cardClass}>
 					<HighlightCard
 						highlightData={newResult}
 						highlightType="auto"
 						title="🔥 New Listing"
 						base={base.symbol || base.code}
 						quote={quote.symbol || quote.code}
+						{pairCode}
 					/>
 				</div>
 			{/if}
 
 			<!--BUYING-->
-			{#if buyingResult?.length}
-				<div class={CARD_CLASS}>
+			{#if isShowableHighlight(buyingResult)}
+				<div class={cardClass}>
 					<HighlightCard
 						highlightData={buyingResult}
 						highlightType="buy"
 						title="🔥 Best Buy Rate"
 						base={base.symbol || base.code}
 						quote={quote.symbol || quote.code}
+						{pairCode}
 					/>
 				</div>
 			{/if}
 
 			<!--SELLING-->
-			{#if sellingResult?.length}
-				<div class={CARD_CLASS}>
+			{#if isShowableHighlight(sellingResult)}
+				<div class={cardClass}>
 					<HighlightCard
 						highlightData={sellingResult}
 						highlightType="sell"
 						title="🔥 Best Sell Rate"
 						base={base.symbol || base.code}
 						quote={quote.symbol || quote.code}
+						{pairCode}
 					/>
 				</div>
 			{/if}
 
 			<!--SENDING-->
-			{#if sendingResult?.length}
-				<div class={CARD_CLASS}>
+			{#if isShowableHighlight(sendingResult)}
+				<div class={cardClass}>
 					<HighlightCard
 						highlightData={sendingResult}
 						highlightType="sell"
 						title="🔥 Best Sending Rate"
 						base={base.symbol || base.code}
 						quote={quote.symbol || quote.code}
+						{pairCode}
 					/>
 				</div>
 			{/if}
 
 			<!--LIQUIDITY-->
-			{#if liquidityResult?.length}
-				<div class={CARD_CLASS}>
+			{#if isShowableHighlight(liquidityResult)}
+				<div class={cardClass}>
 					<HighlightCard
 						highlightData={liquidityResult}
 						highlightType="sell"
 						title="🔥 Best Liquidity Rate"
 						base={base.symbol || base.code}
 						quote={quote.symbol || quote.code}
+						{pairCode}
 					/>
 				</div>
 			{/if}
 
 			<!--FUNDING-->
-			{#if fundingResult?.length}
-				<div class={CARD_CLASS}>
+			{#if isShowableHighlight(fundingResult)}
+				<div class={cardClass}>
 					<HighlightCard
 						highlightData={fundingResult}
 						highlightType="buy"
 						title="🔥 Best Card Rate"
 						base={base.symbol || base.code}
 						quote={quote.symbol || quote.code}
+						{pairCode}
 					/>
 				</div>
 			{/if}

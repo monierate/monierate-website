@@ -28,7 +28,7 @@ const MID_TTL_MS = 60_000;
 const midCache = new Map<string, { at: number; rates: Record<string, number> | null }>();
 
 /** Interbank rates for `quote`: base code -> units of that base per 1 `quote`. */
-async function midRates(
+export async function getMidRates(
 	fetch: typeof globalThis.fetch,
 	quote: string
 ): Promise<Record<string, number> | null> {
@@ -120,6 +120,6 @@ export async function loadTicker(
 		(base) => base !== q && !tracked.has(`${base}${q}`.toLowerCase())
 	);
 
-	const mid = needsMid ? await midRates(fetch, q).catch(() => null) : null;
+	const mid = needsMid ? await getMidRates(fetch, q).catch(() => null) : null;
 	return buildTicker(pairs, q, mid);
 }

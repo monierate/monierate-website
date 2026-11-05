@@ -116,6 +116,7 @@
 		base={{ code: base, symbol: baseSymbol }}
 		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
+		snapshot={data.snapshot}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
 	/>

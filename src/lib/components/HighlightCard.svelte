@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatNumber } from '$lib/functions';
+	import { rateDecimals } from '$lib/utils/highlights';
 	interface Rate {
 		changer_code: string;
 		price_buy: number;
@@ -23,6 +24,19 @@
 	export let title: string = 'Highlight';
 	export let mobileOnly: boolean = false;
 	export let currencyCode: string = 'usd';
+	// The pair the card ranks, e.g. usdzar. Links used to be built as
+	// `${currencyCode}ngn`, so every card in every market pointed at an NGN page.
+	export let pairCode: string = '';
+
+	$: marketCode = pairCode || `${currencyCode.toLowerCase()}ngn`;
+
+	const price = (value: number) => {
+		const decimals = rateDecimals(value);
+		return formatNumber(value, 'en-US', {
+			minimumFractionDigits: decimals,
+			maximumFractionDigits: decimals
+		});
+	};
 </script>
 
 {#if highlightData && highlightData.length}
@@ -42,9 +56,9 @@
 			{#each highlightData as { rate, changer }}
 				<li class="flex justify-between text-sm text-gray-800 dark:text-gray-200 mb-2 text-nowrap">
 					<a
-						href={`/markets/${currencyCode.toLowerCase()}ngn/${rate.changer_code}`}
+						href={`/markets/${marketCode}/${rate.changer_code}`}
 						class="flex items-center"
-						title={`${changer.name} dollar to naira rate.`}
+						title={`${changer.name} rate`}
 					>
 						<span class="changer-icon-sm">
 							<picture>
@@ -64,21 +78,21 @@
 					<div class="text-right flex items-center gap-1">
 						<span class="text-sm font-mono" style="color: var(--text-primary);">
 							{#if highlightType === 'buy'}
-								{#if Math.round(rate.price_buy) !== 0}
-									{quote} {formatNumber(Math.round(rate.price_buy))}
+								{#if rate.price_buy > 0}
+									{quote} {price(rate.price_buy)}
 								{:else}
 									-
 								{/if}
 							{:else if highlightType === 'sell'}
-								{#if Math.round(rate.price_sell) !== 0}
-									{quote} {formatNumber(Math.round(rate.price_sell))}
+								{#if rate.price_sell > 0}
+									{quote} {price(rate.price_sell)}
 								{:else}
 									-
 								{/if}
-							{:else if Math.round(rate.price_buy) !== 0}
-								{quote} {formatNumber(Math.round(rate.price_buy))}
-							{:else if Math.round(rate.price_sell) !== 0}
-								{quote} {formatNumber(Math.round(rate.price_sell))}
+							{:else if rate.price_buy > 0}
+								{quote} {price(rate.price_buy)}
+							{:else if rate.price_sell > 0}
+								{quote} {price(rate.price_sell)}
 							{:else}
 								-
 							{/if}
