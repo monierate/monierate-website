@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { formatNumber } from '$lib/functions';
-	import { rateDecimals } from '$lib/utils/highlights';
+	import { formatRate } from '$lib/utils/rateFormat';
 	import type { MarketSnapshot } from '$lib/server/marketSnapshot';
 
 	export let snapshot: MarketSnapshot;
@@ -8,13 +8,7 @@
 	export let base: string;
 	export let quote: string;
 
-	const rate = (value: number, symbol: string) => {
-		const decimals = rateDecimals(value);
-		return `${symbol} ${formatNumber(value, 'en-US', {
-			minimumFractionDigits: decimals,
-			maximumFractionDigits: decimals
-		})}`;
-	};
+	const rate = (value: number, symbol: string) => `${symbol} ${formatRate(value)}`;
 
 	const percent = (value: number) =>
 		`${formatNumber(Math.abs(value), 'en-US', { maximumFractionDigits: 2 })}%`;

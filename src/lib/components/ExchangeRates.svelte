@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { formatNumber, friendlyDate, setUrlParam } from '$lib/functions';
+	import { friendlyDate, setUrlParam } from '$lib/functions';
+	import { formatRate } from '$lib/utils/rateFormat';
 	import { browser } from '$app/environment';
 
 	export let data: {
@@ -258,9 +259,7 @@
 							{#if rate.price_buy > 0}
 								<div class="space-y-1">
 									<div class="font-semibold">
-										{quoteSymbol || quote + ' '}{formatNumber(rate.price_buy, 'en-US', {
-											maximumFractionDigits: 0
-										})}
+										{quoteSymbol || quote + ' '}{formatRate(rate.price_buy)}
 									</div>
 									<div class="text-gray-400 text-xs">
 										per {baseSymbol || base + ' '}1
@@ -276,9 +275,7 @@
 							{#if rate.price_sell > 0}
 								<div class="space-y-1">
 									<div class="font-semibold">
-										{quoteSymbol || quote + ' '}{formatNumber(rate.price_sell, 'en-US', {
-											maximumFractionDigits: 0
-										})}
+										{quoteSymbol || quote + ' '}{formatRate(rate.price_sell)}
 									</div>
 									<div class="text-gray-400 text-xs">
 										per {baseSymbol || base + ' '}1
