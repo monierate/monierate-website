@@ -22,10 +22,3 @@ export const isShowableHighlight = (list: unknown): boolean =>
 
 export const showableHighlightCount = (highlights: Record<string, unknown> | null | undefined) =>
 	HIGHLIGHT_KEYS.filter((key) => isShowableHighlight(highlights?.[key])).length;
-
-/**
- * Decimals for a rate: whole numbers from 1,000 up (₦1,381), two below
- * (R16.74, KSh130.09). Rounding a ZAR rate to a whole number made every
- * provider read R16 or R17 and hid the ranking.
- */
-export const rateDecimals = (value: number): number => (Math.abs(value) >= 1000 ? 0 : 2);

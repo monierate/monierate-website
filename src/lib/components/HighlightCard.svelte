@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { formatNumber } from '$lib/functions';
-	import { rateDecimals } from '$lib/utils/highlights';
+	import { formatRate } from '$lib/utils/rateFormat';
 	interface Rate {
 		changer_code: string;
 		price_buy: number;
@@ -30,13 +29,7 @@
 
 	$: marketCode = pairCode || `${currencyCode.toLowerCase()}ngn`;
 
-	const price = (value: number) => {
-		const decimals = rateDecimals(value);
-		return formatNumber(value, 'en-US', {
-			minimumFractionDigits: decimals,
-			maximumFractionDigits: decimals
-		});
-	};
+	const price = formatRate;
 </script>
 
 {#if highlightData && highlightData.length}

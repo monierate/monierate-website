@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { buildSnapshot } from './marketSnapshot';
-import { rateDecimals, showableHighlightCount } from '$lib/utils/highlights';
+import { showableHighlightCount } from '$lib/utils/highlights';
+import { rateDecimals } from '$lib/utils/rateFormat';
 
 const changer = (code: string, buy: number, sell: number, extra: Record<string, unknown> = {}) => ({
 	changer_code: code,
