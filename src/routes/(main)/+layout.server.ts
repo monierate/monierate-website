@@ -81,7 +81,9 @@ const select_top_pairs = (pairs: any[], quote: string) => {
 			name: `${base}/${quote}`,
 			from: base,
 			to: quote,
-			price_change_percent_24hr: pair.price_change_percent_24hr
+			// null when the pair is too new to have a price from 24 hours ago: its
+			// change reads 0, which the ticker would otherwise show as a fall.
+			price_change_percent_24hr: pair.price_24hr > 0 ? pair.price_change_percent_24hr : null
 		};
 	});
 

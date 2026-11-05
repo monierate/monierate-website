@@ -9,7 +9,8 @@
 			to: string;
 			name: string;
 			price: number;
-			price_change_percent_24hr: number;
+			// null: the pair is too new to have a price from 24 hours ago.
+			price_change_percent_24hr: number | null;
 		}
 	>;
 
@@ -94,8 +95,10 @@
 						>
 							<span class="font-medium mr-1">{value.name}</span>
 							<span class="font-mono font-normal mr-1" style="color: var(--text-secondary);">{Money.format(value.price, 2)}</span>
-							<!-- display 24hr price change in green or red -->
-							{#if value.price_change_percent_24hr > 0}
+							<!-- 24hr change: green up, red down, neutral when flat, nothing without history -->
+							{#if value.price_change_percent_24hr == null}
+								<!-- no 24h history yet -->
+							{:else if value.price_change_percent_24hr > 0}
 								<span class="inline-block font-mono text-sm" style="color: var(--positive);">
 									<svg
 										viewBox="0 0 320 512"
@@ -111,7 +114,7 @@
 									</svg>
 									{Money.format(value.price_change_percent_24hr, 2)}%
 								</span>
-							{:else}
+							{:else if value.price_change_percent_24hr < 0}
 								<span class="inline-block font-mono text-sm" style="color: var(--negative);">
 									<svg
 										viewBox="0 0 320 512"
@@ -127,6 +130,8 @@
 									</svg>
 									{Money.format(value.price_change_percent_24hr, 2)}%
 								</span>
+							{:else}
+								<span class="inline-block font-mono text-sm" style="color: var(--text-secondary);">0%</span>
 							{/if}
 						</a>
 					{/each}
