@@ -7,12 +7,15 @@ describe('rateDecimals', () => {
 		expect(rateDecimals(1266257.08)).toBe(0);
 	});
 
-	it('keeps two decimals from 1 to 1,000', () => {
+	it('keeps two decimals from 10 to 1,000', () => {
 		expect(rateDecimals(16.5699)).toBe(2);
 		expect(rateDecimals(130.087)).toBe(2);
+		expect(rateDecimals(10)).toBe(2);
 	});
 
-	it('keeps four decimals below 1', () => {
+	it('keeps four decimals below 10', () => {
+		expect(rateDecimals(9.99)).toBe(4);
+		expect(rateDecimals(1.1155)).toBe(4);
 		expect(rateDecimals(0.012242)).toBe(4);
 	});
 });
@@ -28,6 +31,11 @@ describe('formatRate', () => {
 	it('shows naira and crypto rates as grouped whole numbers', () => {
 		expect(formatRate(1381.42)).toBe('1,381');
 		expect(formatRate(1266257.0833)).toBe('1,266,257');
+	});
+
+	it('tells EUR/USDT exchanges apart', () => {
+		expect(formatRate(1.115449)).toBe('1.1154');
+		expect(formatRate(1.1155)).toBe('1.1155');
 	});
 
 	it('keeps small rates readable', () => {
