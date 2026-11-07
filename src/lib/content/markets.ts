@@ -67,6 +67,17 @@ export const MARKET_CONTENT: Record<string, MarketContent> = {
 		payout: 'EFT or bank transfer',
 		title: exchangeRateTitle,
 		...regional('South African rand', 'ZAR', 'South Africa')
+	},
+	// Eurozone visitors. Exchange spot books only (no P2P desks), so its own copy.
+	EUR: {
+		currency: 'euros',
+		country: 'Europe',
+		payout: 'SEPA bank transfer',
+		title: exchangeRateTitle,
+		metaDescription: (providers) =>
+			`Compare the USDT to euro rate across crypto exchanges in Europe. Track the USDT to EUR rate today on ${listed(providers, 'leading exchanges')}.`,
+		ogDescription: (providers) =>
+			`Compare the USDT to EUR rate across exchanges in Europe, including ${listed(providers, 'leading exchanges')}. See the best buy and sell rates today and how they compare with the interbank rate.`
 	}
 };
 

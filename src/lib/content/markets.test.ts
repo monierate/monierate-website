@@ -35,8 +35,16 @@ describe('marketContent', () => {
 		expect(marketContent('KES').title('US Dollar', 'Kenyan Shilling')).not.toContain('black market');
 	});
 
+	it('writes the euro view for exchanges, not P2P desks', () => {
+		expect(marketContent('EUR').country).toBe('Europe');
+		expect(marketContent('EUR').title('Tether', 'Euro')).toBe('Tether to Euro exchange rate today');
+		expect(marketContent('EUR').metaDescription(['Kraken', 'Coinbase', 'Binance', 'Bitstamp'])).toBe(
+			'Compare the USDT to euro rate across crypto exchanges in Europe. Track the USDT to EUR rate today on Kraken, Coinbase, Binance and more.'
+		);
+	});
+
 	it('falls back to NGN for a currency without copy', () => {
-		expect(marketContent('EUR')).toBe(marketContent('NGN'));
+		expect(marketContent('GBP')).toBe(marketContent('NGN'));
 		expect(marketContent(undefined)).toBe(marketContent('NGN'));
 	});
 });
