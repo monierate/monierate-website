@@ -12,10 +12,11 @@ export const DEFAULT_BASE = 'USDT';
 // whose country (Cloudflare's cf-ipcountry) uses one of these sees it by default;
 // everyone else gets NGN. Adding a currency here is all it takes to serve a new
 // country, provided the currency-api has <base><quote> pairs for it.
-export const AVAILABLE_QUOTE_CURRENCIES = ['NGN', 'KES', 'GHS', 'ZAR'] as const;
+export const AVAILABLE_QUOTE_CURRENCIES = ['NGN', 'KES', 'GHS', 'ZAR', 'EUR'] as const;
 
 // The country each quote currency belongs to, as used in /{country}/ussd-codes
-// and /{country}/swift-codes.
+// and /{country}/swift-codes. EUR has no single country (and no code pages),
+// so its footer links fall back to Nigeria's.
 export const QUOTE_HOME_COUNTRY: Record<string, string> = {
 	NGN: 'ng',
 	KES: 'ke',
@@ -23,12 +24,15 @@ export const QUOTE_HOME_COUNTRY: Record<string, string> = {
 	ZAR: 'za'
 };
 
-// KES, GHS and ZAR only have USDT liquidity; NGN supports all bases
+// KES, GHS and ZAR only have USDT liquidity; NGN supports all bases. EUR is
+// USDT only too: the euro view is USDT/EUR from exchange spot books, and USD/EUR
+// is not the same market there (USDT trades a little under the dollar).
 export const QUOTE_SUPPORTED_BASES: Record<string, string[]> = {
 	NGN: ['USDT', 'USD', 'USDC', 'BTC'],
 	KES: ['USDT'],
 	GHS: ['USDT'],
 	ZAR: ['USDT'],
+	EUR: ['USDT'],
 };
 
 // The default base for a given quote — the first base in that quote's supported

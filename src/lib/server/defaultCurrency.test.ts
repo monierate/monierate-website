@@ -21,8 +21,14 @@ describe('currencyForCountry', () => {
 		}
 	});
 
+	it('uses EUR across the eurozone, Croatia and Bulgaria included', () => {
+		for (const country of ['DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'IE', 'PT', 'AT', 'FI', 'GR', 'HR', 'BG', 'ME', 'XK']) {
+			expect(currencyForCountry(country)).toBe('EUR');
+		}
+	});
+
 	it('falls back to NGN for West Africa and everywhere else', () => {
-		for (const country of ['CI', 'SN', 'CM', 'BW', 'US', 'GB', 'XX', '']) {
+		for (const country of ['CI', 'SN', 'CM', 'BW', 'US', 'GB', 'CH', 'XX', '']) {
 			expect(currencyForCountry(country)).toBe('NGN');
 		}
 	});
