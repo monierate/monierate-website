@@ -1,17 +1,7 @@
 <script lang="ts">
 	import Seo from '$lib/components/seo/Seo.svelte';
-	import { CURRENCY_SYMBOLS } from '$lib/constants/currency';
-	import { formatRate } from '$lib/utils/rateFormat';
-	import {
-		MARKET_GROUPS,
-		currencyName,
-		displayCode,
-		groupFor,
-		groupPairs,
-		pairLabel,
-		searchPairs,
-		type MarketCard
-	} from '$lib/utils/marketPairs';
+	import MarketRow from '$lib/components/markets/MarketRow.svelte';
+	import { MARKET_GROUPS, groupFor, groupPairs, searchPairs, type MarketCard } from '$lib/utils/marketPairs';
 
 	let { data } = $props();
 
@@ -37,17 +27,6 @@
 	});
 	const sections = $derived(groupPairs(visible));
 
-	// Stablecoins and cNGN have no symbol of their own (USDT's `$` would read as
-	// dollars), so those quotes, and any without a symbol, get the code after the number.
-	const STABLE_QUOTES = new Set(['usdt', 'usdc', 'cngn']);
-	function money(value: number, quote: string): string {
-		const q = quote.toLowerCase();
-		const symbol = STABLE_QUOTES.has(q) ? '' : CURRENCY_SYMBOLS[q];
-		return symbol ? `${symbol}${formatRate(value)}` : `${formatRate(value)} ${displayCode(quote)}`;
-	}
-
-	const pct = (n: number) => `${n > 0 ? '+' : ''}${n.toFixed(2)}%`;
-
 	// Fixed to UTC so the server render and the browser agree on the text.
 	const updated = $derived(
 		data.updatedAt
@@ -63,29 +42,6 @@
 </script>
 
 <Seo {...data.seo} />
-
-<!-- The quote currency's icon is a small badge over the base's, ringed in the card
-     colour so the two read as one mark. -->
-{#snippet currencyIcon(code: string, size: number, badge = false)}
-	<span
-		class="inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full font-bold {badge
-			? 'absolute -bottom-1 -right-1.5'
-			: 'relative'}"
-		style="width: {size}px; height: {size}px; font-size: {Math.round(size * 0.32)}px; background: var(--badge-neutral-bg); color: var(--text-secondary); border: {badge
-			? '2px solid var(--card-bg)'
-			: '1px solid var(--card-border)'};"
-		aria-hidden="true"
-	>
-		{displayCode(code).slice(0, 3)}
-		<img
-			src="/icons/currencies/{code.toLowerCase()}.png"
-			alt=""
-			loading="lazy"
-			onerror={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
-			class="absolute inset-0 h-full w-full object-cover"
-		/>
-	</span>
-{/snippet}
 
 <!-- Container mirrors Breadcrumb.svelte so the page gutter lines up with the breadcrumb bar. -->
 <div class="mx-auto w-[95%] px-4 py-8 md:max-w-[1200px]">
@@ -151,65 +107,15 @@
 		</div>
 	</div>
 
-	{#each sections as { group, pairs } (group.key)}
-		<section class="mt-8">
+	<!-- One row per currency. Each row slides on by itself; the rows start a
+	     little apart so the page never moves all at once. -->
+	{#each sections as { group, pairs }, i (group.key)}
+		<section class="mt-9">
 			<h2 class="mb-3 flex items-baseline gap-2 text-[16px] font-semibold" style="color: var(--text-primary);">
 				{group.label}
 				<span class="text-[13px] font-normal tabular-nums" style="color: var(--text-muted);">{pairs.length}</span>
 			</h2>
-
-			<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-				{#each pairs as c (c.code)}
-					<li>
-						<a
-							href="/markets/{c.code}"
-							class="flex h-full flex-col gap-4 rounded-xl border p-4 transition-colors hover:bg-[var(--table-hover)]"
-							style="background: var(--card-bg); border-color: var(--card-border);"
-						>
-							<div class="flex items-start justify-between gap-2">
-								<div class="flex min-w-0 items-center gap-2.5">
-									<span class="relative mr-1 inline-flex shrink-0">
-										{@render currencyIcon(c.base, 30)}
-										{@render currencyIcon(c.quote, 18, true)}
-									</span>
-									<div class="min-w-0">
-										<div class="text-[15px] font-semibold tabular-nums" style="font-family: var(--font-mono); color: var(--text-primary);">
-											{pairLabel(c)}
-										</div>
-										<div class="truncate text-[12px]" style="color: var(--text-muted);">
-											{currencyName(c.base)} / {currencyName(c.quote)}
-										</div>
-									</div>
-								</div>
-
-								{#if c.change24h === null}
-									<span class="shrink-0 text-[12px]" style="color: var(--text-muted);" title="No rate from 24 hours ago yet">—</span>
-								{:else}
-									{@const tone = c.change24h > 0 ? 'positive' : c.change24h < 0 ? 'negative' : 'neutral'}
-									<span
-										class="shrink-0 rounded-md px-1.5 py-0.5 text-[12px] font-semibold tabular-nums"
-										style="font-family: var(--font-mono); background: var(--badge-{tone}-bg); color: {tone === 'neutral'
-											? 'var(--text-secondary)'
-											: `var(--${tone})`};"
-										title="24-hour change"
-									>
-										{pct(c.change24h)}
-									</span>
-								{/if}
-							</div>
-
-							<div class="mt-auto flex items-end justify-between gap-2">
-								<span class="text-[20px] font-bold leading-none tabular-nums" style="font-family: var(--font-mono); color: var(--text-primary);">
-									{money(c.rate, c.quote)}
-								</span>
-								<span class="shrink-0 text-[12px]" style="color: var(--text-muted);">
-									{c.providers} {c.providers === 1 ? 'provider' : 'providers'}
-								</span>
-							</div>
-						</a>
-					</li>
-				{/each}
-			</ul>
+			<MarketRow cards={pairs} delay={i * 500} />
 		</section>
 	{:else}
 		<div class="mt-10 rounded-xl border px-6 py-12 text-center" style="background: var(--card-bg); border-color: var(--card-border);">
