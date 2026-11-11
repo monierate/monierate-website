@@ -27,7 +27,7 @@ export const load: PageServerLoad = async ({ fetch, setHeaders }) => {
 
 	const [published, changers] = await Promise.all([
 		getPublishedCollections(),
-		getAllChangers(fetch, 1, 200)
+		getAllChangers(fetch)
 	]);
 
 	// Shuffled here rather than in the cached probe, so the stack varies on every

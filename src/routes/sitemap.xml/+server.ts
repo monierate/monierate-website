@@ -378,6 +378,9 @@ function buildEntries(
 		});
 	}
 
+	/* --- Markets hub: every live pair --- */
+	entries.push({ path: '/markets', changefreq: 'hourly', priority: 0.9, lastmod: now });
+
 	/* --- Stablecoin Spread Index + exchange rate history hubs --- */
 	if (SUBMIT_SECONDARY_MARKETS_PAGES) {
 		entries.push({ path: '/markets/spread', changefreq: 'hourly', priority: 0.8, lastmod: now });

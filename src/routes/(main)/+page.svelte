@@ -11,6 +11,7 @@
 	import ExchangeRates from '$lib/components/ExchangeRates.svelte';
 	import RatesEmptyGhost from '$lib/components/RatesEmptyGhost.svelte';
 	import { defaultCurrencyStore } from '$lib/stores/defaultCurrency';
+	import { marketContent } from '$lib/content/markets';
 
 	export let data;
 
@@ -25,6 +26,11 @@
 	$: rates = data.rates ?? [];
 	$: providers = data.providers ?? {};
 	$: highlights = data.highlights ?? [];
+
+	// Copy written for the visitor's market, and its main providers (the region's
+	// index contributors, as the footer lists them).
+	$: market = marketContent(quote);
+	$: providerNames = (data.footer?.providers ?? []).map((p) => p.name);
 
 	const currencySymbols = data.currencySymbols as any;
 	const currencies = data.mergedCurrencies;
@@ -73,18 +79,16 @@
 </script>
 
 <svelte:head>
-	<title
-		>{currencies[base] || base} to {currencies[quote] || quote} today black market | Monierate</title
-	>
+	<title>{market.title(currencies[base] || base, currencies[quote] || quote)} | Monierate</title>
 	<meta
 		name="description"
-		content="Monierate offers reliable naira exchange rates from 90+ exchanges. Track rates, convert dollars, and get crypto price alerts from Binance, Bybit, etc."
+		content={market.metaDescription(providerNames)}
 	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="{currencies[base] || base} to {currencies[quote] || quote} exchange rates & converter | Monierate" />
 	<meta
 		property="og:description"
-		content="Compare the naira exchange rates from over 90 exchanges in Nigeria. Track naira rates today. Convert dollar to naira using CBN and black market rate. Get price alert from your favourite crypto exchange such as Binance, Bybit, Quidax, etc."
+		content={market.ogDescription(providerNames)}
 	/>
 	<meta property="og:url" content="monierate.com" />
 	<meta property="og:image" content="https://monierate.com/monierate-og-image.png" />
@@ -116,6 +120,7 @@
 		base={{ code: base, symbol: baseSymbol }}
 		quote={{ code: quote, symbol: quoteSymbol }}
 		{highlights}
+		snapshot={data.snapshot}
 		isMobile={data.isMobile}
 		showHighlightsDefault={data.showHighlights}
 	/>
@@ -128,6 +133,7 @@
 		onChangeCurrency={handleBaseCurrencyChange}
 		enableCategories={ENABLE_CATEGORIES_FOR.includes(quote)}
 		quoteCurrency={quote}
+		bases={data.quote_bases ?? []}
 	/>
 </div>
 
@@ -152,5 +158,5 @@
 		</div>
 	{/if}
 
-	<MainFaq />
+	<MainFaq {quote} {providerNames} />
 </main>

@@ -1,5 +1,11 @@
 <script lang="ts">
 	import { ACCOUNT_URL, BOOKING_URL } from '$lib/config';
+	import type { FooterProvider } from '$lib/server/footerProviders';
+
+	// The visitor's region: its index contributors, and its country's code pages.
+	// Built in the layout's server load (see $lib/server/footerProviders).
+	export let providers: FooterProvider[] = [];
+	export let country: string = 'ng';
 
 	let year = new Date().getFullYear();
 </script>
@@ -7,44 +13,24 @@
 <footer class="pt-16 pb-8 mt-8 text-gray-500 dark:text-gray-300">
 	<div class="container mx-auto block md:flex justify-between item-center">
 		<div class="w-full md:w-[30%]">
-			<h3 class="font-bold">Currency converter</h3>
-			<ul class="py-4 converter-list">
-				<li>
-					<a href="/markets/usdtngn/bybit">Convert USDT on Bybit</a>
-				</li>
-				<li>
-					<a href="/markets/usdtngn/bitnob">Convert USDT on Bitnob</a>
-				</li>
-				<li>
-					<a href="/markets/usdngn/grey">Convert USD on Grey</a>
-				</li>
-				<li>
-					<a href="/markets/usdngn/cardtonic">Convert USD on Cardtonic</a>
-				</li>
-				<li>
-					<a href="/markets/usdtngn/boundlesspay">Convert USDT on Boundlesspay</a>
-				</li>
-				<li>
-					<a href="/markets/usdtngn/noones">Convert USDT on Noones</a>
-				</li>
-				<li>
-					<a href="/markets/usdtngn/quidax">Convert USDT on Quidax</a>
-				</li>
-				<li>
-					<a href="/markets/usdcngn/busha">Convert USDC on Busha</a>
-				</li>
-				<li>
-					<a href="/markets/usdtngn/gate">Convert USDT on Gate.com</a>
-				</li>
-			</ul>
+			{#if providers.length}
+				<h3 class="font-bold">Currency converter</h3>
+				<ul class="py-4 converter-list">
+					{#each providers as provider (provider.href)}
+						<li>
+							<a href={provider.href}>{provider.label}</a>
+						</li>
+					{/each}
+				</ul>
+			{/if}
 		</div>
 		<div class="w-full md:w-[30%]">
 			<h3 class="font-bold">Tools</h3>
 			<ul class="py-4 converter-list">
 				<li><a href="/api">Currency API</a></li>
 				<li><a href="/converter">Currency Converter</a></li>
-				<li><a href="/ng/ussd-codes">Bank USSD Codes</a></li>
-				<li><a href="/ng/swift-codes">SWIFT Codes</a></li>
+				<li><a href="/{country}/ussd-codes">Bank USSD Codes</a></li>
+				<li><a href="/{country}/swift-codes">SWIFT Codes</a></li>
 			</ul>
 
 			<h3 class="font-bold">Company</h3>
