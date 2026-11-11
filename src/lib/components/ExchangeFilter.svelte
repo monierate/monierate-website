@@ -12,12 +12,16 @@
 	export let disableSearch: boolean = false;
 	export let enableCategories: boolean = true;
 	export let quoteCurrency: string = 'NGN';
+	// Bases with a pair for this quote (layout data); outside NGN the tabs are these.
+	export let bases: string[] = [];
 
 	let currencies = ['USD', 'USDT', 'BTC', 'EUR', 'GBP', 'CAD', 'GHS', 'KES', 'ZAR', 'USDC'];
 
 	let defaultCurrencies: string[] = currencies;
-	$: if(quoteCurrency === 'KES') {
-		currencies = ['USDT', 'USDC', 'BTC', 'USD', ];
+	// Outside NGN the tabs are the bases that have a pair for the quote: NGN's
+	// fixed list would offer pairs that don't exist, like GHS/GHS.
+	$: if (quoteCurrency !== 'NGN') {
+		currencies = bases.length ? bases : ['USDT', 'USD'];
 	} else {
 		currencies = defaultCurrencies;
 	}

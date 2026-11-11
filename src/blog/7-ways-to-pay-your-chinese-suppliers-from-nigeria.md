@@ -7,7 +7,9 @@ updatedAt: 2024-01-30T12:37
 tag: guide
 image: https://monierate.com/uploads/made-in-china.jpg
 published: true
+author: Monierate Editorial Team
 ---
+
 In this article, we will cover how you can use various risk-free methods to pay your Chinese suppliers from Nigeria.
 
 ![A package with label: Made in China](https://monierate.com/uploads/made-in-china.jpg)
@@ -161,6 +163,8 @@ If you have to make a big payment to China, Wise can be a secure and fast way to
 Third-party payment refers to alternative payment methods outside traditional banking, such as WeChat Pay, Veem, TransferWise, and PayPal. 
 
 Chinese regulations require large transactions to be processed through the central bank's official clearing system, making Chinese suppliers cautious about using Third Party Payment services for business-to-business deals. However, for smaller transactions, many Third Party Payment platforms offer excellent options.
+
+For Nigerian importers who want to pay in naira without dealing with SWIFT delays or hunting for an agent, [Oneremit](https://oneremit.co/pay-suppliers/china) is a B2B cross-border payment platform that lets businesses pay suppliers in China directly, along with partners in 100+ other currencies.
 
 Filling the gap left by B2C systems like PayPal and WeChat Pay, [Cedar Money](https://www.cedar.money/) offers cross-border payment solutions for businesses. Their services include a local collection and Chinese merchant settlement.
 

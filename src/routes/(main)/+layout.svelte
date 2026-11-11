@@ -17,12 +17,16 @@
 	import { ACCOUNT_URL } from '$lib/config';
 	import Notification from '$lib/components/layout/Notification.svelte';
 	import { getUserCountryClient } from '$lib/utils/userCountry';
+	import { syncDefaultCurrency } from '$lib/stores/defaultCurrency';
 	import { applyApiTheme } from '$lib/utils/apiTheme';
 
 	export let data;
 
 	$: top_pairs = data.top_pairs;
 	$: defaultCurrency = data.defaultCurrency;
+	// Browser only: the store is a module singleton, so on the server it would
+	// leak one request's currency into the next.
+	$: if (browser) syncDefaultCurrency(data.defaultCurrency);
 
 	// API marketing pages: swap the default header and ticker for the API header
 	const marketingPages = ['/api-pricing'];
@@ -63,7 +67,7 @@
 {#if isMarketingPage}
 	<ApiHeader />
 {:else}
-	<TopBanner />
+	<TopBanner currency={defaultCurrency} />
 	<Header bind:defaultCurrency={defaultCurrency} auth={data.auth} />
 	<MarketTicker top_pairs={top_pairs} />
 	<Breadcrumb />
@@ -79,7 +83,7 @@
 	</div>
 </div>
 
-<Footer />
+<Footer providers={data.footer.providers} country={data.footer.country} />
 <!-- <PromotionBar marketAvgRate={data.market_avg_rate} /> -->
 <MarketInsightBanner variant="sticky" link="{ACCOUNT_URL}/auth/signup" />
 <Notification />
