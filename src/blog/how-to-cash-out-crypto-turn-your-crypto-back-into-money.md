@@ -4,7 +4,7 @@ title: 'How to Cash Out Crypto: Turn Your Crypto Back Into Money'
 description: This article is focused on showing the audience how to convert crypto to cash in Nigeria, Ghana, South Africa, and Kenya using an automated crypto-to-cash platform called Divest.
 createdAt: 2026-11-11T16:07:00
 updatedAt: 2026-11-11T16:07:00
-tag: ''
+tag: product
 image: https://ik.imagekit.io/monierate/Blog/partner/divest/divest-crypto-image1.jpg
 published: true
 author: Partner
