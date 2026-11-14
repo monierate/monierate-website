@@ -7,7 +7,9 @@ updatedAt: 2024-05-16T22:22
 tag: guide
 image: https://ik.imagekit.io/monierate/Blog/Listicles/7-apps-to-buy-bitcoin-in-nigeria.png?updatedAt=1715894704583
 published: true
+author: Monierate Editorial Team
 ---
+
 ![7 Apps to Buy Bitcoin in Nigeria Using Bank Transfer](https://ik.imagekit.io/monierate/Blog/Listicles/7-apps-to-buy-bitcoin-in-nigeria.png?updatedAt=1715894704583)
 
 
@@ -24,7 +26,7 @@ Below is a quick list of these reliable apps in no particular order:
 
 
 
-1. Noones
+1. Mercuryo
 
 2. Bybit
 
@@ -44,60 +46,39 @@ We'll cover both iOS and Android apps so nobody's left out.
 
 
 
-### 1. Noones
+### 1. Mercuryo
 
+Mercuryo provides a convenient way to buy Bitcoin and other cryptocurrencies using fiat currencies. Nigerian users can purchase crypto through local bank transfers in NGN, making it a practical option for those who prefer funding their purchases directly from a bank account. The platform also supports card payments and offers access to a range of digital assets.
 
-
-![https://ik.imagekit.io/monierate/Blog/Listicles/Noones-App.webp?updatedAt=1713820335157](https://ik.imagekit.io/monierate/Blog/Listicles/Noones-App.webp?updatedAt=1713820335157)
-
-Noones goes beyond just a wallet, offering a built-in P2P marketplace where you can directly buy Bitcoin from other users across 190 countries.
-
-
-
-Noones caters to your needs with a wide range of payment options, including familiar methods like bank transfers and mobile money, alongside unique options like gift cards.
-
-
-
-Competitive rates ensure you get the best value for your Naira. But it doesn't stop there. An in-app messenger lets you communicate directly with sellers, finalizing transactions without leaving the app. 
-
-
+[Mercuryo](https://mercuryo.io/?utm_source=monierate) is particularly useful for users looking for a straightforward fiat-to-crypto on-ramp rather than a peer-to-peer marketplace.
 
 **Pros**
 
-- Wide range of payment methods.
+* Supports local NGN bank transfers in Nigeria.
 
-- User-friendly interface with a messenger and wallet.
+* Offers multiple payment methods, including debit and credit cards.
 
-- Strong community support and educational resources.
+* Supports a wide range of cryptocurrencies and fiat currencies.
 
+* Available in more than 150 countries.  
+  
 
 
 **Cons**
 
-- Limited information on response times for customer support.
-
-
-
-**Noones Bitcoin Price: ₦96,777,764** (see [live](https://monierate.com/converter/noones?Amount=1&From=BTC&To=NGN)) 
-
-  
-
+* Transaction fees vary depending on payment method and location.  
+* Identity verification may be required before purchasing crypto.
 
 
 ### 2. Remitano
 
-
-
 ![enter link description here](https://ik.imagekit.io/monierate/Blog/Listicles/Remitano.webp)
-
 
 
 **Remitano Bitcoin Price: ₦96,960,000** (check [live rate](https://monierate.com/converter/remitano?Amount=1&From=BTC&To=NGN))
 
 
-
 Remitano's familiarity with the local landscape makes them a reliable choice for Nigerians in the world of Bitcoin. 
-
 
 
 Remitano connects you directly with other users on the platform, allowing you to buy and sell Bitcoin with ease. 
