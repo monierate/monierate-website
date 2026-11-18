@@ -433,5 +433,20 @@
 			"stop_debit_transactions": null,
 			"activate_code": null
 		}
+	},
+	"alternativebank": {
+		"swift": [],
+		"ussd": {
+			"start": "*5050#",
+			"transfer_to_same_bank": null,
+			"transfer_other_banks": null,
+			"airtime_self": null,
+			"airtime_others": null,
+			"balance": null,
+			"bvn": null,
+			"update_bvn_details": null,
+			"stop_debit_transactions": null,
+			"activate_code": null
+		}
 	}
 }

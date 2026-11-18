@@ -27,13 +27,6 @@
         "city": "Lusaka",
         "branch": "Head Office"
     },
-    "atlasmara": {
-        "name": "Atlas Mara Bank Zambia Limited",
-        "link": "https://www.atlasmara.zm",
-        "address": "Atlas Mara House, Ground Floor, Corner of Church/Nasser Road",
-        "city": "Lusaka",
-        "branch": "Head Office"
-    },
     "ecobank": {
         "name": "Ecobank Zambia Limited",
         "link": "https://www.ecobank.com/zm",
@@ -56,13 +49,6 @@
         "branch": "Head Office"
     },
     "bankofzambia": {
-        "name": "Bank of Zambia",
-        "link": "https://www.boz.zm",
-        "address": "Bank of Zambia, Bank Square, Cairo Road",
-        "city": "Lusaka",
-        "branch": "Head Office"
-    },
-    "boz": {
         "name": "Bank of Zambia",
         "link": "https://www.boz.zm",
         "address": "Bank of Zambia, Bank Square, Cairo Road",
