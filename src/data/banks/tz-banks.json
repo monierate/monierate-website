@@ -41,13 +41,6 @@
     "city": "Dar es Salaam",
     "branch": "Main Branch"
   },
-  "tanzania": {
-    "name": "Tanzania Commercial Bank Limited",
-    "link": "https://www.tcb.co.tz",
-    "address": "TCB Tower, Samora Avenue/Bridge Street, Dar es Salaam",
-    "city": "Dar es Salaam",
-    "branch": "Main Branch"
-  },
   "rural": {
     "name": "Tanzania Agricultural Development Bank (TADB)",
     "link": "https://www.tadb.co.tz",

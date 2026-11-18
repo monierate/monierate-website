@@ -208,5 +208,12 @@
     "address": "",
     "city": "",
     "branch": ""
+  },
+  "alternativebank": {
+    "name": "The Alternative Bank",
+    "link": "https://altbank.ng",
+    "address": "",
+    "city": "",
+    "branch": ""
   }
 }
