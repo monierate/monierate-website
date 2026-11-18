@@ -527,6 +527,7 @@ function buildEntries(
 	for (const slug of ['add-your-rate', 'data']) {
 		entries.push({ path: `/policy/${slug}`, changefreq: 'yearly', priority: 0.3 });
 	}
+	entries.push({ path: '/content-guideline', changefreq: 'yearly', priority: 0.3 });
 
 	return entries;
 }
