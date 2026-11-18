@@ -32,7 +32,7 @@
     }
   },
   "ttb": {
-    "swift": ["TANZTZTX"],
+    "swift": ["TANZTZTX", "TCBLTZTZ"],
     "ussd": {
       "start": "*150*21#",
       "balance": null,
@@ -43,14 +43,6 @@
     "swift": ["EXTNTZTZ"],
     "ussd": {
       "start": "*150*11#",
-      "balance": null,
-      "transfer_to_same_bank": null
-    }
-  },
-  "tanzania": {
-    "swift": ["TCBLTZTZ"],
-    "ussd": {
-      "start": "*150*21#",
       "balance": null,
       "transfer_to_same_bank": null
     }
