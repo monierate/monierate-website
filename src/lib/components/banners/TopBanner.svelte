@@ -98,6 +98,19 @@
 			}
 		},
 		{
+			link: '/exchanges/senjaro',
+			brand: 'Senjaro',
+			text: 'is now on Monierate',
+			shortText: 'Now on Monierate',
+			cta: 'View profile',
+			gradient: {
+				base: '#1F2A0E',
+				from: '#141B08',
+				via: '#4A6A1A',
+				to: '#9CC43F'
+			}
+		},
+		{
 			link: '/exchanges/quickchain',
 			brand: 'QuickChain',
 			// Quotes USD/USDT/USDC-NGN only.
