@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 import { createRates } from '$lib/services';
 import { getPair, getAllPairs } from '$lib/services/pair.service';
@@ -42,6 +42,16 @@ export const load: LayoutServerLoad = async ({ fetch, url, params }) => {
 					])
 			)
 		: null;
+
+	// A reversed code (/markets/ngnbtc) resolves upstream to the pair we track
+	// (btcngn), but every number that comes back is still BTC/NGN, while the page
+	// labels them from the URL: "₦1 = ₿88,773,469". Send it to the real pair,
+	// keeping any provider/insight sub-path and query.
+	const canonical = String(pair?.code ?? '').toLowerCase();
+	if (canonical && canonical !== params.code.toLowerCase()) {
+		const rest = url.pathname.slice(`/markets/${params.code}`.length);
+		throw redirect(301, `/markets/${canonical}${rest}${url.search}`);
+	}
 
 	// The pairs proxy only returns public providers and lists the rest in
 	// `hidden_changers`. A pair whose providers are all hidden has nothing public to
