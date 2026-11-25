@@ -23,7 +23,7 @@
 		},
 		{
 			q: 'Is there a free tier?',
-			a: 'Yes. Every new account starts with a $10 wallet credit — no card needed. The dashboard is free forever. You only pay when you make API calls or export data.'
+			a: 'Yes. Every new account starts with a $1 (₦1,000) wallet credit, enough for 100 rate requests — no card needed. The dashboard is free forever. You only pay when you make API calls or export data.'
 		},
 		{
 			q: 'How does billing work?',
