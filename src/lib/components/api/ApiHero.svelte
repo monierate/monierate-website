@@ -2,7 +2,7 @@
 	import { ACCOUNT_URL } from '$lib/config';
 
 	const trustItems = [
-		'$10 free credit on signup',
+		'$1 free credit on signup',
 		'No credit card required',
 		'Dashboard free always',
 		'90+ providers tracked live'

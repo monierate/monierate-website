@@ -3,7 +3,7 @@
 
 	// api-pricing overrides the default pricing line with its own
 	export let subtitle =
-		'Create a free account and get your API key in minutes. $10 credit included, no card required.';
+		'Create a free account and get your API key in minutes. $1 credit included, no card required.';
 </script>
 
 <div style="background: var(--table-header-bg); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);">
